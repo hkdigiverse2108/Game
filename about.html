@@ -19,7 +19,7 @@
     <nav class="fixed top-0 w-full z-50 glass shadow-md">
       <div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         <!-- Logo -->
-        <a href="index.html" class="flex items-center gap-3 cursor-pointer group shrink-0">
+        <a href="../index.html" class="flex items-center gap-3 cursor-pointer group shrink-0">
           <div class="relative w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center transform transition duration-300 group-hover:rotate-[15deg] group-hover:scale-110 shadow-lg group-hover:shadow-neon">
             <div class="absolute inset-0 bg-white/20 rounded-xl"></div>
             <svg class="w-6 h-6 text-white relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -29,6 +29,26 @@
           </div>
           <span class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 tracking-tight hidden sm:block">PlayBox</span>
         </a>
+
+        <!-- Search -->
+        <div class="flex flex-1 max-w-[150px] sm:max-w-sm sm:mx-12 relative">
+          <div class="w-full relative group" id="search-container">
+            <input id="search-input" type="text" class="block w-full pl-6 pr-16 py-2.5 border border-white/10 rounded-2xl leading-5 bg-black/40 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-300 focus:bg-surface shadow-inner relative z-10" placeholder="Search games..." autocomplete="off" />
+            <div class="absolute inset-y-1 right-1 flex items-center z-10">
+              <button class="bg-primary/20 hover:bg-primary/40 text-primary px-3 py-1.5 rounded-xl text-sm font-semibold transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+              </button>
+            </div>
+
+            <!-- Enhanced Search Dropdown (Hidden initially) -->
+            <div id="search-dropdown" class="absolute min-w-[290px] top-full right-0 mt-2 bg-surface/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden hidden flex-col max-h-[70vh] z-50">
+              <div id="search-results-container" class="overflow-y-auto no-scrollbar py-2">
+                <!-- Results injected by JS -->
+                <div class="text-center py-4 text-gray-400 text-sm">Type to search...</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
 
@@ -88,5 +108,10 @@
         </div>
       </div>
     </footer>
+
+    <!-- jQuery (required for custom cursor) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Logic Script Linked Externally -->
+    <script src="assets/js/index.js"></script>
   </body>
 </html>

@@ -9,30 +9,30 @@
       "tags": ["hot", "new"]
     },
     {
-      "gameTitle": "Billiard Master: Pool Rush",
-      "gameUrl": "game/BilliardMaster/index.html",
-      "thumbnailUrl": "game/BilliardMaster/BilliardMaster.webp",
-      "categories": ["puzzle", "multiplayer", "for you"],
+      "gameTitle": "Billiard Master : Pool Rush",
+      "gameUrl": "gameDistribution/BilliardMaster.html",
+      "thumbnailUrl": "game/BilliardMaster/BilliardMaster.png",
+      "categories": ["action", "multiplayer", "for you"],
       "tags": ["3d", "update"]
     },
     {
       "gameTitle": "Jungle Kombat - Arcade Fighting Game",
       "gameUrl": "game/JungleKombat/index.html",
-      "thumbnailUrl": "game/JungleKombat/Jungle_Kombat.webp",
+      "thumbnailUrl": "game/JungleKombat/JungleKombat.png",
       "categories": ["racing", "action", "for you"],
       "tags": ["new", "3d"]
     },
     {
       "gameTitle": "Royal Ludo",
       "gameUrl": "game/Ludo/index.html",
-      "thumbnailUrl": "game/Ludo/Ludo.webp",
-      "categories": ["arcade", "puzzle", "for you"],
+      "thumbnailUrl": "game/Ludo/Ludo.png",
+      "categories": ["action", "puzzle", "for you"],
       "tags": ["hot"]
     },
     {
       "gameTitle": "Fruit Slice Arcade | Premium Edition",
       "gameUrl": "game/NinjaFruidsCutting/index.html",
-      "thumbnailUrl": "game/NinjaFruidsCutting/Ninja_Fruids_Cutting.webp",
+      "thumbnailUrl": "game/NinjaFruidsCutting/NinjaFruidsCutting.png",
       "categories": ["shooting", "action", "3d", "for you"],
       "tags": ["update", "pro"]
     },
@@ -40,14 +40,14 @@
       "gameTitle": "Subway Surfers New York | Night Team",
       "gameUrl": "gameDistribution/SubwaySurfers.html",
       "thumbnailUrl": "game/SubwaySurfers/SubwaySurfers.png",
-      "categories": ["dress up", "simulation", "for you"],
-      "tags": ["new"]
+      "categories": ["dress up", "action"],
+      "tags": ["new", "hot"]
     },
     {
       "gameTitle": "Premier Tic Tac Toe | Elite Edition",
       "gameUrl": "game/PremierTicTacToe/index.html",
       "thumbnailUrl": "game/PremierTicTacToe/Tic_Tac_Toe.webp",
-      "categories": ["sports", "multiplayer", "for you"],
+      "categories": ["action", "multiplayer", "for you"],
       "tags": ["hot", "new"]
     }
   ],

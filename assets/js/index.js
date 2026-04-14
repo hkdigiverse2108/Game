@@ -79,7 +79,7 @@ const getSpanClass = (index) => {
   const selected = pattern[index % pattern.length];
 
   // Mobile safe (no gaps)
-  return `col-span-1 row-span-1 sm:${selected}`;
+  return `col-span-1 row-span-1 ${selected}`;
 };
 function generateGamesHtml(count) {
   let html = "";
@@ -158,6 +158,7 @@ function generateGamesHtml(count) {
 // </div>
 
 function loadItems(count) {
+  if (!grid) return;
   const tempDiv = document.createElement("div");
   tempDiv.innerHTML = generateGamesHtml(count);
 
@@ -168,76 +169,105 @@ function loadItems(count) {
   currentCount += count;
 
   // Hide Load More button if we exhausted the category
-  if (currentCount >= currentFilteredGames.length) {
-    loadMoreBtn.style.display = "none";
-  } else {
-    loadMoreBtn.style.display = "inline-flex";
+  if (loadMoreBtn) {
+    if (currentCount >= currentFilteredGames.length) {
+      loadMoreBtn.style.display = "none";
+    } else {
+      loadMoreBtn.style.display = "inline-flex";
+    }
   }
 }
 
-// Initial load fetching from JSON
-window.addEventListener("DOMContentLoaded", async () => {
+// Shared init function
+async function initGameData() {
+  if (rawData) return; // Already loaded
   try {
-    const response = await fetch("assets/js/gamesData.json");
+    const isSubdir = window.location.pathname.includes('/gameDistribution/') || window.location.pathname.includes('/game/');
+    const basePath = isSubdir ? '../' : './';
+    const response = await fetch(basePath + "assets/js/gamesData.json");
     rawData = await response.json();
 
     categoriesConfig = rawData.categories;
 
-    renderCategories();
-    filterGames();
-    loadItems(30);
+    if (categoriesContainer) {
+        renderCategories();
+    }
+    if (grid) {
+        filterGames();
+        loadItems(30);
+    }
   } catch (e) {
     console.error("Failed to load games data:", e);
-    grid.innerHTML = `<div class="col-span-full py-20 text-center">
+    if (grid) {
+        grid.innerHTML = `<div class="col-span-full py-20 text-center">
             <p class="text-red-400 font-bold mb-2">Error: Failed to load game data.</p>
             <p class="text-gray-400 text-sm">Please ensure you are viewing this via a local web server (like VS Code Live Server) because fetching JSON files locally via the block file:// protocol is not allowed by browsers.</p>
         </div>`;
+    }
+  }
+}
+
+// Initial load
+window.addEventListener("DOMContentLoaded", initGameData);
+
+// Handle bfcache (back/forward navigation) — DOMContentLoaded doesn't re-fire
+window.addEventListener("pageshow", (event) => {
+  if (event.persisted) {
+    // Page was restored from bfcache, re-init if needed
+    rawData = null;
+    initGameData();
   }
 });
 
 // Load more on click
-loadMoreBtn.addEventListener("click", () => {
-  const btnText = loadMoreBtn.querySelector("span");
-  const svgIcon = loadMoreBtn.querySelector("svg");
+if (loadMoreBtn) {
+  loadMoreBtn.addEventListener("click", () => {
+    const btnText = loadMoreBtn.querySelector("span");
+    const svgIcon = loadMoreBtn.querySelector("svg");
 
-  btnText.innerText = "Loading...";
-  svgIcon.classList.remove("animate-bounce");
-  svgIcon.classList.add("animate-spin");
-  svgIcon.innerHTML = `<path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>`;
+    btnText.innerText = "Loading...";
+    svgIcon.classList.remove("animate-bounce");
+    svgIcon.classList.add("animate-spin");
+    svgIcon.innerHTML = `<path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>`;
 
-  setTimeout(() => {
-    loadItems(12); // Add standard batch
+    setTimeout(() => {
+      loadItems(12); // Add standard batch
 
-    // Safety check if we hide it, we shouldn't attempt reset
-    if (loadMoreBtn.style.display !== "none") {
-      btnText.innerText = "Load More Games";
-      svgIcon.classList.remove("animate-spin");
-      svgIcon.classList.add("animate-bounce");
-      svgIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>`;
-    }
-  }, 600);
-});
+      // Safety check if we hide it, we shouldn't attempt reset
+      if (loadMoreBtn.style.display !== "none") {
+        btnText.innerText = "Load More Games";
+        svgIcon.classList.remove("animate-spin");
+        svgIcon.classList.add("animate-bounce");
+        svgIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>`;
+      }
+    }, 600);
+  });
+}
 
 // Category clicking logic
-categoriesContainer.addEventListener("click", (e) => {
-  const btn = e.target.closest("button");
-  if (btn) {
-    const selectedId = btn.dataset.id;
-    categoriesConfig.forEach((c) => (c.active = parseCategoryId(c.name) === selectedId));
-    renderCategories();
+if (categoriesContainer) {
+  categoriesContainer.addEventListener("click", (e) => {
+    const btn = e.target.closest("button");
+    if (btn) {
+      const selectedId = btn.dataset.id;
+      categoriesConfig.forEach((c) => (c.active = parseCategoryId(c.name) === selectedId));
+      renderCategories();
 
-    // Visual reload of grid
-    grid.style.opacity = 0;
-    setTimeout(() => {
-      grid.innerHTML = "";
-      currentCount = 0;
-      filterGames();
-      loadItems(25);
-      grid.style.transition = "opacity 0.3s";
-      grid.style.opacity = 1;
-    }, 300);
-  }
-});
+      // Visual reload of grid
+      if (grid) {
+        grid.style.opacity = 0;
+        setTimeout(() => {
+          grid.innerHTML = "";
+          currentCount = 0;
+          filterGames();
+          loadItems(25);
+          grid.style.transition = "opacity 0.3s";
+          grid.style.opacity = 1;
+        }, 300);
+      }
+    }
+  });
+}
 
 // Secondary filters clicking logic (Trending, New, Updated)
 if (secondaryFilters) {
@@ -323,15 +353,17 @@ if (searchInput && searchDropdown && searchResultsContainer) {
 
       // Render Games
       if (matchingGames.length > 0) {
+        const isSubdir = window.location.pathname.includes('/gameDistribution/') || window.location.pathname.includes('/game/');
+        const pathPrefix = isSubdir ? '../' : './';
         html += matchingGames
           .slice(0, 10)
           .map(
             (game) => `
-                <a href="${game.gameUrl || "#"}" class="flex items-center gap-4 px-4 py-2 hover:bg-white/10 transition-colors group">
+                <a href="${pathPrefix}${game.gameUrl || "#"}" class="flex items-center gap-4 px-4 py-2 hover:bg-white/10 transition-colors group">
                     <div class="w-12 h-9 rounded bg-surface overflow-hidden shrink-0 shadow-md">
-                        <img src="${game.thumbnailUrl}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" alt="${game.gameTitle}">
+                        <img src="${pathPrefix}${game.thumbnailUrl}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" alt="${game.gameTitle}">
                     </div>
-                    <span class="text-gray-200 font-semibold group-hover:text-white transition-colors">${game.gameTitle}</span>
+                    <span class="text-gray-200 text-xs sm:text-sm font-semibold group-hover:text-white transition-colors">${game.gameTitle}</span>
                 </a>
             `,
           )
