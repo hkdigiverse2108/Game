@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Developers - PlayBox</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Orbitron:wght@400..900&display=swap" rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./assets/js/tailwind.config.js"></script>
+    <!-- Common Styles -->
+    <link href="./assets/css/style.css" rel="stylesheet" />
+  </head>
+  <body class="antialiased selection:bg-primary/30 selection:text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass shadow-md">
+      <div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3 cursor-pointer group shrink-0">
+          <div class="relative w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center transform transition duration-300 group-hover:rotate-[15deg] group-hover:scale-110 shadow-lg group-hover:shadow-neon">
+            <div class="absolute inset-0 bg-white/20 rounded-xl"></div>
+            <svg class="w-6 h-6 text-white relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <span class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 tracking-tight hidden sm:block">PlayBox</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-[140px] pb-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto min-h-[70vh]">
+      <h1 class="text-4xl sm:text-5xl font-black text-white mb-8">Developers</h1>
+      <div class="prose prose-invert prose-indigo max-w-none text-gray-300">
+        <p class="text-lg leading-relaxed mb-6">Are you an indie developer or a game studio looking to showcase your work to thousands of daily active users? PlayBox is the perfect platform to publish your HTML5 games.</p>
+        <div class="bg-surface/50 border border-white/10 rounded-2xl p-6 my-8 shadow-inner">
+          <h3 class="text-xl font-bold text-indigo-300 mb-3">Why Publish With Us?</h3>
+          <ul class="list-disc pl-5 space-y-2 text-gray-300">
+            <li><strong>Instant Reach:</strong> Tap into a massive, engaged audience of web gamers instantly.</li>
+            <li><strong>Revenue Sharing:</strong> We offer competitive ad-revenue sharing programs for top-performing creators.</li>
+            <li><strong>Tech Support:</strong> Easily integrate our lightweight web SDK to manage analytics and achievements.</li>
+          </ul>
+        </div>
+        <p>If you're interested in partnering with us, please reach out to our developer relations team. We're actively looking for action games, puzzle mechanics, and unique multiplayer experiences.</p>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black/50 border-t border-white/5 pt-16 pb-8">
+      <div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          <div class="col-span-1 md:col-span-2">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/20">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <span class="text-2xl font-black text-white tracking-tight">PlayBox</span>
+            </div>
+            <p class="text-gray-400 max-w-sm mb-6 leading-relaxed">PlayBox is your ultimate destination for free online games. We test and add new thrilling games daily to keep you entertained without any downloads!</p>
+          </div>
+
+          <div>
+            <h3 class="text-white font-bold mb-4 tracking-wide">About PlayBox</h3>
+            <ul class="space-y-3 text-gray-400 font-medium text-sm">
+              <li>
+                <a href="about.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> About Us</a>
+              </li>
+              <li>
+                <a href="developers.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Developers</a>
+              </li>
+              <li>
+                <a href="privacy.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Privacy Policy</a>
+              </li>
+              <li>
+                <a href="terms.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Terms of Service</a>
+              </li>
+              <li>
+                <a href="faq.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> FAQ</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between text-sm text-gray-500 font-medium pb-4">
+          <p>&copy; 2026 PlayBox Games. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

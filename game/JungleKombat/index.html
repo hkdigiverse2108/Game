@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Jungle Kombat - Arcade Fighting Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Intro Screen -->
+        <div id="introScreen" class="screen active">
+            <div class="screen-content">
+                <img src="img/logo.png" class="game-logo" alt="Jungle Kombat">
+                <p class="game-subtitle">Choose your mode before the fight</p>
+                <div class="button-group">
+                    <button id="pvpModeBtn" class="btn btn-primary">PLAYER VS PLAYER</button>
+                    <button id="pveModeBtn" class="btn btn-secondary">PLAYER VS AI</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Character Select Screen for AI mode -->
+        <div id="charSelectScreen" class="screen">
+            <div class="screen-content">
+                <h2 class="section-title">🧭 SELECT YOUR CHARACTER</h2>
+                <p class="game-subtitle">Choose your fighter for Player vs AI mode</p>
+                <div class="controls-grid character-grid">
+                    <div class="character-card">
+                        <h3>HUNTRESS</h3>
+                        <p>You control the Huntress with A / D, W, SPACE.</p>
+                        <button id="playAsHuntressBtn" class="btn btn-primary">PLAY AS HUNTRESS</button>
+                    </div>
+                    <div class="character-card">
+                        <h3>HUNTER</h3>
+                        <p>You control the Hunter with ← / →, ↑, ↓.</p>
+                        <button id="playAsHunterBtn" class="btn btn-secondary">PLAY AS HUNTER</button>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button id="backToIntroFromCharBtn" class="btn btn-secondary">BACK</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- How To Play Screen -->
+        <div id="howToScreen" class="screen">
+            <div class="screen-content">
+                <h2 class="section-title">⚔️ HOW TO PLAY</h2>
+                <div id="modeInstructions" class="instructions-card">
+                    <p>Select a game mode to view the proper instructions.</p>
+                </div>
+                <div class="button-group">
+                    <button id="backToIntroBtn" class="btn btn-secondary">BACK</button>
+                    <button id="startGameBtn" class="btn btn-primary">▶ START FIGHT</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="screen">
+            <!-- Game HUD -->
+            <div class="game-hud">
+                <div class="health-bar-container">
+                    <div class="health-label">HUNTRESS</div>
+                    <div class="health-bar">
+                        <div id="p1Health" class="health-fill"></div>
+                    </div>
+                </div>
+                <div class="hud-center">
+                    <div id="timerDisplay" class="timer">60</div>
+                    <button id="quitBtn" class="btn btn-quit">QUIT</button>
+                </div>
+                <div class="health-bar-container">
+                    <div class="health-label">HUNTER</div>
+                    <div class="health-bar">
+                        <div id="p2Health" class="health-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Canvas -->
+            <div class="canvas-wrapper">
+                <canvas id="gameCanvas" width="1024" height="576"></canvas>
+            </div>
+
+            <!-- Mobile Controls -->
+            <div id="mobileControls" class="mobile-controls">
+                <div class="controls-left">
+                    <img src="img/left arrow.png" data-action="left" class="ctrl-img-btn" alt="Left">
+                    <img src="img/right arrow.png" data-action="right" class="ctrl-img-btn" alt="Right">
+                </div>
+                <div class="controls-right">
+                    <img src="img/jump.png" data-action="jump" class="ctrl-img-btn" alt="Jump">
+                    <img src="img/attack.png" data-action="attack" class="ctrl-img-btn" alt="Attack">
+                </div>
+            </div>
+        </div>
+
+        <!-- Quit Confirmation Modal -->
+        <div id="quitModal" class="modal hidden">
+            <div class="modal-content">
+                <h2>Quit Game?</h2>
+                <p>Are you sure you want to quit?</p>
+                <div class="button-group">
+                    <button id="confirmQuitBtn" class="btn btn-primary">YES</button>
+                    <button id="cancelQuitBtn" class="btn btn-secondary">NO</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Winner Screen -->
+        <div id="winnerScreen" class="screen">
+            <div class="screen-content">
+                <h2 id="winnerMessage" class="winner-title">WINNER!</h2>
+                <button id="rematchBtn" class="btn btn-primary">⚡ REMATCH ⚡</button> <br><br>
+                <button id="mainMenuBtn" class="btn btn-secondary">🏠 MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="description" content="Ultimate Fruit Slicing Arcade Game - Slice fruits, avoid bombs, get massive combos!" />
+  <title>Fruit Slice Arcade | Premium Edition</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="game-wrapper">
+    <div class="game-container">
+      <!-- Header with Score, Lives, Combo -->
+      <div class="game-header">
+        <div class="brand">
+          <span class="brand-icon" aria-hidden="true">
+            <svg class="icon" viewBox="0 0 24 24">
+              <path d="M20 4L9 15l-3 1 1-3L18 2l2 2zM7 17l-3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="brand-text">FRUIT SLICE</span>
+        </div>
+        <div class="stats">
+          <div class="stat-card">
+            <div class="stat-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M5 8h14M5 12h14M5 16h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="stat-value" id="scoreValue">0</div>
+            <div class="stat-label">Score</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="stat-value" id="livesValue">5</div>
+            <div class="stat-label">Lives</div>
+          </div>
+          <div class="stat-card combo-stat">
+            <div class="stat-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="stat-value" id="comboValue">0</div>
+            <div class="stat-label">Combo</div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button id="pauseBtn" class="icon-btn pause-btn" aria-label="Pause game">
+            <svg class="icon" viewBox="0 0 24 24">
+              <path d="M7 5v14M17 5v14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Game Board Area -->
+      <div class="board-area" id="boardArea">
+        <canvas id="gameCanvas"></canvas>
+        <canvas id="effectCanvas" class="effect-canvas"></canvas>
+        
+        <!-- START SCREEN -->
+        <div id="startScreen" class="overlay-screen start-screen">
+          <div class="overlay-content start-card">
+            <div class="game-title">FRUIT SLICE</div>
+            <div class="game-subtitle">ARCADE EDITION</div>
+            <div class="menu-divider"></div>
+            <div class="menu-copy">Slice with speed and precision. Avoid the bombs.</div>
+            <button id="startButton" class="menu-btn primary">Play</button>
+            <div class="controls-hint">✧ Swipe to slice ✧</div>
+          </div>
+        </div>
+        
+        <!-- LOADING SCREEN -->
+        <div id="loadingScreen" class="overlay-screen loading-screen hidden">
+          <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading assets...</div>
+            <div class="loading-progress">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- COUNTDOWN SCREEN -->
+        <div id="countdownScreen" class="overlay-screen countdown-screen hidden">
+          <div class="countdown-number" id="countdownNumber">3</div>
+          <div class="countdown-label">Get ready</div>
+        </div>
+        
+        <!-- GAME OVER SCREEN -->
+        <div id="gameOverlay" class="overlay-screen gameover-screen hidden">
+          <div class="overlay-content">
+            <div class="gameover-title">Game Over</div>
+            <div class="final-stats">
+              <div class="final-stat">
+                <span class="final-label">Score</span>
+                <span class="final-value" id="finalScoreSpan">0</span>
+              </div>
+              <div class="final-stat">
+                <span class="final-label">Best Combo</span>
+                <span class="final-value" id="finalComboSpan">0</span>
+              </div>
+              <div class="final-stat">
+                <span class="final-label">Fruits Sliced</span>
+                <span class="final-value" id="finalFruitsSpan">0</span>
+              </div>
+            </div>
+            <button id="restartGameBtn" class="menu-btn primary">Play Again</button>
+          </div>
+        </div>
+
+        <!-- PAUSE SCREEN -->
+        <div id="pauseScreen" class="overlay-screen pause-screen hidden">
+          <div class="overlay-content pause-card">
+            <div class="pause-title">Paused</div>
+            <div class="pause-subtitle">Sharpen your focus.</div>
+            <div class="pause-actions">
+              <button id="resumeBtn" class="menu-btn primary">Resume</button>
+              <button id="restartBtn" class="menu-btn">Restart</button>
+              <button id="exitBtn" class="menu-btn ghost">Exit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
