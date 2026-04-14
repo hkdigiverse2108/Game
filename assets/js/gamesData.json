@@ -9,9 +9,9 @@
       "tags": ["hot", "new"]
     },
     {
-      "gameTitle": "Billiard Master : Pool Rush",
-      "gameUrl": "gameDistribution/BilliardMaster.html",
-      "thumbnailUrl": "game/BilliardMaster/BilliardMaster.png",
+      "gameTitle": "8 Ball Pool",
+      "gameUrl": "gameDistribution/8BallPool.html",
+      "thumbnailUrl": "game/8BallPool/8BallPool.png",
       "categories": ["action", "multiplayer", "for you"],
       "tags": ["3d", "update"]
     },
