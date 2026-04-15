@@ -23,7 +23,7 @@
       "gameTitle": "Subway Surfers",
       "gameUrl": "gameDistribution/SubwaySurfers.html",
       "thumbnailUrl": "game/SubwaySurfers/SubwaySurfers.png",
-      "categories": ["action", "arcade", "runner"],
+      "categories": ["action", "arcade", "runner", "for you"],
       "tags": ["new", "hot", "trending"]
     },
     {
@@ -31,7 +31,7 @@
       "gameTitle": "8 Ball Pool",
       "gameUrl": "gameDistribution/8BallPool.html",
       "thumbnailUrl": "game/8BallPool/8BallPool.png",
-      "categories": ["Sports", "Multiplayer", "Pool"],
+      "categories": ["Sports", "Multiplayer", "Pool", "for you"],
       "tags": ["3d", "update"]
     },
     {
@@ -80,6 +80,14 @@
       "gameUrl": "gameDistribution/Piano.html",
       "thumbnailUrl": "game/Piano/Piano.webp",
       "categories": ["arcade", "music", "for you"],
+      "tags": ["hot", "new"]
+    },
+    {
+      "id": "spacecraft",
+      "gameTitle": "Spacecraft",
+      "gameUrl": "gameDistribution/Spacecraft.html",
+      "thumbnailUrl": "game/Spacecraft/Spacecraft.png",
+      "categories": ["runner", "arcade", "for you"],
       "tags": ["hot", "new"]
     }
   ],
