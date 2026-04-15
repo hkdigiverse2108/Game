@@ -617,7 +617,7 @@ setTimeout(() => {
     loadingScreen.style.display = 'none';
     settingsScreen.classList.remove('hidden');
     setPageScrollMode(true);
-    showToast('Welcome to Premier Tic Tac Toe!');
+    showToast('Welcome to Tic Tac Toe!');
   }, 500);
 }, 2200);
 }

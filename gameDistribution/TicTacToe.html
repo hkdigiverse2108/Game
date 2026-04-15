@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Subway Surfers</title>
-    <meta name="description" content="Play Subway Surfers New York Night Team free online on PlayBox. No downloads required!" />
+    <title>Tic Tac Toe</title>
+    <meta name="description" content="Play Tic Tac Toe free online on PlayBox. No downloads required!" />
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -70,14 +70,14 @@
             </div>
             <div id="game-loading" class="absolute inset-0 flex flex-col items-center justify-center bg-[#0B0F19] z-10 gap-4">
               <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-xl shadow-primary/30 mb-2">
-                <img src="../game/SubwaySurfers/SubwaySurfers.png" alt="Subway Surfers" class="w-full h-full object-cover" />
+                <img src="../game/TicTacToe/Tic_Tac_Toe.webp" alt="Tic Tac Toe" class="w-full h-full object-cover" />
               </div>
-              <div class="text-white font-bold text-lg">Loading Subway Surfers...</div>
+              <div class="text-white font-bold text-lg">Loading Tic Tac Toe...</div>
               <div class="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
                 <div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full animate-pulse" style="width: 70%"></div>
               </div>
             </div>
-            <iframe id="game-frame" src="../game/SubwaySurfers/index.html" allowfullscreen title="Subway Surfers" onload="document.getElementById('game-loading').style.display = 'none'"></iframe>
+            <iframe id="game-frame" src="../game/TicTacToe/index.html" allowfullscreen title="Tic Tac Toe" onload="document.getElementById('game-loading').style.display = 'none'"></iframe>
           </div>
 
           <!-- Game Controls Bar -->
@@ -97,35 +97,39 @@
             <div class="flex flex-col sm:flex-row sm:items-start gap-5">
               <!-- Thumbnail -->
               <div class="w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-lg shadow-black/50 border border-white/10">
-                <img src="../game/SubwaySurfers/SubwaySurfers.png" alt="Subway Surfers" class="w-full h-full object-cover" />
+                <img src="../game/TicTacToe/Tic_Tac_Toe.webp" alt="Tic Tac Toe" class="w-full h-full object-cover" />
               </div>
               <!-- Info -->
               <div class="flex-1">
-                <h1 class="text-2xl sm:text-3xl font-black text-white leading-tight">Subway Surfers</h1>
+                <h1 class="text-2xl sm:text-3xl font-black text-white leading-tight">Tic Tac Toe</h1>
                 <div id="game-categories" class="flex items-center gap-2 mt-2 uppercase"></div>
               </div>
             </div>
 
             <!-- Description -->
             <div class="mt-5 border-t border-white/5 pt-5">
-              <p class="text-gray-300 leading-relaxed text-sm">Dash as fast as you can through the colourful New York City subway system! Dodge the grumpy guard and his dog, stay away from obstacles and grab as many coins as possible. Use power-ups to help you run farther and faster. Challenge your friends, unlock new hoverboards, outfits, and power-ups in <strong class="text-white">Subway Surfers New York Night Team</strong>!</p>
+              <p class="text-gray-300 leading-relaxed text-sm">Play <strong class="text-white">Tic Tac Toe</strong>, the classic strategy game where two players take turns marking X and O on a grid. The goal is to align three of your marks in a row, column, or diagonal before your opponent does. Think ahead, block your opponent, and claim victory!</p>
+
               <!-- How to Play -->
               <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">↑</div>
-                  <div class="text-xs text-gray-400 font-medium">Jump / Swipe Up</div>
+                  <div class="text-2xl mb-1">❌⭕</div>
+                  <div class="text-xs text-gray-400 font-medium">Choose X or O</div>
                 </div>
+
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">↓</div>
-                  <div class="text-xs text-gray-400 font-medium">Roll / Swipe Down</div>
+                  <div class="text-2xl mb-1">🖱️</div>
+                  <div class="text-xs text-gray-400 font-medium">Tap / Click Grid</div>
                 </div>
+
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">← →</div>
-                  <div class="text-xs text-gray-400 font-medium">Lane Change</div>
+                  <div class="text-2xl mb-1">🧠</div>
+                  <div class="text-xs text-gray-400 font-medium">Plan Moves</div>
                 </div>
+
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">Space</div>
-                  <div class="text-xs text-gray-400 font-medium">Hoverboard</div>
+                  <div class="text-2xl mb-1">🏆</div>
+                  <div class="text-xs text-gray-400 font-medium">3 in a Row</div>
                 </div>
               </div>
             </div>
@@ -168,7 +172,9 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../assets/js/index.js"></script>
 
-    <script>const gameId = "subway-surfers";</script>
+    <script>
+      const gameId = "tic-tac-toe";
+    </script>
     <script src="../assets/js/gameDistribution.js"></script>
   </body>
 </html>

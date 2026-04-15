@@ -1,53 +1,85 @@
 {
-  "categories": [{ "name": "✨ For You", "isTop": true, "active": true }, { "name": "🔥 Action", "isTop": true }, { "name": "🏎️ Racing", "isTop": true }, { "name": "🧠 Puzzle", "isTop": true }, { "name": "👥 Multiplayer", "isTop": true }, { "name": "⚽ Sports", "isTop": true }, { "name": "🔫 Shooting" }, { "name": "🕹️ Arcade" }, { "name": "👗 Dress Up" }, { "name": "🛠️ Simulation" }],
+  "categories": [
+    {
+      "name": "✨ For You",
+      "isTop": true,
+      "active": true
+    },
+    { "name": "🔥 Action", "isTop": true },
+    { "name": "🧠 Puzzle", "isTop": true },
+    { "name": "👥 Multiplayer", "isTop": true },
+    { "name": "⚽ Sports", "isTop": true },
+    { "name": "🕹️ Arcade", "isTop": true },
+    { "name": "🏃 Runner", "isTop": true },
+    { "name": "🎱 Pool", "isTop": true },
+    { "name": "🎲 Board", "isTop": true },
+    { "name": "🎵 Music", "isTop": true },
+    { "name": "🏎️ Racing", "isTop": true },
+    { "name": "🔫 Shooting", "isTop": true }
+  ],
   "gameTitles": [
     {
-      "gameTitle": "Block Blast - Puzzle Challenge",
-      "gameUrl": "game/BlockBlast/index.html",
-      "thumbnailUrl": "game/BlockBlast/BlockBlast.png",
-      "categories": ["action", "racing", "for you"],
-      "tags": ["hot", "new"]
+      "id": "subway-surfers",
+      "gameTitle": "Subway Surfers",
+      "gameUrl": "gameDistribution/SubwaySurfers.html",
+      "thumbnailUrl": "game/SubwaySurfers/SubwaySurfers.png",
+      "categories": ["action", "arcade", "runner"],
+      "tags": ["new", "hot", "trending"]
     },
     {
+      "id": "8-ball-pool",
       "gameTitle": "8 Ball Pool",
       "gameUrl": "gameDistribution/8BallPool.html",
       "thumbnailUrl": "game/8BallPool/8BallPool.png",
-      "categories": ["action", "multiplayer", "for you"],
+      "categories": ["Sports", "Multiplayer", "Pool"],
       "tags": ["3d", "update"]
     },
     {
-      "gameTitle": "Jungle Kombat - Arcade Fighting Game",
-      "gameUrl": "game/JungleKombat/index.html",
+      "id": "block-blast",
+      "gameTitle": "Block Blast",
+      "gameUrl": "gameDistribution/BlockBlast.html",
+      "thumbnailUrl": "game/BlockBlast/BlockBlast.png",
+      "categories": ["puzzle", "arcade", "for you"],
+      "tags": ["hot", "new"]
+    },
+    {
+      "id": "jungle-kombat",
+      "gameTitle": "Jungle Kombat",
+      "gameUrl": "gameDistribution/JungleKombat.html",
       "thumbnailUrl": "game/JungleKombat/JungleKombat.png",
-      "categories": ["racing", "action", "for you"],
+      "categories": ["action", "arcade", "for you"],
       "tags": ["new", "3d"]
     },
     {
+      "id": "royal-ludo",
       "gameTitle": "Royal Ludo",
-      "gameUrl": "game/Ludo/index.html",
+      "gameUrl": "gameDistribution/Ludo.html",
       "thumbnailUrl": "game/Ludo/Ludo.png",
-      "categories": ["action", "puzzle", "for you"],
+      "categories": ["board", "multiplayer", "for you"],
       "tags": ["hot"]
     },
     {
-      "gameTitle": "Fruit Slice Arcade | Premium Edition",
-      "gameUrl": "game/NinjaFruidsCutting/index.html",
-      "thumbnailUrl": "game/NinjaFruidsCutting/NinjaFruidsCutting.png",
-      "categories": ["shooting", "action", "3d", "for you"],
+      "id": "fruit-ninja",
+      "gameTitle": "Fruit Ninja",
+      "gameUrl": "gameDistribution/FruitNinja.html",
+      "thumbnailUrl": "game/FruitNinja/FruitNinja.png",
+      "categories": ["arcade", "action", "for you"],
       "tags": ["update", "pro"]
     },
     {
-      "gameTitle": "Subway Surfers New York | Night Team",
-      "gameUrl": "gameDistribution/SubwaySurfers.html",
-      "thumbnailUrl": "game/SubwaySurfers/SubwaySurfers.png",
-      "categories": ["dress up", "action"],
-      "tags": ["new", "hot"]
+      "id": "tic-tac-toe",
+      "gameTitle": "Tic Tac Toe",
+      "gameUrl": "gameDistribution/TicTacToe.html",
+      "thumbnailUrl": "game/TicTacToe/Tic_Tac_Toe.webp",
+      "categories": ["board", "puzzle", "multiplayer", "for you"],
+      "tags": ["hot", "new"]
     },
     {
-      "gameTitle": "Premier Tic Tac Toe | Elite Edition",
-      "gameUrl": "game/PremierTicTacToe/index.html",
-      "thumbnailUrl": "game/PremierTicTacToe/Tic_Tac_Toe.webp",
-      "categories": ["action", "multiplayer", "for you"],
+      "id": "piano",
+      "gameTitle": "Piano",
+      "gameUrl": "gameDistribution/Piano.html",
+      "thumbnailUrl": "game/Piano/Piano.webp",
+      "categories": ["arcade", "music", "for you"],
       "tags": ["hot", "new"]
     }
   ],
