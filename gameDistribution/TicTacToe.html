@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic Tac Toe</title>
-    <meta name="description" content="Play Tic Tac Toe free online on PlayBox. No downloads required!" />
+    <meta name="description" content="Play Tic Tac Toe online for free on PlayBox in two-player or AI mode and win by placing three Xs or Os in a row, column, or diagonal." />
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -70,7 +70,7 @@
             </div>
             <div id="game-loading" class="absolute inset-0 flex flex-col items-center justify-center bg-[#0B0F19] z-10 gap-4">
               <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-xl shadow-primary/30 mb-2">
-                <img src="../game/TicTacToe/Tic_Tac_Toe.webp" alt="Tic Tac Toe" class="w-full h-full object-cover" />
+                <img src="../game/TicTacToe/images/thumbnail.png" alt="Tic Tac Toe" class="w-full h-full object-cover" />
               </div>
               <div class="text-white font-bold text-lg">Loading Tic Tac Toe...</div>
               <div class="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
@@ -97,7 +97,7 @@
             <div class="flex flex-col sm:flex-row sm:items-start gap-5">
               <!-- Thumbnail -->
               <div class="w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-lg shadow-black/50 border border-white/10">
-                <img src="../game/TicTacToe/Tic_Tac_Toe.webp" alt="Tic Tac Toe" class="w-full h-full object-cover" />
+                <img src="../game/TicTacToe/images/thumbnail.png" alt="Tic Tac Toe" class="w-full h-full object-cover" />
               </div>
               <!-- Info -->
               <div class="flex-1">
@@ -107,29 +107,92 @@
             </div>
 
             <!-- Description -->
-            <div class="mt-5 border-t border-white/5 pt-5">
-              <p class="text-gray-300 leading-relaxed text-sm">Play <strong class="text-white">Tic Tac Toe</strong>, the classic strategy game where two players take turns marking X and O on a grid. The goal is to align three of your marks in a row, column, or diagonal before your opponent does. Think ahead, block your opponent, and claim victory!</p>
+            <div class="border-t border-white/5 pt-3">
+              <div class="mt-6 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+                <div class="rounded-2xl border border-white/8 bg-black/20 p-5">
+                  <p class="text-gray-200 leading-relaxed text-sm sm:text-[15px]">
+                    <strong class="text-white">Tic Tac Toe</strong> looks simple at first glance, yet every turn is a small contest of timing, prediction, and control. Whether you are facing another player on the same board or testing yourself against the AI, the goal stays clear: place your mark with purpose and create a full line of three before your opponent can stop you.
+                  </p>
+                </div>
+                <div class="rounded-2xl border border-white/8 bg-gradient-to-br from-primary/12 to-secondary/10 p-5">
+                  <h3 class="text-white font-bold text-sm tracking-wide uppercase">Match Focus</h3>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    Watch the center, protect open lines, and never ignore a block when the other side is one move away from winning.
+                  </p>
+                </div>
+              </div>
 
-              <!-- How to Play -->
-              <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="mt-4 grid gap-4 md:grid-cols-2">
+                <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+                  <h3 class="text-white font-bold text-base">How the game works</h3>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    Two sides take turns placing <strong class="text-white">X</strong> and <strong class="text-white">O</strong> on the grid, one square at a time. You can play as a local two-player match or take on the AI for a quicker solo challenge. A round is won by completing three matching symbols in a horizontal row, vertical column, or diagonal line before the other side does.
+                  </p>
+                </div>
+                <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+                  <h3 class="text-white font-bold text-base">What good play looks like</h3>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    Strong Tic Tac Toe is about seeing two moves ahead. Claiming the center often gives the cleanest control, corners can create stronger pressure, and timely blocks are just as important as attacking lines of your own. Against the AI or another player, wins usually come from forcing choices rather than waiting for mistakes.
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">❌⭕</div>
-                  <div class="text-xs text-gray-400 font-medium">Choose X or O</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M7 7l10 10M17 7L7 17" stroke-width="1.5" stroke-linecap="round"/>
+                      <circle cx="17" cy="7" r="2.5" stroke-width="1.5"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Modes</div>
+                  <div class="text-xs text-gray-400 font-medium">AI Or 2 Players</div>
                 </div>
 
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">🖱️</div>
-                  <div class="text-xs text-gray-400 font-medium">Tap / Click Grid</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M8 8h8v8H8z" stroke-width="1.5"/>
+                      <path d="M12 4v4M12 16v4M4 12h4M16 12h4" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Place</div>
+                  <div class="text-xs text-gray-400 font-medium">Mark Empty Squares</div>
                 </div>
 
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">🧠</div>
-                  <div class="text-xs text-gray-400 font-medium">Plan Moves</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M5 19L19 5M5 5l14 14" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Block</div>
+                  <div class="text-xs text-gray-400 font-medium">Stop The Threat</div>
                 </div>
 
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">🏆</div>
-                  <div class="text-xs text-gray-400 font-medium">3 in a Row</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M5 12h14M12 5v14M7 7l10 10" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Win</div>
+                  <div class="text-xs text-gray-400 font-medium">Make 3 In A Row</div>
+                </div>
+              </div>
+
+              <div class="mt-8 flex overflow-x-auto gap-4 pb-4 snap-x no-scrollbar">
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg relative bg-black snap-center">
+                  <video src="../assets/images/tik tac toe/v1.mp4" class="w-full h-full object-cover" autoplay loop muted playsinline poster="../assets/images/tik tac toe/p1.png"></video>
+                </div>
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                  <img src="../assets/images/tik tac toe/p1.png" alt="Tic Tac Toe grid match" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                  <img src="../assets/images/tik tac toe/p2.png" alt="Playing Tic Tac Toe against AI or a friend" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                  <img src="../assets/images/tik tac toe/p3.png" alt="Winning line in Tic Tac Toe" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
               </div>
             </div>

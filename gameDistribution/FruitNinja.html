@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fruit Ninja</title>
-    <meta name="description" content="Play Fruit Ninja free online on PlayBox. No downloads required!" />
+    <meta name="description" content="Play Fruit Ninja online for free on PlayBox and slice flying fruit with sharp timing, clean swipes, combo chains, and bomb-dodging reflexes." />
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -107,25 +107,91 @@
             </div>
 
             <!-- Description -->
-            <div class="mt-5 border-t border-white/5 pt-5">
-              <p class="text-gray-300 leading-relaxed text-sm">Play <strong class="text-white">Fruit Ninja</strong>, a fast-paced arcade game where your goal is to slice flying fruits with precision and speed. Swipe across the screen to cut fruits, avoid bombs, and score as high as possible. Test your reflexes and become the ultimate fruit slicing master!</p>
-              <!-- How to Play -->
-              <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="border-t border-white/5 pt-3">
+              <div class="mt-6 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+                <div class="rounded-2xl border border-white/8 bg-black/20 p-5">
+                  <p class="text-gray-200 leading-relaxed text-sm sm:text-[15px]">
+                    <strong class="text-white">Fruit Ninja</strong> turns a simple swipe into a test of rhythm, precision, and nerve. Fruit rises in quick arcs, your blade answers in clean slashes, and the score builds fastest when control stays sharp enough to chain multiple cuts without drifting into the danger of a bomb.
+                  </p>
+                </div>
+                <div class="rounded-2xl border border-white/8 bg-gradient-to-br from-primary/12 to-secondary/10 p-5">
+                  <h3 class="text-white font-bold text-sm tracking-wide uppercase">Arcade Focus</h3>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    Slice decisively, keep your swipes efficient, and chase combos only when you can still read the full screen clearly.
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-4 grid gap-4 md:grid-cols-2">
+                <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+                  <h3 class="text-white font-bold text-base">How the action unfolds</h3>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    The pace feels light for a moment and then suddenly crowded. Fruit launches upward in clusters, your cursor or finger cuts across the screen, and each successful slice keeps the flow alive. The challenge is not simply hitting everything that appears, but doing it with enough control to stay ready for the next burst.
+                  </p>
+                </div>
+                <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+                  <h3 class="text-white font-bold text-base">What strong runs require</h3>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    High scores come from measured aggression. Clean combo cuts reward you for timing, but panic swipes can lead straight into a bomb or a missed fruit. The best runs balance speed with awareness, using short accurate slashes to keep the board readable while the score keeps climbing.
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">🖱️</div>
-                  <div class="text-xs text-gray-400 font-medium">Swipe / Drag</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M6 18L18 6M9 6h9v9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Swipe</div>
+                  <div class="text-xs text-gray-400 font-medium">Cut With Speed</div>
                 </div>
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">🍉</div>
-                  <div class="text-xs text-gray-400 font-medium">Slice Fruits</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M7 15c0-3 2-5 5-5s5 2 5 5" stroke-width="1.5" stroke-linecap="round"/>
+                      <path d="M12 5v5" stroke-width="1.5" stroke-linecap="round"/>
+                      <path d="M9 15l3 4 3-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Slice</div>
+                  <div class="text-xs text-gray-400 font-medium">Hit Flying Fruit</div>
                 </div>
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">💣</div>
-                  <div class="text-xs text-gray-400 font-medium">Avoid Bombs</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <circle cx="12" cy="12" r="6" stroke-width="1.5"/>
+                      <path d="M12 8v4M12 16h.01" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Avoid</div>
+                  <div class="text-xs text-gray-400 font-medium">Miss The Bombs</div>
                 </div>
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">🏆</div>
-                  <div class="text-xs text-gray-400 font-medium">Score High</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M5 17c2-2 4-3 7-3s5 1 7 3" stroke-width="1.5" stroke-linecap="round"/>
+                      <path d="M8 14V8m4 6V6m4 8v-4" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Score</div>
+                  <div class="text-xs text-gray-400 font-medium">Build Combos Fast</div>
+                </div>
+              </div>
+
+              <div class="mt-8 flex overflow-x-auto gap-4 pb-4 snap-x no-scrollbar">
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg relative bg-black snap-center">
+                  <video src="../assets/images/fruit/v1.mp4" class="w-full h-full object-cover" autoplay loop muted playsinline poster="../assets/images/fruit/p1.png"></video>
+                </div>
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                  <img src="../assets/images/fruit/p1.png" alt="Fruit Ninja slicing action" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                  <img src="../assets/images/fruit/p2.png" alt="Combo fruit cuts in Fruit Ninja" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                  <img src="../assets/images/fruit/p3.png" alt="Dodging bombs while slicing fruit" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
               </div>
             </div>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Block Blast</title>
-    <meta name="description" content="Play Block Blast free online on PlayBox. No downloads required!" />
+    <meta name="description" content="Play Block Blast online for free on PlayBox and fit colorful pieces, clear rows and columns, and keep the board open with smart puzzle strategy." />
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -107,26 +107,91 @@
             </div>
 
             <!-- Description -->
-            <div class="mt-5 border-t border-white/5 pt-5">
-              <p class="text-gray-300 leading-relaxed text-sm">Play <strong class="text-white">Block Blast</strong>, a fun and addictive puzzle game where your goal is to place blocks strategically and clear full rows or columns. Plan your moves carefully, manage space on the board, and aim for high scores by clearing multiple lines at once. Challenge your brain and enjoy endless puzzle action!</p>
+            <div class="border-t border-white/5 pt-3">
+              <div class="mt-6 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+                <div class="rounded-2xl border border-white/8 bg-black/20 p-5">
+                  <p class="text-gray-200 leading-relaxed text-sm sm:text-[15px]">
+                    <strong class="text-white">Block Blast</strong> turns a clean puzzle grid into a steady test of judgment, spacing, and rhythm. Each set of pieces asks you to think beyond the immediate fit and consider how the board will breathe after the move, because the best placements do more than score points; they preserve options for what comes next.
+                  </p>
+                </div>
+                <div class="rounded-2xl border border-white/8 bg-gradient-to-br from-primary/12 to-secondary/10 p-5">
+                  <h3 class="text-white font-bold text-sm tracking-wide uppercase">Board Focus</h3>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    Keep the center flexible, clear full lines often, and avoid awkward gaps that leave larger shapes with nowhere to land.
+                  </p>
+                </div>
+              </div>
 
-              <!-- How to Play -->
-              <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="mt-4 grid gap-4 md:grid-cols-2">
+                <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+                  <h3 class="text-white font-bold text-base">How the puzzle flows</h3>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    The pace is calm, but the decisions quickly become sharp. You drag each block into place, complete full rows or columns, and watch the grid open back up for the next turn. A strong run depends on reading shapes early and arranging the board so that small pieces, long bars, and bulky clusters all have a future home.
+                  </p>
+                </div>
+                <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+                  <h3 class="text-white font-bold text-base">What good play looks like</h3>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    Smart scores come from discipline rather than haste. Leave space for harder pieces, build toward double clears when possible, and treat every empty square as valuable real estate. When the board stays balanced, combos feel natural and your score climbs without panic.
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">🖱️</div>
-                  <div class="text-xs text-gray-400 font-medium">Drag Blocks</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M8 6h8M8 12h8M8 18h8M5 6h.01M5 12h.01M5 18h.01" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Drag</div>
+                  <div class="text-xs text-gray-400 font-medium">Move Each Piece</div>
                 </div>
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">🧩</div>
-                  <div class="text-xs text-gray-400 font-medium">Place Strategically</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <rect x="4" y="4" width="6" height="6" stroke-width="1.5"/>
+                      <rect x="14" y="4" width="6" height="6" stroke-width="1.5"/>
+                      <rect x="4" y="14" width="6" height="6" stroke-width="1.5"/>
+                      <path d="M14 17h6" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Place</div>
+                  <div class="text-xs text-gray-400 font-medium">Fit Clean Shapes</div>
                 </div>
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">📏</div>
-                  <div class="text-xs text-gray-400 font-medium">Clear Lines</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M4 8h16M4 16h16M8 4v16M16 4v16" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Clear</div>
+                  <div class="text-xs text-gray-400 font-medium">Finish Full Lines</div>
                 </div>
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">🏆</div>
-                  <div class="text-xs text-gray-400 font-medium">Score High</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M4 18c3-2 5-4 8-4s5 2 8 4" stroke-width="1.5" stroke-linecap="round"/>
+                      <path d="M7 14V8m5 6V5m5 9v-3" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Build</div>
+                  <div class="text-xs text-gray-400 font-medium">Chase Bigger Scores</div>
+                </div>
+              </div>
+
+              <div class="mt-8 flex overflow-x-auto gap-4 pb-4 snap-x no-scrollbar">
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg relative bg-black snap-center">
+                  <video src="../assets/images/block blast/v1.mp4" class="w-full h-full object-cover" autoplay loop muted playsinline poster="../assets/images/block blast/p1.png"></video>
+                </div>
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                  <img src="../assets/images/block blast/p1.png" alt="Block Blast gameplay board" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                  <img src="../assets/images/block blast/p2.png" alt="Colorful block placement in Block Blast" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                  <img src="../assets/images/block blast/p3.png" alt="Planning the next clear in Block Blast" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
               </div>
             </div>

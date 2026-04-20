@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Piano</title>
-    <meta name="description" content="Play Piano free online on PlayBox. No downloads required!" />
+    <meta name="description" content="Play Piano online for free on PlayBox and perform notes with your keyboard or mouse while exploring melodies, timing, and a relaxed virtual instrument experience." />
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -70,7 +70,7 @@
             </div>
             <div id="game-loading" class="absolute inset-0 flex flex-col items-center justify-center bg-[#0B0F19] z-10 gap-4">
               <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-xl shadow-primary/30 mb-2">
-                <img src="../game/Piano/Piano.png" alt="Piano" class="w-full h-full object-cover" />
+                <img src="../game/Piano/src/images/thumb.png" alt="Piano" class="w-full h-full object-cover" />
               </div>
               <div class="text-white font-bold text-lg">Loading Piano...</div>
               <div class="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
@@ -97,39 +97,98 @@
             <div class="flex flex-col sm:flex-row sm:items-start gap-5">
               <!-- Thumbnail -->
               <div class="w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-lg shadow-black/50 border border-white/10">
-                <img src="../game/Piano/Piano.png" alt="Piano" class="w-full h-full object-cover" />
+                <img src="../game/Piano/src/images/thumb.png" alt="Piano" class="w-full h-full object-cover" />
               </div>
               <!-- Info -->
               <div class="flex-1">
-                <h1 class="text-2xl sm:text-3xl font-black text-white leading-tight">Ludo</h1>
+                <h1 class="text-2xl sm:text-3xl font-black text-white leading-tight">Piano</h1>
                 <div id="game-categories" class="flex items-center gap-2 mt-2 uppercase"></div>
               </div>
             </div>
 
             <!-- Description -->
-            <div class="mt-5 border-t border-white/5 pt-5">
-              <p class="text-gray-300 leading-relaxed text-sm">Play the <strong class="text-white">Virtual Piano</strong> and create beautiful music right from your keyboard. Tap the piano keys or use your keyboard to play different notes, experiment with melodies, and enjoy a relaxing musical experience. Perfect for beginners and music lovers alike!</p>
+            <div class="border-t border-white/5 pt-3">
+              <div class="mt-6 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+                <div class="rounded-2xl border border-white/8 bg-black/20 p-5">
+                  <p class="text-gray-200 leading-relaxed text-sm sm:text-[15px]">
+                    <strong class="text-white">Piano</strong> offers a simple virtual instrument space where each keypress turns immediately into sound, letting you explore notes, short melodies, and musical patterns without setup or pressure. The experience feels open-ended in the best way: part practice tool, part playful soundboard, and part quiet place to experiment with rhythm and tone.
+                  </p>
+                </div>
+                <div class="rounded-2xl border border-white/8 bg-gradient-to-br from-primary/12 to-secondary/10 p-5">
+                  <h3 class="text-white font-bold text-sm tracking-wide uppercase">Play Flow</h3>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    Use the keyboard or click the keys directly, keep your timing steady, and build simple phrases one note at a time.
+                  </p>
+                </div>
+              </div>
 
-              <!-- How to Play -->
-              <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="mt-4 grid gap-4 md:grid-cols-2">
+                <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+                  <h3 class="text-white font-bold text-base">How the instrument feels</h3>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    The layout is straightforward and inviting. You can trigger notes by clicking the piano keys with the mouse or by using mapped keyboard inputs for a faster hand feel. That makes it easy to test melodies, repeat patterns, and hear how different note sequences sit together in real time.
+                  </p>
+                </div>
+                <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+                  <h3 class="text-white font-bold text-base">What makes it useful</h3>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    Good piano play here is less about winning and more about control. Beginners can learn the relationship between keys and sound, while music lovers can improvise short tunes and rhythmic ideas on the spot. The more evenly you play and the more intentionally you space notes, the more musical the session becomes.
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">⌨️</div>
-                  <div class="text-xs text-gray-400 font-medium">Use Keyboard</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M4 7h16v10H4z" stroke-width="1.5"/>
+                      <path d="M8 7v10M12 7v10M16 7v10" stroke-width="1.5"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Keys</div>
+                  <div class="text-xs text-gray-400 font-medium">Use The Piano Layout</div>
                 </div>
 
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">🖱️</div>
-                  <div class="text-xs text-gray-400 font-medium">Click Keys</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M6 18L18 6M9 6h9v9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Click</div>
+                  <div class="text-xs text-gray-400 font-medium">Play With Mouse</div>
                 </div>
 
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">🎵</div>
-                  <div class="text-xs text-gray-400 font-medium">Play Notes</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M6 9h12M6 15h8" stroke-width="1.5" stroke-linecap="round"/>
+                      <path d="M18 8v8" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Notes</div>
+                  <div class="text-xs text-gray-400 font-medium">Trigger Clean Sounds</div>
                 </div>
 
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">🎶</div>
-                  <div class="text-xs text-gray-400 font-medium">Create Music</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M8 18V7l8-2v11" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <circle cx="6" cy="18" r="2" stroke-width="1.5"/>
+                      <circle cx="14" cy="16" r="2" stroke-width="1.5"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Create</div>
+                  <div class="text-xs text-gray-400 font-medium">Build Melodies</div>
+                </div>
+              </div>
+
+              <div class="mt-8 flex overflow-x-auto gap-4 pb-4 snap-x no-scrollbar">
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg relative bg-black snap-center">
+                  <video src="../assets/images/piano/v1.mp4" class="w-full h-full object-cover" autoplay loop muted playsinline poster="../assets/images/piano/p1.png"></video>
+                </div>
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                  <img src="../assets/images/piano/p1.png" alt="Virtual piano keyboard interface" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
               </div>
             </div>

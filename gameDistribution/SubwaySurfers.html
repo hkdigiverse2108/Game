@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Subway Surfers</title>
-    <meta name="description" content="Play Subway Surfers New York Night Team free online on PlayBox. No downloads required!" />
+    <meta name="description" content="Play Subway Surfers online for free on PlayBox and dodge trains, collect coins, unlock hoverboards, and chase your highest score." />
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,9 +35,9 @@
         </a>
 
         <!-- Search -->
-        <div class="flex flex-1 max-w-[150px] sm:max-w-sm sm:mx-12 relative">
+        <div class="flex flex-1 max-w-[200px] xs:max-w-[250px] sm:max-w-sm sm:mx-12 relative">
           <div class="w-full relative group" id="search-container">
-            <input id="search-input" type="text" class="block w-full pl-6 pr-16 py-2.5 border border-white/10 rounded-2xl leading-5 bg-black/40 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-300 focus:bg-surface shadow-inner relative z-10" placeholder="Search games..." autocomplete="off" />
+            <input id="search-input" type="text" class="block w-full pl-6 pr-12 sm:pr-16 py-2.5 border border-white/10 rounded-2xl leading-5 bg-black/40 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-300 focus:bg-surface shadow-inner relative z-10 text-sm sm:text-base" placeholder="Search games..." autocomplete="off" />
             <div class="absolute inset-y-1 right-1 flex items-center z-10">
               <button class="bg-primary/20 hover:bg-primary/40 text-primary px-3 py-1.5 rounded-xl text-sm font-semibold transition-colors">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -59,7 +59,7 @@
     <!-- Main Content -->
     <main class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto min-h-screen">
       <!-- Game Layout: Player + Sidebar -->
-      <div class="flex flex-col xl:flex-row gap-6 mt-4">
+      <div class="flex flex-col lg:flex-row gap-6 mt-4">
         <!-- LEFT: Game Player Column -->
         <div class="flex-1 min-w-0">
           <!-- Game Wrapper -->
@@ -107,8 +107,32 @@
             </div>
 
             <!-- Description -->
-            <div class="mt-5 border-t border-white/5 pt-5">
-              <p class="text-gray-300 leading-relaxed text-sm">Dash as fast as you can through the colourful New York City subway system! Dodge the grumpy guard and his dog, stay away from obstacles and grab as many coins as possible. Use power-ups to help you run farther and faster. Challenge your friends, unlock new hoverboards, outfits, and power-ups in <strong class="text-white">Subway Surfers New York Night Team</strong>!</p>
+            <div class="mt-8 border-t border-white/5 pt-8">
+              <div class="space-y-4 text-gray-300 leading-relaxed text-sm">
+                <p>Jump into <strong class="text-white">Subway Surfers</strong>, a fast-paced endless runner set on busy subway tracks where you escape the Inspector and his dog in a high-speed chase.</p>
+                <p>Swipe to jump, roll, and switch lanes while dodging trains and obstacles. Collect coins and grab powerful boosts to keep your run going longer.</p>
+                <p>Unlock unique characters and stylish hoverboards, and use power-ups like jetpacks and coin magnets to boost your score with smooth, responsive controls.</p>
+                <p>Time your moves carefully, collect coins smartly, and save hoverboards for tough moments to extend your run.</p>
+                <p>Play Subway Surfers online for free and challenge yourself to beat your highest score.</p>
+              </div>
+
+              <!-- Media Gallery -->
+              <div class="mt-6 flex overflow-x-auto gap-4 pb-4 snap-x">
+                <!-- Highlight Video -->
+                <div class="shrink-0 w-48 sm:w-56 aspect-[9/16] rounded-2xl overflow-hidden border border-white/10 shadow-lg relative bg-black snap-center">
+                  <video src="../assets/images/subwaysufers/v1.mp4" class="w-full h-full object-cover" autoplay loop muted playsinline poster="../assets/images/subwaysufers/p1.jpg"></video>
+                </div>
+                <!-- Images Row -->
+                <div class="shrink-0 w-48 sm:w-56 aspect-[9/16] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                  <img src="../assets/images/subwaysufers/p1.jpg" alt="Subway Surfers Gameplay" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <div class="shrink-0 w-48 sm:w-56 aspect-[9/16] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                  <img src="../assets/images/subwaysufers/p2.jpg" alt="Characters & Hoverboards" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <div class="shrink-0 w-48 sm:w-56 aspect-[9/16] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                  <img src="../assets/images/subwaysufers/p3.jpg" alt="Power-ups in action" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                </div>
+              </div>
               <!-- How to Play -->
               <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
@@ -133,12 +157,12 @@
         </div>
 
         <!-- RIGHT: Related Games Sidebar -->
-        <div class="xl:w-72 shrink-0">
+        <div class="lg:w-80 shrink-0">
           <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
             <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
             More Games
           </h2>
-          <div class="space-y-3" id="related-games">
+          <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 gap-3" id="related-games">
             <!-- Related game cards — injected via JS or static -->
           </div>
           <a href="../index.html" class="mt-4 flex items-center justify-center gap-2 w-full py-3 bg-primary/10 hover:bg-primary/20 border border-primary/20 hover:border-primary/40 rounded-2xl text-primary font-semibold text-sm transition-all">

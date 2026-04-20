@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Spacecraft</title>
-    <meta name="description" content="Play Spacecraft free online on PlayBox. No downloads required!" />
+    <meta name="description" content="Play Spacecraft online for free on PlayBox and steer through a fast sci-fi track while dodging hazards, collecting coins, and pushing your distance score higher." />
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -97,7 +97,7 @@
             <div class="flex flex-col sm:flex-row sm:items-start gap-5">
               <!-- Thumbnail -->
               <div class="w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-lg shadow-black/50 border border-white/10">
-                <img src="../game/Spacecraft/Spacecraft.png" alt="Spacecraft" class="w-full h-full object-cover" />
+                <img src="../game/Spacecraft/images/thumb.png" alt="Spacecraft" class="w-full h-full object-cover" />
               </div>
               <!-- Info -->
               <div class="flex-1">
@@ -107,25 +107,86 @@
             </div>
 
             <!-- Description -->
-            <div class="mt-5 border-t border-white/5 pt-5">
-              <p class="text-gray-300 leading-relaxed text-sm">Play <strong class="text-white">Spacecraft</strong>, an exciting endless runner where you navigate through space tracks, collect coins, and avoid obstacles. Stay focused, react quickly, and guide your spacecraft as far as possible to achieve the highest score!</p>
-              <!-- How to Play -->
-              <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="border-t border-white/5 pt-3">
+              <div class="mt-6 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+                <div class="rounded-2xl border border-white/8 bg-black/20 p-5">
+                  <p class="text-gray-200 leading-relaxed text-sm sm:text-[15px]">
+                    <strong class="text-white">Spacecraft</strong> is built around clean reflex play, where a small steering choice can decide whether your run stays smooth or ends in a collision. The ship keeps pressing forward through a futuristic lane, and your job is to read the path early, shift into safer lines, and keep collecting rewards without losing control of the pace.
+                  </p>
+                </div>
+                <div class="rounded-2xl border border-white/8 bg-gradient-to-br from-primary/12 to-secondary/10 p-5">
+                  <h3 class="text-white font-bold text-sm tracking-wide uppercase">Flight Focus</h3>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    Stay centered when the track is open, move decisively when hazards appear, and collect coins only when the route still feels safe.
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-4 grid gap-4 md:grid-cols-2">
+                <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+                  <h3 class="text-white font-bold text-base">How the run unfolds</h3>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    The spacecraft races forward continuously, turning every second into a quick reading exercise. Obstacles arrive in patterns, coins tempt you into riskier lanes, and survival depends on moving with enough speed to react without swerving blindly. The longer you last, the more the run becomes about rhythm and anticipation rather than raw panic.
+                  </p>
+                </div>
+                <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+                  <h3 class="text-white font-bold text-base">What strong runs require</h3>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    Good play comes from discipline. Not every coin is worth chasing, and not every lane change needs to happen at the last second. When you guide the ship with controlled left-right movement, keep your eyes ahead of the current obstacle, and value survival as much as pickups, the score naturally grows with distance.
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">⬅️➡️</div>
-                  <div class="text-xs text-gray-400 font-medium">Move Left / Right</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M8 6l-4 6 4 6M16 6l4 6-4 6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Move</div>
+                  <div class="text-xs text-gray-400 font-medium">Shift Left Or Right</div>
                 </div>
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">🪙</div>
-                  <div class="text-xs text-gray-400 font-medium">Collect Coins</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <circle cx="12" cy="12" r="4" stroke-width="1.5"/>
+                      <path d="M12 4v2M12 18v2M4 12h2M18 12h2" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Collect</div>
+                  <div class="text-xs text-gray-400 font-medium">Grab Coins</div>
                 </div>
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">🚧</div>
-                  <div class="text-xs text-gray-400 font-medium">Avoid Obstacles</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M7 17l5-10 5 10H7z" stroke-width="1.5" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Avoid</div>
+                  <div class="text-xs text-gray-400 font-medium">Miss Hazards</div>
                 </div>
                 <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="text-2xl mb-1">🏆</div>
-                  <div class="text-xs text-gray-400 font-medium">Score High</div>
+                  <div class="flex justify-center mb-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M5 17c2-2 4-3 7-3s5 1 7 3" stroke-width="1.5" stroke-linecap="round"/>
+                      <path d="M8 14V8m4 6V6m4 8v-4" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="text-sm font-bold text-white mb-1">Score</div>
+                  <div class="text-xs text-gray-400 font-medium">Fly Farther</div>
+                </div>
+              </div>
+
+              <div class="mt-8 flex overflow-x-auto gap-4 pb-4 snap-x no-scrollbar">
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg relative bg-black snap-center">
+                  <video src="../assets/images/spacescraft/v1.mp4" class="w-full h-full object-cover" autoplay loop muted playsinline poster="../assets/images/spacescraft/p1.png"></video>
+                </div>
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                  <img src="../assets/images/spacescraft/p1.png" alt="Spacecraft flying through the track" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                  <img src="../assets/images/spacescraft/p2.png" alt="Dodging obstacles and collecting coins in Spacecraft" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
               </div>
             </div>
