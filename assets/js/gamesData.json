@@ -27,12 +27,12 @@
       "tags": ["new", "hot", "trending"]
     },
     {
-      "id": "8-ball-pool",
-      "gameTitle": "8 Ball Pool",
-      "gameUrl": "gameDistribution/8BallPool.html",
-      "thumbnailUrl": "game/8BallPool/assets/img/title2.png",
-      "categories": ["sports", "multiplayer", "pool", "for you"],
-      "tags": ["3d", "update"]
+      "id": "tic-tac-toe",
+      "gameTitle": "Tic Tac Toe",
+      "gameUrl": "gameDistribution/TicTacToe.html",
+      "thumbnailUrl": "game/TicTacToe/images/thumbnail.png",
+      "categories": ["board", "puzzle", "multiplayer", "for you"],
+      "tags": ["hot", "new"]
     },
     {
       "id": "block-blast",
@@ -67,12 +67,12 @@
       "tags": ["update", "pro"]
     },
     {
-      "id": "tic-tac-toe",
-      "gameTitle": "Tic Tac Toe",
-      "gameUrl": "gameDistribution/TicTacToe.html",
-      "thumbnailUrl": "game/TicTacToe/images/thumbnail.png",
-      "categories": ["board", "puzzle", "multiplayer", "for you"],
-      "tags": ["hot", "new"]
+      "id": "8-ball-pool",
+      "gameTitle": "8 Ball Pool",
+      "gameUrl": "gameDistribution/8BallPool.html",
+      "thumbnailUrl": "game/8BallPool/assets/img/title2.png",
+      "categories": ["sports", "multiplayer", "pool", "for you"],
+      "tags": ["3d", "update"]
     },
     {
       "id": "piano",
@@ -91,19 +91,35 @@
       "tags": ["hot", "new"]
     },
     {
-      "id": "breakout",
-      "gameTitle": "Breakout",
-      "gameUrl": "gameDistribution/Breakout.html",
-      "thumbnailUrl": "game/Breakout/img/thumb.png",
-      "categories": ["arcade", "action", "puzzle", "for you"],
-      "tags": ["new"]
+      "id": "water-sort-puzzle",
+      "gameTitle": "Water Sort Puzzle",
+      "gameUrl": "gameDistribution/Water-Sort-Puzzle.html",
+      "thumbnailUrl": "game/water-sort-puzzle/images/thumb.png",
+      "categories": ["puzzle", "arcade", "for you"],
+      "tags": ["update"]
     },
     {
       "id": "snake-and-ladder",
       "gameTitle": "Snake and Ladder",
       "gameUrl": "gameDistribution/Snake-and-Ladder.html",
       "thumbnailUrl": "game/Snake-and-Ladders/sprites/logo_menu.png",
-      "categories": ["board", "puzzle", "for you" , "multiplayer"],
+      "categories": ["board", "puzzle", "for you", "multiplayer"],
+      "tags": ["new"]
+    },
+    {
+      "id": "bubble-short",
+      "gameTitle": "Bubble Short",
+      "gameUrl": "gameDistribution/Bubble-Short.html",
+      "thumbnailUrl": "game/bubble_short/images/thumb.png",
+      "categories": ["puzzle", "arcade", "for you"],
+      "tags": ["new"]
+    },
+    {
+      "id": "breakout",
+      "gameTitle": "Breakout",
+      "gameUrl": "gameDistribution/Breakout.html",
+      "thumbnailUrl": "game/Breakout/img/thumb.png",
+      "categories": ["arcade", "action", "puzzle", "for you"],
       "tags": ["new"]
     }
   ],

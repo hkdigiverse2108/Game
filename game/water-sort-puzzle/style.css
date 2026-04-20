@@ -1,0 +1,293 @@
+/* style.css - Modern 3D Water Sort Puzzle Styling */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    background-color: #010205; /* Fallback */
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Background Architecture */
+.game-background {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('images/bg%20portrait.png');
+}
+
+.game-background::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(10, 15, 30, 0.4), rgba(5, 10, 20, 0.85));
+    pointer-events: none;
+}
+
+@media (min-width: 768px) {
+    .game-background {
+        background-image: url('images/bg.png');
+    }
+}
+
+/* Loader Screen Styles */
+#loader-screen {
+    background: radial-gradient(circle at 50% 50%, #1a2538 0%, #060b13 100%);
+}
+
+.loader-spinner {
+    border: 4px solid rgba(255,255,255,0.05);
+    border-top: 4px solid #00d4ff;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    animation: spin 1s linear infinite;
+    box-shadow: 0 0 15px rgba(0,212,255,0.4);
+}
+
+@keyframes spin { 
+    0% { transform: rotate(0deg); } 
+    100% { transform: rotate(360deg); } 
+}
+
+/* Custom Scrollbar */
+.custom-scroll::-webkit-scrollbar { width: 6px; }
+.custom-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+.custom-scroll::-webkit-scrollbar-thumb { background: rgba(0, 200, 255, 0.4); border-radius: 10px; }
+
+/* Glassmorphism Panels */
+.glass-panel {
+    background: rgba(15, 25, 45, 0.55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 35px 65px rgba(0,0,0,0.6), inset 0 2px 2px rgba(255,255,255,0.1);
+}
+
+.glass-header {
+    background: rgba(5, 10, 20, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+}
+
+/* 3D Bottle / Test Tube Styling */
+.tube-3d {
+    position: relative;
+    width: 70px;
+    height: 170px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.02) 20%, rgba(255,255,255,0.0) 80%, rgba(255,255,255,0.1) 100%);
+    border-radius: 0 0 35px 35px;
+    border: 2px solid rgba(255,255,255,0.15);
+    border-top: none;
+    box-shadow: 
+        inset 5px 0 10px rgba(255,255,255,0.2),
+        inset -5px 0 10px rgba(0,0,0,0.4),
+        0 20px 30px -10px rgba(0,0,0,0.8);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    transform-style: preserve-3d;
+    will-change: transform;
+    z-index: 10;
+}
+
+/* 3D inner reflection effect */
+.tube-3d::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 8px;
+    width: 12px;
+    height: 120px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.6), rgba(255,255,255,0));
+    border-radius: 6px;
+    opacity: 0.4;
+    pointer-events: none;
+    filter: blur(1px);
+    z-index: 20;
+}
+
+.tube-3d::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 10%;
+    width: 80%;
+    height: 15px;
+    background: rgba(0,0,0,0.5);
+    filter: blur(6px);
+    border-radius: 50%;
+    z-index: -1;
+    transition: all 0.3s;
+}
+
+/* Selected tube effect */
+.tube-selected {
+    transform: translateY(-20px);
+    box-shadow: 
+        inset 5px 0 10px rgba(255,255,255,0.3),
+        inset -5px 0 10px rgba(0,0,0,0.4),
+        0 30px 45px -10px rgba(0, 200, 255, 0.4),
+        0 0 0 2px rgba(0, 255, 255, 0.5);
+    z-index: 50;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.tube-selected::after {
+    filter: blur(12px);
+    transform: scale(1.2) translateY(10px);
+    background: rgba(0,0,0,0.3);
+}
+
+/* Bottle cap effect */
+.tube-3d .tube-cap {
+    position: absolute;
+    top: -6px;
+    left: -4px;
+    width: calc(100% + 8px);
+    height: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(200,215,225,0.4));
+    border-radius: 10px 10px 6px 6px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.4), inset 0 2px 3px rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.3);
+    z-index: 25;
+}
+
+/* Liquid Layers */
+.liquid-layer {
+    position: absolute;
+    bottom: 0;
+    left: 2%;
+    width: 96%;
+    transition: height 0.3s linear, bottom 0.3s linear;
+    border-radius: 0;
+    box-shadow: inset 0 5px 15px rgba(0,0,0,0.25);
+    z-index: 5;
+    transform-origin: bottom center;
+}
+
+/* Bubbles effect via pseudo */
+.liquid-layer::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 100%;
+    background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 1px, transparent 2px);
+    background-size: 8px 8px;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.liquid-layer.bottom-layer {
+    border-radius: 0 0 32px 32px;
+}
+
+.empty-glow {
+    position: absolute;
+    inset: 4px;
+    border-radius: 0 0 30px 30px;
+    background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.03), rgba(0,0,0,0.1));
+    z-index: 1;
+}
+
+/* Liquid stream for pouring */
+.pour-stream {
+    position: absolute;
+    width: 14px;
+    height: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,0.4) 0%, transparent 30%, transparent 70%, rgba(0,0,0,0.2) 100%);
+    border-radius: 7px;
+    z-index: 90;
+    transform-origin: top center;
+    transition: height 0.15s linear;
+    box-shadow: 0 0 10px rgba(255,255,255,0.3);
+    filter: brightness(1.2);
+}
+
+/* Color definitions */
+.liquid-color-red { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+.liquid-color-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+.liquid-color-yellow { background: linear-gradient(135deg, #facc15, #a16207); }
+.liquid-color-green { background: linear-gradient(135deg, #22c55e, #15803d); }
+.liquid-color-purple { background: linear-gradient(135deg, #a855f7, #7e22ce); }
+.liquid-color-lightgreen { background: linear-gradient(135deg, #86efac, #166534); }
+.liquid-color-lightblue { background: linear-gradient(135deg, #7dd3fc, #0369a1); }
+.liquid-color-orange { background: linear-gradient(135deg, #fb923c, #c2410c); }
+.liquid-color-brown { background: linear-gradient(135deg, #b45309, #78350f); }
+.liquid-color-pink { background: linear-gradient(135deg, #f472b6, #be185d); }
+
+/* Interactive Hover */
+.tube-3d:hover:not(.tube-selected) {
+    transform: translateY(-8px);
+    box-shadow: 
+        inset 5px 0 10px rgba(255,255,255,0.2),
+        inset -5px 0 10px rgba(0,0,0,0.4),
+        0 25px 35px -10px rgba(0,0,0,0.6),
+        0 0 15px rgba(255,255,255,0.1);
+}
+
+body.pouring-active .tube-3d {
+    pointer-events: none;
+}
+
+/* Victory Screen */
+.victory-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.4s ease;
+}
+
+.victory-card {
+    background: linear-gradient(135deg, rgba(30,40,70,0.95), rgba(10,20,40,0.98));
+    border: 1px solid rgba(0,255,255,0.6);
+    border-radius: 40px;
+    padding: 3rem 4rem;
+    text-align: center;
+    box-shadow: 0 40px 60px rgba(0,0,0,0.7), 0 0 40px rgba(0,200,255,0.2);
+    animation: winPulse 0.6s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+@keyframes winPulse {
+    0% { transform: scale(0.8); opacity: 0; text-shadow: 0 0 0px gold; }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; text-shadow: 0 0 20px cyan; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.1) forwards;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .tube-3d { width: 50px; height: 140px; }
+    .tube-3d .tube-cap { height: 10px; top: -5px; }
+    #bottles-grid { gap: 1rem; }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .tube-3d { width: 60px; height: 155px; }
+}
