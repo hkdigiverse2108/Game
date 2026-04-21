@@ -1,0 +1,1251 @@
+
+/* style.css - Cartoon Snake Game */
+
+:root {
+    --app-padding: clamp(12px, 2.5vw, 24px);
+    --panel-radius: clamp(24px, 4vw, 48px);
+    --safe-height: 100dvh;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+body{
+    font-family: 'Nunito', 'Segoe UI', sans-serif;
+    min-height: var(--safe-height);
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                url("./images/Lush\ jungle\ grid\ game\ background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Cartoon Card Style */
+.cartoon-card {
+    background: rgba(255, 245, 200, 0.92);
+    backdrop-filter: blur(8px);
+    border-radius: 48px;
+    border: 4px solid #ffcc44;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2), inset 0 2px 0 rgba(255, 255, 200, 0.8);
+    transition: all 0.2s ease;
+}
+
+/* ========== LOADING SCREEN ========== */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                url("./images/Snake\ game\ in\ a\ jungle\ paradise.png");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+}
+
+.loading-content {
+    width: min(100%, 420px);
+    padding: var(--app-padding);
+    text-align: center;
+}
+
+.cartoon-logo {
+    font-size: 100px;
+    animation: wobble 0.8s ease-in-out infinite alternate;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes wobble {
+    0% { transform: rotate(-5deg) scale(1); }
+    100% { transform: rotate(5deg) scale(1.08); }
+}
+
+.loading-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    color: #fff8e7;
+    text-shadow: 4px 4px 0 #c0392b;
+    letter-spacing: 2px;
+    margin: 20px 0 30px;
+}
+
+.progress-container {
+    width: 280px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 30px;
+    overflow: hidden;
+    margin: 20px auto;
+    border: 2px solid #fff8e7;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #72ff3b, #0b8450);
+    border-radius: 30px;
+    transition: width 0.05s linear;
+    box-shadow: 0 0 10px #ffeb3b;
+}
+
+.loading-text {
+    color: #fff8e7;
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+
+.loading-percent {
+    color: #ffeb3b;
+    font-family: 'Fredoka One', cursive;
+    margin-top: 10px;
+    font-size: 1.2rem;
+}
+
+/* ========== SETTINGS PANEL ========== */
+.settings-container {
+    width: min(100%, 540px);
+    margin: 0 auto;
+    padding: var(--app-padding);
+}
+
+.settings-panel {
+    max-height: calc(var(--safe-height) - (var(--app-padding) * 2));
+    padding: clamp(20px, 4vw, 35px) clamp(18px, 4vw, 30px);
+    overflow: auto;
+}
+
+.settings-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.settings-header h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: #e67e22;
+    text-shadow: 3px 3px 0 #ffcc44;
+}
+
+.setting-field {
+    margin-bottom: 24px;
+}
+
+.setting-label {
+    display: block;
+    color: #8b4513;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.setting-input {
+    width: 100%;
+    background: #fffef5;
+    border: 3px solid #ffcc44;
+    border-radius: 60px;
+    padding: 12px 20px;
+    color: #5a3a1a;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.setting-input:focus {
+    outline: none;
+    border-color: #f39c12;
+    box-shadow: 0 0 0 4px rgba(243, 156, 18, 0.2);
+}
+
+.difficulty-group {
+    display: flex;
+    gap: 12px;
+}
+
+.difficulty-btn {
+    flex: 1;
+    background: #fffef5;
+    border: 3px solid #ffcc44;
+    border-radius: 60px;
+    padding: 10px 0;
+    color: #8b4513;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.difficulty-btn.active {
+    background: linear-gradient(135deg, #ffcc44, #ffa500);
+    border-color: #e67e22;
+    color: white;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.toggle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle-switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #ffcc88;
+    border-radius: 34px;
+    transition: 0.2s;
+    border: 2px solid #ffa500;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "🔊";
+    height: 24px;
+    width: 24px;
+    left: 3px;
+    bottom: 2px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+    transform: translateX(29px);
+    content: "🔇";
+}
+
+.highscore-box {
+    background: #fff8e7;
+    border-radius: 30px;
+    padding: 18px;
+    text-align: center;
+    margin: 25px 0;
+    border: 3px solid #ffcc44;
+}
+
+.highscore-label {
+    font-size: 0.8rem;
+    color: #e67e22;
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+.highscore-value {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    color: #f39c12;
+    font-weight: 700;
+}
+
+.start-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #ffcc44, #ffa500);
+    border: none;
+    border-radius: 60px;
+    padding: 16px;
+    color: white;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 0 #c0392b;
+}
+
+.start-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 3px 0 #c0392b;
+}
+
+.controls-hint {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #8b4513;
+    font-weight: 600;
+}
+
+/* ========== GAME SCREEN (Cartoon Theme) ========== */
+.game-wrapper {
+    width: min(100%, 760px);
+    margin: 0 auto;
+    padding: var(--app-padding);
+    display: grid;
+    gap: 14px;
+    align-content: center;
+    justify-items: stretch;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: clamp(10px, 2vw, 14px) clamp(12px, 3vw, 24px);
+    background: rgba(255, 245, 200, 0.95);
+    border-radius: 60px;
+    border: 3px solid #ffcc44;
+    margin-bottom: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.player-badge {
+    background: #ffebcc;
+    padding: 6px 18px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid #ffa500;
+}
+
+.player-badge span:first-child {
+    font-size: 1.2rem;
+}
+
+.player-name {
+    font-weight: 800;
+    color: #8b4513;
+    font-size: 0.9rem;
+}
+
+.score-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.score-item {
+    text-align: center;
+    padding: 5px 15px;
+    border-radius: 30px;
+    border: 2px solid #ffa500;
+}
+
+.score-label {
+    font-size: 0.6rem;
+    color: #e67e22;
+    letter-spacing: 1px;
+    font-weight: 800;
+}
+
+.score-number {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #e67e22;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #ffebcc;
+    border: 2px solid #ffa500;
+    color: #e67e22;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.08s linear;
+    font-weight: bold;
+}
+
+.action-icon:active {
+    transform: scale(0.92);
+}
+
+.arena {
+    position: relative;
+    width: 100%;
+    padding: clamp(10px, 2vw, 24px);
+    border-radius: clamp(18px, 4vw, 32px);
+    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+                url("./images/play.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+    width: min(100%, var(--canvas-size, 100%));
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 17px;
+    cursor: pointer;
+}
+
+/* Mobile Touch Controls - Cartoon Style */
+.touch-panel {
+    display: none;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.touch-row {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+}
+
+.touch-btn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #ffebcc;
+    border: 3px solid #ffa500;
+    color: #e67e22;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: 0.05s linear;
+    font-weight: bold;
+    box-shadow: 0 5px 0 #c0392b;
+}
+
+.touch-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #c0392b;
+}
+
+/* Game Over Modal - Cartoon */
+.gameover-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    padding: var(--app-padding);
+}
+
+.gameover-card {
+    max-width: 360px;
+    width: 90%;
+    padding: 40px 25px;
+    text-align: center;
+    background: #fff8e7;
+    border-radius: 60px;
+    border: 5px solid #ffcc44;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    max-height: calc(var(--safe-height) - (var(--app-padding) * 2));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.gameover-icon {
+    font-size: 70px;
+    margin-bottom: 10px;
+}
+
+.gameover-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: #e74c3c;
+    margin-bottom: 20px;
+}
+
+.final-score-label {
+    color: #8b4513;
+    font-size: 0.9rem;
+    font-weight: 800;
+}
+
+.final-score {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3rem;
+    color: #f39c12;
+    margin: 15px 0 25px;
+}
+
+.gameover-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Fredoka One', cursive;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.gameover-btn.primary {
+    background: linear-gradient(135deg, #ffcc44, #ffa500);
+    color: white;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.gameover-btn.secondary {
+    color: #8b4513;
+    border: 2px solid #ffa500;
+}
+
+.d-none {
+    display: none !important;
+}
+
+#settingsScreen,
+#gameScreen {
+    width: 100%;
+    min-height: var(--safe-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#gameScreen {
+    overflow-y: auto;
+    padding: var(--app-padding);
+}
+
+/* Responsive Design */
+@media (max-width: 550px) {
+    .game-header { 
+        flex-direction: column; 
+        border-radius: 28px; 
+        gap: 10px;
+        padding: 10px 12px;
+    }
+    .score-panel { 
+        order: 1; 
+        justify-content: center;
+    }
+    .action-buttons { 
+        order: 2; 
+    }
+    .touch-panel { 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+    }
+    .touch-btn { 
+        width: 60px; 
+        height: 60px; 
+        font-size: 1.6rem; 
+    }
+
+    .arena{
+            padding: 12px;
+            border-radius: 8px;
+            
+    }
+    canvas{
+        border-radius: 8px;
+    }
+
+    .score-panel {
+        gap: 10px;
+    }
+
+    .score-item {
+        padding: 5px 12px;
+    }
+
+    
+}
+
+@media (max-width: 380px) {
+    .touch-btn { 
+        width: 52px; 
+        height: 52px; 
+        font-size: 1.4rem; 
+    }
+}
+
+@media (max-width:550px){
+
+.game-header{
+    padding:8px 10px;
+}
+
+.player-badge{
+    padding:4px 10px;
+}
+
+.player-name{
+    max-width:80px;
+    font-size:12px;
+}
+
+.score-panel{
+    gap:10px;
+}
+
+.score-number{
+    font-size:14px;
+}
+
+.action-icon{
+    width:32px;
+    height:32px;
+    font-size:14px;
+}
+
+.loading-text {
+    font-size: 12px;
+}
+
+.progress-container {
+    width: 180px;
+    height: 12px;
+    overflow: hidden;
+    margin: 10px auto;
+}
+.loading-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    color: #fff8e7;
+    text-shadow: 4px 4px 0 #c0392b;
+    letter-spacing: 2px;
+    margin: 12px 0 10px;
+}
+.cartoon-card{
+    width: 100%;
+}
+
+
+.game-header{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.game-wrapper {
+    width: 100%;
+}
+
+
+}
+
+
+
+
+
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.player-name{
+    max-width:120px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* MOBILE ACTION BUTTONS */
+
+.mobile-actions{
+    display:none;
+    justify-content:center;
+    gap:12px;
+    margin-top:12px;
+}
+
+.mobile-btn{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    border:2px solid #ffa500;
+    background:#ffebcc;
+    font-size:16px;
+    color:#e67e22;
+    cursor:pointer;
+}
+
+ 
+/* ONLY SMALL SCREEN */
+@media (max-width:550px){
+
+.action-buttons{
+    display:none; /* header buttons hide */
+
+}
+
+.mobile-actions{
+    display:flex; /* bottom buttons show */
+    margin-top: 30px;
+}
+
+
+body{
+    height:100vh;
+    overflow:hidden;
+}
+
+.game-wrapper{
+    width:100%;
+    align-content: stretch;
+}
+
+.arena{
+    padding:10px 10px;
+}
+
+canvas{
+    max-height:none;
+}
+
+.mobile-btn{
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    border:2px solid #ffa500;
+    background:#ffebcc;
+    font-size:16px;
+    color:#e67e22;
+    cursor:pointer;
+}
+
+}
+
+
+
+ 
+        .gameover-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(8px);
+   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                url("./images/Lush\ jungle\ grid\ game\ background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Modern card with subtle depth */
+        .gameover-card {
+            max-width: 420px;
+            width: 90%;
+            background: #fff8e7;
+            border-radius: 48px;
+            border: none;
+            box-shadow: 0 35px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 204, 68, 0.3);
+            overflow: hidden;
+            animation: modalFloatIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transition: transform 0.2s;
+        }
+
+        @keyframes modalFloatIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* Header accent stripe */
+        .modal-accent {
+            height: 6px;
+            background: linear-gradient(90deg, #ffcc44, #ffa500, #e67e22);
+            width: 100%;
+        }
+
+        /* Inner content with modern spacing */
+        .modal-content-inner {
+            padding: 32px 28px 36px;
+        }
+
+        /* Icon + title row (professional grouping) */
+        .gameover-header-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .gameover-icon {
+            font-size: 48px;
+            line-height: 1;
+            filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.15));
+        }
+
+        .gameover-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.1rem;
+            color: #e74c3c;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: none;
+            margin: 0;
+        }
+
+        /* Score Card (modern elevated panel) */
+        .score-modern-card {
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 20px 16px;
+            margin-bottom: 28px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255,255,255,0.8);
+            border: 1px solid rgba(255, 204, 68, 0.5);
+            transition: all 0.2s;
+        }
+
+        .final-score-label {
+            color: #8b4513;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            opacity: 0.75;
+        }
+
+        .final-score {
+            font-family: 'Fredoka One', cursive;
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #f39c12, #e67e22);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            line-height: 1;
+            margin: 8px 0 0;
+            text-shadow: none;
+        }
+
+        /* Dynamic Jungle Message - modern badge style */
+        .jungle-message {
+            background: #fef3d6;
+            border-radius: 60px;
+            padding: 12px 18px;
+            margin: 20px 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #7b3f00;
+            border-left: 4px solid #ffcc44;
+            border-right: 4px solid #ffcc44;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .jungle-message span:first-child, 
+        .jungle-message span:last-child {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        #dynamicMessage {
+            font-weight: 600;
+            background: #fff0cc;
+            padding: 4px 12px;
+            border-radius: 40px;
+            display: inline-block;
+        }
+
+        /* HighScore Container - premium record chip */
+        .high-score-badge {
+            background: linear-gradient(110deg, #2c2b26, #1f1e1a);
+            border-radius: 60px;
+            padding: 10px 18px;
+            margin-bottom: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #ffdd99;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            width: auto;
+            backdrop-filter: blur(2px);
+            letter-spacing: 0.3px;
+        }
+
+        .high-score-badge span:first-child {
+            font-size: 1.2rem;
+        }
+
+        #displayHighScoreSpan {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.2rem;
+            color: #ffcc44;
+            margin-left: 6px;
+            background: none;
+            padding: 0;
+        }
+
+        /* Button Group - modern sleek design */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .gameover-btn {
+            width: 100%;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 60px;
+           font-family: 'Fredoka One', cursive;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: 0.3px;
+        }
+
+        .gameover-btn.primary {
+            background: linear-gradient(105deg, #ffcc44, #ffa500);
+            color: #2c1a0a;
+            box-shadow: 0 5px 0 #b4621a;
+            transform: translateY(-2px);
+        }
+
+        .gameover-btn.primary:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #b4621a;
+        }
+
+        .gameover-btn.secondary {
+            background: transparent;
+            color: #8b4513;
+            border: 2px solid #ffcc44;
+            backdrop-filter: blur(4px);
+        }
+
+        .gameover-btn.secondary:active {
+            background: rgba(255, 204, 68, 0.1);
+            transform: scale(0.98);
+        }
+
+        /* Hover effects (desktop) */
+        @media (hover: hover) {
+            .gameover-btn.primary:hover {
+                background: linear-gradient(105deg, #ffdb6e, #ffb347);
+                transform: translateY(-3px);
+                box-shadow: 0 7px 0 #b4621a;
+            }
+            .gameover-btn.secondary:hover {
+                background: rgba(255, 204, 68, 0.15);
+                border-color: #ffb347;
+            }
+        }
+
+        /* Utility class */
+        .d-none {
+            display: none !important;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .modal-content-inner {
+                padding: 24px 20px 28px;
+            }
+            .final-score {
+                font-size: 3.2rem;
+            }
+            .gameover-title {
+                font-size: 1.8rem;
+            }
+            .gameover-icon {
+                font-size: 38px;
+            }
+            .jungle-message {
+                font-size: 0.85rem;
+                padding: 10px 12px;
+            }
+            .high-score-badge {
+                font-size: 0.75rem;
+                padding: 8px 14px;
+            }
+        }
+
+@media (max-height: 760px) {
+    .loading-title {
+        font-size: clamp(1.5rem, 4vw, 2.1rem);
+        margin: 12px 0 16px;
+    }
+
+    .settings-panel {
+        border-radius: 28px;
+    }
+
+    .game-wrapper {
+        gap: 10px;
+    }
+}
+
+/* Final responsive overrides */
+body {
+    min-height: var(--safe-height);
+}
+
+#settingsScreen,
+#gameScreen,
+.loading-screen,
+.gameover-overlay {
+    min-height: var(--safe-height);
+}
+
+.loading-content {
+    margin-top: 0 !important;
+}
+
+.settings-container {
+    padding: var(--app-padding) !important;
+}
+
+.game-wrapper {
+    max-width: min(760px, 100%);
+    width: 100%;
+    height: auto !important;
+    padding: var(--app-padding);
+}
+
+.game-header {
+    width: 100%;
+    overflow: visible;
+}
+
+.arena {
+    width: 100%;
+}
+
+canvas {
+    width: min(100%, var(--canvas-size, 100%));
+    max-width: 100%;
+    max-height: none !important;
+}
+
+@media (max-width: 550px) {
+    body {
+        min-height: var(--safe-height);
+    }
+
+    .game-wrapper {
+        padding: 12px;
+    }
+
+    .game-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .player-badge,
+    .score-panel,
+    .action-buttons,
+    .mobile-actions {
+        justify-content: center;
+    }
+}
+
+.gameover-overlay::-webkit-scrollbar,
+.gameover-card::-webkit-scrollbar,
+.settings-panel::-webkit-scrollbar,
+#gameScreen::-webkit-scrollbar {
+    width: 8px;
+}
+
+.gameover-overlay::-webkit-scrollbar-thumb,
+.gameover-card::-webkit-scrollbar-thumb,
+.settings-panel::-webkit-scrollbar-thumb,
+#gameScreen::-webkit-scrollbar-thumb {
+    background: rgba(255, 204, 68, 0.85);
+    border-radius: 999px;
+}
+
+/* Final mobile gameplay + modal fixes */
+.gameover-overlay {
+    align-items: flex-start;
+    overflow-y: auto;
+    padding: var(--app-padding);
+}
+
+.gameover-card {
+    margin: auto;
+    width: min(100%, 420px);
+    max-height: none;
+}
+
+#gameScreen {
+    align-items: center;
+    justify-content: center;
+    min-height: var(--safe-height);
+    max-height: var(--safe-height);
+    height: var(--safe-height);
+    overflow-y: hidden;
+    overflow-x: hidden;
+    padding: var(--app-padding);
+    box-sizing: border-box;
+}
+
+.game-wrapper {
+    max-width: min(100%, 860px);
+    min-height: calc(var(--safe-height) - (var(--app-padding) * 2));
+    align-content: center;
+}
+
+.arena {
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+canvas {
+    width: min(100%, var(--canvas-size, 100%));
+    max-width: 100%;
+}
+
+@media (max-width: 550px) {
+    body {
+        height: var(--safe-height) !important;
+        min-height: var(--safe-height);
+        overflow-y: hidden !important;
+        overflow-x: hidden;
+    }
+
+    #gameScreen {
+        align-items: center;
+        justify-content: center;
+        min-height: var(--safe-height);
+        max-height: var(--safe-height);
+        height: var(--safe-height);
+        overflow-y: hidden !important;
+        overflow-x: hidden;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+
+    .game-wrapper {
+        max-width: 100%;
+        padding: 8px;
+        gap: 10px;
+        margin: 0 auto;
+        min-height: calc(var(--safe-height) - 16px);
+        align-content: center;
+    }
+
+    .game-header {
+        margin-bottom: 0;
+        border-radius: 22px;
+    }
+
+    .arena {
+        background: transparent !important;
+        padding: 0 !important;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    canvas {
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 14px;
+    }
+
+    .gameover-overlay {
+        padding: 10px;
+        align-items: flex-start;
+    }
+
+    .gameover-card {
+        width: 100%;
+        max-width: 100%;
+        max-height: none;
+        border-radius: 28px;
+        margin: 0 auto;
+    }
+
+    .modal-content-inner {
+        padding: 20px 16px 22px;
+    }
+}

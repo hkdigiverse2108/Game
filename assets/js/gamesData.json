@@ -99,12 +99,12 @@
       "tags": ["update"]
     },
     {
-      "id": "snake-and-ladder",
-      "gameTitle": "Snake and Ladder",
-      "gameUrl": "gameDistribution/Snake-and-Ladder.html",
-      "thumbnailUrl": "game/Snake-and-Ladders/sprites/logo_menu.png",
-      "categories": ["board", "puzzle", "for you", "multiplayer"],
-      "tags": ["new"]
+      "id": "ultimate-car",
+      "gameTitle": "Ultimate Car",
+      "gameUrl": "gameDistribution/Ultimate-Car.html",
+      "thumbnailUrl": "game/ultimate-car/images/logo.png",
+      "categories": ["racing", "action", "for you"],
+      "tags": ["new", "3d"]
     },
     {
       "id": "bubble-short",
@@ -121,7 +121,39 @@
       "thumbnailUrl": "game/Breakout/img/thumb.png",
       "categories": ["arcade", "action", "puzzle", "for you"],
       "tags": ["new"]
+    },
+    {
+      "id": "snack-and-apple",
+      "gameTitle": "Snack and Apple",
+      "gameUrl": "gameDistribution/Snack-And-Apple.html",
+      "thumbnailUrl": "game/Snack_And_Apple/images/thumb.png",
+      "categories": ["arcade", "action", "for you"],
+      "tags": ["fun"]
+    },
+    {
+      "id": "snake-and-ladder",
+      "gameTitle": "Snake and Ladder",
+      "gameUrl": "gameDistribution/Snake-and-Ladder.html",
+      "thumbnailUrl": "game/Snake-and-Ladders/sprites/logo_menu.png",
+      "categories": ["board", "puzzle", "for you", "multiplayer"],
+      "tags": ["new"]
+    },
+    {
+      "id": "angry-birds",
+      "gameTitle": "Angry Birds",
+      "gameUrl": "gameDistribution/AngryBirds.html",
+      "thumbnailUrl": "game/AngryBirds/thumb.png",
+      "categories": ["action", "arcade", "puzzle", "for you"],
+      "tags": [ "hot", "classic"]
+    },
+    {
+      "id": "car-parking",
+      "gameTitle": "Car Parking",
+      "gameUrl": "gameDistribution/CarParking.html",
+      "thumbnailUrl": "game/carparking/images/thumb.png",
+      "categories": ["racing", "action", "for you"],
+      "tags": ["new", "3d"]
     }
   ],
-  "gameTags": ["hot", "new", "3d", "pro", "update"]
+  "gameTags": ["hot", "new", "3d", "pro", "update", "classic"]
 }
