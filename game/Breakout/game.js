@@ -32,24 +32,40 @@ playBtn.addEventListener("click", () => {
 const TOTAL_LEVELS = 60;
 let levelData = JSON.parse(localStorage.getItem('breakoutLevels')) || { 1: { unlocked: true, stars: 0 } };
 
+function getLevelLayout() {
+    const isMobileWidth = window.innerWidth <= 576;
+    const isCompactHeight = window.innerHeight <= 760;
+
+    if (isMobileWidth) {
+        return { columns: 4, levelsPerPage: 20 };
+    }
+
+    if (isCompactHeight) {
+        return { columns: 5, levelsPerPage: 20 };
+    }
+
+    return { columns: 5, levelsPerPage: 30 };
+}
+
 function initLevelScreen() {
     let slider = document.querySelector('.level-slider');
     slider.innerHTML = '';
-    
-    let levelsPerPage = window.innerWidth <= 576 ? 20 : 30;
+    const { columns, levelsPerPage } = getLevelLayout();
     let totalPages = Math.ceil(TOTAL_LEVELS / levelsPerPage);
-    
+
+    levelScreen.style.setProperty("--level-columns", columns);
+
     // adjust slider width to hold all pages
     slider.style.width = (totalPages * 100) + "%";
-    
+
     for (let p = 1; p <= totalPages; p++) {
         let pageDiv = document.createElement("div");
         pageDiv.classList.add("level-page");
         pageDiv.style.width = (100 / totalPages) + "%";
-        
+
         let startLvl = (p - 1) * levelsPerPage + 1;
         let endLvl = Math.min(startLvl + levelsPerPage - 1, TOTAL_LEVELS);
-        
+
         for (let i = startLvl; i <= endLvl; i++) {
             let btn = document.createElement("div");
             btn.classList.add("level-btn");
@@ -82,7 +98,7 @@ function getStarsHTML(stars) {
 
 let currentPage = 1;
 document.getElementById("next-page-btn").addEventListener("click", () => {
-    let levelsPerPage = window.innerWidth <= 576 ? 20 : 30;
+    let { levelsPerPage } = getLevelLayout();
     let totalPages = Math.ceil(TOTAL_LEVELS / levelsPerPage);
     if(currentPage < totalPages) {
         currentPage++;
@@ -92,7 +108,7 @@ document.getElementById("next-page-btn").addEventListener("click", () => {
     }
 });
 document.getElementById("prev-page-btn").addEventListener("click", () => {
-    let levelsPerPage = window.innerWidth <= 576 ? 20 : 30;
+    let { levelsPerPage } = getLevelLayout();
     let totalPages = Math.ceil(TOTAL_LEVELS / levelsPerPage);
     if(currentPage > 1) {
         currentPage--;
@@ -545,7 +561,6 @@ function audioManager() {
     WIN.muted = !WIN.muted;
     LIFE_LOST.muted = !LIFE_LOST.muted;
 }
-
 
 
 

@@ -59,12 +59,13 @@
       "tags": ["hot"]
     },
     {
-      "id": "fruit-ninja",
-      "gameTitle": "Fruit Ninja",
-      "gameUrl": "gameDistribution/FruitNinja.html",
-      "thumbnailUrl": "game/FruitNinja/FruitNinja.png",
-      "categories": ["arcade", "action", "for you"],
-      "tags": ["update", "pro"]
+      "id": "bottle-strike",
+      "gameTitle": "Bottle Strike",
+      "gameUrl": "gameDistribution/Bottle-Strike.html",
+      "thumbnailUrl": "game/bottle strike/thumb.png",
+      "categories": ["arcade", "sports", "for you"],
+      "tags": ["3d", "new"],
+      "description": "Experience the thrill of precision and timing in Bottle Strike! Test your skills as you aim and strike bottles in a realistic 3D bowling alley. Enjoy accurate physics, beautiful graphics, and easy-to-use controls for endless fun."
     },
     {
       "id": "8-ball-pool",
@@ -144,7 +145,7 @@
       "gameUrl": "gameDistribution/AngryBirds.html",
       "thumbnailUrl": "game/AngryBirds/thumb.png",
       "categories": ["action", "arcade", "puzzle", "for you"],
-      "tags": [ "hot", "classic"]
+      "tags": ["hot", "classic"]
     },
     {
       "id": "car-parking",
@@ -161,6 +162,59 @@
       "thumbnailUrl": "game/Slither.io/thumb.png",
       "categories": ["action", "multiplayer", "arcade", "for you"],
       "tags": ["hot", "multiplayer"]
+    },
+    {
+      "id": "fruit-ninja",
+      "gameTitle": "Fruit Ninja",
+      "gameUrl": "gameDistribution/FruitNinja.html",
+      "thumbnailUrl": "game/FruitNinja/FruitNinja.png",
+      "categories": ["arcade", "action", "for you"],
+      "tags": ["update", "pro"]
+    },
+    {
+      "id": "double-jump",
+      "gameTitle": "Double Jump",
+      "gameUrl": "gameDistribution/Double-Jump.html",
+      "thumbnailUrl": "game/Double-Jump/images/thumb.png",
+      "categories": ["arcade", "action", "for you"],
+      "tags": ["new", "fun"],
+      "description": "Bounce higher and higher in Double Jump! Control your character, land on platforms, and use double jumps to reach new heights. Colorful visuals and smooth controls make this an exciting challenge for all ages."
+    },
+    {
+      "id": "escape-road",
+      "gameTitle": "Escape Road",
+      "gameUrl": "gameDistribution/Escape-Road.html",
+      "thumbnailUrl": "game/Escape-road/thumb.png",
+      "categories": ["arcade", "runner", "for you", "racing"],
+      "tags": ["hot", "new"],
+      "description": "Navigate tricky roads and avoid obstacles in Escape Road! Guide your car through challenging tracks, react quickly, and see how far you can go. Simple controls and addictive gameplay make this a must-play for fans of endless runners."
+    },
+    {
+      "id": "2048-numstack",
+      "gameTitle": "2048 NumStack",
+      "gameUrl": "gameDistribution/2048-NumStack.html",
+      "thumbnailUrl": "game/2048-NumStack/thumb.png",
+      "categories": ["puzzle", "arcade", "for you"],
+      "tags": ["new", "classic"],
+      "description": "Slide matching number tiles together in 2048 NumStack and build your way up to the 2048 tile. Plan each move carefully, protect open space on the board, and keep the merges coming."
+    },
+    {
+      "id": "carrom-master",
+      "gameTitle": "Carrom Master",
+      "gameUrl": "gameDistribution/Carrom-Master.html",
+      "thumbnailUrl": "game/carrom master/thumb.png",
+        "categories": ["board", "multiplayer", "for you"],
+      "tags": ["classic", "multiplayer"],
+      "description": "Play Carrom Master online and enjoy a smooth browser version of the classic carrom board game. Aim the striker, control your power, pocket your coins cleanly, and try to clear the board before your opponent."
+    },
+    {
+      "id": "candy-crush",
+      "gameTitle": "Candy Crush",
+      "gameUrl": "gameDistribution/Candy-Crush.html",
+      "thumbnailUrl": "game/candy crush/thumb.png",
+      "categories": ["puzzle", "arcade", "for you"],
+      "tags": ["new", "classic"],
+      "description": "Play Candy Crush online and match colorful candies to clear the board, build combos, and complete each level with smart moves. Create special pieces, trigger chain reactions, and plan ahead to beat tougher layouts."
     }
   ],
   "gameTags": ["hot", "new", "3d", "pro", "update", "classic", "multiplayer"]

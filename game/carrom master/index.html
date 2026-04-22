@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Carrom</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    :root {
+      --bg-1: #120906;
+      --bg-2: #24140c;
+      --bg-3: #4c2b17;
+      --panel: rgba(21, 11, 7, 0.78);
+      --panel-soft: rgba(255, 241, 222, 0.06);
+      --panel-border: rgba(255, 220, 175, 0.12);
+      --text: #f9f1e5;
+      --text-soft: rgba(249, 241, 229, 0.72);
+      --accent: #f4b25c;
+      --accent-2: #ea8451;
+      --shadow: 0 26px 70px rgba(0, 0, 0, 0.36);
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-right: env(safe-area-inset-right, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-left: env(safe-area-inset-left, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(255, 220, 170, 0.12), transparent 26%),
+        linear-gradient(180deg, #3f2414 0%, #24150d 48%, #100806 100%);
+    }
+
+    body {
+      position: fixed;
+      inset: 0;
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      display: none;
+      background:
+        radial-gradient(circle at center, rgba(255, 214, 150, 0.05), transparent 34%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.22));
+    }
+
+    .screen.visible {
+      display: grid;
+    }
+
+    .center {
+      place-items: center;
+      padding: 20px;
+    }
+
+    .panel {
+      width: min(90vw, 460px);
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .loader-panel {
+      padding: 28px;
+      display: grid;
+      place-items: center;
+      gap: 18px;
+    }
+
+    .loader-title {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ffe3b8;
+      text-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+    }
+
+    .loader-board {
+      width: min(58vw, 280px);
+      aspect-ratio: 1;
+      border-radius: 32px;
+      background: linear-gradient(135deg, #f2e2be, #d19a63);
+      border: 14px solid #5b3419;
+      box-shadow: inset 0 0 0 10px rgba(255, 245, 224, 0.22), 0 22px 34px rgba(0, 0, 0, 0.28);
+      position: relative;
+      animation: rotateBoard 3s ease-in-out forwards;
+    }
+
+    .loader-pocket {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #1f0d05;
+    }
+
+    .loader-pocket.tl { top: 10px; left: 10px; }
+    .loader-pocket.tr { top: 10px; right: 10px; }
+    .loader-pocket.bl { bottom: 10px; left: 10px; }
+    .loader-pocket.br { bottom: 10px; right: 10px; }
+
+    .loader-piece {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+      animation: floatPiece 2.1s ease-in-out infinite;
+    }
+
+    .loader-piece.queen {
+      width: 26px;
+      height: 26px;
+      background: radial-gradient(circle at 35% 35%, #ffb9b9, #cf2028);
+      top: 30%;
+    }
+
+    .loader-piece.black {
+      width: 26px;
+      height: 26px;
+      background: radial-gradient(circle at 35% 35%, #626262, #171717);
+      left: 28%;
+      animation-delay: -0.4s;
+    }
+
+    .loader-piece.white {
+      width: 26px;
+      height: 26px;
+      background: radial-gradient(circle at 35% 35%, #ffffff, #f3efe8);
+      top: 72%;
+      animation-delay: -0.8s;
+    }
+
+    .loader-piece.striker {
+      width: 30px;
+      height: 30px;
+      background: radial-gradient(circle at 35% 35%, #fff0c9, #d4a03f);
+      left: 72%;
+      animation-delay: -1.2s;
+    }
+
+    .settings-panel {
+      padding: 22px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .mode-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .mode-card,
+    .start-btn {
+      border: 1px solid rgba(255, 226, 186, 0.1);
+      background: rgba(255, 241, 222, 0.05);
+      border-radius: 18px;
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+    }
+
+    .mode-card {
+      min-height: 148px;
+      padding: 16px 12px;
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+      align-content: center;
+    }
+
+    .mode-card.active {
+      background: rgba(244, 178, 92, 0.16);
+      border-color: rgba(244, 178, 92, 0.4);
+      color: #ffe6bf;
+    }
+
+    .mode-title {
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .mode-icons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 44px;
+      color: #ffe1b4;
+      font-size: 1.38rem;
+    }
+
+    .mode-vs {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      color: rgba(255, 233, 198, 0.72);
+    }
+
+    .start-btn {
+      padding: 16px;
+      background: linear-gradient(180deg, #ffe0af, #ffb866);
+      color: #4c2611;
+      font-weight: 800;
+      border: 0;
+    }
+
+    .game-screen {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .board-wrap {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: min(90vw, 90vh, 860px);
+      height: min(90vw, 90vh, 860px);
+      transform: translate(-50%, -50%);
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .placement-rail {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 240px;
+      height: 28px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      pointer-events: auto;
+      z-index: 6;
+      transition: left 180ms ease, top 180ms ease, width 180ms ease, opacity 140ms ease;
+    }
+
+    .placement-rail.visible {
+      display: flex;
+    }
+
+    .placement-rail.disabled {
+      opacity: 0.8;
+    }
+
+    .rail-track {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #7f4c24, #4b2813);
+      border: 2px solid rgba(255, 221, 176, 0.16);
+      box-shadow:
+        inset 0 3px 8px rgba(255, 232, 191, 0.1),
+        inset 0 -4px 10px rgba(0, 0, 0, 0.18),
+        0 10px 18px rgba(0, 0, 0, 0.22);
+    }
+
+    .rail-track::before {
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      top: 50%;
+      height: 4px;
+      transform: translateY(-50%);
+      border-radius: 999px;
+      background: rgba(255, 240, 214, 0.18);
+    }
+
+    .rail-knob {
+      position: absolute;
+      top: 50%;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle at 35% 35%, #fff0ca, #d4a03f);
+      border: 2px solid rgba(116, 67, 20, 0.7);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+      pointer-events: none;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+      cursor: grab;
+    }
+
+    canvas.dragging {
+      cursor: grabbing;
+    }
+
+    .hud {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .top-bar {
+      position: absolute;
+      top: calc(14px + var(--safe-top));
+      left: calc(14px + var(--safe-left));
+      right: calc(14px + var(--safe-right));
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 10px;
+    }
+
+    .side-stack {
+      display: grid;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .side-stack.right {
+      justify-items: end;
+    }
+
+    .score-box,
+    .turn-box,
+    .player-status,
+    .side-power-shell,
+    .control-btn,
+    .result-card {
+      background: rgba(18, 10, 6, 0.48);
+      border: 1px solid var(--panel-border);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .score-box {
+      width: 138px;
+      padding: 10px 14px;
+      border-radius: 18px;
+      text-align: center;
+    }
+
+    .score-box .name {
+      font-size: 0.72rem;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .score-box .value {
+      margin-top: 4px;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 700;
+    }
+
+    .score-box.active {
+      border-color: rgba(244, 178, 92, 0.24);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(244, 178, 92, 0.15) inset;
+    }
+
+    .center-ui {
+      position: absolute;
+      top: calc(16px + var(--safe-top));
+      left: 50%;
+      transform: translateX(-50%);
+      display: grid;
+      gap: 8px;
+      width: min(82vw, 360px);
+      justify-items: center;
+    }
+
+    .turn-box {
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: clamp(0.84rem, 2.6vw, 1rem);
+      color: #ffe6bd;
+      white-space: nowrap;
+    }
+
+    .player-status {
+      width: 164px;
+      padding: 10px 12px;
+      border-radius: 18px;
+      display: grid;
+      gap: 8px;
+      opacity: 0.5;
+      transform: scale(0.97);
+      transition: opacity 160ms ease, transform 160ms ease, border-color 160ms ease;
+    }
+
+    .player-status.active {
+      opacity: 1;
+      transform: scale(1);
+      border-color: rgba(244, 178, 92, 0.24);
+    }
+
+    .status-line {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .status-line.lead {
+      color: #ffe6bd;
+      font-weight: 700;
+    }
+
+    .status-count {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .counter-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+
+    .counter-dot.black { background: #171717; box-shadow: 0 0 0 1px rgba(255,255,255,0.12); }
+    .counter-dot.white { background: #f3efe8; }
+    .counter-dot.red { background: #cf2028; }
+
+    .side-power-shell {
+      width: 164px;
+      padding: 12px;
+      border-radius: 999px;
+      opacity: 0;
+      transform: scale(0.94);
+      visibility: hidden;
+      transition: opacity 160ms ease, transform 160ms ease, border-color 160ms ease, visibility 160ms ease;
+    }
+
+    .side-power-shell.active {
+      opacity: 1;
+      transform: scale(1);
+      visibility: visible;
+      border-color: rgba(244, 178, 92, 0.24);
+    }
+
+    .bottom-ui {
+      display: none;
+    }
+
+    .power-track {
+      height: 8px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .power-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #62d2a2 0%, #ffd56c 54%, #ff7d61 100%);
+      transition: width 40ms linear;
+    }
+
+    .controls {
+      position: absolute;
+      right: calc(14px + var(--safe-right));
+      bottom: calc(16px + var(--safe-bottom));
+      pointer-events: auto;
+      display: flex;
+      gap: 10px;
+    }
+
+    .control-btn,
+    .result-card button {
+      border: 0;
+      border-radius: 16px;
+      color: var(--text);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .control-btn {
+      padding: 10px 14px;
+    }
+
+    .result {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      background: rgba(10, 6, 4, 0.5);
+      pointer-events: auto;
+    }
+
+    .result.visible {
+      display: grid;
+    }
+
+    .result-card {
+      width: min(86vw, 320px);
+      padding: 22px;
+      border-radius: 24px;
+      text-align: center;
+    }
+
+    .result-card h2 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .result-card p {
+      margin: 10px 0 18px;
+      color: var(--text-soft);
+    }
+
+    .result-card button {
+      padding: 12px 16px;
+      background: linear-gradient(180deg, #ffe0af, #ffb667);
+      color: #4c2510;
+    }
+
+    @keyframes rotateBoard {
+      0% { transform: rotate(-10deg) scale(0.92); }
+      50% { transform: rotate(8deg) scale(1); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+
+    @keyframes floatPiece {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.1); }
+    }
+
+    @media (max-width: 480px) {
+      .board-wrap {
+        width: min(90vw, 76vh);
+        height: min(90vw, 76vh);
+        border-radius: 24px;
+      }
+
+      .placement-rail {
+        height: 24px;
+      }
+
+      .rail-knob {
+        width: 24px;
+        height: 24px;
+      }
+
+      .score-box {
+        width: 104px;
+        padding: 8px 12px;
+      }
+
+      .top-bar {
+        top: calc(10px + var(--safe-top));
+        left: calc(10px + var(--safe-left));
+        right: calc(10px + var(--safe-right));
+      }
+
+      .side-stack {
+        gap: 8px;
+      }
+
+      .player-status,
+      .side-power-shell {
+        width: 118px;
+        padding: 8px 10px;
+      }
+
+      .status-line {
+        gap: 6px;
+        font-size: 0.7rem;
+      }
+
+      .center-ui {
+        top: calc(10px + var(--safe-top));
+        width: min(56vw, 180px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="screen center visible" id="loadingScreen">
+    <div class="panel loader-panel">
+      <div class="loader-board">
+        <span class="loader-pocket tl"></span>
+        <span class="loader-pocket tr"></span>
+        <span class="loader-pocket bl"></span>
+        <span class="loader-pocket br"></span>
+        <span class="loader-piece queen"></span>
+        <span class="loader-piece black"></span>
+        <span class="loader-piece white"></span>
+        <span class="loader-piece striker"></span>
+      </div>
+      <div class="loader-title">Carrom Master</div>
+    </div>
+  </div>
+
+  <div class="screen center" id="settingsScreen">
+    <div class="panel settings-panel">
+      <div class="mode-grid">
+        <button class="mode-card active" id="modePvp" type="button">
+          <div class="mode-icons" aria-hidden="true">
+            <i class="fa-solid fa-user"></i>
+            <span class="mode-vs">VS</span>
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div class="mode-title">Player Vs Player</div>
+        </button>
+        <button class="mode-card" id="modeAi" type="button">
+          <div class="mode-icons" aria-hidden="true">
+            <i class="fa-solid fa-user"></i>
+            <span class="mode-vs">VS</span>
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="mode-title">Player Vs AI</div>
+        </button>
+      </div>
+      <button class="start-btn" id="startGameBtn" type="button">Start</button>
+    </div>
+  </div>
+
+  <div class="screen visible game-screen" id="gameScreen" style="display:none;">
+    <div class="board-wrap">
+      <canvas id="boardCanvas" aria-label="Carrom board"></canvas>
+    </div>
+    <div class="placement-rail" id="placementRail" aria-label="Striker placement rail">
+      <div class="rail-track"></div>
+      <div class="rail-knob" id="railKnob"></div>
+    </div>
+
+    <div class="hud">
+      <div class="top-bar">
+        <div class="side-stack left">
+          <div class="score-box" id="leftScoreBox">
+            <div class="name" id="leftName">Player 1</div>
+            <div class="value" id="leftScore">0</div>
+          </div>
+          <div class="player-status" id="leftStatusBox">
+            <div class="status-line lead" id="leftLeadText">Tie</div>
+            <div class="status-line">
+              <span class="status-count"><span class="counter-dot black"></span><span id="blackLeft">9</span></span>
+              <span class="status-count"><span class="counter-dot white"></span><span id="whiteLeft">9</span></span>
+              <span class="status-count"><span class="counter-dot red"></span><span id="queenLeft">1</span></span>
+            </div>
+          </div>
+          <div class="side-power-shell" id="leftPowerShell">
+            <div class="power-track">
+              <div class="power-fill" id="powerFill"></div>
+            </div>
+          </div>
+        </div>
+        <div class="side-stack right">
+          <div class="score-box" id="rightScoreBox">
+            <div class="name" id="rightName">Player 2</div>
+            <div class="value" id="rightScore">0</div>
+          </div>
+          <div class="player-status" id="rightStatusBox">
+            <div class="status-line lead" id="rightLeadText">Tie</div>
+            <div class="status-line">
+              <span class="status-count"><span class="counter-dot black"></span><span id="blackLeftMirror">9</span></span>
+              <span class="status-count"><span class="counter-dot white"></span><span id="whiteLeftMirror">9</span></span>
+              <span class="status-count"><span class="counter-dot red"></span><span id="queenLeftMirror">1</span></span>
+            </div>
+          </div>
+          <div class="side-power-shell" id="rightPowerShell">
+            <div class="power-track">
+              <div class="power-fill" id="powerFillMirror"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="center-ui">
+        <div class="turn-box" id="turnText">Player 1</div>
+      </div>
+
+      <div class="controls">
+        <button class="control-btn" id="resetBtn" type="button">Reset</button>
+      </div>
+
+      <div class="result" id="resultOverlay">
+        <div class="result-card">
+          <h2 id="resultTitle">Winner</h2>
+          <p id="resultText">Play again.</p>
+          <button id="playAgainBtn" type="button">Play Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const loadingScreen = document.getElementById("loadingScreen");
+      const settingsScreen = document.getElementById("settingsScreen");
+      const gameScreen = document.getElementById("gameScreen");
+      const modePvpBtn = document.getElementById("modePvp");
+      const modeAiBtn = document.getElementById("modeAi");
+      const startGameBtn = document.getElementById("startGameBtn");
+      const boardWrap = document.querySelector(".board-wrap");
+      const canvas = document.getElementById("boardCanvas");
+      const ctx = canvas.getContext("2d");
+      const placementRail = document.getElementById("placementRail");
+      const railKnob = document.getElementById("railKnob");
+      const leftScoreBox = document.getElementById("leftScoreBox");
+      const rightScoreBox = document.getElementById("rightScoreBox");
+      const leftStatusBox = document.getElementById("leftStatusBox");
+      const rightStatusBox = document.getElementById("rightStatusBox");
+      const leftPowerShell = document.getElementById("leftPowerShell");
+      const rightPowerShell = document.getElementById("rightPowerShell");
+      const leftNameEl = document.getElementById("leftName");
+      const rightNameEl = document.getElementById("rightName");
+      const leftScoreEl = document.getElementById("leftScore");
+      const rightScoreEl = document.getElementById("rightScore");
+      const turnTextEl = document.getElementById("turnText");
+      const leftLeadText = document.getElementById("leftLeadText");
+      const rightLeadText = document.getElementById("rightLeadText");
+      const blackLeftEl = document.getElementById("blackLeft");
+      const whiteLeftEl = document.getElementById("whiteLeft");
+      const queenLeftEl = document.getElementById("queenLeft");
+      const powerFillEl = document.getElementById("powerFill");
+      const blackLeftMirrorEl = document.getElementById("blackLeftMirror");
+      const whiteLeftMirrorEl = document.getElementById("whiteLeftMirror");
+      const queenLeftMirrorEl = document.getElementById("queenLeftMirror");
+      const powerFillMirrorEl = document.getElementById("powerFillMirror");
+      const resetBtn = document.getElementById("resetBtn");
+      const resultOverlay = document.getElementById("resultOverlay");
+      const resultTitle = document.getElementById("resultTitle");
+      const resultText = document.getElementById("resultText");
+      const playAgainBtn = document.getElementById("playAgainBtn");
+
+      const CONFIG = {
+        baseBoard: 800,
+        paddingRatio: 0.08,
+        laneOffsetRatio: 0.155,
+        laneWidthRatio: 0.225,
+        pocketRatio: 0.035,
+        coinRatio: 0.018,
+        strikerRatio: 0.022,
+        friction: 0.992,
+        wallBounce: 0.987,
+        coinBounce: 0.994,
+        stopSpeed: 0.03,
+        aimDragRatio: 0.27,
+        minSpeedRatio: 0.0048,
+        maxSpeedRatio: 0.029,
+        queenPoints: 5,
+        whitePoints: 2,
+        blackPoints: 1,
+      };
+
+      const state = {
+        screen: "loading",
+        mode: "pvp",
+        boardSize: CONFIG.baseBoard,
+        innerMin: 64,
+        innerMax: 736,
+        laneOffset: 124,
+        laneWidth: 180,
+        pocketRadius: 28,
+        coinRadius: 14.4,
+        strikerRadius: 17.6,
+        maxAimDrag: 216,
+        minShotSpeed: 3.84,
+        maxShotSpeed: 23.2,
+        pocketCenters: [],
+        coins: [],
+        striker: null,
+        scores: [0, 0],
+        activePlayer: 0,
+        shotInProgress: false,
+        readyForShot: true,
+        isDragging: false,
+        isAiming: false,
+        activePointerId: null,
+        railPointerId: null,
+        railDragging: false,
+        gestureMode: "place",
+        aimVector: { x: 0, y: -1 },
+        aimPower: 0,
+        overlayVisible: false,
+        aiPending: false,
+        soundReady: false,
+        audioContext: null,
+        lastTime: 0,
+        glowTick: 0,
+        shotPottedCoins: [],
+        shotPottedQueen: false,
+        queenState: {
+          capturedBy: null,
+          awaitingCover: false,
+          removed: false,
+        },
+      };
+
+      // =========================
+      // Shared Helpers
+      // =========================
+      function clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+      }
+
+      function distance(x1, y1, x2, y2) {
+        return Math.hypot(x2 - x1, y2 - y1);
+      }
+
+      function normalize(x, y) {
+        const len = Math.hypot(x, y) || 1;
+        return { x: x / len, y: y / len };
+      }
+
+      function lerp(a, b, t) {
+        return a + (b - a) * t;
+      }
+
+      function showScreen(name) {
+        state.screen = name;
+        loadingScreen.style.display = name === "loading" ? "grid" : "none";
+        settingsScreen.style.display = name === "settings" ? "grid" : "none";
+        gameScreen.style.display = name === "game" ? "block" : "none";
+      }
+
+      function isAiMode() {
+        return state.mode === "ai";
+      }
+
+      function isAiTurn() {
+        return isAiMode() && state.activePlayer === 1;
+      }
+
+      function playerLabel(index) {
+        if (index === 0) {
+          return isAiMode() ? "Player" : "Player 1";
+        }
+        return isAiMode() ? "AI" : "Player 2";
+      }
+
+      function currentLaneY() {
+        return state.activePlayer === 0
+          ? state.innerMax - state.laneOffset
+          : state.innerMin + state.laneOffset;
+      }
+
+      function laneBounds() {
+        const center = state.boardSize / 2;
+        return {
+          min: center - state.laneWidth,
+          max: center + state.laneWidth,
+        };
+      }
+
+      function scoreForCoin(type) {
+        if (type === "queen") {
+          return CONFIG.queenPoints;
+        }
+        return type === "white" ? CONFIG.whitePoints : CONFIG.blackPoints;
+      }
+
+      function countCoins(type) {
+        return state.coins.filter((coin) => coin.type === type).length;
+      }
+
+      function createBody(x, y, radius, color, type) {
+        return { x, y, vx: 0, vy: 0, radius, color, type, active: true };
+      }
+
+      function queenOnBoard() {
+        return state.coins.some((coin) => coin.type === "queen");
+      }
+
+      // =========================
+      // Sound
+      // =========================
+      function initAudio() {
+        if (state.soundReady) {
+          return;
+        }
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) {
+          return;
+        }
+        state.audioContext = new AudioContextClass();
+        state.soundReady = true;
+      }
+
+      function tone(frequency, duration, gainValue, type) {
+        if (!state.audioContext) {
+          return;
+        }
+        const now = state.audioContext.currentTime;
+        const osc = state.audioContext.createOscillator();
+        const gain = state.audioContext.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(frequency, now);
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(gainValue, now + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+        osc.connect(gain).connect(state.audioContext.destination);
+        osc.start(now);
+        osc.stop(now + duration + 0.02);
+      }
+
+      function playHitSound(intensity) {
+        if (!state.audioContext) {
+          return;
+        }
+        tone(150 + intensity * 240, 0.1, 0.02 + intensity * 0.03, "triangle");
+      }
+
+      function playPocketSound() {
+        if (!state.audioContext) {
+          return;
+        }
+        tone(540, 0.08, 0.04, "sine");
+        setTimeout(() => tone(760, 0.12, 0.03, "triangle"), 45);
+      }
+
+      function playWinSound() {
+        if (!state.audioContext) {
+          return;
+        }
+        tone(392, 0.18, 0.05, "triangle");
+        setTimeout(() => tone(523, 0.18, 0.05, "triangle"), 120);
+        setTimeout(() => tone(659, 0.26, 0.06, "triangle"), 240);
+      }
+
+      // =========================
+      // Layout + Responsive Board
+      // =========================
+      function applyMetrics(size) {
+        const previous = state.boardSize || size;
+        const ratio = size / previous;
+
+        state.boardSize = size;
+        state.innerMin = size * CONFIG.paddingRatio;
+        state.innerMax = size - state.innerMin;
+        state.laneOffset = size * CONFIG.laneOffsetRatio;
+        state.laneWidth = size * CONFIG.laneWidthRatio;
+        state.pocketRadius = size * CONFIG.pocketRatio;
+        state.coinRadius = size * CONFIG.coinRatio;
+        state.strikerRadius = size * CONFIG.strikerRatio;
+        state.maxAimDrag = size * CONFIG.aimDragRatio;
+        state.minShotSpeed = size * CONFIG.minSpeedRatio;
+        state.maxShotSpeed = size * CONFIG.maxSpeedRatio;
+        state.pocketCenters = [
+          { x: state.innerMin + state.pocketRadius * 0.25, y: state.innerMin + state.pocketRadius * 0.25 },
+          { x: state.innerMax - state.pocketRadius * 0.25, y: state.innerMin + state.pocketRadius * 0.25 },
+          { x: state.innerMin + state.pocketRadius * 0.25, y: state.innerMax - state.pocketRadius * 0.25 },
+          { x: state.innerMax - state.pocketRadius * 0.25, y: state.innerMax - state.pocketRadius * 0.25 },
+        ];
+
+        if (state.coins.length || state.striker) {
+          for (const coin of state.coins) {
+            coin.x *= ratio;
+            coin.y *= ratio;
+            coin.vx *= ratio;
+            coin.vy *= ratio;
+            coin.radius = state.coinRadius;
+          }
+          if (state.striker) {
+            state.striker.x *= ratio;
+            state.striker.y *= ratio;
+            state.striker.vx *= ratio;
+            state.striker.vy *= ratio;
+            state.striker.radius = state.strikerRadius;
+            if (!state.shotInProgress) {
+              const lane = laneBounds();
+              state.striker.x = clamp(state.striker.x, lane.min, lane.max);
+              state.striker.y = currentLaneY();
+            }
+          }
+        }
+      }
+
+      function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        if (!rect.width || !rect.height) {
+          return;
+        }
+        const dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
+        canvas.width = Math.round(rect.width * dpr);
+        canvas.height = Math.round(rect.height * dpr);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(dpr, dpr);
+        applyMetrics(Math.min(rect.width, rect.height));
+      }
+
+      function toBoardPoint(clientX, clientY) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+          x: ((clientX - rect.left) / rect.width) * state.boardSize,
+          y: ((clientY - rect.top) / rect.height) * state.boardSize,
+        };
+      }
+
+      // =========================
+      // Match Setup
+      // =========================
+      function createRack() {
+        state.coins = [];
+        const center = state.boardSize / 2;
+        const spacing = state.coinRadius * 2.02;
+        const layout = [
+          { q: 0, r: 0, type: "queen", color: "#cf2028" },
+          { q: -1, r: 0, type: "black", color: "#171717" },
+          { q: 1, r: 0, type: "white", color: "#f3efe8" },
+          { q: 0, r: -1, type: "white", color: "#f3efe8" },
+          { q: 0, r: 1, type: "black", color: "#171717" },
+          { q: -1, r: 1, type: "white", color: "#f3efe8" },
+          { q: 1, r: -1, type: "black", color: "#171717" },
+          { q: -2, r: 0, type: "white", color: "#f3efe8" },
+          { q: 2, r: 0, type: "black", color: "#171717" },
+          { q: -2, r: 1, type: "black", color: "#171717" },
+          { q: 2, r: -1, type: "white", color: "#f3efe8" },
+          { q: -1, r: -1, type: "black", color: "#171717" },
+          { q: 1, r: 1, type: "white", color: "#f3efe8" },
+          { q: 0, r: -2, type: "black", color: "#171717" },
+          { q: 0, r: 2, type: "white", color: "#f3efe8" },
+          { q: -1, r: 2, type: "black", color: "#171717" },
+          { q: 1, r: -2, type: "white", color: "#f3efe8" },
+          { q: -2, r: 2, type: "white", color: "#f3efe8" },
+          { q: 2, r: -2, type: "black", color: "#171717" },
+        ];
+
+        for (const item of layout) {
+          const x = center + spacing * Math.sqrt(3) * (item.q + item.r / 2);
+          const y = center + spacing * 1.5 * item.r;
+          state.coins.push(createBody(x, y, state.coinRadius, item.color, item.type));
+        }
+
+        const lane = laneBounds();
+        state.striker = createBody((lane.min + lane.max) / 2, currentLaneY(), state.strikerRadius, "#d4a03f", "striker");
+      }
+
+      function resetGame() {
+        resizeCanvas();
+        state.scores = [0, 0];
+        state.activePlayer = 0;
+        state.shotInProgress = false;
+        state.readyForShot = true;
+        state.isDragging = false;
+        state.isAiming = false;
+        state.activePointerId = null;
+        state.gestureMode = "place";
+        state.aimVector = { x: 0, y: -1 };
+        state.aimPower = 0;
+        state.overlayVisible = false;
+        state.aiPending = false;
+        state.shotPottedCoins = [];
+        state.shotPottedQueen = false;
+        state.queenState = { capturedBy: null, awaitingCover: false, removed: false };
+        createRack();
+        hideResult();
+        updateUI();
+      }
+
+      function startGame() {
+        showScreen("game");
+        requestAnimationFrame(() => {
+          resetGame();
+          render();
+          if (isAiTurn()) {
+            scheduleAI();
+          }
+        });
+      }
+
+      // =========================
+      // Controls
+      // =========================
+      function pointerOnStriker(point) {
+        return distance(point.x, point.y, state.striker.x, state.striker.y) <= state.striker.radius * 2.2;
+      }
+
+      function setStrikerX(x) {
+        const lane = laneBounds();
+        state.striker.x = clamp(x, lane.min, lane.max);
+        state.striker.y = currentLaneY();
+        syncPlacementRail();
+      }
+
+      function syncPlacementRail() {
+        if (state.screen !== "game" || !state.striker || !boardWrap) {
+          return;
+        }
+
+        const rect = boardWrap.getBoundingClientRect();
+        if (!rect.width || !rect.height) {
+          return;
+        }
+
+        const lane = laneBounds();
+        const railLeft = rect.left + (lane.min / state.boardSize) * rect.width;
+        const railWidth = ((lane.max - lane.min) / state.boardSize) * rect.width;
+        const spacing = Math.max(10, Math.min(20, rect.width * 0.02));
+        const railHeight = Math.max(22, Math.min(28, rect.width * 0.034));
+        const topSide = state.activePlayer === 1;
+        const topPos = topSide ? rect.top - spacing - railHeight : rect.bottom + spacing;
+
+        placementRail.style.left = `${railLeft}px`;
+        placementRail.style.width = `${railWidth}px`;
+        placementRail.style.height = `${railHeight}px`;
+        placementRail.style.top = `${topPos}px`;
+        placementRail.classList.toggle("visible", state.readyForShot && !state.overlayVisible);
+        placementRail.classList.toggle("disabled", isAiTurn());
+
+        const knobX = ((state.striker.x - lane.min) / (lane.max - lane.min || 1)) * railWidth;
+        railKnob.style.left = `${clamp(knobX, 0, railWidth)}px`;
+      }
+
+      function railClientToBoardX(clientX) {
+        const rect = placementRail.getBoundingClientRect();
+        const lane = laneBounds();
+        const ratio = clamp((clientX - rect.left) / rect.width, 0, 1);
+        return lane.min + ratio * (lane.max - lane.min);
+      }
+
+      function beginRailDrag(event) {
+        if (state.overlayVisible || state.shotInProgress || !state.readyForShot || isAiTurn()) {
+          return;
+        }
+        state.railPointerId = event.pointerId;
+        state.railDragging = true;
+        placementRail.setPointerCapture(event.pointerId);
+        initAudio();
+        setStrikerX(railClientToBoardX(event.clientX));
+        updateUI();
+      }
+
+      function moveRailDrag(event) {
+        if (event.pointerId !== state.railPointerId || !state.railDragging) {
+          return;
+        }
+        setStrikerX(railClientToBoardX(event.clientX));
+        updateUI();
+      }
+
+      function endRailDrag(event) {
+        if (event.pointerId !== state.railPointerId) {
+          return;
+        }
+        state.railPointerId = null;
+        state.railDragging = false;
+        try {
+          placementRail.releasePointerCapture(event.pointerId);
+        } catch (error) {
+          // ignore
+        }
+      }
+
+      function onPointerDown(event) {
+        if (state.overlayVisible || state.shotInProgress || !state.readyForShot || isAiTurn()) {
+          return;
+        }
+        const point = toBoardPoint(event.clientX, event.clientY);
+        if (!pointerOnStriker(point)) {
+          return;
+        }
+        state.activePointerId = event.pointerId;
+        state.isDragging = true;
+        state.isAiming = false;
+        state.gestureMode = "aim";
+        canvas.classList.add("dragging");
+        canvas.setPointerCapture(event.pointerId);
+        initAudio();
+      }
+
+      function onPointerMove(event) {
+        if (event.pointerId !== state.activePointerId || !state.isDragging || !state.striker) {
+          return;
+        }
+        const point = toBoardPoint(event.clientX, event.clientY);
+        const dragX = point.x - state.striker.x;
+        const dragY = point.y - state.striker.y;
+        const dragDistance = Math.hypot(dragX, dragY);
+        state.gestureMode = "aim";
+        state.isAiming = true;
+        state.aimVector = normalize(state.striker.x - point.x, state.striker.y - point.y);
+        state.aimPower = clamp(dragDistance / state.maxAimDrag, 0, 1);
+        updateUI();
+      }
+
+      function onPointerEnd(event) {
+        if (event.pointerId !== state.activePointerId) {
+          return;
+        }
+        canvas.classList.remove("dragging");
+        try {
+          canvas.releasePointerCapture(event.pointerId);
+        } catch (error) {
+          // ignore
+        }
+        const shouldShoot = state.isAiming && state.aimPower > 0.05;
+        state.activePointerId = null;
+        state.isDragging = false;
+        state.gestureMode = "place";
+        if (shouldShoot) {
+          shoot(state.aimVector, state.aimPower);
+        } else {
+          state.isAiming = false;
+          state.aimPower = 0;
+          updateUI();
+        }
+      }
+
+      function shoot(direction, power) {
+        const speed = lerp(state.minShotSpeed, state.maxShotSpeed, power);
+        state.striker.vx = direction.x * speed;
+        state.striker.vy = direction.y * speed;
+        state.shotInProgress = true;
+        state.readyForShot = false;
+        state.isAiming = false;
+        state.aimPower = 0;
+        state.shotPottedCoins = [];
+        state.shotPottedQueen = false;
+        updateUI();
+      }
+
+      // =========================
+      // Physics
+      // =========================
+      function resolveWall(body) {
+        const min = state.innerMin + body.radius;
+        const max = state.innerMax - body.radius;
+        if (body.x < min) {
+          body.x = min;
+          body.vx = Math.abs(body.vx) * CONFIG.wallBounce;
+        } else if (body.x > max) {
+          body.x = max;
+          body.vx = -Math.abs(body.vx) * CONFIG.wallBounce;
+        }
+        if (body.y < min) {
+          body.y = min;
+          body.vy = Math.abs(body.vy) * CONFIG.wallBounce;
+        } else if (body.y > max) {
+          body.y = max;
+          body.vy = -Math.abs(body.vy) * CONFIG.wallBounce;
+        }
+      }
+
+      function resolveCollision(a, b) {
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const dist = Math.hypot(dx, dy);
+        const minDist = a.radius + b.radius;
+        if (!dist || dist >= minDist) {
+          return;
+        }
+        const nx = dx / dist;
+        const ny = dy / dist;
+        const overlap = minDist - dist;
+        const push = overlap * 0.5 + 0.01;
+        a.x -= nx * push;
+        a.y -= ny * push;
+        b.x += nx * push;
+        b.y += ny * push;
+
+        const rvx = a.vx - b.vx;
+        const rvy = a.vy - b.vy;
+        const closing = rvx * nx + rvy * ny;
+        if (closing <= 0) {
+          return;
+        }
+        const impulse = closing * CONFIG.coinBounce;
+        a.vx -= impulse * nx;
+        a.vy -= impulse * ny;
+        b.vx += impulse * nx;
+        b.vy += impulse * ny;
+        playHitSound(clamp(closing / (state.maxShotSpeed || 1), 0.08, 1));
+      }
+
+      function integrate(body) {
+        body.x += body.vx;
+        body.y += body.vy;
+        body.vx *= CONFIG.friction;
+        body.vy *= CONFIG.friction;
+        if (Math.abs(body.vx) < CONFIG.stopSpeed) {
+          body.vx = 0;
+        }
+        if (Math.abs(body.vy) < CONFIG.stopSpeed) {
+          body.vy = 0;
+        }
+        resolveWall(body);
+      }
+
+      function inPocket(body, tolerance) {
+        return state.pocketCenters.some((pocket) => distance(body.x, body.y, pocket.x, pocket.y) <= state.pocketRadius - tolerance);
+      }
+
+      function handlePocketedBodies() {
+        if (state.striker.active && inPocket(state.striker, 1)) {
+          state.striker.active = false;
+          state.striker.vx = 0;
+          state.striker.vy = 0;
+          state.striker.x = -9999;
+          state.striker.y = -9999;
+        }
+
+        for (let i = state.coins.length - 1; i >= 0; i -= 1) {
+          const coin = state.coins[i];
+          if (!inPocket(coin, 3)) {
+            continue;
+          }
+          state.coins.splice(i, 1);
+          playPocketSound();
+          if (coin.type === "queen") {
+            state.shotPottedQueen = true;
+          } else {
+            state.shotPottedCoins.push(coin);
+          }
+        }
+      }
+
+      function allStill() {
+        if (state.striker.active && Math.hypot(state.striker.vx, state.striker.vy) > CONFIG.stopSpeed) {
+          return false;
+        }
+        return state.coins.every((coin) => Math.hypot(coin.vx, coin.vy) <= CONFIG.stopSpeed);
+      }
+
+      // =========================
+      // Queen + Turn Logic
+      // =========================
+      function returnQueenToCenter() {
+        if (state.queenState.removed || queenOnBoard()) {
+          return;
+        }
+        const center = state.boardSize / 2;
+        state.coins.push(createBody(center, center, state.coinRadius, "#cf2028", "queen"));
+      }
+
+      function normalShotPoints(coins) {
+        let total = 0;
+        for (const coin of coins) {
+          total += scoreForCoin(coin.type);
+        }
+        return total;
+      }
+
+      function showFinalResult() {
+        const title = state.scores[0] === state.scores[1]
+          ? "Draw"
+          : state.scores[0] > state.scores[1]
+            ? playerLabel(0)
+            : playerLabel(1);
+        showResult(title, `${state.scores[0]} - ${state.scores[1]}`);
+        playWinSound();
+      }
+
+      function applyShotOutcome() {
+        const player = state.activePlayer;
+        const other = player === 0 ? 1 : 0;
+        const strikerFoul = !state.striker.active;
+        const pottedNormals = state.shotPottedCoins.slice();
+        const pottedQueen = state.shotPottedQueen;
+        let keepsTurn = false;
+
+        if (state.queenState.awaitingCover && state.queenState.capturedBy === player) {
+          if (pottedNormals.length > 0) {
+            state.scores[player] += CONFIG.queenPoints + normalShotPoints([pottedNormals[0]]);
+            if (pottedNormals.length > 1) {
+              state.scores[player] += normalShotPoints(pottedNormals.slice(1));
+            }
+            state.queenState.awaitingCover = false;
+            state.queenState.capturedBy = null;
+            state.queenState.removed = true;
+            keepsTurn = !strikerFoul;
+          } else {
+            returnQueenToCenter();
+            state.queenState.awaitingCover = false;
+            state.queenState.capturedBy = null;
+            state.queenState.removed = false;
+          }
+        } else {
+          if (pottedQueen && pottedNormals.length > 0) {
+            state.scores[player] += CONFIG.queenPoints + normalShotPoints(pottedNormals);
+            state.queenState.removed = true;
+            keepsTurn = !strikerFoul;
+          } else if (pottedQueen) {
+            state.queenState.awaitingCover = true;
+            state.queenState.capturedBy = player;
+            keepsTurn = !strikerFoul;
+          } else if (pottedNormals.length > 0) {
+            state.scores[player] += normalShotPoints(pottedNormals);
+            keepsTurn = !strikerFoul;
+          }
+        }
+
+        if (!state.queenState.awaitingCover && !state.queenState.removed && !queenOnBoard()) {
+          returnQueenToCenter();
+        }
+
+        const remainingNonQueen = state.coins.filter((coin) => coin.type !== "queen").length;
+        if (remainingNonQueen === 0 && (state.queenState.removed || !state.queenState.awaitingCover)) {
+          state.shotInProgress = false;
+          state.readyForShot = false;
+          updateUI();
+          showFinalResult();
+          return;
+        }
+
+        if (!keepsTurn) {
+          state.activePlayer = other;
+        }
+
+        state.striker.active = true;
+        state.striker.radius = state.strikerRadius;
+        const lane = laneBounds();
+        state.striker.x = (lane.min + lane.max) / 2;
+        state.striker.y = currentLaneY();
+        state.striker.vx = 0;
+        state.striker.vy = 0;
+        state.shotPottedCoins = [];
+        state.shotPottedQueen = false;
+        state.shotInProgress = false;
+        state.readyForShot = true;
+        updateUI();
+        syncPlacementRail();
+
+        if (isAiTurn()) {
+          scheduleAI();
+        }
+      }
+
+      function updatePhysics() {
+        if (!state.shotInProgress || state.overlayVisible) {
+          return;
+        }
+        if (state.striker.active) {
+          integrate(state.striker);
+        }
+        for (const coin of state.coins) {
+          integrate(coin);
+        }
+        if (state.striker.active) {
+          for (const coin of state.coins) {
+            resolveCollision(state.striker, coin);
+          }
+        }
+        for (let i = 0; i < state.coins.length; i += 1) {
+          for (let j = i + 1; j < state.coins.length; j += 1) {
+            resolveCollision(state.coins[i], state.coins[j]);
+          }
+        }
+        handlePocketedBodies();
+        if (allStill()) {
+          applyShotOutcome();
+        }
+      }
+
+      // =========================
+      // AI Logic
+      // =========================
+      function pickAiTarget() {
+        if (state.queenState.awaitingCover && state.queenState.capturedBy === 1) {
+          const nonQueen = state.coins.filter((coin) => coin.type !== "queen");
+          if (nonQueen.length) {
+            nonQueen.sort((a, b) => distance(a.x, a.y, state.striker.x, state.striker.y) - distance(b.x, b.y, state.striker.x, state.striker.y));
+            return nonQueen[0];
+          }
+        }
+        const coins = state.coins.slice();
+        coins.sort((a, b) => distance(a.x, a.y, state.striker.x, state.striker.y) - distance(b.x, b.y, state.striker.x, state.striker.y));
+        return coins[0] || null;
+      }
+
+      function scheduleAI() {
+        if (!isAiTurn() || state.aiPending || state.overlayVisible || !state.readyForShot || state.shotInProgress) {
+          return;
+        }
+        state.aiPending = true;
+        setTimeout(() => {
+          state.aiPending = false;
+          if (!isAiTurn() || state.overlayVisible || !state.readyForShot || state.shotInProgress) {
+            return;
+          }
+          runAI();
+        }, 650);
+      }
+
+      function runAI() {
+        const target = pickAiTarget();
+        if (!target) {
+          return;
+        }
+        const lane = laneBounds();
+        const desiredX = clamp(target.x + (Math.random() * 28 - 14), lane.min, lane.max);
+        const startX = state.striker.x;
+        const moveStart = performance.now();
+        const moveDuration = 420;
+
+        function movePhase(now) {
+          const t = clamp((now - moveStart) / moveDuration, 0, 1);
+          const eased = t * (2 - t);
+          state.striker.x = lerp(startX, desiredX, eased);
+          state.striker.y = currentLaneY();
+          syncPlacementRail();
+          if (t < 1) {
+            requestAnimationFrame(movePhase);
+          } else {
+            aimPhase();
+          }
+        }
+
+        function aimPhase() {
+          const dir = normalize(target.x - state.striker.x, target.y - state.striker.y);
+          const dragDistance = clamp(distance(state.striker.x, state.striker.y, target.x, target.y) * (0.52 + Math.random() * 0.22), state.maxAimDrag * 0.34, state.maxAimDrag * 0.86);
+          const dragPoint = {
+            x: state.striker.x - dir.x * dragDistance,
+            y: state.striker.y - dir.y * dragDistance,
+          };
+          const aimStart = performance.now();
+          const aimDuration = 460;
+
+          function aimFrame(now) {
+            const t = clamp((now - aimStart) / aimDuration, 0, 1);
+            const cx = lerp(state.striker.x, dragPoint.x, t);
+            const cy = lerp(state.striker.y, dragPoint.y, t);
+            state.isAiming = true;
+            state.aimVector = normalize(state.striker.x - cx, state.striker.y - cy);
+            state.aimPower = clamp(distance(state.striker.x, state.striker.y, cx, cy) / state.maxAimDrag, 0, 1);
+            updateUI();
+            if (t < 1) {
+              requestAnimationFrame(aimFrame);
+            } else {
+              setTimeout(() => {
+                state.isAiming = false;
+                shoot(state.aimVector, state.aimPower || 0.5);
+              }, 120);
+            }
+          }
+
+          requestAnimationFrame(aimFrame);
+        }
+
+        requestAnimationFrame(movePhase);
+      }
+
+      // =========================
+      // Rendering
+      // =========================
+      function drawRoundedRect(x, y, w, h, r, fillStyle, strokeStyle, lineWidth = 1) {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+        if (fillStyle) {
+          ctx.fillStyle = fillStyle;
+          ctx.fill();
+        }
+        if (strokeStyle) {
+          ctx.strokeStyle = strokeStyle;
+          ctx.lineWidth = lineWidth;
+          ctx.stroke();
+        }
+      }
+
+      function predictionSegments() {
+        if (!state.isAiming || !state.striker.active) {
+          return [];
+        }
+        const segments = [];
+        let remaining = lerp(state.boardSize * 0.2, state.boardSize * 0.52, state.aimPower);
+        let px = state.striker.x;
+        let py = state.striker.y;
+        let vx = state.aimVector.x;
+        let vy = state.aimVector.y;
+        const margin = state.striker.radius;
+        const bounds = {
+          minX: state.innerMin + margin,
+          maxX: state.innerMax - margin,
+          minY: state.innerMin + margin,
+          maxY: state.innerMax - margin,
+        };
+
+        for (let bounce = 0; bounce < 3 && remaining > 0; bounce += 1) {
+          let tx = Infinity;
+          let ty = Infinity;
+          if (vx > 0) {
+            tx = (bounds.maxX - px) / vx;
+          } else if (vx < 0) {
+            tx = (bounds.minX - px) / vx;
+          }
+          if (vy > 0) {
+            ty = (bounds.maxY - py) / vy;
+          } else if (vy < 0) {
+            ty = (bounds.minY - py) / vy;
+          }
+          let travel = Math.min(tx, ty, remaining);
+          if (!Number.isFinite(travel) || travel < 0) {
+            travel = remaining;
+          }
+          const nx = px + vx * travel;
+          const ny = py + vy * travel;
+          segments.push({ x1: px, y1: py, x2: nx, y2: ny });
+          remaining -= travel;
+          if (remaining <= 0) {
+            break;
+          }
+          const hitV = Math.abs(travel - tx) < 0.001;
+          const hitH = Math.abs(travel - ty) < 0.001;
+          px = nx;
+          py = ny;
+          if (hitV) {
+            vx *= -1;
+          }
+          if (hitH) {
+            vy *= -1;
+          }
+        }
+        return segments;
+      }
+
+      function drawBoard() {
+        ctx.clearRect(0, 0, state.boardSize, state.boardSize);
+        const frame = ctx.createLinearGradient(0, 0, state.boardSize, state.boardSize);
+        frame.addColorStop(0, "#5d3419");
+        frame.addColorStop(1, "#211108");
+        drawRoundedRect(0, 0, state.boardSize, state.boardSize, state.boardSize * 0.04, frame);
+
+        const outerPad = state.boardSize * 0.042;
+        const wood = ctx.createLinearGradient(outerPad, outerPad, state.boardSize - outerPad, state.boardSize - outerPad);
+        wood.addColorStop(0, "#f0deb7");
+        wood.addColorStop(1, "#d39a60");
+        drawRoundedRect(outerPad, outerPad, state.boardSize - outerPad * 2, state.boardSize - outerPad * 2, state.boardSize * 0.035, wood, "rgba(78, 38, 17, 0.5)", Math.max(2, state.boardSize * 0.003));
+
+        drawRoundedRect(state.innerMin, state.innerMin, state.innerMax - state.innerMin, state.innerMax - state.innerMin, state.boardSize * 0.026, "rgba(245, 226, 187, 0.75)", "rgba(110, 51, 22, 0.45)", Math.max(2, state.boardSize * 0.0026));
+
+        ctx.lineWidth = Math.max(2, state.boardSize * 0.0028);
+        ctx.strokeStyle = "rgba(132, 54, 24, 0.56)";
+        ctx.strokeRect(state.innerMin + state.boardSize * 0.046, state.innerMin + state.boardSize * 0.046, state.innerMax - state.innerMin - state.boardSize * 0.092, state.innerMax - state.innerMin - state.boardSize * 0.092);
+
+        const center = state.boardSize / 2;
+        ctx.beginPath();
+        ctx.arc(center, center, state.boardSize * 0.082, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(center, center, state.boardSize * 0.034, 0, Math.PI * 2);
+        ctx.stroke();
+
+        const lane = laneBounds();
+        const lines = [
+          state.innerMin + state.laneOffset,
+          state.innerMax - state.laneOffset,
+        ];
+        for (const y of lines) {
+          ctx.beginPath();
+          ctx.moveTo(lane.min, y);
+          ctx.lineTo(lane.max, y);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(lane.min, y, state.boardSize * 0.019, 0, Math.PI * 2);
+          ctx.arc(lane.max, y, state.boardSize * 0.019, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+
+        state.glowTick += 0.05;
+        for (const pocket of state.pocketCenters) {
+          const glow = 0.14 + 0.08 * Math.sin(state.glowTick + pocket.x * 0.02);
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(255, 192, 104, ${glow})`;
+          ctx.arc(pocket.x, pocket.y, state.pocketRadius * 1.45, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.fillStyle = "#261108";
+          ctx.arc(pocket.x, pocket.y, state.pocketRadius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function drawCoin(coin) {
+        const light = coin.type === "striker" ? "#fff0c6" : coin.type === "white" ? "#ffffff" : coin.type === "black" ? "#616161" : "#ffb4b4";
+        const gradient = ctx.createRadialGradient(coin.x - coin.radius * 0.35, coin.y - coin.radius * 0.35, coin.radius * 0.16, coin.x, coin.y, coin.radius * 1.15);
+        gradient.addColorStop(0, light);
+        gradient.addColorStop(1, coin.color);
+
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(0,0,0,0.18)";
+        ctx.arc(coin.x + state.boardSize * 0.003, coin.y + state.boardSize * 0.004, coin.radius * 0.98, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle = gradient;
+        ctx.arc(coin.x, coin.y, coin.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.lineWidth = Math.max(1, state.boardSize * 0.0023);
+        ctx.strokeStyle = coin.type === "striker" ? "rgba(123, 72, 19, 0.85)" : coin.type === "black" ? "rgba(255,255,255,0.1)" : "rgba(82, 39, 18, 0.34)";
+        ctx.stroke();
+
+        if (coin.type === "striker" && state.readyForShot) {
+          ctx.beginPath();
+          ctx.strokeStyle = "rgba(255, 209, 125, 0.55)";
+          ctx.lineWidth = Math.max(2, state.boardSize * 0.003);
+          ctx.arc(coin.x, coin.y, coin.radius * 1.32, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+      }
+
+      function drawAim() {
+        if (!state.isAiming || !state.striker.active) {
+          return;
+        }
+        const solidLength = state.boardSize * 0.15;
+        const ex = state.striker.x + state.aimVector.x * solidLength;
+        const ey = state.striker.y + state.aimVector.y * solidLength;
+        ctx.beginPath();
+        ctx.moveTo(state.striker.x, state.striker.y);
+        ctx.lineTo(ex, ey);
+        ctx.strokeStyle = "rgba(255, 126, 86, 0.96)";
+        ctx.lineWidth = Math.max(2.2, state.boardSize * 0.0036);
+        ctx.stroke();
+
+        const segments = predictionSegments();
+        ctx.setLineDash([state.boardSize * 0.012, state.boardSize * 0.013]);
+        ctx.beginPath();
+        for (const segment of segments) {
+          ctx.moveTo(segment.x1, segment.y1);
+          ctx.lineTo(segment.x2, segment.y2);
+        }
+        ctx.strokeStyle = "rgba(255, 247, 230, 0.96)";
+        ctx.lineWidth = Math.max(1.8, state.boardSize * 0.0025);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        const last = segments[segments.length - 1];
+        if (last) {
+          const dir = normalize(last.x2 - last.x1, last.y2 - last.y1);
+          const px = -dir.y;
+          const py = dir.x;
+          const size = state.boardSize * 0.016;
+          ctx.beginPath();
+          ctx.moveTo(last.x2, last.y2);
+          ctx.lineTo(last.x2 - dir.x * size - px * size * 0.62, last.y2 - dir.y * size - py * size * 0.62);
+          ctx.lineTo(last.x2 - dir.x * size + px * size * 0.62, last.y2 - dir.y * size + py * size * 0.62);
+          ctx.closePath();
+          ctx.fillStyle = "rgba(255, 247, 230, 0.96)";
+          ctx.fill();
+        }
+      }
+
+      function render() {
+        if (!canvas.width || !canvas.height || state.screen !== "game") {
+          return;
+        }
+        syncPlacementRail();
+        const dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
+        const cssWidth = canvas.width / dpr;
+        const cssHeight = canvas.height / dpr;
+        const scaleX = cssWidth / state.boardSize;
+        const scaleY = cssHeight / state.boardSize;
+        ctx.save();
+        ctx.scale(scaleX, scaleY);
+        drawBoard();
+        for (const coin of state.coins) {
+          drawCoin(coin);
+        }
+        if (state.striker && state.striker.active) {
+          drawCoin(state.striker);
+        }
+        drawAim();
+        ctx.restore();
+      }
+
+      // =========================
+      // UI
+      // =========================
+      function updateUI() {
+        leftNameEl.textContent = playerLabel(0);
+        rightNameEl.textContent = playerLabel(1);
+        leftScoreEl.textContent = String(state.scores[0]);
+        rightScoreEl.textContent = String(state.scores[1]);
+        const blackCount = String(countCoins("black"));
+        const whiteCount = String(countCoins("white"));
+        const queenCount = queenOnBoard() ? "1" : "0";
+        blackLeftEl.textContent = blackCount;
+        whiteLeftEl.textContent = whiteCount;
+        queenLeftEl.textContent = queenCount;
+        blackLeftMirrorEl.textContent = blackCount;
+        whiteLeftMirrorEl.textContent = whiteCount;
+        queenLeftMirrorEl.textContent = queenCount;
+        const powerWidth = `${Math.round(state.aimPower * 100)}%`;
+        powerFillEl.style.width = powerWidth;
+        powerFillMirrorEl.style.width = powerWidth;
+        syncPlacementRail();
+
+        if (state.scores[0] === state.scores[1]) {
+          leftLeadText.textContent = "Tie";
+          rightLeadText.textContent = "Tie";
+        } else {
+          const leadPlayer = state.scores[0] > state.scores[1] ? playerLabel(0) : playerLabel(1);
+          const diff = Math.abs(state.scores[0] - state.scores[1]);
+          const leadText = `${leadPlayer} +${diff}`;
+          leftLeadText.textContent = leadText;
+          rightLeadText.textContent = leadText;
+        }
+
+        leftScoreBox.classList.toggle("active", state.activePlayer === 0);
+        rightScoreBox.classList.toggle("active", state.activePlayer === 1);
+        leftStatusBox.classList.toggle("active", state.activePlayer === 0);
+        rightStatusBox.classList.toggle("active", state.activePlayer === 1);
+        leftPowerShell.classList.toggle("active", state.activePlayer === 0);
+        rightPowerShell.classList.toggle("active", state.activePlayer === 1);
+
+        if (state.overlayVisible) {
+          turnTextEl.textContent = "Game Over";
+        } else if (state.shotInProgress) {
+          turnTextEl.textContent = `${playerLabel(state.activePlayer)} Shooting`;
+        } else if (state.queenState.awaitingCover && state.queenState.capturedBy === state.activePlayer) {
+          turnTextEl.textContent = `${playerLabel(state.activePlayer)} Cover`;
+        } else {
+          turnTextEl.textContent = playerLabel(state.activePlayer);
+        }
+
+        modePvpBtn.classList.toggle("active", state.mode === "pvp");
+        modeAiBtn.classList.toggle("active", state.mode === "ai");
+      }
+
+      function showResult(title, text) {
+        state.overlayVisible = true;
+        resultTitle.textContent = title;
+        resultText.textContent = text;
+        resultOverlay.classList.add("visible");
+      }
+
+      function hideResult() {
+        state.overlayVisible = false;
+        resultOverlay.classList.remove("visible");
+      }
+
+      // =========================
+      // Loop + Events
+      // =========================
+      function tick(timestamp) {
+        if (!state.lastTime) {
+          state.lastTime = timestamp;
+        }
+        const delta = Math.min(32, timestamp - state.lastTime);
+        state.lastTime = timestamp;
+        const steps = Math.max(1, Math.round(delta / (1000 / 120)));
+        for (let i = 0; i < steps; i += 1) {
+          updatePhysics();
+        }
+        render();
+        requestAnimationFrame(tick);
+      }
+
+      canvas.addEventListener("pointerdown", onPointerDown, { passive: true });
+      canvas.addEventListener("pointermove", onPointerMove, { passive: true });
+      canvas.addEventListener("pointerup", onPointerEnd, { passive: true });
+      canvas.addEventListener("pointercancel", onPointerEnd, { passive: true });
+      canvas.addEventListener("pointerleave", (event) => {
+        if (event.pointerType !== "mouse") {
+          onPointerEnd(event);
+        }
+      }, { passive: true });
+      placementRail.addEventListener("pointerdown", beginRailDrag, { passive: true });
+      placementRail.addEventListener("pointermove", moveRailDrag, { passive: true });
+      placementRail.addEventListener("pointerup", endRailDrag, { passive: true });
+      placementRail.addEventListener("pointercancel", endRailDrag, { passive: true });
+
+      modePvpBtn.addEventListener("click", () => {
+        state.mode = "pvp";
+        updateUI();
+      });
+
+      modeAiBtn.addEventListener("click", () => {
+        state.mode = "ai";
+        updateUI();
+      });
+
+      startGameBtn.addEventListener("click", startGame);
+      resetBtn.addEventListener("click", resetGame);
+      playAgainBtn.addEventListener("click", resetGame);
+
+      window.addEventListener("resize", () => {
+        resizeCanvas();
+        syncPlacementRail();
+        render();
+      });
+
+      setTimeout(() => {
+        showScreen("settings");
+        updateUI();
+      }, 3000);
+
+      showScreen("loading");
+      requestAnimationFrame(tick);
+    })();
+  </script>
+</body>
+</html>

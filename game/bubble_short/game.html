@@ -2,105 +2,1826 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title> Bubble Shooter </title>
-    <!-- Font Awesome 6 (Free Icons CDN) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Bubble Short</title>
+    <style>
+        :root {
+            --bg-0: #031325;
+            --bg-1: #082542;
+            --bg-2: #0b3c66;
+            --panel: rgba(8, 35, 61, 0.74);
+            --panel-strong: rgba(10, 44, 74, 0.92);
+            --line: rgba(108, 202, 255, 0.82);
+            --text: #edf8ff;
+            --muted: #bfdef7;
+            --gold: #ffd457;
+            --blue: #63b9ff;
+            --blue-deep: #246ec9;
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 50% 0%, rgba(66, 155, 255, 0.15), transparent 38%),
+                linear-gradient(180deg, #072341 0%, #04172b 100%);
+        }
+
+        .app-root {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+        }
+
+        .ocean-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(99, 185, 255, 0.12), transparent 16%),
+                radial-gradient(circle at 80% 30%, rgba(115, 255, 225, 0.1), transparent 16%),
+                linear-gradient(180deg, rgba(4, 28, 50, 0.55), rgba(2, 13, 24, 0.78)),
+                url("./images/main_page.jpg") center/cover no-repeat;
+            filter: saturate(0.9) brightness(0.55);
+        }
+
+        .ocean-bg::before,
+        .ocean-bg::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+        }
+
+        .ocean-bg::before {
+            background:
+                radial-gradient(circle at 12% 78%, rgba(105, 208, 255, 0.18), transparent 12%),
+                radial-gradient(circle at 88% 82%, rgba(110, 255, 228, 0.16), transparent 12%);
+            opacity: 0.5;
+        }
+
+        .ocean-bg::after {
+            background:
+                linear-gradient(180deg, rgba(145, 222, 255, 0.08), transparent 20%),
+                linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%);
+            mix-blend-mode: screen;
+        }
+
+        .bubble-layer {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bubble-layer span {
+            position: absolute;
+            bottom: -80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.28), rgba(158,223,255,0.08) 55%, rgba(158,223,255,0.03) 100%);
+            border: 1px solid rgba(186, 235, 255, 0.08);
+            animation: driftUp linear infinite;
+            box-shadow: inset -8px -10px 24px rgba(255,255,255,0.03), 0 0 18px rgba(120, 220, 255, 0.06);
+        }
+
+        @keyframes driftUp {
+            from {
+                transform: translate3d(0, 0, 0) scale(1);
+                opacity: 0;
+            }
+            12% {
+                opacity: 0.9;
+            }
+            to {
+                transform: translate3d(var(--drift), -120vh, 0) scale(1.08);
+                opacity: 0;
+            }
+        }
+
+        .app-shell {
+            position: relative;
+            width: min(94vw, calc(94vh * 9 / 16), 500px);
+            height: min(94vh, calc(94vw * 16 / 9), 888px);
+            aspect-ratio: 9 / 16;
+            border-radius: clamp(26px, 4vw, 38px);
+            overflow: hidden;
+            border: 1px solid rgba(113, 204, 255, 0.34);
+            background:
+                linear-gradient(180deg, rgba(7, 35, 61, 0.78), rgba(2, 17, 30, 0.9)),
+                url("./images/main_bg1.jpg") center/cover no-repeat;
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.45);
+            isolation: isolate;
+        }
+
+        .app-shell::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(145, 223, 255, 0.08), transparent 18%),
+                radial-gradient(circle at 50% 0%, rgba(111, 195, 255, 0.1), transparent 30%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .screen {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(18px) scale(0.985);
+            transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease;
+            pointer-events: none;
+        }
+
+        .screen.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .loading-screen {
+            background:
+                linear-gradient(180deg, rgba(6, 24, 45, 0.42), rgba(2, 13, 24, 0.7)),
+                url("./images/bg_loading.png") center/cover no-repeat;
+        }
+
+        .loading-screen .screen-inner {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-card {
+            width: min(100%, 360px);
+            border-radius: 28px;
+            padding: 26px 22px 24px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(10, 46, 75, 0.82), rgba(6, 27, 46, 0.88));
+            border: 1px solid rgba(116, 210, 255, 0.48);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+        }
+
+        .loading-logo {
+            font-size: clamp(1.9rem, 6vw, 2.8rem);
+            font-weight: 900;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .loading-subtitle {
+            margin-top: 8px;
+            color: var(--muted);
+            font-weight: 700;
+            font-size: clamp(0.96rem, 2.8vw, 1.08rem);
+        }
+
+        .loading-bar {
+            width: 100%;
+            height: 16px;
+            margin-top: 22px;
+            border-radius: 999px;
+            overflow: hidden;
+            background: rgba(4, 19, 36, 0.86);
+            border: 1px solid rgba(105, 199, 255, 0.55);
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.24);
+        }
+
+        .loading-fill {
+            width: 0%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #5ec5ff, #2e86ff 58%, #87e0ff 100%);
+            box-shadow: 0 0 18px rgba(104, 198, 255, 0.5);
+            transition: width 0.16s ease;
+        }
+
+        .loading-meta {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            color: #dff5ff;
+            font-weight: 800;
+        }
+
+        .loading-percent {
+            font-size: 1.08rem;
+        }
+
+        .loading-status {
+            color: #b9e8ff;
+            font-size: 0.98rem;
+        }
+
+        .screen-inner {
+            width: 100%;
+            height: 100%;
+            padding: clamp(16px, 3.2vw, 24px);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(14px, 2vw, 18px);
+        }
+
+        .menu-screen,
+        .level-screen {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background:
+                linear-gradient(180deg, rgba(7, 34, 58, 0.32), rgba(3, 17, 31, 0.64)),
+                url("./images/level_back.jpg") center/cover no-repeat;
+        }
+
+        .menu-screen .screen-inner,
+        .level-screen .screen-inner {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-card,
+        .glass-card {
+            width: 100%;
+            background: linear-gradient(180deg, rgba(10, 46, 75, 0.76), rgba(6, 27, 46, 0.82));
+            border: 1px solid rgba(116, 210, 255, 0.42);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(16px);
+        }
+
+        .hero-card {
+            border-radius: 28px;
+            padding: clamp(18px, 4vw, 28px) clamp(16px, 4vw, 24px);
+        }
+
+        .hero-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: clamp(1.85rem, 6vw, 3rem);
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.18);
+        }
+
+        .hero-icon {
+            font-size: 1.1em;
+            filter: drop-shadow(0 0 10px rgba(143, 220, 255, 0.3));
+        }
+
+        .hero-subtitle {
+            margin-top: 8px;
+            color: var(--muted);
+            font-weight: 700;
+            font-size: clamp(1rem, 2.8vw, 1.15rem);
+        }
+
+        .menu-panel {
+            width: min(100%, 360px);
+            padding: 6px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .menu-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .menu-tip {
+            color: #d6f1ff;
+            font-weight: 800;
+            font-size: clamp(0.98rem, 2.7vw, 1.16rem);
+            text-shadow: 0 1px 8px rgba(0,0,0,0.22);
+        }
+
+        .btn {
+            border: none;
+            width: 100%;
+            min-height: 56px;
+            border-radius: 20px;
+            padding: 14px 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font: inherit;
+            font-size: clamp(1rem, 3vw, 1.18rem);
+            font-weight: 900;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.04);
+        }
+
+        .btn:active {
+            transform: translateY(1px) scale(0.985);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--blue), var(--blue-deep));
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #5d93bb, #3f6685);
+        }
+
+        .btn-ghost {
+            background: linear-gradient(135deg, rgba(95, 151, 190, 0.92), rgba(67, 106, 136, 0.92));
+        }
+
+        .btn-icon {
+            font-size: 1.1em;
+        }
+
+        .level-shell {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .level-grid {
+            flex: 1;
+            min-height: 0;
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 10px;
+            align-content: start;
+        }
+
+        .level-card {
+            aspect-ratio: 1 / 1;
+            border-radius: 18px;
+            border: 1px solid rgba(123, 211, 255, 0.26);
+            background: linear-gradient(180deg, rgba(76, 128, 166, 0.82), rgba(42, 72, 101, 0.9));
+            color: #f5fbff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font: inherit;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 18px rgba(0,0,0,0.14);
+            transition: transform 0.18s ease, filter 0.18s ease;
+        }
+
+        .level-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .level-card.completed {
+            background: linear-gradient(180deg, rgba(105, 180, 235, 0.96), rgba(47, 117, 178, 0.96));
+        }
+
+        .level-card.locked {
+            opacity: 0.7;
+            color: rgba(255,255,255,0.6);
+            cursor: not-allowed;
+        }
+
+        .level-num {
+            font-size: clamp(0.95rem, 2.7vw, 1.25rem);
+        }
+
+        .level-stars {
+            display: flex;
+            gap: 2px;
+            color: var(--gold);
+            font-size: clamp(0.6rem, 1.9vw, 0.8rem);
+        }
+
+        .game-screen {
+            background:
+                linear-gradient(180deg, rgba(4, 21, 39, 0.2), rgba(2, 10, 18, 0.42)),
+                url("./images/main_bg1.jpg") center/cover no-repeat;
+        }
+
+        .game-layout {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-height: 0;
+        }
+
+        .top-bar {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            padding: 12px;
+            border-radius: 26px;
+            background: linear-gradient(180deg, rgba(8, 35, 61, 0.86), rgba(8, 29, 50, 0.88));
+            border: 1px solid rgba(112, 205, 255, 0.62);
+            backdrop-filter: blur(14px);
+            box-shadow: var(--shadow);
+            flex: 0 0 auto;
+        }
+
+        .stat-pill,
+        .pause-btn {
+            min-width: 0;
+            min-height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border-radius: 18px;
+            background: rgba(21, 57, 90, 0.88);
+            border: 1px solid rgba(255,255,255,0.02);
+            color: var(--text);
+            font-size: clamp(0.92rem, 2.4vw, 1.08rem);
+            font-weight: 900;
+        }
+
+        .stat-pill .accent,
+        .pause-btn .accent {
+            color: var(--gold);
+        }
+
+        .pause-btn {
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, #72b8ee, #3d7cbc);
+            transition: transform 0.18s ease, filter 0.18s ease;
+        }
+
+        .pause-btn:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.05);
+        }
+
+        .playfield-card {
+            flex: 1 1 auto;
+            min-height: 0;
+            padding: 8px;
+            border-radius: 30px;
+            background: linear-gradient(180deg, rgba(70, 138, 196, 0.28), rgba(18, 50, 80, 0.28));
+            border: 1px solid rgba(93, 186, 240, 0.3);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .playfield-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(153, 227, 255, 0.06), transparent 18%);
+            pointer-events: none;
+        }
+
+        .playfield-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            background:
+                linear-gradient(180deg, rgba(8, 21, 64, 0.24), rgba(0, 19, 45, 0.56)),
+                url("./images/main_bg2.jpg") center/cover no-repeat;
+        }
+
+        #gameCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+        }
+
+        .bottom-panel {
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .next-panel {
+            width: 100%;
+            max-width: 390px;
+            min-height: 68px;
+            padding: 10px 16px;
+            border-radius: 24px;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(180deg, rgba(7, 33, 58, 0.86), rgba(4, 21, 38, 0.9));
+            border: 1px solid rgba(107, 204, 255, 0.72);
+            backdrop-filter: blur(14px);
+        }
+
+        .next-label,
+        .aim-label {
+            font-size: clamp(0.94rem, 2.5vw, 1.08rem);
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .aim-label {
+            color: #ffe37d;
+            text-align: right;
+        }
+
+        .next-preview {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            border: 3px solid rgba(230, 247, 255, 0.86);
+            box-shadow: inset -8px -10px 14px rgba(0,0,0,0.18), 0 8px 18px rgba(0,0,0,0.26);
+        }
+
+        .action-row {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .popup {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            background: rgba(2, 13, 24, 0.58);
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+
+        .popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-card {
+            width: min(100%, 340px);
+            padding: 24px 20px;
+            border-radius: 28px;
+            background: linear-gradient(180deg, #eff8ff, #d7edff);
+            box-shadow: 0 24px 44px rgba(0,0,0,0.34);
+            text-align: center;
+            color: #15395a;
+        }
+
+        .popup-title {
+            font-size: clamp(1.55rem, 5vw, 2rem);
+            font-weight: 900;
+        }
+
+        .popup-score {
+            margin-top: 10px;
+            font-size: 1.12rem;
+            font-weight: 800;
+        }
+
+        .popup-stars {
+            margin: 16px 0 10px;
+            font-size: 2.2rem;
+            color: var(--gold);
+            letter-spacing: 0.08em;
+        }
+
+        .popup-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .title-water {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 18%;
+            pointer-events: none;
+            background:
+                linear-gradient(180deg, rgba(130, 223, 255, 0.16), transparent 70%),
+                radial-gradient(circle at 20% 40%, rgba(184, 247, 255, 0.1), transparent 14%),
+                radial-gradient(circle at 80% 55%, rgba(184, 247, 255, 0.08), transparent 14%);
+            mask: linear-gradient(180deg, rgba(0,0,0,0.95), rgba(0,0,0,0.3), transparent);
+        }
+
+        .title-water::before {
+            content: "";
+            position: absolute;
+            inset: 14px 0 auto;
+            height: 12px;
+            background:
+                radial-gradient(circle at 12px 6px, rgba(180, 235, 255, 0.16) 0 5px, transparent 6px) 0 0/60px 12px repeat-x,
+                radial-gradient(circle at 26px 6px, rgba(180, 235, 255, 0.12) 0 4px, transparent 5px) 0 0/60px 12px repeat-x;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 420px), (max-height: 760px) {
+            .screen-inner {
+                padding: 14px;
+                gap: 12px;
+            }
+
+            .hero-card {
+                padding: 16px 14px;
+                border-radius: 24px;
+            }
+
+            .menu-panel {
+                gap: 14px;
+            }
+
+            .btn {
+                min-height: 52px;
+                border-radius: 18px;
+            }
+
+            .top-bar {
+                padding: 10px;
+                gap: 8px;
+            }
+
+            .playfield-card {
+                padding: 7px;
+                border-radius: 24px;
+            }
+
+            .playfield-inner {
+                border-radius: 20px;
+            }
+
+            .next-panel {
+                min-height: 62px;
+                padding: 8px 12px;
+                gap: 8px;
+            }
+
+            .next-preview {
+                width: 48px;
+                height: 48px;
+            }
+
+            .level-grid {
+                gap: 8px;
+            }
+
+            .level-card {
+                border-radius: 16px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="app-root">
+        <div class="ocean-bg"></div>
+        <div class="bubble-layer" id="bubbleLayer"></div>
 
-<!-- LOADING SCREEN -->
-<div id="loadingScreen" class="screen active">
-    <div class="premiums-card" style="text-align: center; width: 340px;">
-        <div class="progress-container"><div class="progress-fill" id="loadFill"></div></div>
-        <div id="loadPercentText" style="color: #b8e2ff; margin-top: 12px; font-weight: 600;">Loading 0%</div>
-        <div style="margin-top: 18px; color: #8ccdff;"><i class="fas fa-sync-alt"></i> Ready to pop!</div>
+        <main class="app-shell">
+            <div class="title-water"></div>
+
+            <section class="screen loading-screen active" id="loadingScreen">
+                <div class="screen-inner">
+                    <div class="loading-card">
+                        <div class="loading-logo">BUBBLE SHORT</div>
+                        <div class="loading-subtitle">Dive in, bubbles are getting ready.</div>
+                        <div class="loading-bar">
+                            <div class="loading-fill" id="loadingFill"></div>
+                        </div>
+                        <div class="loading-meta">
+                            <div class="loading-percent" id="loadingPercent">Loading 0%</div>
+                            <div class="loading-status" id="loadingStatus">Preparing ocean world...</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="screen menu-screen" id="mainMenu">
+                <div class="screen-inner">
+                    <div class="hero-card">
+                        <div class="hero-title"><span class="hero-icon">✹</span> BUBBLE SHORT</div>
+                        <div class="hero-subtitle">Match 3, clear the deep blue.</div>
+                    </div>
+
+                    <div class="menu-panel">
+                        <div class="menu-actions">
+                            <button class="btn btn-primary" id="playNowBtn"><span class="btn-icon">▶</span> PLAY NOW</button>
+                            <button class="btn btn-secondary" id="levelSelectMenuBtn"><span class="btn-icon">🗺</span> LEVEL SELECT</button>
+                            <button class="btn btn-ghost" id="soundMenuBtn"><span class="btn-icon">🔊</span> SOUND ON</button>
+                        </div>
+                        <p class="menu-tip">✣ Drag to aim, release to shoot</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="screen level-screen" id="levelSelectScreen">
+                <div class="screen-inner">
+                    <div class="level-shell">
+                        <div class="hero-card">
+                            <div class="hero-title"><span class="hero-icon">≋</span> OCEAN LEVELS</div>
+                            <div class="hero-subtitle">Finish stages to unlock the next dive.</div>
+                        </div>
+                        <div class="level-grid" id="levelGrid"></div>
+                        <button class="btn btn-secondary" id="backToMenuBtn"><span class="btn-icon">←</span> BACK TO MENU</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="screen game-screen" id="gameScreen">
+                <div class="screen-inner">
+                    <div class="game-layout">
+                        <div class="top-bar glass-card">
+                            <div class="stat-pill"><span class="accent">⚑</span> LVL <span id="currentLevelNum">1</span></div>
+                            <div class="stat-pill"><span class="accent">★</span> SCORE <span id="currentScore">0</span></div>
+                            <div class="stat-pill"><span class="accent">●</span> BALLS <span id="currentBalls">0</span></div>
+                            <button class="pause-btn" id="pauseGameBtn"><span>Ⅱ</span></button>
+                        </div>
+
+                        <div class="playfield-card">
+                            <div class="playfield-inner">
+                                <canvas id="gameCanvas" width="540" height="760"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="bottom-panel">
+                            <div class="next-panel">
+                                <div class="next-label">◉ NEXT BUBBLE</div>
+                                <div class="next-preview" id="nextBallPreview"></div>
+                                <div class="aim-label">✣ AIM &amp; SHOOT</div>
+                            </div>
+
+                            <div class="action-row">
+                                <button class="btn btn-secondary" id="restartLevelBtn"><span class="btn-icon">↻</span> RESTART</button>
+                                <button class="btn btn-secondary" id="exitGameMenuBtn"><span class="btn-icon">⌂</span> MENU</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="popup" id="pausePopup">
+                <div class="popup-card">
+                    <div class="popup-title">GAME PAUSED</div>
+                    <div class="popup-actions">
+                        <button class="btn btn-primary" id="resumeGameBtn">▶ RESUME</button>
+                        <button class="btn btn-secondary" id="restartPauseBtn">↻ RESTART</button>
+                        <button class="btn btn-secondary" id="menuPauseBtn">⌂ MENU</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popup" id="levelCompletePopup">
+                <div class="popup-card">
+                    <div class="popup-title">🏆 LEVEL COMPLETE!</div>
+                    <div class="popup-score">Score: <span id="finalScoreVal">0</span></div>
+                    <div class="popup-stars" id="starsResult">★★★</div>
+                    <div class="popup-actions">
+                        <button class="btn btn-primary" id="nextLevelActionBtn">⏭ NEXT LEVEL</button>
+                        <button class="btn btn-secondary" id="replayLevelActionBtn">↻ REPLAY</button>
+                        <button class="btn btn-secondary" id="levelSelectCompleteBtn">≣ LEVELS</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popup" id="gameOverPopup">
+                <div class="popup-card">
+                    <div class="popup-title">GAME OVER</div>
+                    <div class="popup-score">Final Score: <span id="gameOverScoreVal">0</span></div>
+                    <div class="popup-actions">
+                        <button class="btn btn-primary" id="retryGameBtn">↻ TRY AGAIN</button>
+                        <button class="btn btn-secondary" id="gameOverMenuBtn">⌂ MENU</button>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
-</div>
 
-<!-- MAIN MENU -->
-<div id="mainMenu" class="screen">
-    <div style="text-align: center; width: 100%;">
-        <div class="premium-card" style="display: inline-block; margin-bottom: 35px;">
-            <div style="font-size: 2.4rem; font-weight: 800; color: #ebf5ff;"><i class="fas fa-bubble"></i> BUBBLE SHORT GAME</div>
-            <div style="color: #b8e2ff;">Match 3, clear the deep blue!</div>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 18px; align-items: center; max-width: 290px; margin: 0 auto;">
-            <button class="btn-premium" id="playNowBtn"><i class="fas fa-play"></i> PLAY NOW</button>
-            <button class="btn-premium btn-premium-secondary" id="levelSelectMenuBtn"><i class="fas fa-map-marked-alt"></i> LEVEL SELECT</button>
-            <button class="btn-premium btn-premium-secondary" id="soundMenuBtn"><i class="fas fa-volume-up"></i> SOUND ON</button>
-        </div>
-        <p style="margin-top: 40px; color: #cdeeff; font-weight: 500;"><i class="fas fa-arrows-alt"></i> Tap & Drag to aim | Release to shoot</p>
-    </div>
-</div>
+    <script>
+        const BUBBLE_COLORS = ["#67c4ff", "#a977ff", "#58d6b3", "#ffd45e", "#ffb067", "#4a90ff"];
 
-<!-- LEVEL SELECT -->
-<div id="levelSelectScreen" class="screen">
-    <div style="width: 100%; max-width: 600px; text-align: center;">
-        <div class="premium-card" style="margin-bottom: 20px;">
-            <!-- <h2 style="color: #d9f0ff;"><i class="fas fa-globe-americas"></i> SELECT OCEAN WORLD</h2> -->
-        </div>
-        <div class="level-grid" id="levelGrid"></div>
-        <button class="btn-premium btn-premium-secondary" id="backToMenuBtn"><i class="fas fa-arrow-left"></i> BACK TO MENU</button>
-    </div>
-</div>
+        const CONFIG = {
+            width: 540,
+            height: 760,
+            radius: 18,
+            cols: 12,
+            rows: 14,
+            topPadding: 78,
+            shooterOffsetBottom: 74,
+            bubbleSpeed: 880,
+            minAimAngle: -Math.PI + 0.2,
+            maxAimAngle: -0.2,
+            dotsSpacing: 18,
+            maxPreviewBounces: 2
+        };
 
-<!-- GAME SCREEN -->
-<div id="gameScreen" class="screen">
-    <div class="game-wrapper">
-        <div class="game-header">
-            <div class="stat-badge"><i class="fas fa-flag-checkered"></i> LVL <span id="currentLevelNum">1</span></div>
-            <div class="stat-badge"><i class="fas fa-star"></i> SCORE <span id="currentScore">0</span></div>
-            <div class="stat-badge"><i class="fas fa-circle"></i> BALLS <span id="currentBalls">35</span></div>
-            <button id="pauseGameBtn" style="background:#2a6f8f; border:none; border-radius: 40px; padding: 6px 15px; font-weight: bold; color:white;"><i class="fas fa-pause"></i></button>
-        </div>
-        <canvas id="gameCanvas" width="500" height="600" style="width:100%; max-width: 520px; aspect-ratio: 500/600;"></canvas>
-        <div class="next-ball-panel">
-            <span style="color:#c2edff; font-weight: 600;"><i class="fas fa-eye"></i> NEXT BUBBLE</span>
-            <div id="nextBallPreview" class="next-ball"></div>
-            <span style="color:#ffd966;"><i class="fas fa-crosshairs"></i> AIM & SHOOT</span>
-        </div>
-        <div class="action-row">
-            <button class="btn-premium btn-premium-secondary" id="restartLevelBtn"><i class="fas fa-undo-alt"></i> RESTART</button>
-            <button class="btn-premium btn-premium-secondary" id="exitGameMenuBtn"><i class="fas fa-home"></i> MENU</button>
-        </div>
-    </div>
-</div>
+        const ROW_HEIGHT = Math.sqrt(3) * CONFIG.radius;
+        const GRID_WIDTH = CONFIG.cols * CONFIG.radius * 2 + CONFIG.radius;
+        const GRID_LEFT = (CONFIG.width - GRID_WIDTH) / 2;
+        const SHOOTER = { x: CONFIG.width / 2, y: CONFIG.height - CONFIG.shooterOffsetBottom };
+        const TOTAL_LEVELS = 20;
 
-<!-- PAUSE POPUP -->
-<div id="pausePopup" class="popup-overlay">
-    <div class="popup-content">
-        <h2><i class="fas fa-pause-circle"></i> GAME PAUSED</h2>
-        <button id="resumeGameBtn" class="btn-premium" style="margin: 12px;"><i class="fas fa-play"></i> RESUME</button>
-        <button id="restartPauseBtn" class="btn-premium btn-premium-secondary"><i class="fas fa-redo-alt"></i> RESTART</button>
-        <button id="menuPauseBtn" class="btn-premium btn-premium-secondary"><i class="fas fa-sign-out-alt"></i> MENU</button>
-    </div>
-</div>
+        const state = {
+            canvas: null,
+            ctx: null,
+            currentLevel: 1,
+            score: 0,
+            ballsLeft: 0,
+            grid: [],
+            levelProgress: {},
+            activeColors: [],
+            currentBubbleColor: BUBBLE_COLORS[0],
+            nextBubbleColor: BUBBLE_COLORS[1],
+            flyingBubble: null,
+            aimAngle: -Math.PI / 2,
+            pointerDown: false,
+            isPaused: false,
+            isGameActive: false,
+            loopId: 0,
+            lastTs: 0,
+            popEffects: [],
+            fallingBubbles: [],
+            ambientParticles: createAmbientParticles(),
+            jellyfish: createJellyfish(),
+            soundEnabled: true,
+            audioContext: null
+        };
 
-<!-- LEVEL COMPLETE -->
-<div id="levelCompletePopup" class="popup-overlay">
-    <div class="popup-content">
-        <h2><i class="fas fa-trophy"></i> LEVEL COMPLETE!</h2>
-        <p>Score: <span id="finalScoreVal">0</span></p>
-        <div id="starsResult" style="font-size: 2rem;"></div>
-        <button id="nextLevelActionBtn" class="btn-premium"><i class="fas fa-forward"></i> NEXT LEVEL</button>
-        <button id="replayLevelActionBtn" class="btn-premium btn-premium-secondary"><i class="fas fa-repeat"></i> REPLAY</button>
-        <button id="levelSelectCompleteBtn" class="btn-premium btn-premium-secondary"><i class="fas fa-map"></i> LEVELS</button>
-    </div>
-</div>
+        for (let i = 1; i <= TOTAL_LEVELS; i++) {
+            state.levelProgress[i] = { completed: false, stars: 0 };
+        }
 
-<!-- GAME OVER -->
-<div id="gameOverPopup" class="popup-overlay">
-    <div class="popup-content" style="background: #f4f9ff;">
-        <h2><i class="fas fa-skull"></i> GAME OVER</h2>
-        <p>Final Score: <span id="gameOverScoreVal">0</span></p>
-        <button id="retryGameBtn" class="btn-premium"><i class="fas fa-sync-alt"></i> TRY AGAIN</button>
-        <button id="gameOverMenuBtn" class="btn-premium btn-premium-secondary"><i class="fas fa-home"></i> MENU</button>
-    </div>
-</div>
-<script src="script.js"></script>
+        const screens = {
+            loading: document.getElementById("loadingScreen"),
+            menu: document.getElementById("mainMenu"),
+            levels: document.getElementById("levelSelectScreen"),
+            game: document.getElementById("gameScreen")
+        };
 
+        const popups = {
+            pause: document.getElementById("pausePopup"),
+            complete: document.getElementById("levelCompletePopup"),
+            gameOver: document.getElementById("gameOverPopup")
+        };
+
+        function createBubbleLayer() {
+            const layer = document.getElementById("bubbleLayer");
+            for (let i = 0; i < 22; i++) {
+                const span = document.createElement("span");
+                const size = 14 + Math.random() * 90;
+                span.style.width = `${size}px`;
+                span.style.height = `${size}px`;
+                span.style.left = `${Math.random() * 100}%`;
+                span.style.animationDuration = `${10 + Math.random() * 18}s`;
+                span.style.animationDelay = `${Math.random() * 12}s`;
+                span.style.setProperty("--drift", `${-30 + Math.random() * 60}px`);
+                layer.appendChild(span);
+            }
+        }
+
+        function createAmbientParticles() {
+            return Array.from({ length: 34 }, () => ({
+                x: Math.random() * CONFIG.width,
+                y: Math.random() * CONFIG.height,
+                size: 1.5 + Math.random() * 3.5,
+                speed: 12 + Math.random() * 18,
+                sway: Math.random() * Math.PI * 2
+            }));
+        }
+
+        function createJellyfish() {
+            return Array.from({ length: 7 }, (_, index) => ({
+                baseX: 84 + (index % 3) * 145 + Math.random() * 24,
+                baseY: 120 + Math.floor(index / 3) * 150 + Math.random() * 28,
+                drift: Math.random() * Math.PI * 2,
+                scale: 0.58 + Math.random() * 0.5,
+                speed: 0.35 + Math.random() * 0.4
+            }));
+        }
+
+        function makeGrid() {
+            return Array.from({ length: CONFIG.rows }, () => Array(CONFIG.cols).fill(null));
+        }
+
+        function cellKey(row, col) {
+            return `${row},${col}`;
+        }
+
+        function isInsideGrid(row, col) {
+            return row >= 0 && row < CONFIG.rows && col >= 0 && col < CONFIG.cols;
+        }
+
+        function cellToPixel(row, col) {
+            const offsetX = row % 2 === 1 ? CONFIG.radius : 0;
+            return {
+                x: GRID_LEFT + CONFIG.radius + offsetX + col * CONFIG.radius * 2,
+                y: CONFIG.topPadding + CONFIG.radius + row * ROW_HEIGHT
+            };
+        }
+
+        function pixelToApproxCell(x, y) {
+            const rawRow = Math.round((y - CONFIG.topPadding - CONFIG.radius) / ROW_HEIGHT);
+            const row = Math.max(0, Math.min(CONFIG.rows - 1, rawRow));
+            const offsetX = row % 2 === 1 ? CONFIG.radius : 0;
+            const rawCol = Math.round((x - GRID_LEFT - CONFIG.radius - offsetX) / (CONFIG.radius * 2));
+            const col = Math.max(0, Math.min(CONFIG.cols - 1, rawCol));
+            return { row, col };
+        }
+
+        function getNeighborCoords(row, col) {
+            const even = [[-1, -1], [-1, 0], [0, -1], [0, 1], [1, -1], [1, 0]];
+            const odd = [[-1, 0], [-1, 1], [0, -1], [0, 1], [1, 0], [1, 1]];
+            return (row % 2 === 0 ? even : odd)
+                .map(([dr, dc]) => ({ row: row + dr, col: col + dc }))
+                .filter(({ row: nr, col: nc }) => isInsideGrid(nr, nc));
+        }
+
+        function getOccupiedCells() {
+            const result = [];
+            for (let row = 0; row < CONFIG.rows; row++) {
+                for (let col = 0; col < CONFIG.cols; col++) {
+                    if (state.grid[row][col]) result.push(state.grid[row][col]);
+                }
+            }
+            return result;
+        }
+
+        function getActiveBoardColors() {
+            const set = new Set();
+            for (const bubble of getOccupiedCells()) set.add(bubble.color);
+            return set.size ? [...set] : [...BUBBLE_COLORS];
+        }
+
+        function randomFrom(list) {
+            return list[Math.floor(Math.random() * list.length)];
+        }
+
+        function chooseShooterColor() {
+            state.activeColors = getActiveBoardColors();
+            return randomFrom(state.activeColors);
+        }
+
+        function shadeColor(hex, amount) {
+            const value = parseInt(hex.replace("#", ""), 16);
+            const r = Math.max(0, Math.min(255, (value >> 16) + amount));
+            const g = Math.max(0, Math.min(255, ((value >> 8) & 255) + amount));
+            const b = Math.max(0, Math.min(255, (value & 255) + amount));
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        function bubbleGradient(color) {
+            return `radial-gradient(circle at 35% 30%, rgba(255,255,255,0.96) 0%, ${color} 40%, ${shadeColor(color, -30)} 100%)`;
+        }
+
+        function clampAimAngle(angle) {
+            return Math.max(CONFIG.minAimAngle, Math.min(CONFIG.maxAimAngle, angle));
+        }
+
+        function ensureAudioContext() {
+            if (!state.soundEnabled) return null;
+            if (!state.audioContext) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContextClass) return null;
+                state.audioContext = new AudioContextClass();
+            }
+            if (state.audioContext.state === "suspended") {
+                state.audioContext.resume().catch(() => {});
+            }
+            return state.audioContext;
+        }
+
+        function playFx(type) {
+            const ctx = ensureAudioContext();
+            if (!ctx) return;
+
+            const presets = {
+                shoot: [
+                    { f: 620, d: 0.07, g: 0.05, kind: "triangle" },
+                    { f: 820, d: 0.05, g: 0.03, kind: "sine", o: 0.03 }
+                ],
+                pop: [
+                    { f: 320, d: 0.09, g: 0.07, kind: "square" },
+                    { f: 190, d: 0.12, g: 0.04, kind: "triangle", o: 0.02 }
+                ],
+                win: [
+                    { f: 660, d: 0.12, g: 0.05, kind: "sine" },
+                    { f: 860, d: 0.15, g: 0.05, kind: "triangle", o: 0.1 },
+                    { f: 1090, d: 0.2, g: 0.04, kind: "sine", o: 0.2 }
+                ]
+            };
+
+            for (const tone of presets[type] || []) {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                const offset = tone.o || 0;
+                osc.type = tone.kind;
+                osc.frequency.setValueAtTime(tone.f, ctx.currentTime + offset);
+                gain.gain.setValueAtTime(tone.g, ctx.currentTime + offset);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + offset + tone.d);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(ctx.currentTime + offset);
+                osc.stop(ctx.currentTime + offset + tone.d);
+            }
+        }
+
+        function updateHud() {
+            document.getElementById("currentLevelNum").textContent = state.currentLevel;
+            document.getElementById("currentScore").textContent = state.score;
+            document.getElementById("currentBalls").textContent = state.ballsLeft;
+            document.getElementById("nextBallPreview").style.background = bubbleGradient(state.nextBubbleColor);
+            const soundBtn = document.getElementById("soundMenuBtn");
+            soundBtn.innerHTML = `${state.soundEnabled ? "🔊" : "🔇"} SOUND ${state.soundEnabled ? "ON" : "OFF"}`;
+        }
+
+        function generateLevel(level) {
+            const grid = makeGrid();
+            const colorPool = BUBBLE_COLORS.slice(0, Math.min(4 + Math.floor(level / 3), BUBBLE_COLORS.length));
+            const rowsToFill = Math.min(5 + Math.floor(level / 2), 9);
+
+            for (let row = 0; row < rowsToFill; row++) {
+                const widthDrop = Math.floor(row * 0.6);
+                const usable = Math.max(5, CONFIG.cols - 2 - widthDrop);
+                const start = Math.floor((CONFIG.cols - usable) / 2);
+                for (let col = start; col < start + usable; col++) {
+                    if (level > 3 && row > 1 && Math.random() < Math.min(0.06 + level * 0.01, 0.16)) continue;
+                    const point = cellToPixel(row, col);
+                    grid[row][col] = { row, col, color: randomFrom(colorPool), x: point.x, y: point.y };
+                }
+            }
+
+            return { grid, colorPool };
+        }
+
+        function resetForLevel(level) {
+            const levelData = generateLevel(level);
+            state.grid = levelData.grid;
+            state.activeColors = levelData.colorPool;
+            state.score = 0;
+            state.ballsLeft = 54 - Math.min(18, level * 2);
+            state.flyingBubble = null;
+            state.popEffects = [];
+            state.fallingBubbles = [];
+            state.aimAngle = -Math.PI / 2;
+            state.isPaused = false;
+            state.isGameActive = true;
+            state.currentBubbleColor = chooseShooterColor();
+            state.nextBubbleColor = chooseShooterColor();
+            closeAllPopups();
+            updateHud();
+        }
+
+        function showScreen(id) {
+            document.querySelectorAll(".screen").forEach((screen) => screen.classList.remove("active"));
+            document.getElementById(id).classList.add("active");
+        }
+
+        function startLevel(level) {
+            state.currentLevel = level;
+            resetForLevel(level);
+            showScreen("gameScreen");
+            startLoop();
+        }
+
+        function restartLevel() {
+            resetForLevel(state.currentLevel);
+            startLoop();
+        }
+
+        function loadLevelSelect() {
+            const container = document.getElementById("levelGrid");
+            container.innerHTML = "";
+
+            for (let i = 1; i <= TOTAL_LEVELS; i++) {
+                const unlocked = i === 1 || state.levelProgress[i - 1]?.completed;
+                const progress = state.levelProgress[i];
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "level-card";
+
+                if (!unlocked) {
+                    btn.classList.add("locked");
+                    btn.disabled = true;
+                    btn.innerHTML = `<div class="level-num">🔒 ${i}</div>`;
+                } else {
+                    if (progress.completed) btn.classList.add("completed");
+                    btn.innerHTML = `
+                        <div class="level-num">${i}</div>
+                        <div class="level-stars">${"★".repeat(progress.stars)}${"☆".repeat(3 - progress.stars)}</div>
+                    `;
+                    btn.addEventListener("click", () => startLevel(i));
+                }
+
+                container.appendChild(btn);
+            }
+        }
+
+        function getPointerPosition(event) {
+            const rect = state.canvas.getBoundingClientRect();
+            const clientX = event.clientX ?? event.touches?.[0]?.clientX ?? event.changedTouches?.[0]?.clientX;
+            const clientY = event.clientY ?? event.touches?.[0]?.clientY ?? event.changedTouches?.[0]?.clientY;
+            return {
+                x: (clientX - rect.left) * (CONFIG.width / rect.width),
+                y: (clientY - rect.top) * (CONFIG.height / rect.height)
+            };
+        }
+
+        function updateAimFromPointer(x, y) {
+            state.aimAngle = clampAimAngle(Math.atan2(y - SHOOTER.y, x - SHOOTER.x));
+        }
+
+        function onPointerDown(event) {
+            if (!state.isGameActive || state.isPaused || state.flyingBubble) return;
+            event.preventDefault();
+            const point = getPointerPosition(event);
+            updateAimFromPointer(point.x, point.y);
+            state.pointerDown = true;
+            ensureAudioContext();
+        }
+
+        function onPointerMove(event) {
+            if (!state.isGameActive) return;
+            event.preventDefault();
+            const point = getPointerPosition(event);
+            updateAimFromPointer(point.x, point.y);
+        }
+
+        function onPointerUp(event) {
+            if (!state.pointerDown || !state.isGameActive || state.isPaused) return;
+            event.preventDefault();
+            state.pointerDown = false;
+            shootBubble();
+        }
+
+        function shootBubble() {
+            if (state.flyingBubble || state.ballsLeft <= 0) return;
+
+            const angle = clampAimAngle(state.aimAngle);
+            const vx = Math.cos(angle) * CONFIG.bubbleSpeed;
+            const vy = Math.sin(angle) * CONFIG.bubbleSpeed;
+            if (vy >= -20) return;
+
+            state.flyingBubble = {
+                x: SHOOTER.x,
+                y: SHOOTER.y - 14,
+                vx,
+                vy,
+                color: state.currentBubbleColor
+            };
+
+            state.ballsLeft -= 1;
+            state.currentBubbleColor = state.nextBubbleColor;
+            state.nextBubbleColor = chooseShooterColor();
+            updateHud();
+            playFx("shoot");
+            checkLose();
+        }
+
+        function findSnapCell(x, y) {
+            const approx = pixelToApproxCell(x, y);
+            const candidates = [];
+
+            for (let row = approx.row - 2; row <= approx.row + 2; row++) {
+                for (let col = approx.col - 2; col <= approx.col + 2; col++) {
+                    if (!isInsideGrid(row, col) || state.grid[row][col]) continue;
+                    const anchored = row === 0 || getNeighborCoords(row, col).some((n) => !!state.grid[n.row][n.col]);
+                    if (!anchored) continue;
+                    const point = cellToPixel(row, col);
+                    candidates.push({
+                        row,
+                        col,
+                        distance: Math.hypot(point.x - x, point.y - y),
+                        y: point.y
+                    });
+                }
+            }
+
+            candidates.sort((a, b) => a.distance - b.distance || a.y - b.y);
+            return candidates[0] || null;
+        }
+
+        function getNearbyOccupied(x, y) {
+            const approx = pixelToApproxCell(x, y);
+            const list = [];
+            for (let row = approx.row - 2; row <= approx.row + 2; row++) {
+                for (let col = approx.col - 2; col <= approx.col + 2; col++) {
+                    if (!isInsideGrid(row, col)) continue;
+                    const bubble = state.grid[row][col];
+                    if (bubble) list.push(bubble);
+                }
+            }
+            return list;
+        }
+
+        function placeFlyingBubble() {
+            const target = findSnapCell(state.flyingBubble.x, state.flyingBubble.y);
+            if (!target) {
+                state.flyingBubble = null;
+                state.isGameActive = false;
+                document.getElementById("gameOverScoreVal").textContent = state.score;
+                popups.gameOver.classList.add("active");
+                return;
+            }
+
+            const point = cellToPixel(target.row, target.col);
+            state.grid[target.row][target.col] = {
+                row: target.row,
+                col: target.col,
+                color: state.flyingBubble.color,
+                x: point.x,
+                y: point.y
+            };
+
+            const bubble = state.grid[target.row][target.col];
+            state.flyingBubble = null;
+            resolveBoardAfterPlacement(bubble);
+        }
+
+        function updateFlyingBubble(dt) {
+            if (!state.flyingBubble) return;
+
+            const bubble = state.flyingBubble;
+            bubble.x += bubble.vx * dt;
+            bubble.y += bubble.vy * dt;
+
+            if (bubble.x <= CONFIG.radius) {
+                bubble.x = CONFIG.radius;
+                bubble.vx = Math.abs(bubble.vx);
+            } else if (bubble.x >= CONFIG.width - CONFIG.radius) {
+                bubble.x = CONFIG.width - CONFIG.radius;
+                bubble.vx = -Math.abs(bubble.vx);
+            }
+
+            if (bubble.y <= CONFIG.topPadding + CONFIG.radius) {
+                bubble.y = CONFIG.topPadding + CONFIG.radius;
+                placeFlyingBubble();
+                return;
+            }
+
+            for (const occupied of getNearbyOccupied(bubble.x, bubble.y)) {
+                if (Math.hypot(occupied.x - bubble.x, occupied.y - bubble.y) <= CONFIG.radius * 2 - 2) {
+                    placeFlyingBubble();
+                    return;
+                }
+            }
+        }
+
+        function findCluster(row, col, color) {
+            const stack = [{ row, col }];
+            const visited = new Set();
+            const cluster = [];
+
+            while (stack.length) {
+                const current = stack.pop();
+                const key = cellKey(current.row, current.col);
+                if (visited.has(key)) continue;
+                visited.add(key);
+
+                const bubble = state.grid[current.row][current.col];
+                if (!bubble || bubble.color !== color) continue;
+
+                cluster.push({ row: current.row, col: current.col });
+                for (const neighbor of getNeighborCoords(current.row, current.col)) {
+                    if (!visited.has(cellKey(neighbor.row, neighbor.col))) stack.push(neighbor);
+                }
+            }
+
+            return cluster;
+        }
+
+        function addPopEffect(bubble) {
+            state.popEffects.push({ x: bubble.x, y: bubble.y, color: bubble.color, life: 0.28 });
+        }
+
+        function detachFloatingBubbles() {
+            const connected = new Set();
+            const queue = [];
+
+            for (let col = 0; col < CONFIG.cols; col++) {
+                if (state.grid[0][col]) {
+                    connected.add(cellKey(0, col));
+                    queue.push({ row: 0, col });
+                }
+            }
+
+            while (queue.length) {
+                const current = queue.shift();
+                for (const next of getNeighborCoords(current.row, current.col)) {
+                    const key = cellKey(next.row, next.col);
+                    if (!state.grid[next.row][next.col] || connected.has(key)) continue;
+                    connected.add(key);
+                    queue.push(next);
+                }
+            }
+
+            let removed = 0;
+            for (let row = 0; row < CONFIG.rows; row++) {
+                for (let col = 0; col < CONFIG.cols; col++) {
+                    const bubble = state.grid[row][col];
+                    if (!bubble || connected.has(cellKey(row, col))) continue;
+                    state.fallingBubbles.push({
+                        x: bubble.x,
+                        y: bubble.y,
+                        color: bubble.color,
+                        vx: (Math.random() - 0.5) * 70,
+                        vy: 50 + Math.random() * 40,
+                        spin: (Math.random() - 0.5) * 4,
+                        rotation: Math.random() * Math.PI
+                    });
+                    state.grid[row][col] = null;
+                    removed += 1;
+                }
+            }
+
+            if (removed > 0) {
+                state.score += removed * 15;
+                playFx("pop");
+            }
+        }
+
+        function resolveBoardAfterPlacement(placedBubble) {
+            const cluster = findCluster(placedBubble.row, placedBubble.col, placedBubble.color);
+            let removed = 0;
+
+            if (cluster.length >= 3) {
+                for (const cell of cluster) {
+                    const bubble = state.grid[cell.row][cell.col];
+                    if (!bubble) continue;
+                    addPopEffect(bubble);
+                    state.grid[cell.row][cell.col] = null;
+                    removed += 1;
+                }
+                state.score += removed * 20;
+                playFx("pop");
+                detachFloatingBubbles();
+            }
+
+            state.activeColors = getActiveBoardColors();
+            if (state.activeColors.length) {
+                if (!state.activeColors.includes(state.currentBubbleColor)) state.currentBubbleColor = chooseShooterColor();
+                if (!state.activeColors.includes(state.nextBubbleColor)) state.nextBubbleColor = chooseShooterColor();
+            }
+
+            updateHud();
+            checkWin();
+            checkLose();
+        }
+
+        function checkWin() {
+            if (getOccupiedCells().length !== 0) return;
+            state.isGameActive = false;
+            const stars = state.ballsLeft >= 28 ? 3 : state.ballsLeft >= 16 ? 2 : 1;
+            state.levelProgress[state.currentLevel] = { completed: true, stars };
+            document.getElementById("finalScoreVal").textContent = state.score;
+            document.getElementById("starsResult").textContent = "★".repeat(stars) + "☆".repeat(3 - stars);
+            loadLevelSelect();
+            popups.complete.classList.add("active");
+            playFx("win");
+        }
+
+        function checkLose() {
+            if (!state.isGameActive) return;
+
+            if (state.ballsLeft <= 0 && !state.flyingBubble && getOccupiedCells().length > 0) {
+                state.isGameActive = false;
+            }
+
+            const limitY = SHOOTER.y - CONFIG.radius * 3;
+            if (getOccupiedCells().some((bubble) => bubble.y >= limitY)) {
+                state.isGameActive = false;
+            }
+
+            if (!state.isGameActive && getOccupiedCells().length > 0) {
+                document.getElementById("gameOverScoreVal").textContent = state.score;
+                popups.gameOver.classList.add("active");
+            }
+        }
+
+        function updateEffects(dt) {
+            state.popEffects = state.popEffects.filter((effect) => {
+                effect.life -= dt;
+                return effect.life > 0;
+            });
+
+            state.fallingBubbles = state.fallingBubbles.filter((bubble) => {
+                bubble.vy += 320 * dt;
+                bubble.x += bubble.vx * dt;
+                bubble.y += bubble.vy * dt;
+                bubble.rotation += bubble.spin * dt;
+                return bubble.y < CONFIG.height + 70;
+            });
+        }
+
+        function updateAmbient(dt) {
+            for (const particle of state.ambientParticles) {
+                particle.y -= particle.speed * dt;
+                particle.x += Math.sin(performance.now() * 0.001 + particle.sway) * 6 * dt;
+                if (particle.y < -10) {
+                    particle.y = CONFIG.height + 10;
+                    particle.x = Math.random() * CONFIG.width;
+                }
+            }
+        }
+
+        function drawBubble(ctx, x, y, color, scale = 1, alpha = 1) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.scale(scale, scale);
+            ctx.globalAlpha = alpha;
+
+            const fill = ctx.createRadialGradient(-6, -8, 2, 0, 0, CONFIG.radius);
+            fill.addColorStop(0, "rgba(255,255,255,0.97)");
+            fill.addColorStop(0.25, color);
+            fill.addColorStop(1, shadeColor(color, -36));
+
+            ctx.beginPath();
+            ctx.arc(0, 0, CONFIG.radius - 1.2, 0, Math.PI * 2);
+            ctx.fillStyle = fill;
+            ctx.shadowColor = color;
+            ctx.shadowBlur = 15;
+            ctx.fill();
+
+            ctx.shadowBlur = 0;
+            ctx.lineWidth = 2.4;
+            ctx.strokeStyle = "rgba(237, 249, 255, 0.96)";
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(-6, -7, 4.8, 0, Math.PI * 2);
+            ctx.fillStyle = "rgba(255,255,255,0.9)";
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawBackground(ctx, time) {
+            const gradient = ctx.createLinearGradient(0, 0, 0, CONFIG.height);
+            gradient.addColorStop(0, "rgba(5, 25, 70, 0.9)");
+            gradient.addColorStop(0.55, "rgba(34, 97, 156, 0.46)");
+            gradient.addColorStop(1, "rgba(4, 24, 56, 0.65)");
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, CONFIG.width, CONFIG.height);
+
+            for (const particle of state.ambientParticles) {
+                ctx.globalAlpha = 0.18 + particle.size * 0.12;
+                ctx.fillStyle = "#b2ebff";
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.globalAlpha = 1;
+
+            drawJellyfish(ctx, time);
+
+            ctx.save();
+            ctx.strokeStyle = "rgba(205, 239, 255, 0.16)";
+            ctx.setLineDash([9, 8]);
+            ctx.beginPath();
+            ctx.moveTo(GRID_LEFT, CONFIG.topPadding - 14);
+            ctx.lineTo(CONFIG.width - GRID_LEFT, CONFIG.topPadding - 14);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawJellyfish(ctx, time) {
+            for (const jelly of state.jellyfish) {
+                const x = jelly.baseX + Math.sin(time * jelly.speed + jelly.drift) * 14;
+                const y = jelly.baseY + Math.cos(time * 0.75 + jelly.drift) * 10;
+                const r = 22 * jelly.scale;
+
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.globalAlpha = 0.22;
+                const glow = ctx.createRadialGradient(0, 0, 4, 0, 0, r * 1.8);
+                glow.addColorStop(0, "rgba(121,255,249,0.34)");
+                glow.addColorStop(1, "rgba(121,255,249,0)");
+                ctx.fillStyle = glow;
+                ctx.beginPath();
+                ctx.arc(0, 0, r * 1.8, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.globalAlpha = 0.3;
+                ctx.fillStyle = "rgba(123,255,249,0.28)";
+                ctx.beginPath();
+                ctx.ellipse(0, -2, r, r * 0.66, 0, Math.PI, 0);
+                ctx.fill();
+
+                ctx.strokeStyle = "rgba(162,255,248,0.22)";
+                ctx.lineWidth = 1;
+                for (let i = -2; i <= 2; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(i * 5, 2);
+                    ctx.bezierCurveTo(i * 4, r * 0.8, i * 8 + Math.sin(time * 2 + i) * 4, r * 1.4, i * 6, r * 2);
+                    ctx.stroke();
+                }
+                ctx.restore();
+            }
+            ctx.globalAlpha = 1;
+        }
+
+        function drawGrid(ctx) {
+            for (let row = 0; row < CONFIG.rows; row++) {
+                for (let col = 0; col < CONFIG.cols; col++) {
+                    const bubble = state.grid[row][col];
+                    if (bubble) drawBubble(ctx, bubble.x, bubble.y, bubble.color);
+                }
+            }
+        }
+
+        function drawEffects(ctx) {
+            for (const bubble of state.fallingBubbles) {
+                ctx.save();
+                ctx.translate(bubble.x, bubble.y);
+                ctx.rotate(bubble.rotation);
+                drawBubble(ctx, 0, 0, bubble.color, 0.96, 0.9);
+                ctx.restore();
+            }
+
+            for (const effect of state.popEffects) {
+                const progress = 1 - effect.life / 0.28;
+                drawBubble(ctx, effect.x, effect.y, effect.color, 1 + progress * 0.6, 1 - progress);
+                ctx.save();
+                ctx.globalAlpha = 0.35 * (1 - progress);
+                ctx.strokeStyle = effect.color;
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(effect.x, effect.y, CONFIG.radius + progress * 24, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
+
+        function drawShooter(ctx) {
+            const barrelLength = 44;
+            const barrelX = SHOOTER.x + Math.cos(state.aimAngle) * barrelLength * 0.5;
+            const barrelY = SHOOTER.y + Math.sin(state.aimAngle) * barrelLength * 0.5;
+
+            ctx.save();
+            ctx.translate(SHOOTER.x, SHOOTER.y);
+            ctx.rotate(state.aimAngle + Math.PI / 2);
+
+            ctx.fillStyle = "rgba(37, 87, 133, 0.86)";
+            ctx.fillRect(-12, -38, 24, 46);
+            ctx.fillStyle = "rgba(112, 189, 255, 0.82)";
+            ctx.beginPath();
+            ctx.moveTo(-16, -10);
+            ctx.lineTo(16, -10);
+            ctx.quadraticCurveTo(30, -10, 30, 4);
+            ctx.lineTo(30, 6);
+            ctx.quadraticCurveTo(30, 20, 16, 20);
+            ctx.lineTo(-16, 20);
+            ctx.quadraticCurveTo(-30, 20, -30, 6);
+            ctx.lineTo(-30, 4);
+            ctx.quadraticCurveTo(-30, -10, -16, -10);
+            ctx.fill();
+            ctx.restore();
+
+            ctx.save();
+            ctx.fillStyle = "rgba(55, 128, 193, 0.72)";
+            ctx.beginPath();
+            ctx.arc(SHOOTER.x, SHOOTER.y + 7, 31, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+
+            drawBubble(ctx, barrelX, barrelY, state.currentBubbleColor);
+        }
+
+        function drawTrajectory(ctx) {
+            if (!state.isGameActive || state.flyingBubble) return;
+
+            let x = SHOOTER.x;
+            let y = SHOOTER.y - 14;
+            let vx = Math.cos(state.aimAngle) * CONFIG.dotsSpacing;
+            let vy = Math.sin(state.aimAngle) * CONFIG.dotsSpacing;
+            let bounces = 0;
+
+            for (let i = 0; i < 42; i++) {
+                x += vx;
+                y += vy;
+
+                if (x <= CONFIG.radius) {
+                    x = CONFIG.radius;
+                    vx = Math.abs(vx);
+                    bounces += 1;
+                } else if (x >= CONFIG.width - CONFIG.radius) {
+                    x = CONFIG.width - CONFIG.radius;
+                    vx = -Math.abs(vx);
+                    bounces += 1;
+                }
+
+                const alpha = 0.92 - i * 0.022;
+                if (alpha <= 0) break;
+
+                ctx.save();
+                ctx.globalAlpha = alpha;
+                ctx.fillStyle = i < 20 ? "#ffd45e" : "#b2ecff";
+                ctx.beginPath();
+                ctx.arc(x, y, 3.5 - i * 0.035, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                if (y <= CONFIG.topPadding + CONFIG.radius) break;
+                if (bounces > CONFIG.maxPreviewBounces) break;
+
+                const hit = getNearbyOccupied(x, y).some((bubble) => Math.hypot(bubble.x - x, bubble.y - y) <= CONFIG.radius * 2 - 2);
+                if (hit) break;
+            }
+        }
+
+        function render(ts) {
+            const ctx = state.ctx;
+            ctx.clearRect(0, 0, CONFIG.width, CONFIG.height);
+            const time = ts * 0.001;
+
+            drawBackground(ctx, time);
+            drawGrid(ctx);
+            drawEffects(ctx);
+            drawTrajectory(ctx);
+            if (state.flyingBubble) drawBubble(ctx, state.flyingBubble.x, state.flyingBubble.y, state.flyingBubble.color);
+            drawShooter(ctx);
+        }
+
+        function update(dt) {
+            if (!state.isPaused && state.isGameActive) {
+                updateFlyingBubble(dt);
+            }
+            updateEffects(dt);
+            updateAmbient(dt);
+        }
+
+        function loop(ts) {
+            if (!state.lastTs) state.lastTs = ts;
+            const dt = Math.min(0.032, (ts - state.lastTs) / 1000);
+            state.lastTs = ts;
+            update(dt);
+            render(ts);
+            state.loopId = requestAnimationFrame(loop);
+        }
+
+        function startLoop() {
+            cancelAnimationFrame(state.loopId);
+            state.lastTs = 0;
+            state.loopId = requestAnimationFrame(loop);
+        }
+
+        function closeAllPopups() {
+            Object.values(popups).forEach((popup) => popup.classList.remove("active"));
+        }
+
+        function togglePause(force) {
+            state.isPaused = typeof force === "boolean" ? force : !state.isPaused;
+            popups.pause.classList.toggle("active", state.isPaused);
+        }
+
+        function setupEvents() {
+            state.canvas = document.getElementById("gameCanvas");
+            state.ctx = state.canvas.getContext("2d");
+            state.canvas.width = CONFIG.width;
+            state.canvas.height = CONFIG.height;
+
+            state.canvas.addEventListener("pointerdown", onPointerDown);
+            state.canvas.addEventListener("pointermove", onPointerMove);
+            state.canvas.addEventListener("pointerup", onPointerUp);
+            state.canvas.addEventListener("pointercancel", () => { state.pointerDown = false; });
+            state.canvas.addEventListener("pointerleave", (event) => {
+                if (state.pointerDown) onPointerUp(event);
+            });
+
+            document.getElementById("playNowBtn").addEventListener("click", () => startLevel(1));
+            document.getElementById("levelSelectMenuBtn").addEventListener("click", () => {
+                loadLevelSelect();
+                showScreen("levelSelectScreen");
+            });
+            document.getElementById("backToMenuBtn").addEventListener("click", () => showScreen("mainMenu"));
+            document.getElementById("soundMenuBtn").addEventListener("click", () => {
+                state.soundEnabled = !state.soundEnabled;
+                updateHud();
+            });
+
+            document.getElementById("pauseGameBtn").addEventListener("click", () => {
+                if (state.isGameActive) togglePause(true);
+            });
+            document.getElementById("resumeGameBtn").addEventListener("click", () => togglePause(false));
+            document.getElementById("restartPauseBtn").addEventListener("click", () => {
+                closeAllPopups();
+                restartLevel();
+            });
+            document.getElementById("menuPauseBtn").addEventListener("click", () => {
+                closeAllPopups();
+                state.isPaused = false;
+                showScreen("mainMenu");
+            });
+
+            document.getElementById("restartLevelBtn").addEventListener("click", restartLevel);
+            document.getElementById("exitGameMenuBtn").addEventListener("click", () => {
+                closeAllPopups();
+                showScreen("mainMenu");
+            });
+
+            document.getElementById("nextLevelActionBtn").addEventListener("click", () => {
+                closeAllPopups();
+                if (state.currentLevel < TOTAL_LEVELS) startLevel(state.currentLevel + 1);
+                else showScreen("mainMenu");
+            });
+            document.getElementById("replayLevelActionBtn").addEventListener("click", () => {
+                closeAllPopups();
+                restartLevel();
+            });
+            document.getElementById("levelSelectCompleteBtn").addEventListener("click", () => {
+                closeAllPopups();
+                loadLevelSelect();
+                showScreen("levelSelectScreen");
+            });
+            document.getElementById("retryGameBtn").addEventListener("click", () => {
+                closeAllPopups();
+                restartLevel();
+            });
+            document.getElementById("gameOverMenuBtn").addEventListener("click", () => {
+                closeAllPopups();
+                showScreen("mainMenu");
+            });
+        }
+
+        function runLoadingSequence() {
+            const fill = document.getElementById("loadingFill");
+            const percentText = document.getElementById("loadingPercent");
+            const statusText = document.getElementById("loadingStatus");
+            const statuses = [
+                "Preparing ocean world...",
+                "Charging bubble launcher...",
+                "Polishing shiny bubbles...",
+                "Almost ready to play..."
+            ];
+
+            let progress = 0;
+            let statusIndex = 0;
+
+            const timer = setInterval(() => {
+                progress += 7 + Math.random() * 12;
+                if (progress > 100) progress = 100;
+
+                fill.style.width = `${progress}%`;
+                percentText.textContent = `Loading ${Math.floor(progress)}%`;
+
+                const nextIndex = Math.min(statuses.length - 1, Math.floor(progress / 30));
+                if (nextIndex !== statusIndex) {
+                    statusIndex = nextIndex;
+                    statusText.textContent = statuses[statusIndex];
+                }
+
+                if (progress >= 100) {
+                    clearInterval(timer);
+                    statusText.textContent = "Ready to pop!";
+                    setTimeout(() => {
+                        screens.loading.classList.remove("active");
+                        screens.menu.classList.add("active");
+                    }, 380);
+                }
+            }, 130);
+        }
+
+        createBubbleLayer();
+        setupEvents();
+        loadLevelSelect();
+        updateHud();
+        startLoop();
+        runLoadingSequence();
+    </script>
 </body>
 </html>
