@@ -153,7 +153,15 @@
       "thumbnailUrl": "game/carparking/images/thumb.png",
       "categories": ["racing", "action", "for you"],
       "tags": ["new", "3d"]
+    },
+    {
+      "id": "slither-io",
+      "gameTitle": "Slither.io",
+      "gameUrl": "gameDistribution/Slither.html",
+      "thumbnailUrl": "game/Slither.io/thumb.png",
+      "categories": ["action", "multiplayer", "arcade", "for you"],
+      "tags": ["hot", "multiplayer"]
     }
   ],
-  "gameTags": ["hot", "new", "3d", "pro", "update", "classic"]
+  "gameTags": ["hot", "new", "3d", "pro", "update", "classic", "multiplayer"]
 }
