@@ -215,6 +215,15 @@
       "categories": ["puzzle", "arcade", "for you"],
       "tags": ["new", "classic"],
       "description": "Play Candy Crush online and match colorful candies to clear the board, build combos, and complete each level with smart moves. Create special pieces, trigger chain reactions, and plan ahead to beat tougher layouts."
+    },
+    {
+      "id": "bubble-tower",
+      "gameTitle": "Bubble Tower",
+      "gameUrl": "gameDistribution/Bubble-Tower.html",
+      "thumbnailUrl": "game/bubble tower/thumb.png",
+      "categories": ["puzzle", "arcade", "for you"],
+      "tags": ["new", "classic"],
+      "description": "Play Bubble Tower online and clear the stack by matching and shooting bubbles with careful aim. Build long combos, watch the tower collapse, and plan each shot so you do not leave awkward colors behind."
     }
   ],
   "gameTags": ["hot", "new", "3d", "pro", "update", "classic", "multiplayer"]
