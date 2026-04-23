@@ -15,137 +15,124 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// Load related games from gamesData.json
-async function loadRelatedGames() {
-  try {
-    const isSubdir = window.location.pathname.includes("/gameDistribution/") || window.location.pathname.includes("/game/");
-    const basePath = isSubdir ? "../" : "./";
-    const res = await fetch(basePath + "assets/js/gamesData.json");
-    // const res = await fetch("../assets/js/gamesData.json");
-    const data = await res.json();
+let gamesDataPromise = null;
 
-    const container = document.getElementById("related-games");
+async function getGamesData() {
+  if (gamesDataPromise) return gamesDataPromise;
 
-    // current game find karo
-    const currentGame = data.gameTitles.find((g) => g.id.includes(gameId));
+  const isSubdir = window.location.pathname.includes("/gameDistribution/") || window.location.pathname.includes("/game/");
+  const basePath = isSubdir ? "../" : "./";
 
-    if (!currentGame) return;
+  gamesDataPromise = fetch(basePath + "assets/js/gamesData.json")
+    .then((res) => {
+      if (!res.ok) throw new Error(`Failed to load games data: ${res.status}`);
+      return res.json();
+    })
+    .catch((error) => {
+      gamesDataPromise = null;
+      throw error;
+    });
 
-    const currentCategories = currentGame.categories || [];
-
-    // FILTER: same category vala games
-    const games = data.gameTitles
-      .filter((g) => {
-        if (g.id === currentGame.id) return false;
-
-        // check if ANY category matches
-        return g.categories?.some((cat) => currentCategories.includes(cat));
-      })
-      .slice(0, 8);
-
-    // render
-    container.innerHTML = games
-      .map(
-        (game) => `
-          <a href="../${game.gameUrl}" class="related-card group flex items-center gap-3 p-2 bg-surface/40 hover:bg-surface/80 border border-white/5 hover:border-primary/30 rounded-2xl transition-all duration-200">
-            
-            <div class="w-14 h-12 rounded-xl overflow-hidden shrink-0 relative">
-              <img src="../${game.thumbnailUrl}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
-            </div>
-          
-            <div class="flex-1 min-w-0">
-              <p class="text-white text-xs font-bold truncate">${game.gameTitle}</p>
-              <p class="text-gray-500 text-[10px] mt-0.5 capitalize">
-                ${(game.categories || ["game"])[0]}
-              </p>
-            </div>
-          
-          </a>
-        `,
-      )
-      .join("");
-  } catch (e) {
-    console.warn("Error:", e);
-  }
+  return gamesDataPromise;
 }
 
-function renderSeriesCard(otherVersion) {
+function getCurrentGameId(data) {
+  const bodyGameId = document.body?.dataset.currentGameId;
+  const candidates = [bodyGameId, gameId].filter(Boolean);
+
+  for (const id of candidates) {
+    const exactMatch = data.gameTitles.find((g) => g.id === id);
+    if (exactMatch) return exactMatch.id;
+  }
+
+  for (const id of candidates) {
+    const partialMatch = data.gameTitles.find((g) => g.id.includes(id));
+    if (partialMatch) return partialMatch.id;
+  }
+
+  return null;
+}
+
+function getCurrentGame(data) {
+  const currentGameId = getCurrentGameId(data);
+  if (!currentGameId) return null;
+  return data.gameTitles.find((g) => g.id === currentGameId) || null;
+}
+
+function formatSeriesTitle(seriesKey) {
+  if (!seriesKey) return "";
+
+  return seriesKey
+    .split(/[-_]/g)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function getBadgeClass(tag) {
+  const normalizedTag = (tag || "").toLowerCase();
+  if (normalizedTag === "hot") return "bg-red-500";
+  if (normalizedTag === "new") return "bg-emerald-500";
+  if (normalizedTag === "3d") return "bg-blue-500";
+  return "bg-primary";
+}
+
+function renderSeriesCard(game) {
   return `
-      <a href="../${otherVersion.gameUrl}" class="group flex items-center gap-4 px-4 py-3 bg-surface/40 hover:bg-surface/80 border border-white/5 hover:border-primary/30 rounded-2xl transition-all duration-200 w-full shadow-lg">
+      <a href="../${game.gameUrl}" class="group flex items-center gap-4 px-4 py-3 bg-surface/40 hover:bg-surface/80 border border-white/5 hover:border-primary/30 rounded-2xl transition-all duration-200 w-full shadow-lg">
         <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden shrink-0 relative bg-black/20 border border-white/5 shadow-md">
-          <img src="../${otherVersion.thumbnailUrl}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" alt="${otherVersion.gameTitle}" />
+          <img src="../${game.thumbnailUrl}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" alt="${game.gameTitle}" />
         </div>
         <div class="flex-1 min-w-0">
-          <p class="text-white text-xs sm:text-sm font-bold truncate leading-tight">${otherVersion.gameTitle}</p>
+          <p class="text-white text-xs sm:text-sm font-bold truncate leading-tight">${game.gameTitle}</p>
           <p class="text-gray-500 text-[10px] sm:text-xs mt-0.5 uppercase tracking-wide">Play now</p>
         </div>
       </a>
     `;
 }
 
-function renderSeriesMore({ sectionId, containerId, currentGame, data, seriesKey }) {
-  const section = document.getElementById(sectionId);
-  const container = document.getElementById(containerId);
-  if (!section || !container || !currentGame) return;
-
-  const otherVersion = data.gameTitles.find((g) => g.series === seriesKey && g.id !== currentGame.id);
-  if (!otherVersion) return;
-
-  section.classList.remove("hidden");
-  container.innerHTML = renderSeriesCard(otherVersion);
-}
-
-// Subway Surfers-only cross-version section
-async function loadSubwaySurfersMore() {
+async function loadRelatedGames() {
   try {
-    if (!gameId || !gameId.startsWith("subway-surfers")) return;
+    const data = await getGamesData();
+    const container = document.getElementById("related-games");
+    if (!container) return;
 
-    const section = document.getElementById("subway-surfers-more-section");
-    const container = document.getElementById("subway-surfers-more");
-    if (!section || !container) return;
-
-    const isSubdir = window.location.pathname.includes("/gameDistribution/") || window.location.pathname.includes("/game/");
-    const basePath = isSubdir ? "../" : "./";
-    const res = await fetch(basePath + "assets/js/gamesData.json");
-    const data = await res.json();
-
-    // Subway Surfers has multiple variants, so use the exact page variant ID.
-    const currentVariantId = gameId.includes("vegas-queen") ? "subway-surfers-vegas-queen" : "subway-surfers-new-york";
-    const currentGame = data.gameTitles.find((g) => g.id === currentVariantId);
+    const currentGame = getCurrentGame(data);
     if (!currentGame) return;
 
-    renderSeriesMore({
-      sectionId: "subway-surfers-more-section",
-      containerId: "subway-surfers-more",
-      currentGame,
-      data,
-      seriesKey: "subway-surfers",
-    });
+    const currentCategories = currentGame.categories || [];
+
+    const games = data.gameTitles
+      .filter((g) => g.id !== currentGame.id && g.categories?.some((cat) => currentCategories.includes(cat)))
+      .slice(0, 8);
+
+    container.innerHTML = games.map((game) => renderSeriesCard(game)).join("");
   } catch (e) {
     console.warn("Error:", e);
   }
 }
 
-// Car Parking series section
-async function loadCarParkingMore() {
+async function loadSeriesSections() {
   try {
-    if (!gameId || !["car-parking", "park-out"].includes(gameId)) return;
+    const data = await getGamesData();
+    const currentGame = getCurrentGame(data);
+    if (!currentGame || !currentGame.series) return;
 
-    const isSubdir = window.location.pathname.includes("/gameDistribution/") || window.location.pathname.includes("/game/");
-    const basePath = isSubdir ? "../" : "./";
-    const res = await fetch(basePath + "assets/js/gamesData.json");
-    const data = await res.json();
+    const sections = document.querySelectorAll("[data-series-section][data-series-key]");
+    if (!sections.length) return;
 
-    const currentVariantId = gameId === "park-out" ? "park-out" : "car-parking";
-    const currentSeriesGame = data.gameTitles.find((g) => g.id === currentVariantId);
-    if (!currentSeriesGame) return;
+    sections.forEach((section) => {
+      const seriesKey = section.dataset.seriesKey;
+      const titleNode = section.querySelector("[data-series-title]");
+      const container = section.querySelector("[data-series-container]");
+      if (!seriesKey || !titleNode || !container) return;
 
-    renderSeriesMore({
-      sectionId: "car-parking-more-section",
-      containerId: "car-parking-more",
-      currentGame: currentSeriesGame,
-      data,
-      seriesKey: "car-parking",
+      const relatedGames = data.gameTitles.filter((game) => game.series === seriesKey && game.id !== currentGame.id);
+      if (!relatedGames.length) return;
+
+      section.classList.remove("hidden");
+      titleNode.textContent = `More from ${formatSeriesTitle(seriesKey)}`;
+      container.innerHTML = relatedGames.map((game) => renderSeriesCard(game)).join("");
     });
   } catch (e) {
     console.warn("Error:", e);
@@ -196,14 +183,8 @@ function getDynamicColor(text) {
 }
 
 async function loadGameDetails() {
-  const isSubdir = window.location.pathname.includes("/gameDistribution/") || window.location.pathname.includes("/game/");
-  const basePath = isSubdir ? "../" : "./";
-  const res = await fetch(basePath + "assets/js/gamesData.json");
-  // const res = await fetch("../assets/js/gamesData.json");
-  const data = await res.json();
-
-  // current game (title match karo)
-  const currentGame = data.gameTitles.find((g) => g.id.includes(gameId));
+  const data = await getGamesData();
+  const currentGame = getCurrentGame(data);
 
   if (!currentGame) return;
 
@@ -260,6 +241,5 @@ $(document).ready(function () {
   mousecursor();
   loadRelatedGames();
   loadGameDetails();
-  loadSubwaySurfersMore();
-  loadCarParkingMore();
+  loadSeriesSections();
 });

@@ -38,19 +38,21 @@
       "tags": ["new", "hot", "trending"],
       "series": "subway-surfers"
     },
-    {
-      "id": "block-blast",
-      "gameTitle": "Block Blast",
-      "gameUrl": "gameDistribution/BlockBlast.html",
-      "thumbnailUrl": "game/BlockBlast/BlockBlast.png",
-      "categories": ["puzzle", "arcade", "for you"],
-      "tags": ["hot", "new"]
+      {
+      "id": "wood-blocks",
+      "gameTitle": "Wood Block",
+      "gameUrl": "gameDistribution/Wood-Blocks.html",
+      "thumbnailUrl": "game/Wood-Blocks/thumb.png",
+      "categories": ["puzzle", "arcade", "season", "for you"],
+      "tags": ["update", "classic"],
+      "series": "block-blast",
+      "description": "Play Wood Block online as Block Blast Part 2 and place wooden pieces carefully to clear rows and columns. Keep the board open, avoid small gaps, and think one move ahead so the puzzle stays manageable."
     },
     {
       "id": "jungle-kombat",
       "gameTitle": "Jungle Kombat",
       "gameUrl": "gameDistribution/JungleKombat.html",
-      "thumbnailUrl": "game/JungleKombat/JungleKombat.png",
+      "thumbnailUrl": "game/JungleKombat/thumb.png",
       "categories": ["action", "arcade", "for you"],
       "tags": ["new", "3d"]
     },
@@ -79,29 +81,36 @@
       "categories": ["sports", "multiplayer", "pool", "for you"],
       "tags": ["3d", "update"]
     },
-    {
-      "id": "piano",
-      "gameTitle": "Piano",
-      "gameUrl": "gameDistribution/Piano.html",
-      "thumbnailUrl": "game/Piano/src/images/thumb.png",
-      "categories": ["arcade", "music", "for you"],
-      "tags": ["hot", "new"]
+     {
+      "id": "park-out",
+      "gameTitle": "Park Out",
+      "gameUrl": "gameDistribution/Park-Out.html",
+      "thumbnailUrl": "game/ParkOut/thumb.png",
+      "categories": ["racing", "action", "season", "for you"],
+      "tags": ["new", "classic"],
+      "series": "car-parking",
+      "description": "Play Park Out online as Car Parking Part 2 and solve crowded parking jams by moving the right cars in the right order. Clear a path, free the blocked vehicle, and think ahead so you can open the lot with the fewest moves possible."
     },
+
+    
     {
-      "id": "spacecraft",
-      "gameTitle": "Spacecraft",
-      "gameUrl": "gameDistribution/Spacecraft.html",
-      "thumbnailUrl": "game/Spacecraft/images/thumb.png",
-      "categories": ["runner", "arcade", "for you"],
-      "tags": ["hot", "new"]
+      "id": "monster-truck-climb",
+      "gameTitle": "Monster Truck Climb",
+      "gameUrl": "gameDistribution/Monster-Truck-Climb.html",
+      "thumbnailUrl": "game/Monster Truck Climb/thumb.png",
+      "categories": ["racing", "action", "for you"],
+      "tags": ["new", "3d"],
+      "description": "Play Monster Truck Climb online and drive a huge truck over steep hills, rough ramps, and tricky obstacles. Balance your speed, keep the wheels steady, and use careful timing to reach the finish without flipping over."
     },
-    {
-      "id": "water-sort-puzzle",
-      "gameTitle": "Water Sort Puzzle",
-      "gameUrl": "gameDistribution/Water-Sort-Puzzle.html",
-      "thumbnailUrl": "game/water-sort-puzzle/images/thumb.png",
+
+        {
+      "id": "candy-crush",
+      "gameTitle": "Candy Crush",
+      "gameUrl": "gameDistribution/Candy-Crush.html",
+      "thumbnailUrl": "game/candy crush/thumb.png",
       "categories": ["puzzle", "arcade", "for you"],
-      "tags": ["update"]
+      "tags": ["new", "classic"],
+      "description": "Play Candy Crush online and match colorful candies to clear the board, build combos, and complete each level with smart moves. Create special pieces, trigger chain reactions, and plan ahead to beat tougher layouts."
     },
     {
       "id": "ultimate-car",
@@ -120,14 +129,16 @@
       "tags": ["new", "classic"],
       "description": "Play Bubble Tower online and clear the stack by matching and shooting bubbles with careful aim. Build long combos, watch the tower collapse, and plan each shot so you do not leave awkward colors behind."
     },
-    {
-      "id": "breakout",
-      "gameTitle": "Breakout",
-      "gameUrl": "gameDistribution/Breakout.html",
-      "thumbnailUrl": "game/Breakout/img/thumb.png",
-      "categories": ["arcade", "action", "puzzle", "for you"],
-      "tags": ["new"]
+        {
+      "id": "moving-truck",
+      "gameTitle": "Moving Truck",
+      "gameUrl": "gameDistribution/Moving-Truck.html",
+      "thumbnailUrl": "game/moving-truck/thumb.png",
+      "categories": ["racing", "action", "for you"],
+      "tags": ["new", "3d"],
+      "description": "Play Moving Truck online and guide a heavy truck through tight roads, steep ramps, and uneven turns while keeping your cargo under control. Smooth braking, careful steering, and steady balance are the keys to reaching the finish without losing momentum."
     },
+
     {
       "id": "snack-and-apple",
       "gameTitle": "Snack and Apple",
@@ -136,22 +147,26 @@
       "categories": ["arcade", "action", "for you"],
       "tags": ["fun"]
     },
-    {
-      "id": "snake-and-ladder",
-      "gameTitle": "Snake and Ladder",
-      "gameUrl": "gameDistribution/Snake-and-Ladder.html",
-      "thumbnailUrl": "game/Snake-and-Ladders/sprites/logo_menu.png",
-      "categories": ["board", "puzzle", "for you", "multiplayer"],
-      "tags": ["new"]
+        {
+      "id": "bouncy-woods",
+      "gameTitle": "Bouncy Woods",
+      "gameUrl": "gameDistribution/Bouncy-Woods.html",
+      "thumbnailUrl": "game/Bouncy-Woods/thumb.png",
+      "categories": ["puzzle", "arcade", "for you"],
+      "tags": ["new", "classic"],
+      "description": "Play Bouncy Woods online and clear the forest board with smart shots, careful angles, and steady timing. Match the layout, trigger chain reactions, and keep the screen under control before the field fills up."
     },
     {
-      "id": "angry-birds",
-      "gameTitle": "Angry Birds",
-      "gameUrl": "gameDistribution/AngryBirds.html",
-      "thumbnailUrl": "game/AngryBirds/thumb.png",
-      "categories": ["action", "arcade", "puzzle", "for you"],
-      "tags": ["hot", "classic"]
+      "id": "arcane-archer",
+      "gameTitle": "Arcane Archer",
+      "gameUrl": "gameDistribution/Arcane-Archer.html",
+      "thumbnailUrl": "game/Arcane Archer/thumb.png",
+      "categories": ["action", "arcade", "for you", "shooting"],
+      "tags": ["new", "3d"],
+      "series": "arcane-archer",
+      "description": "Play Arcane Archer online and aim magical shots at enemies and targets with simple, careful timing. Watch the distance, release at the right moment, and use clean shots to clear each stage."
     },
+
     {
       "id": "car-parking",
       "gameTitle": "Car Parking",
@@ -213,24 +228,25 @@
       "tags": ["classic", "multiplayer"],
       "description": "Play Carrom Master online and enjoy a smooth browser version of the classic carrom board game. Aim the striker, control your power, pocket your coins cleanly, and try to clear the board before your opponent."
     },
+
     {
-      "id": "candy-crush",
-      "gameTitle": "Candy Crush",
-      "gameUrl": "gameDistribution/Candy-Crush.html",
-      "thumbnailUrl": "game/candy crush/thumb.png",
+      "id": "water-sort-puzzle",
+      "gameTitle": "Water Sort Puzzle",
+      "gameUrl": "gameDistribution/Water-Sort-Puzzle.html",
+      "thumbnailUrl": "game/water-sort-puzzle/images/thumb.png",
       "categories": ["puzzle", "arcade", "for you"],
-      "tags": ["new", "classic"],
-      "description": "Play Candy Crush online and match colorful candies to clear the board, build combos, and complete each level with smart moves. Create special pieces, trigger chain reactions, and plan ahead to beat tougher layouts."
+      "tags": ["update"]
     },
     {
-      "id": "monster-truck-climb",
-      "gameTitle": "Monster Truck Climb",
-      "gameUrl": "gameDistribution/Monster-Truck-Climb.html",
-      "thumbnailUrl": "game/Monster Truck Climb/thumb.png",
-      "categories": ["racing", "action", "for you"],
-      "tags": ["new", "3d"],
-      "description": "Play Monster Truck Climb online and drive a huge truck over steep hills, rough ramps, and tricky obstacles. Balance your speed, keep the wheels steady, and use careful timing to reach the finish without flipping over."
+      "id": "spacecraft",
+      "gameTitle": "Spacecraft",
+      "gameUrl": "gameDistribution/Spacecraft.html",
+      "thumbnailUrl": "game/Spacecraft/images/thumb.png",
+      "categories": ["runner", "arcade", "for you"],
+      "tags": ["hot", "new"]
     },
+
+
     {
       "id": "dinosaurs-merge-master",
       "gameTitle": "Dinosaurs Merge Master",
@@ -241,7 +257,7 @@
       "description": "Play Dinosaurs Merge Master online and combine matching dinosaurs to grow stronger creatures. Place each dinosaur carefully, make smart merges, keep the board open, and plan ahead so you can reach the next dinosaur before the space runs out."
     },
 
-        {
+    {
       "id": "tic-tac-toe",
       "gameTitle": "Tic Tac Toe",
       "gameUrl": "gameDistribution/TicTacToe.html",
@@ -249,43 +265,53 @@
       "categories": ["board", "puzzle", "multiplayer", "for you"],
       "tags": ["hot", "new"]
     },
+
     {
-      "id": "moving-truck",
-      "gameTitle": "Moving Truck",
-      "gameUrl": "gameDistribution/Moving-Truck.html",
-      "thumbnailUrl": "game/moving-truck/thumb.png",
-      "categories": ["racing", "action", "for you"],
-      "tags": ["new", "3d"],
-      "description": "Play Moving Truck online and guide a heavy truck through tight roads, steep ramps, and uneven turns while keeping your cargo under control. Smooth braking, careful steering, and steady balance are the keys to reaching the finish without losing momentum."
+      "id": "breakout",
+      "gameTitle": "Breakout",
+      "gameUrl": "gameDistribution/Breakout.html",
+      "thumbnailUrl": "game/Breakout/img/thumb.png",
+      "categories": ["arcade", "action", "puzzle", "for you"],
+      "tags": ["new"]
     },
+
     {
-      "id": "county-woods",
-      "gameTitle": "County Woods",
-      "gameUrl": "gameDistribution/County-Woods.html",
-      "thumbnailUrl": "game/Bouncy-Woods/thumb.png",
-      "categories": ["puzzle", "arcade", "for you"],
-      "tags": ["new", "classic"],
-      "description": "Play County Woods online and clear the forest board with smart shots, careful angles, and steady timing. Match the layout, trigger chain reactions, and keep the screen under control before the field fills up."
+      "id": "angry-birds",
+      "gameTitle": "Angry Birds",
+      "gameUrl": "gameDistribution/AngryBirds.html",
+      "thumbnailUrl": "game/AngryBirds/thumb.png",
+      "categories": ["action", "arcade", "puzzle", "for you"],
+      "tags": ["hot", "classic"]
     },
-    {
-      "id": "park-out",
-      "gameTitle": "Park Out",
-      "gameUrl": "gameDistribution/Park-Out.html",
-      "thumbnailUrl": "game/ParkOut/thumb.png",
-      "categories": ["racing", "action", "season", "for you"],
-      "tags": ["new", "classic"],
-      "series": "car-parking",
-      "description": "Play Park Out online as Car Parking Part 2 and solve crowded parking jams by moving the right cars in the right order. Clear a path, free the blocked vehicle, and think ahead so you can open the lot with the fewest moves possible."
-    },
+
+       {
+      "id": "piano",
+      "gameTitle": "Piano",
+      "gameUrl": "gameDistribution/Piano.html",
+      "thumbnailUrl": "game/Piano/src/images/thumb.png",
+      "categories": ["arcade", "music", "for you"],
+      "tags": ["hot", "new"]
+    },  
+
     {
       "id": "stick-merge",
       "gameTitle": "Stick Merge",
       "gameUrl": "gameDistribution/Stick-Master.html",
       "thumbnailUrl": "game/Stick-Merge/thumb.png",
-      "categories": ["action", "arcade", "for you" , "shooting"],
+      "categories": ["action", "arcade", "for you", "shooting"],
       "tags": ["hot", "classic"],
       "description": "Play Stick Master online and combine matching stick fighters and weapons to build a stronger team. Merge smartly, upgrade your units, and survive longer as each wave becomes harder to handle."
+    },
+        {
+      "id": "block-blast",
+      "gameTitle": "Block Blast",
+      "gameUrl": "gameDistribution/BlockBlast.html",
+      "thumbnailUrl": "game/BlockBlast/BlockBlast.png",
+      "categories": ["puzzle", "arcade", "for you" , "season"],
+      "tags": ["hot", "new"],
+      "series": "block-blast"
     }
+  
   ],
   "gameTags": ["hot", "new", "3d", "pro", "update", "classic", "multiplayer"]
 }

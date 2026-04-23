@@ -14,7 +14,7 @@
     <script src="../assets/js/tailwind.config.js"></script>
     <link href="../assets/css/style.css" rel="stylesheet" />
   </head>
-  <body class="antialiased selection:bg-primary/30 selection:text-white">
+  <body class="antialiased selection:bg-primary/30 selection:text-white" data-current-game-id="subway-surfers-new-york">
     <!--<< Mouse Cursor Start >>-->
     <div class="mouse-cursor cursor-outer"></div>
     <div class="mouse-cursor cursor-inner"></div>
@@ -187,12 +187,12 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
             Browse All Games
           </a>
-          <div id="subway-surfers-more-section" class="mt-6 hidden">
-            <h3 class="text-white font-bold text-base mb-3 flex items-center gap-2">
+          <div id="subway-surfers-more-section" class="mt-6 hidden" data-series-section data-series-key="subway-surfers">
+            <h3 class="text-white font-bold text-base mb-3 flex items-center gap-2" data-series-title>
               <svg class="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20"><path d="M10 3a7 7 0 107 7 7 7 0 00-7-7zm0 2a5 5 0 11-5 5 5 5 0 015-5zm-1 2h2v4h-2zm0 5h2v2h-2z" /></svg>
               More from Subway Surfers
             </h3>
-            <div id="subway-surfers-more" class="flex flex-col items-start gap-3 w-full"></div>
+            <div id="subway-surfers-more" class="flex flex-col items-start gap-3 w-full" data-series-container></div>
           </div>
         </div>
       </div>
