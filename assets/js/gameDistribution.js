@@ -69,6 +69,32 @@ async function loadRelatedGames() {
   }
 }
 
+function renderSeriesCard(otherVersion) {
+  return `
+      <a href="../${otherVersion.gameUrl}" class="group flex items-center gap-4 px-4 py-3 bg-surface/40 hover:bg-surface/80 border border-white/5 hover:border-primary/30 rounded-2xl transition-all duration-200 w-full shadow-lg">
+        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden shrink-0 relative bg-black/20 border border-white/5 shadow-md">
+          <img src="../${otherVersion.thumbnailUrl}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" alt="${otherVersion.gameTitle}" />
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-white text-xs sm:text-sm font-bold truncate leading-tight">${otherVersion.gameTitle}</p>
+          <p class="text-gray-500 text-[10px] sm:text-xs mt-0.5 uppercase tracking-wide">Play now</p>
+        </div>
+      </a>
+    `;
+}
+
+function renderSeriesMore({ sectionId, containerId, currentGame, data, seriesKey }) {
+  const section = document.getElementById(sectionId);
+  const container = document.getElementById(containerId);
+  if (!section || !container || !currentGame) return;
+
+  const otherVersion = data.gameTitles.find((g) => g.series === seriesKey && g.id !== currentGame.id);
+  if (!otherVersion) return;
+
+  section.classList.remove("hidden");
+  container.innerHTML = renderSeriesCard(otherVersion);
+}
+
 // Subway Surfers-only cross-version section
 async function loadSubwaySurfersMore() {
   try {
@@ -88,21 +114,39 @@ async function loadSubwaySurfersMore() {
     const currentGame = data.gameTitles.find((g) => g.id === currentVariantId);
     if (!currentGame) return;
 
-    const otherVersion = data.gameTitles.find((g) => g.id.startsWith("subway-surfers") && g.id !== currentGame.id);
-    if (!otherVersion) return;
+    renderSeriesMore({
+      sectionId: "subway-surfers-more-section",
+      containerId: "subway-surfers-more",
+      currentGame,
+      data,
+      seriesKey: "subway-surfers",
+    });
+  } catch (e) {
+    console.warn("Error:", e);
+  }
+}
 
-    section.classList.remove("hidden");
-    container.innerHTML = `
-      <a href="../${otherVersion.gameUrl}" class="group flex items-center gap-4 px-4 py-3 bg-surface/40 hover:bg-surface/80 border border-white/5 hover:border-primary/30 rounded-2xl transition-all duration-200 w-full shadow-lg">
-        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden shrink-0 relative bg-black/20 border border-white/5 shadow-md">
-          <img src="../${otherVersion.thumbnailUrl}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" alt="${otherVersion.gameTitle}" />
-        </div>
-        <div class="flex-1 min-w-0">
-          <p class="text-white text-xs sm:text-sm font-bold truncate leading-tight">${otherVersion.gameTitle}</p>
-          <p class="text-gray-500 text-[10px] sm:text-xs mt-0.5 uppercase tracking-wide">Play now</p>
-        </div>
-      </a>
-    `;
+// Car Parking series section
+async function loadCarParkingMore() {
+  try {
+    if (!gameId || !["car-parking", "park-out"].includes(gameId)) return;
+
+    const isSubdir = window.location.pathname.includes("/gameDistribution/") || window.location.pathname.includes("/game/");
+    const basePath = isSubdir ? "../" : "./";
+    const res = await fetch(basePath + "assets/js/gamesData.json");
+    const data = await res.json();
+
+    const currentVariantId = gameId === "park-out" ? "park-out" : "car-parking";
+    const currentSeriesGame = data.gameTitles.find((g) => g.id === currentVariantId);
+    if (!currentSeriesGame) return;
+
+    renderSeriesMore({
+      sectionId: "car-parking-more-section",
+      containerId: "car-parking-more",
+      currentGame: currentSeriesGame,
+      data,
+      seriesKey: "car-parking",
+    });
   } catch (e) {
     console.warn("Error:", e);
   }
@@ -217,4 +261,5 @@ $(document).ready(function () {
   loadRelatedGames();
   loadGameDetails();
   loadSubwaySurfersMore();
+  loadCarParkingMore();
 });

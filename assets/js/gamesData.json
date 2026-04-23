@@ -26,6 +26,7 @@
       "thumbnailUrl": "game/SubwaySurfers-Vegas-Queen/thumb.png",
       "categories": ["action", "arcade", "runner", "season", "for you"],
       "tags": ["update", "hot", "trending"],
+      "series": "subway-surfers",
       "description": "Play Subway Surfers Vegas Queen online and run through the bright city tracks, dodge fast trains, collect coins, and stay ahead of the guard. Use quick lane changes, clean jumps, and smart power-up timing to keep your run going and beat your best score."
     },
     {
@@ -34,7 +35,8 @@
       "gameUrl": "gameDistribution/SubwaySurfers.html",
       "thumbnailUrl": "game/SubwaySurfers/SubwaySurfers.png",
       "categories": ["action", "arcade", "runner", "for you", "season"],
-      "tags": ["new", "hot", "trending"]
+      "tags": ["new", "hot", "trending"],
+      "series": "subway-surfers"
     },
     {
       "id": "block-blast",
@@ -105,7 +107,7 @@
       "id": "ultimate-car",
       "gameTitle": "Ultimate Car",
       "gameUrl": "gameDistribution/Ultimate-Car.html",
-      "thumbnailUrl": "game/ultimate-car/images/logo.png",
+      "thumbnailUrl": "game/ultimate-car/images/thumb.png",
       "categories": ["racing", "action", "for you"],
       "tags": ["new", "3d"]
     },
@@ -118,7 +120,6 @@
       "tags": ["new", "classic"],
       "description": "Play Bubble Tower online and clear the stack by matching and shooting bubbles with careful aim. Build long combos, watch the tower collapse, and plan each shot so you do not leave awkward colors behind."
     },
-
     {
       "id": "breakout",
       "gameTitle": "Breakout",
@@ -156,8 +157,9 @@
       "gameTitle": "Car Parking",
       "gameUrl": "gameDistribution/CarParking.html",
       "thumbnailUrl": "game/carparking/images/thumb.png",
-      "categories": ["racing", "action", "for you"],
-      "tags": ["new", "3d"]
+      "categories": ["racing", "action", "season", "for you"],
+      "tags": ["new", "3d"],
+      "series": "car-parking"
     },
     {
       "id": "slither-io",
@@ -220,7 +222,7 @@
       "tags": ["new", "classic"],
       "description": "Play Candy Crush online and match colorful candies to clear the board, build combos, and complete each level with smart moves. Create special pieces, trigger chain reactions, and plan ahead to beat tougher layouts."
     },
-        {
+    {
       "id": "monster-truck-climb",
       "gameTitle": "Monster Truck Climb",
       "gameUrl": "gameDistribution/Monster-Truck-Climb.html",
@@ -248,8 +250,36 @@
       "tags": ["hot", "new"]
     },
     {
-      "id": "stick-master",
-      "gameTitle": "Stick Master",
+      "id": "moving-truck",
+      "gameTitle": "Moving Truck",
+      "gameUrl": "gameDistribution/Moving-Truck.html",
+      "thumbnailUrl": "game/moving-truck/thumb.png",
+      "categories": ["racing", "action", "for you"],
+      "tags": ["new", "3d"],
+      "description": "Play Moving Truck online and guide a heavy truck through tight roads, steep ramps, and uneven turns while keeping your cargo under control. Smooth braking, careful steering, and steady balance are the keys to reaching the finish without losing momentum."
+    },
+    {
+      "id": "county-woods",
+      "gameTitle": "County Woods",
+      "gameUrl": "gameDistribution/County-Woods.html",
+      "thumbnailUrl": "game/Bouncy-Woods/thumb.png",
+      "categories": ["puzzle", "arcade", "for you"],
+      "tags": ["new", "classic"],
+      "description": "Play County Woods online and clear the forest board with smart shots, careful angles, and steady timing. Match the layout, trigger chain reactions, and keep the screen under control before the field fills up."
+    },
+    {
+      "id": "park-out",
+      "gameTitle": "Park Out",
+      "gameUrl": "gameDistribution/Park-Out.html",
+      "thumbnailUrl": "game/ParkOut/thumb.png",
+      "categories": ["racing", "action", "season", "for you"],
+      "tags": ["new", "classic"],
+      "series": "car-parking",
+      "description": "Play Park Out online as Car Parking Part 2 and solve crowded parking jams by moving the right cars in the right order. Clear a path, free the blocked vehicle, and think ahead so you can open the lot with the fewest moves possible."
+    },
+    {
+      "id": "stick-merge",
+      "gameTitle": "Stick Merge",
       "gameUrl": "gameDistribution/Stick-Master.html",
       "thumbnailUrl": "game/Stick-Merge/thumb.png",
       "categories": ["action", "arcade", "for you" , "shooting"],
