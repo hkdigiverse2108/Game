@@ -6,6 +6,7 @@
       "active": true
     },
     { "name": "🔥 Action", "isTop": true },
+    { "name": "🌦️ Season", "isTop": true },
     { "name": "🧠 Puzzle", "isTop": true },
     { "name": "👥 Multiplayer", "isTop": true },
     { "name": "⚽ Sports", "isTop": true },
@@ -19,20 +20,21 @@
   ],
   "gameTitles": [
     {
-      "id": "subway-surfers",
-      "gameTitle": "Subway Surfers",
-      "gameUrl": "gameDistribution/SubwaySurfers.html",
-      "thumbnailUrl": "game/SubwaySurfers/SubwaySurfers.png",
-      "categories": ["action", "arcade", "runner", "for you"],
-      "tags": ["new", "hot", "trending"]
+      "id": "subway-surfers-vegas-queen",
+      "gameTitle": "Subway Surfers Vegas Queen",
+      "gameUrl": "gameDistribution/SubwaySurfers-Vegas-Queen.html",
+      "thumbnailUrl": "game/SubwaySurfers-Vegas-Queen/thumb.png",
+      "categories": ["action", "arcade", "runner", "season", "for you"],
+      "tags": ["update", "hot", "trending"],
+      "description": "Play Subway Surfers Vegas Queen online and run through the bright city tracks, dodge fast trains, collect coins, and stay ahead of the guard. Use quick lane changes, clean jumps, and smart power-up timing to keep your run going and beat your best score."
     },
     {
-      "id": "tic-tac-toe",
-      "gameTitle": "Tic Tac Toe",
-      "gameUrl": "gameDistribution/TicTacToe.html",
-      "thumbnailUrl": "game/TicTacToe/images/thumbnail.png",
-      "categories": ["board", "puzzle", "multiplayer", "for you"],
-      "tags": ["hot", "new"]
+      "id": "subway-surfers-new-york",
+      "gameTitle": "Subway Surfers New York",
+      "gameUrl": "gameDistribution/SubwaySurfers.html",
+      "thumbnailUrl": "game/SubwaySurfers/SubwaySurfers.png",
+      "categories": ["action", "arcade", "runner", "for you", "season"],
+      "tags": ["new", "hot", "trending"]
     },
     {
       "id": "block-blast",
@@ -108,13 +110,15 @@
       "tags": ["new", "3d"]
     },
     {
-      "id": "bubble-short",
-      "gameTitle": "Bubble Short",
-      "gameUrl": "gameDistribution/Bubble-Short.html",
-      "thumbnailUrl": "game/bubble_short/images/thumb.png",
+      "id": "bubble-tower",
+      "gameTitle": "Bubble Tower",
+      "gameUrl": "gameDistribution/Bubble-Tower.html",
+      "thumbnailUrl": "game/bubble tower/thumb.png",
       "categories": ["puzzle", "arcade", "for you"],
-      "tags": ["new"]
+      "tags": ["new", "classic"],
+      "description": "Play Bubble Tower online and clear the stack by matching and shooting bubbles with careful aim. Build long combos, watch the tower collapse, and plan each shot so you do not leave awkward colors behind."
     },
+
     {
       "id": "breakout",
       "gameTitle": "Breakout",
@@ -203,7 +207,7 @@
       "gameTitle": "Carrom Master",
       "gameUrl": "gameDistribution/Carrom-Master.html",
       "thumbnailUrl": "game/carrom master/thumb.png",
-        "categories": ["board", "multiplayer", "for you"],
+      "categories": ["board", "multiplayer", "for you"],
       "tags": ["classic", "multiplayer"],
       "description": "Play Carrom Master online and enjoy a smooth browser version of the classic carrom board game. Aim the striker, control your power, pocket your coins cleanly, and try to clear the board before your opponent."
     },
@@ -216,14 +220,32 @@
       "tags": ["new", "classic"],
       "description": "Play Candy Crush online and match colorful candies to clear the board, build combos, and complete each level with smart moves. Create special pieces, trigger chain reactions, and plan ahead to beat tougher layouts."
     },
+        {
+      "id": "monster-truck-climb",
+      "gameTitle": "Monster Truck Climb",
+      "gameUrl": "gameDistribution/Monster-Truck-Climb.html",
+      "thumbnailUrl": "game/Monster Truck Climb/thumb.png",
+      "categories": ["racing", "action", "for you"],
+      "tags": ["new", "3d"],
+      "description": "Play Monster Truck Climb online and drive a huge truck over steep hills, rough ramps, and tricky obstacles. Balance your speed, keep the wheels steady, and use careful timing to reach the finish without flipping over."
+    },
     {
-      "id": "bubble-tower",
-      "gameTitle": "Bubble Tower",
-      "gameUrl": "gameDistribution/Bubble-Tower.html",
-      "thumbnailUrl": "game/bubble tower/thumb.png",
+      "id": "dinosaurs-merge-master",
+      "gameTitle": "Dinosaurs Merge Master",
+      "gameUrl": "gameDistribution/Dinosaurs-Merge-Master.html",
+      "thumbnailUrl": "game/Dinosaurs-Merge-Master/thumb.png",
       "categories": ["puzzle", "arcade", "for you"],
-      "tags": ["new", "classic"],
-      "description": "Play Bubble Tower online and clear the stack by matching and shooting bubbles with careful aim. Build long combos, watch the tower collapse, and plan each shot so you do not leave awkward colors behind."
+      "tags": ["3d", "classic"],
+      "description": "Play Dinosaurs Merge Master online and combine matching dinosaurs to grow stronger creatures. Place each dinosaur carefully, make smart merges, keep the board open, and plan ahead so you can reach the next dinosaur before the space runs out."
+    },
+
+        {
+      "id": "tic-tac-toe",
+      "gameTitle": "Tic Tac Toe",
+      "gameUrl": "gameDistribution/TicTacToe.html",
+      "thumbnailUrl": "game/TicTacToe/images/thumbnail.png",
+      "categories": ["board", "puzzle", "multiplayer", "for you"],
+      "tags": ["hot", "new"]
     }
   ],
   "gameTags": ["hot", "new", "3d", "pro", "update", "classic", "multiplayer"]

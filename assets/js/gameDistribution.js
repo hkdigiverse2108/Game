@@ -69,6 +69,45 @@ async function loadRelatedGames() {
   }
 }
 
+// Subway Surfers-only cross-version section
+async function loadSubwaySurfersMore() {
+  try {
+    if (!gameId || !gameId.startsWith("subway-surfers")) return;
+
+    const section = document.getElementById("subway-surfers-more-section");
+    const container = document.getElementById("subway-surfers-more");
+    if (!section || !container) return;
+
+    const isSubdir = window.location.pathname.includes("/gameDistribution/") || window.location.pathname.includes("/game/");
+    const basePath = isSubdir ? "../" : "./";
+    const res = await fetch(basePath + "assets/js/gamesData.json");
+    const data = await res.json();
+
+    // Subway Surfers has multiple variants, so use the exact page variant ID.
+    const currentVariantId = gameId.includes("vegas-queen") ? "subway-surfers-vegas-queen" : "subway-surfers-new-york";
+    const currentGame = data.gameTitles.find((g) => g.id === currentVariantId);
+    if (!currentGame) return;
+
+    const otherVersion = data.gameTitles.find((g) => g.id.startsWith("subway-surfers") && g.id !== currentGame.id);
+    if (!otherVersion) return;
+
+    section.classList.remove("hidden");
+    container.innerHTML = `
+      <a href="../${otherVersion.gameUrl}" class="group flex items-center gap-4 px-4 py-3 bg-surface/40 hover:bg-surface/80 border border-white/5 hover:border-primary/30 rounded-2xl transition-all duration-200 w-full shadow-lg">
+        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden shrink-0 relative bg-black/20 border border-white/5 shadow-md">
+          <img src="../${otherVersion.thumbnailUrl}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" alt="${otherVersion.gameTitle}" />
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-white text-xs sm:text-sm font-bold truncate leading-tight">${otherVersion.gameTitle}</p>
+          <p class="text-gray-500 text-[10px] sm:text-xs mt-0.5 uppercase tracking-wide">Play now</p>
+        </div>
+      </a>
+    `;
+  } catch (e) {
+    console.warn("Error:", e);
+  }
+}
+
 // Custom cursor (jQuery-based)
 function mousecursor() {
   const inner = document.querySelector(".cursor-inner");
@@ -177,4 +216,5 @@ $(document).ready(function () {
   mousecursor();
   loadRelatedGames();
   loadGameDetails();
+  loadSubwaySurfersMore();
 });
