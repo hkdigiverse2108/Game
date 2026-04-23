@@ -246,6 +246,15 @@
       "thumbnailUrl": "game/TicTacToe/images/thumbnail.png",
       "categories": ["board", "puzzle", "multiplayer", "for you"],
       "tags": ["hot", "new"]
+    },
+    {
+      "id": "stick-master",
+      "gameTitle": "Stick Master",
+      "gameUrl": "gameDistribution/Stick-Master.html",
+      "thumbnailUrl": "game/Stick-Merge/thumb.png",
+      "categories": ["action", "arcade", "for you" , "shooting"],
+      "tags": ["hot", "classic"],
+      "description": "Play Stick Master online and combine matching stick fighters and weapons to build a stronger team. Merge smartly, upgrade your units, and survive longer as each wave becomes harder to handle."
     }
   ],
   "gameTags": ["hot", "new", "3d", "pro", "update", "classic", "multiplayer"]
