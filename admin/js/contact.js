@@ -1,7 +1,7 @@
 import { renderAdminShell, setupTheme } from "./common.js";
 import { requireSession, fetchAdminById } from "./session.js";
 import { apiUrl, URL_KEYS } from "../../common/url.js";
-import { createPaginationController, DEFAULT_PAGE_SIZE } from "../../common/pagination.js";
+import { createPaginationController, DEFAULT_PAGE_SIZE } from "./pagination.js";
 
 setupTheme();
 

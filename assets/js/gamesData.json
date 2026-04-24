@@ -69,8 +69,9 @@
       "gameTitle": "Bottle Strike",
       "gameUrl": "gameDistribution/Bottle-Strike.html",
       "thumbnailUrl": "game/bottle strike/thumb.png",
-      "categories": ["arcade", "sports", "for you"],
+      "categories": ["arcade", "sports", "season", "for you"],
       "tags": ["3d", "new"],
+      "series": "bowling",
       "description": "Experience the thrill of precision and timing in Bottle Strike! Test your skills as you aim and strike bottles in a realistic 3D bowling alley. Enjoy accurate physics, beautiful graphics, and easy-to-use controls for endless fun."
     },
     {
@@ -166,24 +167,25 @@
       "series": "arcane-archer",
       "description": "Play Arcane Archer online and aim magical shots at enemies and targets with simple, careful timing. Watch the distance, release at the right moment, and use clean shots to clear each stage."
     },
-
     {
-      "id": "car-parking",
-      "gameTitle": "Car Parking",
-      "gameUrl": "gameDistribution/CarParking.html",
-      "thumbnailUrl": "game/carparking/images/thumb.png",
-      "categories": ["racing", "action", "season", "for you"],
+      "id": "crazy-cars",
+      "gameTitle": "Crazy Cars",
+      "gameUrl": "gameDistribution/Crazy-Cars.html",
+      "thumbnailUrl": "game/Crazy Cars/thumb.png",
+      "categories": ["racing", "action", "arcade", "for you"],
       "tags": ["new", "3d"],
-      "series": "car-parking"
+      "description": "Play Crazy Cars online and race in action-packed vehicle battles with custom cars, power-ups, and special abilities. Drive hard, handle sharp corners, and use every boost or hit at the right moment to stay ahead of the pack."
     },
     {
-      "id": "slither-io",
-      "gameTitle": "Slither.io",
-      "gameUrl": "gameDistribution/Slither.html",
-      "thumbnailUrl": "game/Slither.io/thumb.png",
-      "categories": ["action", "multiplayer", "arcade", "for you"],
-      "tags": ["hot", "multiplayer"]
+      "id": "football-strike",
+      "gameTitle": "Football Strike",
+      "gameUrl": "gameDistribution/Football-Strike.html",
+      "thumbnailUrl": "game/Football Strike/thumb.png",
+      "categories": ["sports", "multiplayer", "action", "for you"],
+      "tags": ["hot", "multiplayer", "3d"],
+      "description": "Play Football Strike online and jump into fast free-kick face-offs where timing and placement decide every round. Aim your shots, build your striker and goalkeeper, and move through career challenges or online matches to climb the ranks."
     },
+
     {
       "id": "fruit-ninja",
       "gameTitle": "Fruit Ninja",
@@ -302,7 +304,7 @@
       "tags": ["hot", "classic"],
       "description": "Play Stick Master online and combine matching stick fighters and weapons to build a stronger team. Merge smartly, upgrade your units, and survive longer as each wave becomes harder to handle."
     },
-        {
+    {
       "id": "block-blast",
       "gameTitle": "Block Blast",
       "gameUrl": "gameDistribution/BlockBlast.html",
@@ -310,6 +312,53 @@
       "categories": ["puzzle", "arcade", "for you" , "season"],
       "tags": ["hot", "new"],
       "series": "block-blast"
+    },
+    {
+      "id": "checkers-legend",
+      "gameTitle": "Checkers Legend",
+      "gameUrl": "gameDistribution/Checkers-Legend.html",
+      "thumbnailUrl": "game/Checkers Legend/thumb.png",
+      "categories": ["board", "puzzle", "multiplayer", "for you"],
+      "tags": ["classic", "multiplayer"],
+      "description": "Play Checkers Legend online and enjoy the classic board game with a clean digital twist. Move diagonally, jump over enemy pieces, crown your checkers, and use careful strategy to trap the AI or another player."
+    },
+
+    {
+      "id": "slither-io",
+      "gameTitle": "Slither.io",
+      "gameUrl": "gameDistribution/Slither.html",
+      "thumbnailUrl": "game/Slither.io/thumb.png",
+      "categories": ["action", "multiplayer", "arcade", "for you"],
+      "tags": ["hot", "multiplayer"]
+    },
+    {
+      "id": "car-parking",
+      "gameTitle": "Car Parking",
+      "gameUrl": "gameDistribution/CarParking.html",
+      "thumbnailUrl": "game/carparking/images/thumb.png",
+      "categories": ["racing", "action", "season", "for you"],
+      "tags": ["new", "3d"],
+      "series": "car-parking"
+    },
+        {
+      "id": "infinite-soccer",
+      "gameTitle": "Infinite Soccer",
+      "gameUrl": "gameDistribution/Infinite-Soccer.html",
+      "thumbnailUrl": "game/Infinite Soccer/thumb.png",
+      "categories": ["sports", "arcade", "runner", "action", "for you"],
+      "tags": ["new", "3d"],
+      "description": "Play Infinite Soccer online and sprint through an obstacle-filled training run as a soccer player in training. Dodge ramps, dummies, and hazards, jump or slide at the right moment, collect the letters to unlock Turbo, and reach the goal for the biggest coin multiplier."
+    },
+
+    {
+      "id": "3d-bowling",
+      "gameTitle": "3D Bowling",
+      "gameUrl": "gameDistribution/3D-Bowling.html",
+      "thumbnailUrl": "game/3D Bowling/thumb.png",
+      "categories": ["sports", "multiplayer", "arcade", "season", "for you"],
+      "tags": [ "3d" , "classic"],
+      "series": "bowling",
+      "description": "Play 3D Bowling online and enjoy a polished ten-pin bowling challenge with realistic lanes and simple swipe controls. Line up each roll, add spin when you need it, and aim for strikes and spares in solo or versus modes."
     }
   
   ],
