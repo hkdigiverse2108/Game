@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel</title>
+  </head>
+  <body>
+    <p>Redirecting...</p>
+    <script type="module">
+      import { getSession } from "./js/session.js";
+
+      const session = getSession();
+      window.location.href = session && session.isLoggedIn ? "dashboard.html" : "login.html";
+    </script>
+  </body>
+</html>

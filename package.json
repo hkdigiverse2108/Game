@@ -1,0 +1,9 @@
+{
+  "name": "games-website-json-server-setup",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "server": "npx json-server --watch db.json --port 3000",
+    "start": "npm run server"
+  }
+}

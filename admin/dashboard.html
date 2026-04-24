@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/js/tailwind.config.js"></script>
+    <link href="../assets/css/style.css" rel="stylesheet" />
+  </head>
+  <body class="antialiased min-h-screen transition-colors duration-300 bg-[#f4f6fb] text-slate-900 dark:bg-background dark:text-white selection:bg-primary/30 selection:text-white">
+    <div id="admin-app"></div>
+    <template id="page-template">
+      <section class="space-y-6">
+        <div class="grid gap-4 md:grid-cols-3">
+          <article class="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-black/35">
+            <p class="text-xs uppercase tracking-[0.28em] text-slate-500 dark:text-gray-500">Signed in as</p>
+            <h3 id="dashboard-admin-name" class="mt-3 text-2xl font-black text-slate-900 dark:text-white">Admin</h3>
+            <p id="dashboard-admin-email" class="mt-2 break-all text-slate-600 dark:text-gray-400">admin@example.com</p>
+          </article>
+          <article class="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-black/35">
+            <p class="text-xs uppercase tracking-[0.28em] text-slate-500 dark:text-gray-500">Access</p>
+            <h3 class="mt-3 text-2xl font-black text-slate-900 dark:text-white">Profile controls</h3>
+            <p class="mt-3 text-slate-600 dark:text-gray-400 leading-relaxed">Edit profile details, update the password, and keep the account secure.</p>
+          </article>
+          <article class="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-black/35">
+            <p class="text-xs uppercase tracking-[0.28em] text-slate-500 dark:text-gray-500">Contact</p>
+            <h3 class="mt-3 text-2xl font-black text-slate-900 dark:text-white">Incoming messages</h3>
+            <p class="mt-3 text-slate-600 dark:text-gray-400 leading-relaxed">Open the contact page to review player and visitor submissions.</p>
+          </article>
+        </div>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.08)] overflow-hidden dark:border-white/10 dark:bg-black/35 dark:shadow-2xl">
+          <div class="p-6 sm:p-8 border-b border-slate-200/80 dark:border-white/10">
+            <p class="text-xs uppercase tracking-[0.28em] text-slate-500 dark:text-gray-500">Quick actions</p>
+            <h3 class="mt-2 text-2xl font-black text-slate-900 dark:text-white">Manage the panel</h3>
+            <p class="mt-3 max-w-2xl text-slate-600 dark:text-gray-400 leading-relaxed">
+              Use the sidebar to jump between the dashboard overview and contact records without clutter.
+            </p>
+          </div>
+
+          <div class="grid gap-4 p-6 sm:p-8 md:grid-cols-2">
+            <a href="contact.html" class="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:-translate-y-0.5 hover:shadow-lg dark:border-white/10 dark:bg-black/25">
+              <p class="text-xs uppercase tracking-[0.24em] text-slate-500 dark:text-gray-500">Contact page</p>
+              <p class="mt-3 text-lg font-bold text-slate-900 dark:text-white">Review submissions</p>
+              <p class="mt-2 text-sm text-slate-600 dark:text-gray-400 leading-relaxed">See every contact message in a separate, focused view.</p>
+            </a>
+            <a href="profile.html" class="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:-translate-y-0.5 hover:shadow-lg dark:border-white/10 dark:bg-black/25">
+              <p class="text-xs uppercase tracking-[0.24em] text-slate-500 dark:text-gray-500">Profile page</p>
+              <p class="mt-3 text-lg font-bold text-slate-900 dark:text-white">Update account</p>
+              <p class="mt-2 text-sm text-slate-600 dark:text-gray-400 leading-relaxed">Edit admin details or change the password when needed.</p>
+            </a>
+          </div>
+        </section>
+      </section>
+    </template>
+    <script type="module" src="./js/dashboard.js"></script>
+  </body>
+</html>
