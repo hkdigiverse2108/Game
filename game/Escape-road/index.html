@@ -71,15 +71,7 @@
   user-select: none;
 }
 
-/* Time display styling */
-#time-display {
-  font-size: 18px;
-  font-weight: 900;
-  display: block;
-  line-height: 1.2;
-  font-family: 'Courier New', monospace;
-  letter-spacing: 1px;
-}
+
 
 /* 🔥 Tablet */
 @media (max-width: 768px) {
@@ -96,9 +88,7 @@
     font-size: 10px;
   }
 
-  #time-display {
-    font-size: 14px;
-  }
+
 }
 
 /* 🔥 Mobile */
@@ -123,9 +113,7 @@
     font-size: 9px;
   }
 
-  #time-display {
-    font-size: 11px;
-  }
+
 }
 </style>
 <body class="dark">
@@ -140,11 +128,7 @@
 </canvas>
 </div>
 </div>
-<div id="hide-more-games">
-  <div class="pixel-box">
-    <span id="time-display">00:00:00</span>
-  </div>
-</div>
+
 <!-- /0a502697b99e36d322eeb8daf23bc8b8.data.unityweb",
       frameworkUrl: buildUrl + "/f9b96a5188376a54aba0e08c0ed35ba8.js.unityweb",
       codeUrl: buildUrl + "/7b28c6f059eabf99b5ee87d37b2df90c.wasm.unityweb",
@@ -205,7 +189,6 @@
         window.unityInstance = unityInstance;
         setTimeout(() => {
           loadingCover.style.display = "none";
-          timeContainer.classList.add('visible'); // Show time display
           logo_loaded = true;
           window.focus();
         }, 2000);
@@ -216,21 +199,7 @@
 
     loadingCover.style.display = "";
 
-    // Real-time clock display
-    const timeDisplay = document.getElementById('time-display');
-    const timeContainer = document.getElementById('hide-more-games');
 
-    function updateTime() {
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
-      timeDisplay.textContent = `${hours}:${minutes}:${seconds}`;
-    }
-
-    // Update time every second
-    setInterval(updateTime, 1000);
-    updateTime(); // Initial call
 
     var script = document.createElement("script");
     script.src = loaderUrl;

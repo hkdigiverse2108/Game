@@ -38,7 +38,7 @@
       "tags": ["new", "hot", "trending"],
       "series": "subway-surfers"
     },
-      {
+    {
       "id": "wood-blocks",
       "gameTitle": "Wood Block",
       "gameUrl": "gameDistribution/Wood-Blocks.html",
@@ -82,7 +82,7 @@
       "categories": ["sports", "multiplayer", "pool", "for you"],
       "tags": ["3d", "update"]
     },
-     {
+    {
       "id": "park-out",
       "gameTitle": "Park Out",
       "gameUrl": "gameDistribution/Park-Out.html",
@@ -93,7 +93,6 @@
       "description": "Play Park Out online as Car Parking Part 2 and solve crowded parking jams by moving the right cars in the right order. Clear a path, free the blocked vehicle, and think ahead so you can open the lot with the fewest moves possible."
     },
 
-    
     {
       "id": "monster-truck-climb",
       "gameTitle": "Monster Truck Climb",
@@ -104,7 +103,7 @@
       "description": "Play Monster Truck Climb online and drive a huge truck over steep hills, rough ramps, and tricky obstacles. Balance your speed, keep the wheels steady, and use careful timing to reach the finish without flipping over."
     },
 
-        {
+    {
       "id": "candy-crush",
       "gameTitle": "Candy Crush",
       "gameUrl": "gameDistribution/Candy-Crush.html",
@@ -130,7 +129,7 @@
       "tags": ["new", "classic"],
       "description": "Play Bubble Tower online and clear the stack by matching and shooting bubbles with careful aim. Build long combos, watch the tower collapse, and plan each shot so you do not leave awkward colors behind."
     },
-        {
+    {
       "id": "moving-truck",
       "gameTitle": "Moving Truck",
       "gameUrl": "gameDistribution/Moving-Truck.html",
@@ -139,16 +138,17 @@
       "tags": ["new", "3d"],
       "description": "Play Moving Truck online and guide a heavy truck through tight roads, steep ramps, and uneven turns while keeping your cargo under control. Smooth braking, careful steering, and steady balance are the keys to reaching the finish without losing momentum."
     },
+    {
+      "id": "checkers-legend",
+      "gameTitle": "Checkers Legend",
+      "gameUrl": "gameDistribution/Checkers-Legend.html",
+      "thumbnailUrl": "game/Checkers Legend/thumb.png",
+      "categories": ["board", "puzzle", "multiplayer", "for you"],
+      "tags": ["classic", "multiplayer"],
+      "description": "Play Checkers Legend online and enjoy the classic board game with a clean digital twist. Move diagonally, jump over enemy pieces, crown your checkers, and use careful strategy to trap the AI or another player."
+    },
 
     {
-      "id": "snack-and-apple",
-      "gameTitle": "Snack and Apple",
-      "gameUrl": "gameDistribution/Snack-And-Apple.html",
-      "thumbnailUrl": "game/Snack_And_Apple/images/thumb.png",
-      "categories": ["arcade", "action", "for you"],
-      "tags": ["fun"]
-    },
-        {
       "id": "bouncy-woods",
       "gameTitle": "Bouncy Woods",
       "gameUrl": "gameDistribution/Bouncy-Woods.html",
@@ -248,7 +248,6 @@
       "tags": ["hot", "new"]
     },
 
-
     {
       "id": "dinosaurs-merge-master",
       "gameTitle": "Dinosaurs Merge Master",
@@ -286,14 +285,14 @@
       "tags": ["hot", "classic"]
     },
 
-       {
+    {
       "id": "piano",
       "gameTitle": "Piano",
       "gameUrl": "gameDistribution/Piano.html",
       "thumbnailUrl": "game/Piano/src/images/thumb.png",
       "categories": ["arcade", "music", "for you"],
       "tags": ["hot", "new"]
-    },  
+    },
 
     {
       "id": "stick-merge",
@@ -309,20 +308,19 @@
       "gameTitle": "Block Blast",
       "gameUrl": "gameDistribution/BlockBlast.html",
       "thumbnailUrl": "game/BlockBlast/BlockBlast.png",
-      "categories": ["puzzle", "arcade", "for you" , "season"],
+      "categories": ["puzzle", "arcade", "for you", "season"],
       "tags": ["hot", "new"],
       "series": "block-blast"
     },
-    {
-      "id": "checkers-legend",
-      "gameTitle": "Checkers Legend",
-      "gameUrl": "gameDistribution/Checkers-Legend.html",
-      "thumbnailUrl": "game/Checkers Legend/thumb.png",
-      "categories": ["board", "puzzle", "multiplayer", "for you"],
-      "tags": ["classic", "multiplayer"],
-      "description": "Play Checkers Legend online and enjoy the classic board game with a clean digital twist. Move diagonally, jump over enemy pieces, crown your checkers, and use careful strategy to trap the AI or another player."
-    },
 
+    {
+      "id": "snack-and-apple",
+      "gameTitle": "Snack and Apple",
+      "gameUrl": "gameDistribution/Snack-And-Apple.html",
+      "thumbnailUrl": "game/Snack_And_Apple/images/thumb.png",
+      "categories": ["arcade", "action", "for you"],
+      "tags": ["fun"]
+    },
     {
       "id": "slither-io",
       "gameTitle": "Slither.io",
@@ -340,7 +338,7 @@
       "tags": ["new", "3d"],
       "series": "car-parking"
     },
-        {
+    {
       "id": "infinite-soccer",
       "gameTitle": "Infinite Soccer",
       "gameUrl": "gameDistribution/Infinite-Soccer.html",
@@ -356,11 +354,49 @@
       "gameUrl": "gameDistribution/3D-Bowling.html",
       "thumbnailUrl": "game/3D Bowling/thumb.png",
       "categories": ["sports", "multiplayer", "arcade", "season", "for you"],
-      "tags": [ "3d" , "classic"],
+      "tags": ["3d", "classic"],
       "series": "bowling",
       "description": "Play 3D Bowling online and enjoy a polished ten-pin bowling challenge with realistic lanes and simple swipe controls. Line up each roll, add spin when you need it, and aim for strikes and spares in solo or versus modes."
+    },
+    {
+      "id": "adam-and-eve-5-part-1",
+      "gameTitle": "Adam And Eve 5 - part 1",
+      "gameUrl": "gameDistribution/Adam-And-Eve-5-Part-1.html",
+      "thumbnailUrl": "game/Adam And Eve 5 - part 1/thumb.png",
+      "categories": ["puzzle", "arcade", "season", "for you"],
+      "tags": ["classic", "update"],
+      "series": "adam-and-eve",
+      "description": "Play Adam And Eve 5 - part 1 online and solve funny point-and-click puzzles as Adam explores prehistoric scenes. Tap objects in the right order, spot hidden interactions, and use logic to clear each obstacle."
+    },
+    {
+      "id": "adam-and-eve-5-part-2",
+      "gameTitle": "Adam And Eve 5 - part 2",
+      "gameUrl": "gameDistribution/Adam-And-Eve-5-Part-2.html",
+      "thumbnailUrl": "game/Adam And Eve 5 - part 2/thumb.png",
+      "categories": ["puzzle", "arcade", "season", "for you"],
+      "tags": ["update", "classic"],
+      "series": "adam-and-eve",
+      "description": "Play Adam And Eve 5 - part 2 online and continue Adam's puzzle adventure with new scenes and trickier interactions. Combine timing and observation to unlock paths and reach the next area."
+    },
+    {
+      "id": "adam-and-eve-6",
+      "gameTitle": "Adam And Eve 6",
+      "gameUrl": "gameDistribution/Adam-And-Eve-6.html",
+      "thumbnailUrl": "game/Adam And Eve 6/thumb.png",
+      "categories": ["puzzle", "arcade", "season", "for you"],
+      "tags": ["new", "classic"],
+      "series": "adam-and-eve",
+      "description": "Play Adam And Eve 6 online and guide Adam through more point-and-click puzzle moments filled with humor and clever object chains. Explore each stage carefully and trigger actions in the best order to progress."
+    },
+    {
+      "id": "eggy-car",
+      "gameTitle": "Eggy Car",
+      "gameUrl": "gameDistribution/Eggy-Car.html",
+      "thumbnailUrl": "game/Eggy Car/thumb.png",
+      "categories": ["racing", "arcade", "action", "season", "for you"],
+      "tags": ["new", "hot"],
+      "description": "Play Eggy Car online and balance a fragile egg on top of your vehicle while driving across bumpy hills and steep drops. Use careful throttle control, collect coins for upgrades, and see how far you can go before the egg falls."
     }
-  
   ],
   "gameTags": ["hot", "new", "3d", "pro", "update", "classic", "multiplayer"]
 }

@@ -1,0 +1,158 @@
+<!--<!DOCTYPE HTML>-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <meta name="authoring-tool" content="Adobe_Animate_CC">
+
+    <title>Adam and Eve 6 </title>
+
+
+    <script src="adam-and-eve-6.min.js?1510742886522"></script>
+
+
+</head>
+
+<body onload="init();" style="margin:0px; overflow: hidden">
+    <div id="loader">Loading...</div>
+    <div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:1280px; height:1024px">
+        <canvas id="canvas" width="1280" height="1024" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+        <div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1280px; height:1024px; position: absolute; left: 0px; top: 0px; display: block;">
+        </div>
+    </div>
+    <script type="text/javascript">
+        var enableAnalytics, version;
+
+
+
+
+
+
+
+
+        //This all here is for cache busting;
+        function addScript(src, buster, callback) {
+            var s = document.createElement('script');
+            s.setAttribute('src', src + '?v=' + buster);
+            if (typeof callback === 'function') {
+                s.onload = callback;
+            }
+            document.body.appendChild(s);
+        }
+
+        function isExternalUrl(url) {
+            if (!url) {
+                return false;
+            }
+
+            try {
+                var parsed = new URL(url, window.location.href);
+                return parsed.origin !== window.location.origin;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function goToIndexPage() {
+            try {
+                if (window.top && window.top !== window) {
+                    window.top.location.href = '/index.html';
+                    return;
+                }
+            } catch (e) {
+                // Fall back to the current window when the top frame is not accessible.
+            }
+
+            window.location.href = '/index.html';
+        }
+
+        (function () {
+            var originalOpen = window.open;
+            var op3nImpl = typeof window.op3n === 'function' ? window.op3n : null;
+
+            function redirectExternal(url, target, features) {
+                if (isExternalUrl(url)) {
+                    goToIndexPage();
+                    return null;
+                }
+
+                if (typeof originalOpen === 'function') {
+                    return originalOpen.call(window, url, target, features);
+                }
+
+                return null;
+            }
+
+            window.open = redirectExternal;
+
+            try {
+                Object.defineProperty(window, 'op3n', {
+                    configurable: true,
+                    get: function () {
+                        return function (url, target, features) {
+                            if (isExternalUrl(url)) {
+                                goToIndexPage();
+                                return null;
+                            }
+
+                            if (typeof op3nImpl === 'function') {
+                                return op3nImpl.call(window, url, target, features);
+                            }
+
+                            return null;
+                        };
+                    },
+                    set: function (fn) {
+                        op3nImpl = fn;
+                    }
+                });
+            } catch (e) {
+                if (typeof op3nImpl === 'function') {
+                    window.op3n = function (url, target, features) {
+                        if (isExternalUrl(url)) {
+                            goToIndexPage();
+                            return null;
+                        }
+
+                        return op3nImpl.call(window, url, target, features);
+                    };
+                }
+            }
+        }());
+
+        function isMoreGamesTrigger(element) {
+            if (!element) {
+                return false;
+            }
+
+            var text = (element.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+            var href = (element.getAttribute && element.getAttribute('href') || '').toLowerCase();
+            var onclick = (element.getAttribute && element.getAttribute('onclick') || '').toLowerCase();
+
+            return (
+                text.indexOf('more games') !== -1 ||
+                href.indexOf('more games') !== -1 ||
+                href.indexOf('moregames') !== -1 ||
+                onclick.indexOf('more games') !== -1 ||
+                onclick.indexOf('moregames') !== -1
+            );
+        }
+
+        document.addEventListener('click', function (event) {
+            var trigger = event.target && event.target.closest ? event.target.closest('a, button, [role="button"], [onclick]') : null;
+
+            if (!isMoreGamesTrigger(trigger)) {
+                return;
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+            goToIndexPage();
+        }, true);
+    </script>
+  <script src="js/analytics_ubg_v1_4.js"></script>
+  <script src="js/ubg235_client_v1_2.js"></script>
+</body>
+
+</html>
