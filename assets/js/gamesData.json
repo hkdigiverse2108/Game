@@ -60,7 +60,7 @@
       "id": "royal-ludo",
       "gameTitle": "Royal Ludo",
       "gameUrl": "gameDistribution/Ludo.html",
-      "thumbnailUrl": "game/Ludo/Ludo.png",
+      "thumbnailUrl": "game/Ludo/thumb.png",
       "categories": ["board", "multiplayer", "for you"],
       "tags": ["hot"]
     },
@@ -77,7 +77,7 @@
       "id": "8-ball-pool",
       "gameTitle": "8 Ball Pool",
       "gameUrl": "gameDistribution/8BallPool.html",
-      "thumbnailUrl": "game/8BallPool/assets/img/title2.png",
+      "thumbnailUrl": "game/8BallPool/thumb.png",
       "categories": ["sports", "multiplayer", "pool", "for you"],
       "tags": ["3d", "update"]
     },
@@ -233,7 +233,7 @@
       "id": "water-sort-puzzle",
       "gameTitle": "Water Sort Puzzle",
       "gameUrl": "gameDistribution/Water-Sort-Puzzle.html",
-      "thumbnailUrl": "game/water-sort-puzzle/images/thumb.png",
+      "thumbnailUrl": "game/water-sort-puzzle/thumb.png",
       "categories": ["puzzle", "arcade", "for you"],
       "tags": ["update"]
     },
