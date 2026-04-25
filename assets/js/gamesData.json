@@ -5,18 +5,54 @@
       "isTop": true,
       "active": true
     },
-    { "name": "🔥 Action", "isTop": true },
-    { "name": "🌦️ Season", "isTop": true },
-    { "name": "🧠 Puzzle", "isTop": true },
-    { "name": "👥 Multiplayer", "isTop": true },
-    { "name": "⚽ Sports", "isTop": true },
-    { "name": "🕹️ Arcade", "isTop": true },
-    { "name": "🏃 Runner", "isTop": true },
-    { "name": "🎱 Pool", "isTop": true },
-    { "name": "🎲 Board", "isTop": true },
-    { "name": "🎵 Music", "isTop": true },
-    { "name": "🏎️ Racing", "isTop": true },
-    { "name": "🔫 Shooting", "isTop": true }
+    {
+      "name": "🔥 Action",
+      "isTop": true
+    },
+    {
+      "name": "🌦️ Season",
+      "isTop": true
+    },
+    {
+      "name": "🧠 Puzzle",
+      "isTop": true
+    },
+    {
+      "name": "👥 Multiplayer",
+      "isTop": true
+    },
+    {
+      "name": "⚽ Sports",
+      "isTop": true
+    },
+    {
+      "name": "🕹️ Arcade",
+      "isTop": true
+    },
+    {
+      "name": "🏃 Runner",
+      "isTop": true
+    },
+    {
+      "name": "🎱 Pool",
+      "isTop": true
+    },
+    {
+      "name": "🎲 Board",
+      "isTop": true
+    },
+    {
+      "name": "🎵 Music",
+      "isTop": true
+    },
+    {
+      "name": "🏎️ Racing",
+      "isTop": true
+    },
+    {
+      "name": "🔫 Shooting",
+      "isTop": true
+    }
   ],
   "gameTitles": [
     {
@@ -92,7 +128,6 @@
       "series": "car-parking",
       "description": "Play Park Out online as Car Parking Part 2 and solve crowded parking jams by moving the right cars in the right order. Clear a path, free the blocked vehicle, and think ahead so you can open the lot with the fewest moves possible."
     },
-
     {
       "id": "monster-truck-climb",
       "gameTitle": "Monster Truck Climb",
@@ -102,7 +137,6 @@
       "tags": ["new", "3d"],
       "description": "Play Monster Truck Climb online and drive a huge truck over steep hills, rough ramps, and tricky obstacles. Balance your speed, keep the wheels steady, and use careful timing to reach the finish without flipping over."
     },
-
     {
       "id": "candy-crush",
       "gameTitle": "Candy Crush",
@@ -147,7 +181,6 @@
       "tags": ["classic", "multiplayer"],
       "description": "Play Checkers Legend online and enjoy the classic board game with a clean digital twist. Move diagonally, jump over enemy pieces, crown your checkers, and use careful strategy to trap the AI or another player."
     },
-
     {
       "id": "bouncy-woods",
       "gameTitle": "Bouncy Woods",
@@ -186,7 +219,6 @@
       "tags": ["hot", "multiplayer", "3d"],
       "description": "Play Football Strike online and jump into fast free-kick face-offs where timing and placement decide every round. Aim your shots, build your striker and goalkeeper, and move through career challenges or online matches to climb the ranks."
     },
-
     {
       "id": "fruit-ninja",
       "gameTitle": "Fruit Ninja",
@@ -231,7 +263,6 @@
       "tags": ["classic", "multiplayer"],
       "description": "Play Carrom Master online and enjoy a smooth browser version of the classic carrom board game. Aim the striker, control your power, pocket your coins cleanly, and try to clear the board before your opponent."
     },
-
     {
       "id": "water-sort-puzzle",
       "gameTitle": "Water Sort Puzzle",
@@ -248,7 +279,6 @@
       "categories": ["runner", "arcade", "for you"],
       "tags": ["hot", "new"]
     },
-
     {
       "id": "dinosaurs-merge-master",
       "gameTitle": "Dinosaurs Merge Master",
@@ -258,7 +288,6 @@
       "tags": ["3d", "classic"],
       "description": "Play Dinosaurs Merge Master online and combine matching dinosaurs to grow stronger creatures. Place each dinosaur carefully, make smart merges, keep the board open, and plan ahead so you can reach the next dinosaur before the space runs out."
     },
-
     {
       "id": "tic-tac-toe",
       "gameTitle": "Tic Tac Toe",
@@ -267,7 +296,6 @@
       "categories": ["board", "puzzle", "multiplayer", "for you"],
       "tags": ["hot", "new"]
     },
-
     {
       "id": "breakout",
       "gameTitle": "Breakout",
@@ -276,7 +304,6 @@
       "categories": ["arcade", "action", "puzzle", "for you"],
       "tags": ["new"]
     },
-
     {
       "id": "angry-birds",
       "gameTitle": "Angry Birds",
@@ -285,7 +312,6 @@
       "categories": ["action", "arcade", "puzzle", "for you"],
       "tags": ["hot", "classic"]
     },
-
     {
       "id": "piano",
       "gameTitle": "Piano",
@@ -294,7 +320,6 @@
       "categories": ["arcade", "music", "for you"],
       "tags": ["hot", "new"]
     },
-
     {
       "id": "stick-merge",
       "gameTitle": "Stick Merge",
@@ -313,7 +338,6 @@
       "tags": ["hot", "new"],
       "series": "block-blast"
     },
-
     {
       "id": "snack-and-apple",
       "gameTitle": "Snack and Apple",
@@ -348,7 +372,6 @@
       "tags": ["new", "3d"],
       "description": "Play Infinite Soccer online and sprint through an obstacle-filled training run as a soccer player in training. Dodge ramps, dummies, and hazards, jump or slide at the right moment, collect the letters to unlock Turbo, and reach the goal for the biggest coin multiplier."
     },
-
     {
       "id": "3d-bowling",
       "gameTitle": "3D Bowling",
@@ -405,7 +428,7 @@
       "thumbnailUrl": "game/Money Movers/thumb.png",
       "categories": ["action", "puzzle", "season", "for you"],
       "requiresKeyboard": true,
-      "tags": ["clas  sic", "update"],
+      "tags": ["classic", "update"],
       "series": "money-movers",
       "description": "Play Money Movers online and control two brothers through prison escape puzzles filled with switches, doors, and timed traps. Coordinate both characters carefully, collect cash bags, and reach the exit together to clear each level."
     },
@@ -430,6 +453,33 @@
       "tags": ["new", "classic"],
       "series": "money-movers",
       "description": "Play Money Movers 3 online and continue the heist puzzle adventure with trickier levels, tighter timing, and new obstacles. Move both characters in sync, trigger mechanisms in order, and escape each stage with all cash collected."
+    },
+    {
+      "id": "mutazone",
+      "gameTitle": "Mutazone",
+      "gameUrl": "gameDistribution/Mutazone.html",
+      "thumbnailUrl": "game/Muta zone/thumb.png",
+      "categories": ["action", "arcade", "shooting", "for you"],
+      "tags": ["new", "3d"],
+      "description": "Play Mutazone online and survive fast enemy waves in a chaotic action arena. Keep moving, aim quickly, and use smart timing to stay alive and push your score higher."
+    },
+        {
+      "id": "endless-truck",
+      "gameTitle": "Endless Truck",
+      "gameUrl": "gameDistribution/Endless-Truck.html",
+      "thumbnailUrl": "game/Endless Truck/thumb.png",
+      "categories": ["racing", "arcade", "action", "for you"],
+      "tags": ["new", "3d"],
+      "description": "Play Endless Truck online and drive across rough endless roads while collecting boosts and rewards. Control speed, keep your truck balanced, and see how far you can go before the run ends."
+    },
+    {
+      "id": "hide-and-smash",
+      "gameTitle": "Hide And Smash",
+      "gameUrl": "gameDistribution/Hide-And-Smash.html",
+      "thumbnailUrl": "game/Hide And Smash/thumb.png",
+      "categories": ["action", "arcade", "multiplayer", "for you"],
+      "tags": ["new", "3d"],
+      "description": "Play Hide And Smash online and outplay opponents with smart positioning, fast reactions, and well-timed attacks. Hide, strike at the right moment, and keep adapting to the map to win each round."
     }
   ],
   "gameTags": ["hot", "new", "3d", "pro", "update", "classic", "multiplayer"]
