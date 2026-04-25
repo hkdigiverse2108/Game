@@ -173,6 +173,7 @@
       "gameUrl": "gameDistribution/Crazy-Cars.html",
       "thumbnailUrl": "game/Crazy Cars/thumb.png",
       "categories": ["racing", "action", "arcade", "for you"],
+      "requiresKeyboard": true,
       "tags": ["new", "3d"],
       "description": "Play Crazy Cars online and race in action-packed vehicle battles with custom cars, power-ups, and special abilities. Drive hard, handle sharp corners, and use every boost or hit at the right moment to stay ahead of the pack."
     },
@@ -396,6 +397,39 @@
       "categories": ["racing", "arcade", "action", "season", "for you"],
       "tags": ["new", "hot"],
       "description": "Play Eggy Car online and balance a fragile egg on top of your vehicle while driving across bumpy hills and steep drops. Use careful throttle control, collect coins for upgrades, and see how far you can go before the egg falls."
+    },
+    {
+      "id": "money-movers",
+      "gameTitle": "Money Movers",
+      "gameUrl": "gameDistribution/Money-Movers.html",
+      "thumbnailUrl": "game/Money Movers/thumb.png",
+      "categories": ["action", "puzzle", "season", "for you"],
+      "requiresKeyboard": true,
+      "tags": ["clas  sic", "update"],
+      "series": "money-movers",
+      "description": "Play Money Movers online and control two brothers through prison escape puzzles filled with switches, doors, and timed traps. Coordinate both characters carefully, collect cash bags, and reach the exit together to clear each level."
+    },
+    {
+      "id": "money-movers-2",
+      "gameTitle": "Money Movers 2",
+      "gameUrl": "gameDistribution/Money-Movers-2.html",
+      "thumbnailUrl": "game/Money Movers 2/thumb.png",
+      "categories": ["action", "puzzle", "season", "for you"],
+      "requiresKeyboard": true,
+      "tags": ["update", "hot"],
+      "series": "money-movers",
+      "description": "Play Money Movers 2 online and solve co-op style prison puzzles with two characters, each with different speed and strength. Use teamwork, timing, and smart switch control to open paths, avoid guards, and finish every stage."
+    },
+    {
+      "id": "money-movers-3",
+      "gameTitle": "Money Movers 3",
+      "gameUrl": "gameDistribution/Money-Movers-3.html",
+      "thumbnailUrl": "game/Money Movers 3/thumb.png",
+      "categories": ["action", "puzzle", "season", "for you"],
+      "requiresKeyboard": true,
+      "tags": ["new", "classic"],
+      "series": "money-movers",
+      "description": "Play Money Movers 3 online and continue the heist puzzle adventure with trickier levels, tighter timing, and new obstacles. Move both characters in sync, trigger mechanisms in order, and escape each stage with all cash collected."
     }
   ],
   "gameTags": ["hot", "new", "3d", "pro", "update", "classic", "multiplayer"]

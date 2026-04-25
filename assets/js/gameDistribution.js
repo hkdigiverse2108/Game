@@ -1,5 +1,56 @@
 // Fullscreen toggle
+const gameDeviceSupport = window.DeviceSupport || null;
+let currentGameSupported = true;
+
+function isGameSupportedOnDevice(game) {
+  if (!gameDeviceSupport) return true;
+  return gameDeviceSupport.isGameSupported(game);
+}
+
+function getUnsupportedMessage(game) {
+  if (!gameDeviceSupport) return "This game is only available on desktop devices.";
+  return gameDeviceSupport.getUnsupportedMessage(game) || "This game is only available on desktop devices.";
+}
+
+function renderUnsupportedGameMessage(game) {
+  const wrapper = document.getElementById("game-wrapper");
+  if (!wrapper) return;
+
+  wrapper.classList.add("relative");
+
+  const frame = document.getElementById("game-frame");
+  if (frame) {
+    frame.removeAttribute("src");
+    frame.style.display = "none";
+  }
+
+  const loading = document.getElementById("game-loading");
+  if (loading) loading.style.display = "none";
+
+  const overlay = document.getElementById("play-overlay");
+  if (overlay) overlay.style.display = "none";
+
+  const fullscreenBtn = document.getElementById("fullscreen-btn");
+  if (fullscreenBtn) fullscreenBtn.style.display = "none";
+
+  const existing = wrapper.querySelector("[data-device-unsupported]");
+  if (existing) existing.remove();
+
+  const messageBox = document.createElement("div");
+  messageBox.setAttribute("data-device-unsupported", "true");
+  messageBox.className = "absolute inset-0 z-30 flex items-center justify-center bg-[#0B0F19] px-6 text-center";
+  messageBox.innerHTML = `
+    <div>
+      <p class="text-white text-lg font-bold mb-2">Desktop Only</p>
+      <p class="text-gray-300 text-sm sm:text-base">${getUnsupportedMessage(game)}</p>
+    </div>
+  `;
+
+  wrapper.appendChild(messageBox);
+}
+
 function toggleFullscreen() {
+  if (!currentGameSupported) return;
   const wrapper = document.getElementById("game-wrapper");
   const btn = document.getElementById("fullscreen-btn");
   const isFullscreen = wrapper.classList.toggle("fullscreen-mode");
@@ -38,7 +89,8 @@ async function getGamesData() {
 
 function getCurrentGameId(data) {
   const bodyGameId = document.body?.dataset.currentGameId;
-  const candidates = [bodyGameId, gameId].filter(Boolean);
+  const inlineGameId = typeof gameId !== "undefined" ? gameId : null;
+  const candidates = [bodyGameId, inlineGameId].filter(Boolean);
 
   for (const id of candidates) {
     const exactMatch = data.gameTitles.find((g) => g.id === id);
@@ -104,6 +156,7 @@ async function loadRelatedGames() {
 
     const games = data.gameTitles
       .filter((g) => g.id !== currentGame.id && g.categories?.some((cat) => currentCategories.includes(cat)))
+      .filter((g) => isGameSupportedOnDevice(g))
       .slice(0, 8);
 
     container.innerHTML = games.map((game) => renderSeriesCard(game)).join("");
@@ -127,7 +180,9 @@ async function loadSeriesSections() {
       const container = section.querySelector("[data-series-container]");
       if (!seriesKey || !titleNode || !container) return;
 
-      const relatedGames = data.gameTitles.filter((game) => game.series === seriesKey && game.id !== currentGame.id);
+      const relatedGames = data.gameTitles
+        .filter((game) => game.series === seriesKey && game.id !== currentGame.id)
+        .filter((game) => isGameSupportedOnDevice(game));
       if (!relatedGames.length) return;
 
       section.classList.remove("hidden");
@@ -148,14 +203,16 @@ function mousecursor() {
     inner.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     outer.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
   });
-  $("body").on("mouseenter", "a, button, .cursor-pointer", function () {
-    inner.classList.add("cursor-hover");
-    outer.classList.add("cursor-hover");
-  });
-  $("body").on("mouseleave", "a, button, .cursor-pointer", function () {
-    inner.classList.remove("cursor-hover");
-    outer.classList.remove("cursor-hover");
-  });
+  if (window.jQuery) {
+    $("body").on("mouseenter", "a, button, .cursor-pointer", function () {
+      inner.classList.add("cursor-hover");
+      outer.classList.add("cursor-hover");
+    });
+    $("body").on("mouseleave", "a, button, .cursor-pointer", function () {
+      inner.classList.remove("cursor-hover");
+      outer.classList.remove("cursor-hover");
+    });
+  }
   inner.style.visibility = "visible";
   outer.style.visibility = "visible";
 }
@@ -187,6 +244,11 @@ async function loadGameDetails() {
   const currentGame = getCurrentGame(data);
 
   if (!currentGame) return;
+  currentGameSupported = isGameSupportedOnDevice(currentGame);
+  if (!currentGameSupported) {
+    renderUnsupportedGameMessage(currentGame);
+    return;
+  }
 
   // ===== TAGS =====
   const tagContainer = document.getElementById("game-tags");
@@ -216,6 +278,7 @@ async function loadGameDetails() {
 }
 
 function startGame() {
+  if (!currentGameSupported) return;
   document.getElementById("play-overlay").style.display = "none";
 
   if (window.innerWidth < 768) {
@@ -230,6 +293,7 @@ function startGame() {
 
 // Restore play overlay on mobile when exiting native fullscreen
 function handleFullscreenExit() {
+  if (!currentGameSupported) return;
   if (!document.fullscreenElement && !document.webkitFullscreenElement && window.innerWidth < 768) {
     document.getElementById("play-overlay").style.display = "";
   }
@@ -237,9 +301,17 @@ function handleFullscreenExit() {
 document.addEventListener("fullscreenchange", handleFullscreenExit);
 document.addEventListener("webkitfullscreenchange", handleFullscreenExit);
 
-$(document).ready(function () {
+function initGameDistributionPage() {
   mousecursor();
   loadRelatedGames();
   loadGameDetails();
   loadSeriesSections();
-});
+}
+
+if (window.jQuery) {
+  $(document).ready(function () {
+    initGameDistributionPage();
+  });
+} else {
+  document.addEventListener("DOMContentLoaded", initGameDistributionPage);
+}

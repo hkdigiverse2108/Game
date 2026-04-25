@@ -3,6 +3,12 @@ let categoriesConfig = [];
 let currentFilteredGames = []; // Array of active games
 let currentCount = 0;
 let currentTagFilter = "all";
+const deviceSupport = window.DeviceSupport || null;
+
+function isGameSupportedOnDevice(game) {
+  if (!deviceSupport) return true;
+  return deviceSupport.isGameSupported(game);
+}
 
 // DOM Elements
 const grid = document.getElementById("game-grid");
@@ -39,6 +45,8 @@ function filterGames() {
 
   // Transform object to array format and filter by category and tags
   currentFilteredGames = rawData.gameTitles.filter((game) => {
+    if (!isGameSupportedOnDevice(game)) return false;
+
     // Category Check
     let matchCat = false;
     if (game.categories) {
@@ -322,7 +330,10 @@ if (searchInput && searchDropdown && searchResultsContainer) {
     const matchingCats = categoriesConfig.filter((cat) => cat.name.toLowerCase().includes(lowerQuery));
 
     // Filter Games
-    const matchingGames = rawData.gameTitles.filter((game) => game.gameTitle.toLowerCase().includes(lowerQuery));
+    const matchingGames = rawData.gameTitles.filter((game) => {
+      if (!isGameSupportedOnDevice(game)) return false;
+      return game.gameTitle.toLowerCase().includes(lowerQuery);
+    });
 
     let html = "";
 
@@ -396,6 +407,7 @@ if (searchInput && searchDropdown && searchResultsContainer) {
 function mousecursor() {
   const inner = document.querySelector(".cursor-inner");
   const outer = document.querySelector(".cursor-outer");
+  if (!inner || !outer) return;
 
   let mouseX = 0,
     mouseY = 0;
@@ -408,20 +420,26 @@ function mousecursor() {
     outer.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
   });
 
-  $("body").on("mouseenter", "a, .cursor-pointer", function () {
-    inner.classList.add("cursor-hover");
-    outer.classList.add("cursor-hover");
-  });
+  if (window.jQuery) {
+    $("body").on("mouseenter", "a, .cursor-pointer", function () {
+      inner.classList.add("cursor-hover");
+      outer.classList.add("cursor-hover");
+    });
 
-  $("body").on("mouseleave", "a, .cursor-pointer", function () {
-    inner.classList.remove("cursor-hover");
-    outer.classList.remove("cursor-hover");
-  });
+    $("body").on("mouseleave", "a, .cursor-pointer", function () {
+      inner.classList.remove("cursor-hover");
+      outer.classList.remove("cursor-hover");
+    });
+  }
 
   inner.style.visibility = "visible";
   outer.style.visibility = "visible";
 }
 
-$(document).ready(function () {
-  mousecursor();
-});
+if (window.jQuery) {
+  $(document).ready(function () {
+    mousecursor();
+  });
+} else {
+  document.addEventListener("DOMContentLoaded", mousecursor);
+}
