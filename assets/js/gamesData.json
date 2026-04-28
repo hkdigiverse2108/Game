@@ -501,6 +501,16 @@
       "tags": ["new", "classic"],
       "series": "match-games",
       "description": "Play Jewels Blitz online and match glittering gems in this fast-paced puzzle game. Switch gems to create powerful combos, unlock special abilities, and master increasingly challenging levels in this high-octane jewel-matching adventure."
+    },
+    {
+      "id": "temple-run",
+      "gameTitle": "Temple Run",
+      "gameUrl": "gameDistribution/Temple-Run.html",
+      "thumbnailUrl": "game/temple-run/thumb.png",
+      "categories": ["action", "arcade", "runner","for you"],
+      "tags": ["hot", "classic"],
+      "series": "temple-run",
+      "description": "Play Temple Run online and sprint through an ancient temple while fleeing from a powerful guardian. Dash, jump, slide, and turn to dodge obstacles and collect coins. Master quick reflexes and grab power-ups to keep your run going and set new records."
     }
   ],
   "gameTags": ["hot", "new", "3d", "pro", "update", "classic", "multiplayer"]
