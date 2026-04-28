@@ -147,13 +147,16 @@
       "series": "match-games",
       "description": "Play Candy Crush online and match colorful candies to clear the board, build combos, and complete each level with smart moves. Create special pieces, trigger chain reactions, and plan ahead to beat tougher layouts."
     },
-    {
-      "id": "ultimate-car",
-      "gameTitle": "Ultimate Car",
-      "gameUrl": "gameDistribution/Ultimate-Car.html",
-      "thumbnailUrl": "game/ultimate-car/images/thumb.png",
-      "categories": ["racing", "action", "for you"],
-      "tags": ["new", "3d"]
+      {
+      "id": "port-bike-stunt",
+      "gameTitle": "Port Bike Stunt",
+      "gameUrl": "gameDistribution/Port-Bike-Stunt.html",
+      "thumbnailUrl": "game/port-bike-stunt/thumb.png",
+      "categories": ["racing", "action", "arcade", "for you"],
+      "tags": ["new", "3d"],
+      "series": "bike-stunt",
+      "requiresKeyboard": true,
+      "description": "Play Port Bike Stunt online and perform dangerous stunts on your motorbike across challenging tracks. Master tight turns, land jumps perfectly, and perform wild tricks to earn high scores. Collect power-ups and unlock new bikes as you progress through increasingly difficult levels."
     },
     {
       "id": "bubble-tower",
@@ -310,7 +313,7 @@
       "gameTitle": "Angry Birds",
       "gameUrl": "gameDistribution/AngryBirds.html",
       "thumbnailUrl": "game/AngryBirds/thumb.png",
-      "categories": ["action", "arcade", "puzzle", "for you"],
+      "categories": ["action", "arcade", "puzzle", "season" , "for you"],
       "tags": ["hot", "classic"]
     },
     {
@@ -511,6 +514,46 @@
       "tags": ["hot", "classic"],
       "series": "temple-run",
       "description": "Play Temple Run online and sprint through an ancient temple while fleeing from a powerful guardian. Dash, jump, slide, and turn to dodge obstacles and collect coins. Master quick reflexes and grab power-ups to keep your run going and set new records."
+    },
+  
+    {
+      "id": "ultimate-car",
+      "gameTitle": "Ultimate Car",
+      "gameUrl": "gameDistribution/Ultimate-Car.html",
+      "thumbnailUrl": "game/ultimate-car/images/thumb.png",
+      "categories": ["racing", "action", "for you"],
+      "tags": ["new", "3d"]
+    },
+
+    {
+      "id": "super-bike-the-champion",
+      "gameTitle": "Super Bike The Champion",
+      "gameUrl": "gameDistribution/Super-Bike-The-Champion.html",
+      "thumbnailUrl": "game/super-bike-the-champion/thumb.png",
+      "categories": ["racing", "sports", "action", "for you"],
+      "tags": ["new", "3d"],
+      "series": "bike-racing",
+      "requiresKeyboard": true,
+      "description": "Play Super Bike The Champion online and compete in thrilling motorcycle races against opponents. Race through various tracks, upgrade your bike with performance enhancements, and become the ultimate champion. Use strategic acceleration and perfect your cornering to dominate each race."
+    },
+    {
+      "id": "stupid-zombies",
+      "gameTitle": "Stupid Zombies",
+      "gameUrl": "gameDistribution/Stupid-Zombies.html",
+      "thumbnailUrl": "game/stupid-zombies/thumb.png",
+      "categories": ["action", "arcade", "shooting", "for you"],
+      "tags": ["hot", "fun"],
+      "description": "Play Stupid Zombies online and aim your shots carefully to eliminate waves of goofy zombies. Use limited ammunition wisely, ricoche bullets off walls, and solve each puzzle level by eliminating all zombies. Master physics-based gameplay with strategic planning and creative shot angles."
+    },
+    {
+      "id": "angry-birds-2",
+      "gameTitle": "Angry Birds 2",
+      "gameUrl": "gameDistribution/Angry-Birds-2.html",
+      "thumbnailUrl": "game/angry birds 2/thumb.jpg",
+      "categories": ["action", "arcade", "puzzle", "season", "for you"],
+      "tags": ["update", "hot"],
+      "series": "angry-birds",
+      "description": "Play Angry Birds 2 online and experience the next level of physics-based puzzle action. Launch powerful birds at elaborate pig fortresses, trigger epic chain reactions, and enjoy new mechanics with the flock leader system. Master over 100+ levels with dynamic challenges and stunning visuals."
     }
   ],
   "gameTags": ["hot", "new", "3d", "pro", "update", "classic", "multiplayer"]

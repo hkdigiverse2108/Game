@@ -143,6 +143,21 @@ function renderSeriesCard(game) {
     `;
 }
 
+function renderSeriesGameCard(game) {
+  return `
+    <a href="../${game.gameUrl}" class="group block bg-surface/50 hover:bg-surface/80 border border-white/10 hover:border-primary/30 rounded-xl overflow-hidden transition-all duration-300">
+      <div class="aspect-[16/9] relative overflow-hidden bg-black/20">
+        <img src="../${game.thumbnailUrl}" alt="${game.gameTitle}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+      </div>
+      <div class="p-3">
+        <h3 class="text-white font-bold text-sm group-hover:text-primary transition-colors">${game.gameTitle}</h3>
+        <p class="text-gray-400 text-xs mt-1">Play now</p>
+      </div>
+    </a>
+  `;
+}
+
 async function loadRelatedGames() {
   try {
     const data = await getGamesData();
@@ -187,7 +202,7 @@ async function loadSeriesSections() {
 
       section.classList.remove("hidden");
       titleNode.textContent = `More from ${formatSeriesTitle(seriesKey)}`;
-      container.innerHTML = relatedGames.map((game) => renderSeriesCard(game)).join("");
+      container.innerHTML = relatedGames.map((game) => renderSeriesGameCard(game)).join("");
     });
   } catch (e) {
     console.warn("Error:", e);

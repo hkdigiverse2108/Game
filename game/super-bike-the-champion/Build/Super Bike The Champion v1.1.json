@@ -1,0 +1,13 @@
+{
+"companyName": "Barnzmu",
+"productName": "Super Bike The Champion",
+"dataUrl": "Super Bike The Champion v1.1.data.unityweb",
+"wasmCodeUrl": "Super Bike The Champion v1.1.wasm.code.unityweb",
+"wasmFrameworkUrl": "Super Bike The Champion v1.1.wasm.framework.unityweb",
+"TOTAL_MEMORY": 268435456,
+"graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Light",
+"backgroundColor": "#FFFFFF",
+"cacheControl": {"default": "must-revalidate"}
+}
