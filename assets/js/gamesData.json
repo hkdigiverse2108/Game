@@ -142,8 +142,9 @@
       "gameTitle": "Candy Crush",
       "gameUrl": "gameDistribution/Candy-Crush.html",
       "thumbnailUrl": "game/candy crush/thumb.png",
-      "categories": ["puzzle", "arcade", "for you"],
+      "categories": ["puzzle", "arcade", "season", "for you"],
       "tags": ["new", "classic"],
+      "series": "match-games",
       "description": "Play Candy Crush online and match colorful candies to clear the board, build combos, and complete each level with smart moves. Create special pieces, trigger chain reactions, and plan ahead to beat tougher layouts."
     },
     {
@@ -480,6 +481,26 @@
       "categories": ["action", "arcade", "multiplayer", "for you"],
       "tags": ["new", "3d"],
       "description": "Play Hide And Smash online and outplay opponents with smart positioning, fast reactions, and well-timed attacks. Hide, strike at the right moment, and keep adapting to the map to win each round."
+    },
+    {
+      "id": "farm-match-seasons",
+      "gameTitle": "Farm Match Seasons",
+      "gameUrl": "gameDistribution/Farm-Match-Seasons.html",
+      "thumbnailUrl": "game/Farm Match Seasons/thumb.png",
+      "categories": ["puzzle", "arcade", "season", "for you"],
+      "tags": ["update", "classic"],
+      "series": "match-games",
+      "description": "Play Farm Match Seasons online and harvest crops by matching seasonal items on a vibrant farm. Progress through different seasons, complete farm objectives, and unlock rewards as you master each level with strategic matching and careful planning."
+    },
+    {
+      "id": "jewels-blitz",
+      "gameTitle": "Jewels Blitz",
+      "gameUrl": "gameDistribution/Jewels-Blitz.html",
+      "thumbnailUrl": "game/Jewels Blitz/thumb.png",
+      "categories": ["puzzle", "arcade", "season", "for you"],
+      "tags": ["new", "classic"],
+      "series": "match-games",
+      "description": "Play Jewels Blitz online and match glittering gems in this fast-paced puzzle game. Switch gems to create powerful combos, unlock special abilities, and master increasingly challenging levels in this high-octane jewel-matching adventure."
     }
   ],
   "gameTags": ["hot", "new", "3d", "pro", "update", "classic", "multiplayer"]
