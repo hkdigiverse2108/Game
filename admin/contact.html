@@ -10,6 +10,33 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../assets/js/tailwind.config.js"></script>
     <link href="../assets/css/style.css" rel="stylesheet" />
+    <style>
+      /* Custom scrollbar styling */
+      .message-scroll::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .message-scroll::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+      }
+
+      .message-scroll::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 100%);
+        border-radius: 10px;
+        border: 2px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .message-scroll::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #818cf8 0%, #a78bfa 100%);
+      }
+
+      /* Firefox scrollbar */
+      .message-scroll {
+        scrollbar-color: #6366f1 rgba(255, 255, 255, 0.05);
+        scrollbar-width: thin;
+      }
+    </style>
   </head>
   <body class="antialiased min-h-screen transition-colors duration-300 bg-[#f4f6fb] text-slate-900 dark:bg-background dark:text-white selection:bg-primary/30 selection:text-white">
     <div id="admin-app"></div>
@@ -33,6 +60,45 @@
           </div>
         </div>
       </section>
+
+      <!-- Message Modal -->
+      <div id="message-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] flex flex-col border border-slate-200 dark:border-white/10">
+          <!-- Header -->
+          <div class="flex items-center justify-between p-6 border-b border-slate-200 dark:border-white/10">
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white" id="modal-name"></h3>
+              <p class="mt-1 text-sm text-slate-500 dark:text-gray-400" id="modal-email"></p>
+            </div>
+            <button onclick="closeMessageModal()" class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors">
+              <svg class="w-6 h-6 text-slate-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Content -->
+          <div class="flex-1 overflow-hidden p-6 space-y-4">
+            <div>
+              <p class="text-sm font-semibold text-slate-700 dark:text-gray-300 uppercase tracking-wide">Phone</p>
+              <p class="mt-1 text-slate-900 dark:text-white break-words" id="modal-phone"></p>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-slate-700 dark:text-gray-300 uppercase tracking-wide mb-2">Message</p>
+              <div class="bg-slate-50 dark:bg-black/30 rounded-xl p-4 max-h-[35vh] overflow-y-auto message-scroll">
+                <p class="text-slate-700 dark:text-gray-200 leading-relaxed whitespace-pre-wrap break-words" id="modal-message"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="p-6 border-t border-slate-200 dark:border-white/10">
+            <button onclick="closeMessageModal()" class="w-full px-4 py-2 rounded-lg bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-900 dark:text-white font-semibold transition-colors">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
     </template>
     <script type="module" src="./js/contact.js"></script>
   </body>

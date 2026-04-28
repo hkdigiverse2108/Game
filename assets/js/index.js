@@ -409,16 +409,43 @@ function mousecursor() {
   const outer = document.querySelector(".cursor-outer");
   if (!inner || !outer) return;
 
-  let mouseX = 0,
-    mouseY = 0;
+  const isTouchDevice = () => {
+    return ("ontouchstart" in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints && navigator.msMaxTouchPoints > 0);
+  };
+
+  // Disable custom cursor on touch devices to avoid stuck/touch issues
+  if (isTouchDevice()) {
+    inner.style.display = "none";
+    outer.style.display = "none";
+    return;
+  }
+
+  const safeShow = () => {
+    inner.style.visibility = "visible";
+    outer.style.visibility = "visible";
+    inner.style.display = "block";
+    outer.style.display = "block";
+  };
+
+  const safeHide = () => {
+    inner.style.visibility = "hidden";
+  };
 
   window.addEventListener("mousemove", (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+    // If over iframe / game frame / canvas - hide cursor to avoid interfering
+    const overGame = e.target && (e.target.closest && (e.target.closest('iframe') || e.target.closest('#game-frame') || e.target.closest('canvas')));
+    if (overGame) {
+      inner.style.visibility = "hidden";
+      outer.style.visibility = "hidden";
+      return;
+    }
 
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
     inner.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
     outer.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-  });
+    safeShow();
+  }, { passive: true });
 
   if (window.jQuery) {
     $("body").on("mouseenter", "a, .cursor-pointer", function () {
@@ -432,8 +459,15 @@ function mousecursor() {
     });
   }
 
-  inner.style.visibility = "visible";
-  outer.style.visibility = "visible";
+  safeShow();
+
+  // Expose a safe hide method for other scripts to call
+  try {
+    window.__hideCustomCursor = () => {
+      inner.style.display = "none";
+      outer.style.display = "none";
+    };
+  } catch (e) {}
 }
 
 if (window.jQuery) {

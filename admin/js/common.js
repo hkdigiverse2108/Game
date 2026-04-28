@@ -67,7 +67,7 @@ export function renderAdminShell({ pageTitle, pageEyebrow, contentHtml, activePa
           </div>
           <div>
             <p class="text-xs uppercase tracking-[0.28em] text-slate-500 dark:text-gray-500">Admin panel</p>
-            <p class="text-lg font-black text-slate-900 dark:text-white">PlayBox</p>
+            <p class="text-lg font-black text-slate-900 dark:text-white">Epic Games Hub</p>
           </div>
         </div>
 

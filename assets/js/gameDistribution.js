@@ -214,10 +214,28 @@ function mousecursor() {
   const inner = document.querySelector(".cursor-inner");
   const outer = document.querySelector(".cursor-outer");
   if (!inner || !outer) return;
+  const isTouchDevice = () => {
+    return ("ontouchstart" in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints && navigator.msMaxTouchPoints > 0);
+  };
+
+  // Disable on touch devices - avoids stuck effect after touch
+  if (isTouchDevice()) {
+    inner.style.display = "none";
+    outer.style.display = "none";
+    return;
+  }
+
   window.addEventListener("mousemove", (e) => {
+    const overGame = e.target && (e.target.closest && (e.target.closest('iframe') || e.target.closest('#game-frame') || e.target.closest('canvas')));
+    if (overGame) {
+      inner.style.visibility = "hidden";
+      outer.style.visibility = "hidden";
+      return;
+    }
     inner.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     outer.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-  });
+  }, { passive: true });
+
   if (window.jQuery) {
     $("body").on("mouseenter", "a, button, .cursor-pointer", function () {
       inner.classList.add("cursor-hover");
@@ -228,8 +246,11 @@ function mousecursor() {
       outer.classList.remove("cursor-hover");
     });
   }
+
   inner.style.visibility = "visible";
   outer.style.visibility = "visible";
+
+  try { window.__hideCustomCursor = () => { inner.style.display = 'none'; outer.style.display = 'none'; }; } catch(e) {}
 }
 
 const usedColors = new Set();
@@ -295,6 +316,17 @@ async function loadGameDetails() {
 function startGame() {
   if (!currentGameSupported) return;
   document.getElementById("play-overlay").style.display = "none";
+
+  // Hide custom cursor when the game starts to avoid overlaying the game iframe/canvas
+  try {
+    if (window.__hideCustomCursor) window.__hideCustomCursor();
+    else {
+      const inner = document.querySelector('.cursor-inner');
+      const outer = document.querySelector('.cursor-outer');
+      if (inner) inner.style.display = 'none';
+      if (outer) outer.style.display = 'none';
+    }
+  } catch (e) {}
 
   if (window.innerWidth < 768) {
     const wrapper = document.getElementById("game-wrapper");
