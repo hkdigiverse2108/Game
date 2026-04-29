@@ -9,16 +9,14 @@
     return DEFAULT_TABLET_BREAKPOINT;
   }
 
-  function isTouchDevice() {
-    return "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
-  }
+  
 
   function isSmallScreen(options) {
     return window.innerWidth < getBreakpoint(options);
   }
 
   function isDesktopLikeDevice(options) {
-    return !isTouchDevice() && !isSmallScreen(options);
+    return !isSmallScreen(options);
   }
 
   function isGameSupported(gameConfig, options) {
@@ -34,7 +32,6 @@
   global.DeviceSupport = {
     DEFAULT_TABLET_BREAKPOINT,
     DESKTOP_ONLY_MESSAGE,
-    isTouchDevice,
     isSmallScreen,
     isDesktopLikeDevice,
     isGameSupported,
