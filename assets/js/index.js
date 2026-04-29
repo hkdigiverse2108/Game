@@ -73,20 +73,12 @@ const getSpanClass = (index) => {
     "col-span-2 row-span-2", // hero
     "col-span-1 row-span-1",
     "col-span-1 row-span-1",
-    // "col-span-1 row-span-2",
-    // "col-span-2 row-span-1",
     "col-span-1 row-span-1",
     "col-span-1 row-span-1",
-    // "col-span-2 row-span-2",
-    // "col-span-1 row-span-1",
-    // "col-span-2 row-span-1",
-    // "col-span-1 row-span-2",
-    // "col-span-1 row-span-1",
   ];
 
   const selected = pattern[index % pattern.length];
 
-  // Mobile safe (no gaps)
   return `col-span-1 row-span-1 ${selected}`;
 };
 function generateGamesHtml(count) {
@@ -114,7 +106,7 @@ function generateGamesHtml(count) {
 
     // Now converted into a clickable anchor link mapping to gameUrl
     html += `
-        <a href="${game.gameUrl || "#"}" class="game-card block ${spanClass} group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10" style="animation-delay: ${index * 0.05}s">
+        <a href="${game.gameUrl || "#"}" class="game-card block ${spanClass} aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10" style="animation-delay: ${index * 0.05}s">
             
             <div class="absolute inset-0" style="background: ${bgGradient}"></div>
             
@@ -167,14 +159,23 @@ function generateGamesHtml(count) {
 
 function loadItems(count) {
   if (!grid) return;
+
+  const remaining = currentFilteredGames.length - currentCount;
+  const actualCount = Math.min(count, remaining);
+
+  if (actualCount <= 0) {
+    if (loadMoreBtn) loadMoreBtn.style.display = "none";
+    return;
+  }
+
   const tempDiv = document.createElement("div");
-  tempDiv.innerHTML = generateGamesHtml(count);
+  tempDiv.innerHTML = generateGamesHtml(actualCount);
 
   while (tempDiv.firstChild) {
     grid.appendChild(tempDiv.firstChild);
   }
 
-  currentCount += count;
+  currentCount += actualCount;
 
   // Hide Load More button if we exhausted the category
   if (loadMoreBtn) {
@@ -202,7 +203,7 @@ async function initGameData() {
     }
     if (grid) {
         filterGames();
-        loadItems(30);
+        loadItems(50);
     }
   } catch (e) {
     console.error("Failed to load games data:", e);
@@ -239,7 +240,7 @@ if (loadMoreBtn) {
     svgIcon.innerHTML = `<path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>`;
 
     setTimeout(() => {
-      loadItems(12); // Add standard batch
+      loadItems(30); // Add standard batch
 
       // Safety check if we hide it, we shouldn't attempt reset
       if (loadMoreBtn.style.display !== "none") {
@@ -268,7 +269,7 @@ if (categoriesContainer) {
           grid.innerHTML = "";
           currentCount = 0;
           filterGames();
-          loadItems(25);
+          loadItems(50);
           grid.style.transition = "opacity 0.3s";
           grid.style.opacity = 1;
         }, 300);
@@ -302,7 +303,7 @@ if (secondaryFilters) {
         grid.innerHTML = "";
         currentCount = 0;
         filterGames();
-        loadItems(25);
+        loadItems(50);
         grid.style.transition = "opacity 0.3s";
         grid.style.opacity = 1;
       }, 300);
