@@ -1,307 +1,386 @@
 <!doctype html>
 <html lang="en" class="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Adam And Eve 5 - part 2</title>
-    <meta name="description" content="Play Adam And Eve 5 - part 2 online for free on Epic Games Hub and continue Adam's puzzle adventure with new tricky scenes." />
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Orbitron:wght@400..900&display=swap" rel="stylesheet" />
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="../assets/js/tailwind.config.js"></script>
-    <link href="../assets/css/style.css" rel="stylesheet" />
-  </head>
-  <body class="antialiased selection:bg-primary/30 selection:text-white" data-current-game-id="adam-and-eve-5-part-2">
-    <!--<< Mouse Cursor Start >>-->
-    <div class="mouse-cursor cursor-outer"></div>
-    <div class="mouse-cursor cursor-inner"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass shadow-md">
-      <div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-        <!-- Logo -->
-        <a href="../index.html" class="flex items-center gap-3 cursor-pointer group shrink-0">
-          <div class="relative w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center transform transition duration-300 group-hover:rotate-[15deg] group-hover:scale-110 shadow-lg group-hover:shadow-neon">
-            <div class="absolute inset-0 bg-white/20 rounded-xl"></div>
-            <svg class="w-6 h-6 text-white relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adam And Eve 5 - part 2</title>
+  <meta name="description"
+    content="Play Adam And Eve 5 - part 2 online for free on Epic Games Hub and continue Adam's puzzle adventure with new tricky scenes." />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Orbitron:wght@400..900&display=swap"
+    rel="stylesheet" />
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/js/tailwind.config.js"></script>
+  <link href="../assets/css/style.css" rel="stylesheet" />
+</head>
+
+<body class="antialiased selection:bg-primary/30 selection:text-white" data-current-game-id="adam-and-eve-5-part-2">
+  <!--<< Mouse Cursor Start >>-->
+  <div class="mouse-cursor cursor-outer"></div>
+  <div class="mouse-cursor cursor-inner"></div>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full z-50 glass shadow-md">
+    <div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <!-- Logo -->
+      <a href="../index.html" class="flex items-center gap-3 cursor-pointer group shrink-0">
+        <div
+          class="relative w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center transform transition duration-300 group-hover:rotate-[15deg] group-hover:scale-110 shadow-lg group-hover:shadow-neon">
+          <div class="absolute inset-0 bg-white/20 rounded-xl"></div>
+          <svg class="w-6 h-6 text-white relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
+            </path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <span
+          class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 tracking-tight hidden sm:block">Epic
+          Games Hub</span>
+      </a>
+
+      <!-- Search -->
+      <div class="flex flex-1 max-w-[200px] xs:max-w-[250px] sm:max-w-sm sm:mx-12 relative">
+        <div class="w-full relative group" id="search-container">
+          <input id="search-input" type="text"
+            class="block w-full pl-6 pr-12 sm:pr-16 py-2.5 border border-white/10 rounded-2xl leading-5 bg-black/40 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-300 focus:bg-surface shadow-inner relative z-10 text-sm sm:text-base"
+            placeholder="Search games..." autocomplete="off" />
+          <div class="absolute inset-y-1 right-1 flex items-center z-10">
+            <button
+              class="bg-primary/20 hover:bg-primary/40 text-primary px-3 py-1.5 rounded-xl text-sm font-semibold transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </button>
           </div>
-          <span class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 tracking-tight hidden sm:block">Epic Games Hub</span>
+
+          <!-- Enhanced Search Dropdown (Hidden initially) -->
+          <div id="search-dropdown"
+            class="absolute min-w-[290px] top-full right-0 mt-2 bg-surface/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden hidden flex-col max-h-[70vh] z-50">
+            <div id="search-results-container" class="overflow-y-auto no-scrollbar py-2">
+              <!-- Results injected by JS -->
+              <div class="text-center py-4 text-gray-400 text-sm">Type to search...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto min-h-screen">
+    <!-- Game Layout: Player + Sidebar -->
+    <div class="flex flex-col lg:flex-row gap-6 mt-4">
+      <!-- LEFT: Game Player Column -->
+      <div class="flex-1 min-w-0">
+        <!-- Game Wrapper -->
+        <div id="game-wrapper" class="shadow-2xl shadow-primary/10">
+          <!-- Loading overlay -->
+          <div id="play-overlay" class="absolute inset-0 md:hidden flex items-center justify-center z-20 bg-black/50">
+            <button onclick="startGame()"
+              class="px-8 py-3 rounded-full bg-white text-blue-600 font-bold text-xl shadow-lg hover:scale-105 transition">▶
+              Play</button>
+          </div>
+          <div id="game-loading"
+            class="absolute inset-0 flex flex-col items-center justify-center bg-[#0B0F19] z-10 gap-4">
+            <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-xl shadow-primary/30 mb-2">
+              <img src="../game/Adam And Eve 5 - part 2/thumb.png" alt="Adam And Eve 5 - part 2"
+                class="w-full h-full object-cover" />
+            </div>
+            <div class="text-white font-bold text-lg">Loading Adam And Eve 5 - part 2...</div>
+            <div class="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full animate-pulse"
+                style="width: 70%"></div>
+            </div>
+          </div>
+          <iframe id="game-frame" src="../game/Adam And Eve 5 - part 2/index.html" allowfullscreen
+            title="Adam And Eve 5 - part 2"
+            onload="document.getElementById('game-loading').style.display = 'none'"></iframe>
+        </div>
+
+        <!-- Game Controls Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-2 mt-3 px-1">
+          <div id="game-tags" class="flex items-center gap-2 uppercase"></div>
+          <div class="flex items-center gap-2">
+            <!-- Fullscreen -->
+            <button id="fullscreen-btn" onclick="toggleFullscreen()" title="Fullscreen"
+              class="hidden md:flex items-center gap-1.5 bg-white/5 hover:bg-primary/20 border border-white/10 hover:border-primary/40 text-gray-400 hover:text-white px-3 py-1.5 rounded-xl transition-all text-sm font-semibold">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+              </svg>
+              Fullscreen
+            </button>
+          </div>
+        </div>
+
+        <!-- Game Info -->
+        <div class="mt-6 bg-surface/40 border border-white/5 rounded-2xl p-6 backdrop-blur-sm">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-5">
+            <!-- Thumbnail -->
+            <div
+              class="w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-lg shadow-black/50 border border-white/10">
+              <img src="../game/Adam And Eve 5 - part 2/thumb.png" alt="Adam And Eve 5 - part 2"
+                class="w-full h-full object-cover" />
+            </div>
+            <!-- Info -->
+            <div class="flex-1">
+              <h1 class="text-2xl sm:text-3xl font-black text-white leading-tight">Adam And Eve 5 - part 2</h1>
+              <div id="game-categories" class="flex flex-wrap items-center gap-2 mt-3 uppercase w-full"></div>
+            </div>
+          </div>
+
+          <div class="mt-8 border-t border-white/5 pt-8">
+            <div class="mt-6 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+              <div class="rounded-2xl border border-white/8 bg-black/20 p-5">
+                <p class="text-gray-200 leading-relaxed text-sm sm:text-[15px]">
+                  <strong class="text-white">Adam And Eve 5 - part 2</strong> continues the adventure with more layered
+                  puzzle scenes, fun character moments, and trickier interaction chains. You progress by spotting clues,
+                  testing object behavior, and triggering actions in the right sequence.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-white/8 bg-gradient-to-br from-primary/12 to-secondary/10 p-5">
+                <h3 class="text-white font-bold text-sm tracking-wide uppercase">How to Play</h3>
+                <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                  Click around each scene to interact with objects, animals, and tools. Watch what changes after every
+                  action, then use those changes to unlock the next puzzle step.
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-4 grid gap-4 md:grid-cols-2">
+              <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+                <h3 class="text-white font-bold text-base">What Happens Next</h3>
+                <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                  Part 2 introduces tighter logic flow and more dependency between actions. Later scenes often need two
+                  or three correct interactions before Adam can move forward.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+                <h3 class="text-white font-bold text-base">Tips for Success</h3>
+                <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                  Focus on objects that stand out visually, then test nearby items together. If progress stops, replay
+                  the scene logic in reverse and check what interaction you skipped.
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
+                <div class="flex justify-center mb-2 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                      d="M15 10l4.55-4.55a1.5 1.5 0 10-2.12-2.12L12.88 7.88M9 14l-4.55 4.55a1.5 1.5 0 102.12 2.12L11.12 16.12M8 8h.01M16 16h.01" />
+                  </svg>
+                </div>
+                <div class="text-xs text-gray-400 font-medium">Click Objects</div>
+              </div>
+              <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
+                <div class="flex justify-center mb-2 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div class="text-xs text-gray-400 font-medium">Solve Puzzles</div>
+              </div>
+              <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
+                <div class="flex justify-center mb-2 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                      d="M4 7h16M4 12h10M4 17h7" />
+                  </svg>
+                </div>
+                <div class="text-xs text-gray-400 font-medium">Find Sequences</div>
+              </div>
+              <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
+                <div class="flex justify-center mb-2 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                      d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </div>
+                <div class="text-xs text-gray-400 font-medium">Progress Story</div>
+              </div>
+            </div>
+
+            <!-- Media Gallery -->
+            <div class="mt-8 flex overflow-x-auto gap-4 pb-4 snap-x gallery-scroll">
+              <div
+                class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg relative bg-black snap-center">
+                <video src="../game/Adam And Eve 5 - part 2/gallery/v1.mp4" class="w-full h-full object-cover" autoplay
+                  loop muted playsinline poster="../game/Adam And Eve 5 - part 2/gallery/p1.png"></video>
+              </div>
+              <div
+                class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                <img src="../game/Adam And Eve 5 - part 2/gallery/p1.png" alt="Adam And Eve 5 part 2 gameplay scene"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              </div>
+              <div
+                class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                <img src="../game/Adam And Eve 5 - part 2/gallery/p2.png" alt="Adam And Eve 5 part 2 puzzle interaction"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              </div>
+              <div
+                class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                <img src="../game/Adam And Eve 5 - part 2/gallery/p3.png" alt="Adam And Eve 5 part 2 adventure scene"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Related Games Sidebar -->
+      <div class="lg:w-80 shrink-0">
+        <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          More Games
+        </h2>
+        <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 gap-3 gallery-scroll"
+          id="related-games">
+          <!-- Related game cards — injected via JS or static -->
+        </div>
+        <a href="../index.html"
+          class="mt-4 flex items-center justify-center gap-2 w-full py-3 bg-primary/10 hover:bg-primary/20 border border-primary/20 hover:border-primary/40 rounded-2xl text-primary font-semibold text-sm transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          Browse All Games
         </a>
-
-        <!-- Search -->
-        <div class="flex flex-1 max-w-[200px] xs:max-w-[250px] sm:max-w-sm sm:mx-12 relative">
-          <div class="w-full relative group" id="search-container">
-            <input id="search-input" type="text" class="block w-full pl-6 pr-12 sm:pr-16 py-2.5 border border-white/10 rounded-2xl leading-5 bg-black/40 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-300 focus:bg-surface shadow-inner relative z-10 text-sm sm:text-base" placeholder="Search games..." autocomplete="off" />
-            <div class="absolute inset-y-1 right-1 flex items-center z-10">
-              <button class="bg-primary/20 hover:bg-primary/40 text-primary px-3 py-1.5 rounded-xl text-sm font-semibold transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-              </button>
-            </div>
-
-            <!-- Enhanced Search Dropdown (Hidden initially) -->
-            <div id="search-dropdown" class="absolute min-w-[290px] top-full right-0 mt-2 bg-surface/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden hidden flex-col max-h-[70vh] z-50">
-              <div id="search-results-container" class="overflow-y-auto no-scrollbar py-2">
-                <!-- Results injected by JS -->
-                <div class="text-center py-4 text-gray-400 text-sm">Type to search...</div>
-              </div>
-            </div>
-          </div>
+        <div id="adam-and-eve-more-section" class="mt-6 hidden" data-series-section data-series-key="adam-and-eve">
+          <h3 class="text-white font-bold text-base mb-3 flex items-center gap-2" data-series-title>
+            <svg class="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 3a7 7 0 107 7 7 7 0 00-7-7zm0 2a5 5 0 11-5 5 5 5 0 015-5zm-1 2h2v4h-2zm0 5h2v2h-2z" />
+            </svg>
+            More from Adam And Eve 5 - part 2
+          </h3>
+          <div id="adam-and-eve-more" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3"
+            data-series-container></div>
         </div>
       </div>
-    </nav>
+    </div>
+  </main>
 
-    <!-- Main Content -->
-    <main class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto min-h-screen">
-      <!-- Game Layout: Player + Sidebar -->
-      <div class="flex flex-col lg:flex-row gap-6 mt-4">
-        <!-- LEFT: Game Player Column -->
-        <div class="flex-1 min-w-0">
-          <!-- Game Wrapper -->
-          <div id="game-wrapper" class="shadow-2xl shadow-primary/10">
-            <!-- Loading overlay -->
-            <div id="play-overlay" class="absolute inset-0 md:hidden flex items-center justify-center z-20 bg-black/50">
-              <button onclick="startGame()" class="px-8 py-3 rounded-full bg-white text-blue-600 font-bold text-xl shadow-lg hover:scale-105 transition">▶ Play</button>
+  <!-- Footer -->
+  <footer class="bg-black/50 border-t border-white/5 pt-16 pb-8">
+    <div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div class="col-span-1 md:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <div
+              class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/20">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
+                </path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
             </div>
-            <div id="game-loading" class="absolute inset-0 flex flex-col items-center justify-center bg-[#0B0F19] z-10 gap-4">
-              <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-xl shadow-primary/30 mb-2">
-                <img src="../game/Adam And Eve 5 - part 2/thumb.png" alt="Adam And Eve 5 - part 2" class="w-full h-full object-cover" />
-              </div>
-              <div class="text-white font-bold text-lg">Loading Adam And Eve 5 - part 2...</div>
-              <div class="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full animate-pulse" style="width: 70%"></div>
-              </div>
-            </div>
-            <iframe id="game-frame" src="../game/Adam And Eve 5 - part 2/index.html" allowfullscreen title="Adam And Eve 5 - part 2" onload="document.getElementById('game-loading').style.display = 'none'"></iframe>
+            <span class="text-2xl font-black text-white tracking-tight">Epic Games Hub</span>
           </div>
-
-          <!-- Game Controls Bar -->
-          <div class="flex flex-wrap items-center justify-between gap-2 mt-3 px-1">
-            <div id="game-tags" class="flex items-center gap-2 uppercase"></div>
-            <div class="flex items-center gap-2">
-              <!-- Fullscreen -->
-              <button id="fullscreen-btn" onclick="toggleFullscreen()" title="Fullscreen" class="hidden md:flex items-center gap-1.5 bg-white/5 hover:bg-primary/20 border border-white/10 hover:border-primary/40 text-gray-400 hover:text-white px-3 py-1.5 rounded-xl transition-all text-sm font-semibold">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" /></svg>
-                Fullscreen
-              </button>
-            </div>
-          </div>
-
-          <!-- Game Info -->
-          <div class="mt-6 bg-surface/40 border border-white/5 rounded-2xl p-6 backdrop-blur-sm">
-            <div class="flex flex-col sm:flex-row sm:items-start gap-5">
-              <!-- Thumbnail -->
-              <div class="w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-lg shadow-black/50 border border-white/10">
-                <img src="../game/Adam And Eve 5 - part 2/thumb.png" alt="Adam And Eve 5 - part 2" class="w-full h-full object-cover" />
-              </div>
-              <!-- Info -->
-              <div class="flex-1">
-                <h1 class="text-2xl sm:text-3xl font-black text-white leading-tight">Adam And Eve 5 - part 2</h1>
-                <div id="game-categories" class="flex flex-wrap items-center gap-2 mt-3 uppercase w-full"></div>
-              </div>
-            </div>
-
-            <div class="mt-8 border-t border-white/5 pt-8">
-              <div class="mt-6 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
-                <div class="rounded-2xl border border-white/8 bg-black/20 p-5">
-                  <p class="text-gray-200 leading-relaxed text-sm sm:text-[15px]">
-                    <strong class="text-white">Adam And Eve 5 - part 2</strong> continues the adventure with more layered puzzle scenes, fun character moments, and trickier interaction chains. You progress by spotting clues, testing object behavior, and triggering actions in the right sequence.
-                  </p>
-                </div>
-                <div class="rounded-2xl border border-white/8 bg-gradient-to-br from-primary/12 to-secondary/10 p-5">
-                  <h3 class="text-white font-bold text-sm tracking-wide uppercase">How to Play</h3>
-                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
-                    Click around each scene to interact with objects, animals, and tools. Watch what changes after every action, then use those changes to unlock the next puzzle step.
-                  </p>
-                </div>
-              </div>
-
-              <div class="mt-4 grid gap-4 md:grid-cols-2">
-                <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
-                  <h3 class="text-white font-bold text-base">What Happens Next</h3>
-                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
-                    Part 2 introduces tighter logic flow and more dependency between actions. Later scenes often need two or three correct interactions before Adam can move forward.
-                  </p>
-                </div>
-                <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
-                  <h3 class="text-white font-bold text-base">Tips for Success</h3>
-                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
-                    Focus on objects that stand out visually, then test nearby items together. If progress stops, replay the scene logic in reverse and check what interaction you skipped.
-                  </p>
-                </div>
-              </div>
-
-              <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="flex justify-center mb-2 text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 10l4.55-4.55a1.5 1.5 0 10-2.12-2.12L12.88 7.88M9 14l-4.55 4.55a1.5 1.5 0 102.12 2.12L11.12 16.12M8 8h.01M16 16h.01" />
-                    </svg>
-                  </div>
-                  <div class="text-xs text-gray-400 font-medium">Click Objects</div>
-                </div>
-                <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="flex justify-center mb-2 text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div class="text-xs text-gray-400 font-medium">Solve Puzzles</div>
-                </div>
-                <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="flex justify-center mb-2 text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 7h16M4 12h10M4 17h7" />
-                    </svg>
-                  </div>
-                  <div class="text-xs text-gray-400 font-medium">Find Sequences</div>
-                </div>
-                <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
-                  <div class="flex justify-center mb-2 text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                  </div>
-                  <div class="text-xs text-gray-400 font-medium">Progress Story</div>
-                </div>
-              </div>
-
-              <!-- Media Gallery -->
-              <div class="mt-8 flex overflow-x-auto gap-4 pb-4 snap-x gallery-scroll">
-                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg relative bg-black snap-center">
-                  <video src="../game/Adam And Eve 5 - part 2/gallery/v1.mp4" class="w-full h-full object-cover" autoplay loop muted playsinline poster="../game/Adam And Eve 5 - part 2/gallery/p1.png"></video>
-                </div>
-                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
-                  <img src="../game/Adam And Eve 5 - part 2/gallery/p1.png" alt="Adam And Eve 5 part 2 gameplay scene" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
-                  <img src="../game/Adam And Eve 5 - part 2/gallery/p2.png" alt="Adam And Eve 5 part 2 puzzle interaction" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <div class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
-                  <img src="../game/Adam And Eve 5 - part 2/gallery/p3.png" alt="Adam And Eve 5 part 2 adventure scene" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                </div>
-              </div>
-            </div>
+          <p class="text-gray-400 max-w-sm mb-6 leading-relaxed">Epic Games Hub is your ultimate destination for free
+            online games. We test and add new thrilling games daily to keep you entertained without any downloads!</p>
+          <div class="flex gap-4">
+            <!-- Socials -->
+            <a href="#"
+              class="w-10 h-10 rounded-full bg-white/5 hover:bg-primary border border-white/5 hover:border-primary/50 flex items-center justify-center text-gray-400 hover:text-white transition-all shadow-lg">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+              </svg>
+            </a>
+            <a href="#"
+              class="w-10 h-10 rounded-full bg-white/5 hover:bg-secondary border border-white/5 hover:border-secondary/50 flex items-center justify-center text-gray-400 hover:text-white transition-all shadow-lg">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+              </svg>
+            </a>
           </div>
         </div>
 
-        <!-- RIGHT: Related Games Sidebar -->
-        <div class="lg:w-80 shrink-0">
-          <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-            <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-            More Games
-          </h2>
-          <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 gap-3 gallery-scroll" id="related-games">
-            <!-- Related game cards — injected via JS or static -->
-          </div>
-          <a href="../index.html" class="mt-4 flex items-center justify-center gap-2 w-full py-3 bg-primary/10 hover:bg-primary/20 border border-primary/20 hover:border-primary/40 rounded-2xl text-primary font-semibold text-sm transition-all">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
-            Browse All Games
-          </a>
-          <div id="adam-and-eve-more-section" class="mt-6 hidden" data-series-section data-series-key="adam-and-eve">
-            <h3 class="text-white font-bold text-base mb-3 flex items-center gap-2" data-series-title>
-              <svg class="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20"><path d="M10 3a7 7 0 107 7 7 7 0 00-7-7zm0 2a5 5 0 11-5 5 5 5 0 015-5zm-1 2h2v4h-2zm0 5h2v2h-2z" /></svg>
-              More from Adam And Eve 5 - part 2
-            </h3>
-            <div id="adam-and-eve-more" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3" data-series-container></div>
-          </div>
+        <div>
+          <h3 class="text-white font-bold mb-4 tracking-wide">About Epic Games Hub</h3>
+          <ul class="space-y-3 text-gray-400 font-medium text-sm">
+            <li>
+              <a href="../about.html"
+                class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> About Us</a>
+            </li>
+            <li>
+              <a href="../developers.html"
+                class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Developers</a>
+            </li>
+            <li>
+              <a href="../faq.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span>
+                FAQ</a>
+            </li>
+            <li>
+              <a href="../contact.html"
+                class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Contact us</a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-white font-bold mb-4 tracking-wide">Legal Information</h3>
+          <ul class="space-y-3 text-gray-400 font-medium text-sm">
+            <li>
+              <a href="../privacy.html"
+                class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Privacy Policy</a>
+            </li>
+            <li>
+              <a href="../terms.html"
+                class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Terms of Service</a>
+            </li>
+            <li>
+              <a href="../disclaimer.html"
+                class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Disclaimer</a>
+            </li>
+            <li>
+              <a href="../gdpr.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span>
+                GDPR</a>
+            </li>
+            <li>
+              <a href="../dmca.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span>
+                DMCA</a>
+            </li>
+          </ul>
         </div>
       </div>
-    </main>
 
-    <!-- Footer -->
-        <footer class="bg-black/50 border-t border-white/5 pt-16 pb-8">
-      <div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-          <div class="col-span-1 md:col-span-2">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/20">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              </div>
-              <span class="text-2xl font-black text-white tracking-tight">Epic Games Hub</span>
-            </div>
-            <p class="text-gray-400 max-w-sm mb-6 leading-relaxed">Epic Games Hub is your ultimate destination for free online games. We test and add new thrilling games daily to keep you entertained without any downloads!</p>
-            <div class="flex gap-4">
-              <!-- Socials -->
-              <a href="#" class="w-10 h-10 rounded-full bg-white/5 hover:bg-primary border border-white/5 hover:border-primary/50 flex items-center justify-center text-gray-400 hover:text-white transition-all shadow-lg">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" /></svg>
-              </a>
-              <a href="#" class="w-10 h-10 rounded-full bg-white/5 hover:bg-secondary border border-white/5 hover:border-secondary/50 flex items-center justify-center text-gray-400 hover:text-white transition-all shadow-lg">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <h3 class="text-white font-bold mb-4 tracking-wide">Top Categories</h3>
-            <ul class="space-y-3 text-gray-400 font-medium text-sm">
-              <li>
-                <a href="#" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Action Games</a>
-              </li>
-              <li>
-                <a href="#" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Multiplayer</a>
-              </li>
-              <li>
-                <a href="#" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Racing & Driving</a>
-              </li>
-              <li>
-                <a href="#" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Puzzle & Logic</a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="text-white font-bold mb-4 tracking-wide">About Epic Games Hub</h3>
-            <ul class="space-y-3 text-gray-400 font-medium text-sm">
-              <li>
-                <a href="../about.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> About Us</a>
-              </li>
-              <li>
-                <a href="../developers.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Developers</a>
-              </li>
-              <li>
-                <a href="../privacy.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Privacy Policy</a>
-              </li>
-              <li>
-                <a href="../terms.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Terms of Service</a>
-              </li>
-              <li>
-                <a href="../faq.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> FAQ</a>
-              </li>
-              <li>
-                <a href="../contact.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Contact us</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between text-sm text-gray-500 font-medium pb-4">
-          <p>&copy; 2026 Epic Games Hub Games. All rights reserved.</p>
-          <div class="flex items-center gap-4 mt-4 md:mt-0">
-            <span class="hover:text-white transition-colors cursor-pointer"></span>
-          </div>
+      <div
+        class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between text-sm text-gray-500 font-medium pb-4">
+        <p>&copy; 2026 Epic Games Hub Games. All rights reserved.</p>
+        <div class="flex items-center gap-4 mt-4 md:mt-0">
+          <span class="hover:text-white transition-colors cursor-pointer"></span>
         </div>
       </div>
-    </footer>
+    </div>
+  </footer>
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="../common/device.js"></script>
-    <script src="../assets/js/index.js"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="../common/device.js"></script>
+  <script src="../assets/js/index.js"></script>
 
-    <script>const gameId = "adam-and-eve-5-part-2";</script>
-    <script src="../assets/js/gameDistribution.js"></script>
-  </body>
+  <script>const gameId = "adam-and-eve-5-part-2";</script>
+  <script src="../assets/js/gameDistribution.js"></script>
+</body>
+
 </html>
-
-
-
-
