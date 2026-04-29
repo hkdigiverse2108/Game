@@ -2,16 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <!-- Accessibility FIX: Removed 'user-scalable=no' to allow zooming for visually impaired users -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  
+  <!-- SEO & Best Practices: Title, Description, and Theme Color -->
   <title>Block Blast</title>
+  <meta name="description" content="Play Block Blast, a fun and engaging puzzle game. Test your skills and get the highest score!">
+  <meta name="theme-color" content="#f1f5f9">
+  
+  <!-- Security (Best Practices): Content Security Policy to prevent XSS attacks -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com https://cdn.tailwindcss.com; img-src 'self' data: https:;">
+  
+  <!-- SEO: Open Graph (Social Media Sharing) -->
+  <meta property="og:title" content="Block Blast">
+  <meta property="og:description" content="Play Block Blast, a fun and engaging puzzle game. Test your skills and get the highest score!">
+  <meta property="og:type" content="website">
+  
+  <!-- Performance: Preconnect to font domains to speed up font loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Performance: Tailwind CDN is for DEV ONLY. For production PageSpeed, compile it via PostCSS/Tailwind CLI! -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  
+  <!-- Performance: Preload main stylesheet -->
+  <link rel="preload" href="style.css" as="style">
   <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+  <!-- Performance & Best Practices: Use defer for non-blocking script execution -->
+  <script src="script.js" defer></script>
 </head>
 <body class="bg-gradient-to-br from-slate-100 to-indigo-100 min-h-screen flex items-center justify-center p-3 md:p-6 font-sans antialiased">
-  <div id="game-root" class="w-full max-w-6xl mx-auto relative"></div>
-  <script src="script.js"></script>
+  
+  <!-- Accessibility FIX: Use semantic <main> tag to indicate the primary content of the document -->
+  <main class="w-full flex justify-center items-center">
+    <div id="game-root" class="w-full max-w-6xl mx-auto relative">
+      <!-- Game rendering happens here -->
+    </div>
+  </main>
+
 </body>
 </html>
