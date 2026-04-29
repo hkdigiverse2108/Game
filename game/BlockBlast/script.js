@@ -4,15 +4,15 @@ const root = document.getElementById('game-root');
 const GRID_SIZE = 10;
 
 const ASSETS = {
-  starFill: 'startFill.webp',
-  starEmpty: 'star empty.webp',
-  lock: 'lock.webp',
-  pause: 'pause.webp',
-  spark: 'spark.webp',
-  blastParticles: 'blast particles.webp',
-  blockGloss: 'block-gloss.webp',
-  win: 'win.webp',
-  lose: 'lose.webp'
+  starFill: 'startFill.png',
+  starEmpty: 'star empty.png',
+  lock: 'lock.png',
+  pause: 'pause.png',
+  spark: 'spark.png',
+  blastParticles: 'blast particles.png',
+  blockGloss: 'block-gloss.png',
+  win: 'win.png',
+  lose: 'lose.png'
 };
 
 const PERF = {
