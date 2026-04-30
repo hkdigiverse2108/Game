@@ -52,6 +52,30 @@
     {
       "name": "🔫 Shooting",
       "isTop": true
+    },
+    {
+      "name": "🚗 Car",
+      "isTop": true
+    },
+    {
+      "name": "🏍️ Bike",
+      "isTop": true
+    },
+    {
+      "name": "🃏 Cards",
+      "isTop": true
+    },
+    {
+      "name": "🎯 FPS",
+      "isTop": true
+    },
+    {
+      "name": "🗺️ Adventure",
+      "isTop": true
+    },
+    {
+      "name": "🚪 Escape",
+      "isTop": true
     }
   ],
   "gameTitles": [
@@ -60,7 +84,7 @@
       "gameTitle": "Subway Surfers Vegas Queen",
       "gameUrl": "gameDistribution/SubwaySurfers-Vegas-Queen.html",
       "thumbnailUrl": "game/SubwaySurfers-Vegas-Queen/thumb.webp",
-      "categories": ["action", "arcade", "runner", "season", "for you"],
+      "categories": ["action", "arcade", "runner", "season", "adventure", "for you"],
       "tags": ["update", "hot", "trending"],
       "series": "subway-surfers",
       "description": "Play Subway Surfers Vegas Queen online and run through the bright city tracks, dodge fast trains, collect coins, and stay ahead of the guard. Use quick lane changes, clean jumps, and smart power-up timing to keep your run going and beat your best score."
@@ -123,7 +147,7 @@
       "gameTitle": "Park Out",
       "gameUrl": "gameDistribution/Park-Out.html",
       "thumbnailUrl": "game/ParkOut/thumb.webp",
-      "categories": ["racing", "action", "season", "for you"],
+      "categories": ["racing", "action", "season", "car", "for you"],
       "tags": ["new", "classic"],
       "series": "car-parking",
       "description": "Play Park Out online as Car Parking Part 2 and solve crowded parking jams by moving the right cars in the right order. Clear a path, free the blocked vehicle, and think ahead so you can open the lot with the fewest moves possible."
@@ -133,7 +157,7 @@
       "gameTitle": "Monster Truck Climb",
       "gameUrl": "gameDistribution/Monster-Truck-Climb.html",
       "thumbnailUrl": "game/Monster Truck Climb/thumb.webp",
-      "categories": ["racing", "action", "for you"],
+      "categories": ["racing", "action", "car", "for you"],
       "tags": ["new", "3d"],
       "description": "Play Monster Truck Climb online and drive a huge truck over steep hills, rough ramps, and tricky obstacles. Balance your speed, keep the wheels steady, and use careful timing to reach the finish without flipping over."
     },
@@ -152,7 +176,7 @@
       "gameTitle": "Port Bike Stunt",
       "gameUrl": "gameDistribution/Port-Bike-Stunt.html",
       "thumbnailUrl": "game/port-bike-stunt/thumb.webp",
-      "categories": ["racing", "action", "arcade", "for you"],
+      "categories": ["racing", "action", "arcade", "bike", "for you"],
       "tags": ["new", "3d"],
       "series": "bike-stunt",
       "requiresKeyboard": true,
@@ -172,7 +196,7 @@
       "gameTitle": "Moving Truck",
       "gameUrl": "gameDistribution/Moving-Truck.html",
       "thumbnailUrl": "game/moving-truck/thumb.webp",
-      "categories": ["racing", "action", "for you"],
+      "categories": ["racing", "action", "car", "for you"],
       "tags": ["new", "3d"],
       "description": "Play Moving Truck online and guide a heavy truck through tight roads, steep ramps, and uneven turns while keeping your cargo under control. Smooth braking, careful steering, and steady balance are the keys to reaching the finish without losing momentum."
     },
@@ -199,7 +223,7 @@
       "gameTitle": "Arcane Archer",
       "gameUrl": "gameDistribution/Arcane-Archer.html",
       "thumbnailUrl": "game/Arcane Archer/thumb.webp",
-      "categories": ["action", "arcade", "for you", "shooting"],
+      "categories": ["action", "arcade", "for you", "shooting", "fps", "adventure"],
       "tags": ["new", "3d"],
       "series": "arcane-archer",
       "description": "Play Arcane Archer online and aim magical shots at enemies and targets with simple, careful timing. Watch the distance, release at the right moment, and use clean shots to clear each stage."
@@ -245,7 +269,7 @@
       "gameTitle": "Escape Road",
       "gameUrl": "gameDistribution/Escape-Road.html",
       "thumbnailUrl": "game/Escape-road/thumb.webp",
-      "categories": ["arcade", "runner", "for you", "racing"],
+      "categories": ["arcade", "runner", "for you", "racing", "escape", "car"],
       "tags": ["hot", "new"],
       "description": "Navigate tricky roads and avoid obstacles in Escape Road! Guide your car through challenging tracks, react quickly, and see how far you can go. Simple controls and addictive gameplay make this a must-play for fans of endless runners."
     },
@@ -430,7 +454,7 @@
       "gameTitle": "Money Movers",
       "gameUrl": "gameDistribution/Money-Movers.html",
       "thumbnailUrl": "game/Money Movers/thumb.webp",
-      "categories": ["action", "puzzle", "season", "for you"],
+      "categories": ["action", "puzzle", "season", "for you", "escape"],
       "requiresKeyboard": true,
       "tags": ["classic", "update"],
       "series": "money-movers",
@@ -441,7 +465,7 @@
       "gameTitle": "Money Movers 2",
       "gameUrl": "gameDistribution/Money-Movers-2.html",
       "thumbnailUrl": "game/Money Movers 2/thumb.webp",
-      "categories": ["action", "puzzle", "season", "for you"],
+      "categories": ["action", "puzzle", "season", "for you", "escape"],
       "requiresKeyboard": true,
       "tags": ["update", "hot"],
       "series": "money-movers",
@@ -452,7 +476,7 @@
       "gameTitle": "Money Movers 3",
       "gameUrl": "gameDistribution/Money-Movers-3.html",
       "thumbnailUrl": "game/Money Movers 3/thumb.webp",
-      "categories": ["action", "puzzle", "season", "for you"],
+      "categories": ["action", "puzzle", "season", "for you", "escape"],
       "requiresKeyboard": true,
       "tags": ["new", "classic"],
       "series": "money-movers",
@@ -463,7 +487,7 @@
       "gameTitle": "Mutazone",
       "gameUrl": "gameDistribution/Mutazone.html",
       "thumbnailUrl": "game/Muta zone/thumb.webp",
-      "categories": ["action", "arcade", "shooting", "for you"],
+      "categories": ["action", "arcade", "shooting", "fps", "for you"],
       "tags": ["new", "3d"],
       "description": "Play Mutazone online and survive fast enemy waves in a chaotic action arena. Keep moving, aim quickly, and use smart timing to stay alive and push your score higher."
     },
@@ -472,7 +496,7 @@
       "gameTitle": "Endless Truck",
       "gameUrl": "gameDistribution/Endless-Truck.html",
       "thumbnailUrl": "game/Endless Truck/thumb.webp",
-      "categories": ["racing", "arcade", "action", "for you"],
+      "categories": ["racing", "arcade", "action", "car", "for you"],
       "tags": ["new", "3d"],
       "description": "Play Endless Truck online and drive across rough endless roads while collecting boosts and rewards. Control speed, keep your truck balanced, and see how far you can go before the run ends."
     },
@@ -481,7 +505,7 @@
       "gameTitle": "Hide And Smash",
       "gameUrl": "gameDistribution/Hide-And-Smash.html",
       "thumbnailUrl": "game/Hide And Smash/thumb.webp",
-      "categories": ["action", "arcade", "multiplayer", "for you"],
+      "categories": ["action", "arcade", "multiplayer", "fps", "for you"],
       "tags": ["new", "3d"],
       "description": "Play Hide And Smash online and outplay opponents with smart positioning, fast reactions, and well-timed attacks. Hide, strike at the right moment, and keep adapting to the map to win each round."
     },
@@ -521,7 +545,7 @@
       "gameTitle": "Ultimate Car",
       "gameUrl": "gameDistribution/Ultimate-Car.html",
       "thumbnailUrl": "game/ultimate-car/images/thumb.webp",
-      "categories": ["racing", "action", "for you"],
+      "categories": ["racing", "action", "car", "for you"],
       "tags": ["new", "3d"]
     },
 
@@ -530,7 +554,7 @@
       "gameTitle": "Super Bike The Champion",
       "gameUrl": "gameDistribution/Super-Bike-The-Champion.html",
       "thumbnailUrl": "game/super-bike-the-champion/thumb.webp",
-      "categories": ["racing", "sports", "action", "for you"],
+      "categories": ["racing", "sports", "action", "bike", "for you"],
       "tags": ["new", "3d"],
       "series": "bike-racing",
       "requiresKeyboard": true,
@@ -541,7 +565,7 @@
       "gameTitle": "Stupid Zombies",
       "gameUrl": "gameDistribution/Stupid-Zombies.html",
       "thumbnailUrl": "game/stupid-zombies/thumb.webp",
-      "categories": ["action", "arcade", "shooting", "for you"],
+      "categories": ["action", "arcade", "shooting", "fps", "for you"],
       "tags": ["hot", "fun"],
       "description": "Play Stupid Zombies online and aim your shots carefully to eliminate waves of goofy zombies. Use limited ammunition wisely, ricoche bullets off walls, and solve each puzzle level by eliminating all zombies. Master physics-based gameplay with strategic planning and creative shot angles."
     },

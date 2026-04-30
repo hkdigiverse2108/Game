@@ -160,6 +160,20 @@ function generateGamesHtml(count) {
 function loadItems(count) {
   if (!grid) return;
 
+  if (currentFilteredGames.length === 0) {
+    if (loadMoreBtn) loadMoreBtn.style.display = "none";
+    grid.innerHTML = `
+      <div class="col-span-full py-24 flex flex-col items-center justify-center text-center">
+        <div class="w-24 h-24 bg-surface/40 rounded-3xl flex items-center justify-center border border-white/5 shadow-2xl mb-6 transform hover:rotate-[15deg] transition duration-300">
+          <span class="text-4xl filter grayscale opacity-50">🎮</span>
+        </div>
+        <h3 class="text-2xl font-bold text-white mb-3 tracking-tight">Games Coming Soon!</h3>
+        <p class="text-gray-400 max-w-sm mx-auto leading-relaxed text-sm">Nothing to play here right now, check back soon for updates.</p>
+      </div>
+    `;
+    return;
+  }
+
   const remaining = currentFilteredGames.length - currentCount;
   const actualCount = Math.min(count, remaining);
 
@@ -199,16 +213,16 @@ async function initGameData() {
     categoriesConfig = rawData.categories;
 
     if (categoriesContainer) {
-        renderCategories();
+      renderCategories();
     }
     if (grid) {
-        filterGames();
-        loadItems(50);
+      filterGames();
+      loadItems(50);
     }
   } catch (e) {
     console.error("Failed to load games data:", e);
     if (grid) {
-        grid.innerHTML = `<div class="col-span-full py-20 text-center">
+      grid.innerHTML = `<div class="col-span-full py-20 text-center">
             <p class="text-red-400 font-bold mb-2">Error: Failed to load game data.</p>
             <p class="text-gray-400 text-sm">Please ensure you are viewing this via a local web server (like VS Code Live Server) because fetching JSON files locally via the block file:// protocol is not allowed by browsers.</p>
         </div>`;
@@ -485,7 +499,7 @@ function mousecursor() {
       inner.style.display = "none";
       outer.style.display = "none";
     };
-  } catch (e) {}
+  } catch (e) { }
 }
 
 if (window.jQuery) {
