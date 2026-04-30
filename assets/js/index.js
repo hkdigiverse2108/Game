@@ -487,17 +487,22 @@ function mousecursor() {
     safeShow();
   }, { passive: true });
 
-  if (window.jQuery) {
-    $("body").on("mouseenter", "a, .cursor-pointer", function () {
+  // Handle hover effects with Vanilla JS event delegation
+  document.addEventListener("mouseenter", (e) => {
+    const target = e.target.closest && (e.target.closest("a") || e.target.closest(".cursor-pointer"));
+    if (target) {
       inner.classList.add("cursor-hover");
       outer.classList.add("cursor-hover");
-    });
+    }
+  }, true);
 
-    $("body").on("mouseleave", "a, .cursor-pointer", function () {
+  document.addEventListener("mouseleave", (e) => {
+    const target = e.target.closest && (e.target.closest("a") || e.target.closest(".cursor-pointer"));
+    if (target) {
       inner.classList.remove("cursor-hover");
       outer.classList.remove("cursor-hover");
-    });
-  }
+    }
+  }, true);
 
   safeHide();
 
@@ -510,10 +515,5 @@ function mousecursor() {
   } catch (e) { }
 }
 
-if (window.jQuery) {
-  $(document).ready(function () {
-    mousecursor();
-  });
-} else {
-  document.addEventListener("DOMContentLoaded", mousecursor);
-}
+// Initial load using Vanilla JS
+document.addEventListener("DOMContentLoaded", mousecursor);
