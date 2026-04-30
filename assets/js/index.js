@@ -96,7 +96,7 @@ function generateGamesHtml(count) {
     let badgesHtml = "";
     if (game.tags && game.tags.length > 0) {
       const tag = game.tags[0].toUpperCase();
-      const badgeColor = tag === "HOT" ? "bg-red-500" : tag === "NEW" ? "bg-emerald-500" : "bg-primary";
+      const badgeColor = tag === "HOT" ? "bg-red-700" : tag === "NEW" ? "bg-emerald-700" : "bg-indigo-700";
       badgesHtml = `
             <div class="absolute top-3 right-3 sm:top-4 sm:right-4 ${badgeColor} text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">
                 ${tag}
