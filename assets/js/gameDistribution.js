@@ -225,15 +225,44 @@ function mousecursor() {
     return;
   }
 
+  const safeShow = () => {
+    inner.style.visibility = "visible";
+    outer.style.visibility = "visible";
+    inner.style.display = "block";
+    outer.style.display = "block";
+  };
+
+  const safeHide = () => {
+    inner.style.visibility = "hidden";
+    outer.style.visibility = "hidden";
+  };
+
+  document.addEventListener("mouseleave", () => {
+    safeHide();
+  });
+
+  document.addEventListener("mouseout", (e) => {
+    if (!e.relatedTarget) {
+      safeHide();
+    }
+  });
+
+  document.addEventListener("mouseover", (e) => {
+    const overGame = e.target && (e.target.closest && (e.target.closest('iframe') || e.target.closest('#game-frame') || e.target.closest('canvas')));
+    if (overGame) {
+      safeHide();
+    }
+  });
+
   window.addEventListener("mousemove", (e) => {
     const overGame = e.target && (e.target.closest && (e.target.closest('iframe') || e.target.closest('#game-frame') || e.target.closest('canvas')));
     if (overGame) {
-      inner.style.visibility = "hidden";
-      outer.style.visibility = "hidden";
+      safeHide();
       return;
     }
     inner.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     outer.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    safeShow();
   }, { passive: true });
 
   if (window.jQuery) {
@@ -247,8 +276,7 @@ function mousecursor() {
     });
   }
 
-  inner.style.visibility = "visible";
-  outer.style.visibility = "visible";
+  safeHide();
 
   try { window.__hideCustomCursor = () => { inner.style.display = 'none'; outer.style.display = 'none'; }; } catch(e) {}
 }

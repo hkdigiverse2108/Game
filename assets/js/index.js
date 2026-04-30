@@ -430,14 +430,31 @@ function mousecursor() {
 
   const safeHide = () => {
     inner.style.visibility = "hidden";
+    outer.style.visibility = "hidden";
   };
+
+  document.addEventListener("mouseleave", () => {
+    safeHide();
+  });
+
+  document.addEventListener("mouseout", (e) => {
+    if (!e.relatedTarget) {
+      safeHide();
+    }
+  });
+
+  document.addEventListener("mouseover", (e) => {
+    const overGame = e.target && (e.target.closest && (e.target.closest('iframe') || e.target.closest('#game-frame') || e.target.closest('canvas')));
+    if (overGame) {
+      safeHide();
+    }
+  });
 
   window.addEventListener("mousemove", (e) => {
     // If over iframe / game frame / canvas - hide cursor to avoid interfering
     const overGame = e.target && (e.target.closest && (e.target.closest('iframe') || e.target.closest('#game-frame') || e.target.closest('canvas')));
     if (overGame) {
-      inner.style.visibility = "hidden";
-      outer.style.visibility = "hidden";
+      safeHide();
       return;
     }
 
@@ -460,7 +477,7 @@ function mousecursor() {
     });
   }
 
-  safeShow();
+  safeHide();
 
   // Expose a safe hide method for other scripts to call
   try {
