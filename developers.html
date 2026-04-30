@@ -12,10 +12,13 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Orbitron:wght@400..900&display=swap"
     rel="stylesheet" />
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="./assets/js/tailwind.config.js"></script>
-  <!-- Common Styles -->
+  <script>
+    // Intercept deprecated 'unload' events early (Lighthouse/Chrome compliance)
+    (function(){var a=window.addEventListener;window.addEventListener=function(t,l,o){if(t==='unload')return;return a.apply(this,arguments)};Object.defineProperty(window,'onunload',{set:function(){},get:function(){return null}})})()
+  </script>
+  <script async src="assets/js/perf-improvements.js"></script>
+  <link rel="preload" href="./assets/css/tailwind.css" as="style">
+  <link href="./assets/css/tailwind.css" rel="stylesheet" />
   <link href="./assets/css/style.css" rel="stylesheet" />
 </head>
 

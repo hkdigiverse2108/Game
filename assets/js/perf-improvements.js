@@ -5,6 +5,30 @@
 (function(){
   'use strict';
 
+  // Lazy Load Google AdSense
+  function lazyLoadAdSense() {
+    var script = document.createElement('script');
+    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8278748118891475';
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    document.head.appendChild(script);
+  }
+
+  var adLoaded = false;
+  function onFirstInteraction() {
+    if (adLoaded) return;
+    adLoaded = true;
+    lazyLoadAdSense();
+    // Cleanup listeners
+    ['touchstart', 'mousemove', 'scroll', 'keydown'].forEach(function(e) {
+      window.removeEventListener(e, onFirstInteraction);
+    });
+  }
+
+  ['touchstart', 'mousemove', 'scroll', 'keydown'].forEach(function(e) {
+    window.addEventListener(e, onFirstInteraction, { passive: true });
+  });
+
   function setLazyForMedia(){
     try{
       var imgs = document.querySelectorAll('img:not([loading])');
