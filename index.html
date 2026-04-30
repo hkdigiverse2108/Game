@@ -7,16 +7,19 @@
   <title>Epic Games Hub</title>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8278748118891475"
     crossorigin="anonymous"></script>
-  <!-- Google Fonts -->
+  <!-- Google Fonts (preload & non-blocking) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Orbitron:wght@400..900&display=swap"
-    rel="stylesheet" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Orbitron:wght@400..900&display=swap" as="style" onload="this.rel='stylesheet'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+  </noscript>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="./assets/js/tailwind.config.js"></script>
+  <link rel="preload" href="./assets/css/style.css" as="style">
   <link href="./assets/css/style.css" rel="stylesheet" />
+  <script async src="assets/js/perf-improvements.js"></script>
 </head>
 
 <body class="antialiased selection:bg-primary/30 selection:text-white">
@@ -241,7 +244,7 @@
   </footer>
 
   <!-- jQuery (required for custom cursor) -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
   <!-- Logic Script Linked Externally -->
   <script src="common/device.js"></script>
   <script src="assets/js/index.js"></script>
