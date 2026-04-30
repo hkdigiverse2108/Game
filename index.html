@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Epic Games Hub</title>
+  <script src="assets/js/perf-improvements.js"></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8278748118891475"
     crossorigin="anonymous"></script>
   <!-- Google Fonts (preload & non-blocking) -->
@@ -14,15 +15,17 @@
   <noscript>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
   </noscript>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="./assets/js/tailwind.config.js"></script>
-  <link rel="preload" href="./assets/css/style.css" as="style">
+  <!-- Preload LCP Images (CDN version) -->
+  <link rel="preload" href="https://wsrv.nl/?url=epicgameshub.com/game/SubwaySurfers-Vegas-Queen/thumb.webp&w=250&h=250&fit=cover&output=webp" as="image" fetchpriority="high">
+  <link rel="preload" href="https://wsrv.nl/?url=epicgameshub.com/game/SubwaySurfers/SubwaySurfers.png&w=250&h=250&fit=cover&output=webp" as="image" fetchpriority="high">
+  
+  <!-- Custom Styles & Compiled Tailwind CSS -->
+  <link rel="preload" href="./assets/css/tailwind.css" as="style">
+  <link href="./assets/css/tailwind.css" rel="stylesheet" />
   <link href="./assets/css/style.css" rel="stylesheet" />
-  <script async src="assets/js/perf-improvements.js"></script>
 </head>
 
-<body class="antialiased selection:bg-primary/30 selection:text-white">
+<body class="bg-background text-white antialiased selection:bg-primary/30 selection:text-white">
   <!--<< Mouse Cursor Start >>-->
   <div class="mouse-cursor cursor-outer"></div>
   <div class="mouse-cursor cursor-inner"></div>
@@ -30,7 +33,7 @@
   <nav class="fixed top-0 w-full z-50 glass shadow-md">
     <div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
       <!-- Logo -->
-      <a href="index.html" class="flex items-center gap-3 cursor-pointer group shrink-0">
+      <a href="index.html" aria-label="Home" class="flex items-center gap-3 cursor-pointer group shrink-0">
         <div
           class="relative w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center transform transition duration-300 group-hover:rotate-[15deg] group-hover:scale-110 shadow-lg group-hover:shadow-neon">
           <div class="absolute inset-0 bg-white/20 rounded-xl"></div>
@@ -50,11 +53,11 @@
       <!-- Search -->
       <div class="flex flex-1 max-w-[150px] sm:max-w-sm sm:mx-12 relative">
         <div class="w-full relative group" id="search-container">
-          <input id="search-input" type="text"
+          <input id="search-input" type="text" aria-label="Search games"
             class="block w-full pl-6 pr-16 py-2.5 border border-white/10 rounded-2xl leading-5 bg-black/40 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-300 focus:bg-surface shadow-inner relative z-10"
             placeholder="Search games..." autocomplete="off" />
           <div class="absolute inset-y-1 right-1 flex items-center z-10">
-            <button
+            <button aria-label="Submit Search"
               class="bg-primary/20 hover:bg-primary/40 text-primary px-3 py-1.5 rounded-xl text-sm font-semibold transition-colors">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -123,6 +126,17 @@
     <!-- The Magical Masonry Grid -->
     <div id="game-grid"
       class="grid grid-cols-2 xs:grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-3 sm:gap-4 lg:gap-5 grid-flow-dense">
+      <!-- Skeleton Loading (Prevents CLS) -->
+      <div class="col-span-2 row-span-2 aspect-square rounded-[1.5rem] bg-white/5 animate-pulse"></div>
+      <div class="col-span-1 row-span-1 aspect-square rounded-[1.5rem] bg-white/5 animate-pulse"></div>
+      <div class="col-span-1 row-span-1 aspect-square rounded-[1.5rem] bg-white/5 animate-pulse"></div>
+      <div class="col-span-1 row-span-1 aspect-square rounded-[1.5rem] bg-white/5 animate-pulse"></div>
+      <div class="col-span-1 row-span-1 aspect-square rounded-[1.5rem] bg-white/5 animate-pulse"></div>
+      <div class="col-span-1 row-span-1 aspect-square rounded-[1.5rem] bg-white/5 animate-pulse"></div>
+      <div class="col-span-1 row-span-1 aspect-square rounded-[1.5rem] bg-white/5 animate-pulse"></div>
+      <div class="col-span-1 row-span-1 aspect-square rounded-[1.5rem] bg-white/5 animate-pulse"></div>
+      <div class="col-span-1 row-span-1 aspect-square rounded-[1.5rem] bg-white/5 animate-pulse"></div>
+      <div class="col-span-1 row-span-1 aspect-square rounded-[1.5rem] bg-white/5 animate-pulse"></div>
     </div>
     <!-- Load More -->
     <div class="mt-12 flex justify-center">
@@ -159,18 +173,18 @@
             </div>
             <span class="text-2xl font-black text-white tracking-tight">Epic Games Hub</span>
           </div>
-          <p class="text-gray-400 max-w-sm mb-6 leading-relaxed">Epic Games Hub is your ultimate destination for free
+          <p class="text-gray-300 max-w-sm mb-6 leading-relaxed">Epic Games Hub is your ultimate destination for free
             online games. We test and add new thrilling games daily to keep you entertained without any downloads!</p>
           <div class="flex gap-4">
             <!-- Socials -->
-            <a href="#"
+            <a href="#" aria-label="Facebook"
               class="w-10 h-10 rounded-full bg-white/5 hover:bg-primary border border-white/5 hover:border-primary/50 flex items-center justify-center text-gray-400 hover:text-white transition-all shadow-lg">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path
                   d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
               </svg>
             </a>
-            <a href="#"
+            <a href="#" aria-label="Twitter"
               class="w-10 h-10 rounded-full bg-white/5 hover:bg-secondary border border-white/5 hover:border-secondary/50 flex items-center justify-center text-gray-400 hover:text-white transition-all shadow-lg">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path
@@ -234,7 +248,7 @@
       </div>
 
       <div
-        class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between text-sm text-gray-500 font-medium pb-4">
+        class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between text-sm text-gray-400 font-medium pb-4">
         <p>&copy; 2026 Epic Games Hub Games. All rights reserved.</p>
         <div class="flex items-center gap-4 mt-4 md:mt-0">
           <span class="hover:text-white transition-colors cursor-pointer"></span>
@@ -246,8 +260,8 @@
   <!-- jQuery (required for custom cursor) -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
   <!-- Logic Script Linked Externally -->
-  <script src="common/device.js"></script>
-  <script src="assets/js/index.js"></script>
+  <script src="common/device.js" defer></script>
+  <script src="assets/js/index.js" defer></script>
 </body>
 
 </html>

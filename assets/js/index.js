@@ -104,19 +104,24 @@ function generateGamesHtml(count) {
         `;
     }
 
+    const isAboveFold = layoutIndex < 30;
+    const loadingAttr = isAboveFold ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"';
+
+    const optimizedImageUrl = `https://wsrv.nl/?url=epicgameshub.com/${game.thumbnailUrl}&w=250&h=250&fit=cover&output=webp`;
+
     // Now converted into a clickable anchor link mapping to gameUrl
     html += `
         <a href="${game.gameUrl || "#"}" class="game-card block ${spanClass} aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10" style="animation-delay: ${index * 0.05}s">
             
             <div class="absolute inset-0" style="background: ${bgGradient}"></div>
             
-            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.15]" 
-                 style="background-image: url('${game.thumbnailUrl}'); opacity: 0.8; mix-blend-mode: overlay;">
-            </div>
+            <img src="${optimizedImageUrl}" alt="${game.gameTitle} thumbnail" ${loadingAttr} width="250" height="250"
+                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.15]" 
+                 style="opacity: 0.8; mix-blend-mode: overlay;">
             
-            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.12]" 
-                 style="background-image: url('${game.thumbnailUrl}'); opacity: 0.9;">
-            </div>
+            <img src="${optimizedImageUrl}" alt="${game.gameTitle} image" ${loadingAttr} width="250" height="250"
+                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]" 
+                 style="opacity: 0.9;">
               <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
 
               <div class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
@@ -160,6 +165,7 @@ function generateGamesHtml(count) {
 function loadItems(count) {
   if (!grid) return;
 
+  if (currentCount === 0) grid.innerHTML = "";
   if (currentFilteredGames.length === 0) {
     if (loadMoreBtn) loadMoreBtn.style.display = "none";
     grid.innerHTML = `
@@ -384,14 +390,16 @@ if (searchInput && searchDropdown && searchResultsContainer) {
         html += matchingGames
           .slice(0, 10)
           .map(
-            (game) => `
+            (game) => {
+                const optimizedThumbUrl = `https://wsrv.nl/?url=epicgameshub.com/${game.thumbnailUrl}&w=64&h=64&fit=cover&output=webp`;
+                return `
                 <a href="${pathPrefix}${game.gameUrl || "#"}" class="flex items-center gap-4 px-4 py-2 hover:bg-white/10 transition-colors group">
                     <div class="w-12 h-9 rounded bg-surface overflow-hidden shrink-0 shadow-md">
-                        <img src="${pathPrefix}${game.thumbnailUrl}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" alt="${game.gameTitle}">
+                        <img src="${optimizedThumbUrl}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" alt="${game.gameTitle}">
                     </div>
                     <span class="text-gray-200 text-xs sm:text-sm font-semibold group-hover:text-white transition-colors">${game.gameTitle}</span>
                 </a>
-            `,
+            `},
           )
           .join("");
       }

@@ -214,3 +214,21 @@ body {
   font-weight: 700;
   letter-spacing: 0.05em;
 }
+
+/* Accessibility Contrast Overrides */
+.text-gray-500 {
+  color: #94a3b8 !important; /* Improved contrast for secondary text */
+}
+
+.text-gray-400 {
+  color: #cbd5e1 !important; /* Improved contrast for description text */
+}
+
+.placeholder-gray-500::placeholder {
+  color: #94a3b8 !important;
+}
+
+footer {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(10px);
+}

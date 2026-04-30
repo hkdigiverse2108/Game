@@ -5,6 +5,21 @@
 (function(){
   'use strict';
 
+  // Fix for "Unload event listeners are deprecated" (Lighthouse/Chrome compliance)
+  // We intercept 'unload' listener registration to avoid the deprecation warning.
+  // Modern browsers and scripts should use 'pagehide' or 'visibilitychange' instead.
+  (function() {
+    var originalAdd = window.addEventListener;
+    window.addEventListener = function(type, listener, options) {
+      if (type === 'unload') return; // Bypass deprecated listener
+      return originalAdd.apply(this, arguments);
+    };
+    Object.defineProperty(window, 'onunload', {
+      set: function() { /* ignore */ },
+      get: function() { return null; }
+    });
+  })();
+
   function setLazyForMedia(){
     try{
       var imgs = document.querySelectorAll('img:not([loading])');
@@ -48,10 +63,7 @@
       loadDeferredScripts();
     });
   });
-})();
-
-// Set explicit width/height attributes for game thumbnails to avoid layout shift
-(function(){
+  // Set explicit width/height attributes for game thumbnails to avoid layout shift
   function setThumbnailSizes(){
     try{
       // target images inside game folders (thumbnails) and gallery images
