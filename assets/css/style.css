@@ -110,6 +110,7 @@ body {
   border-radius: 50%;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
+  will-change: transform;
   visibility: hidden;
 }
 
@@ -154,9 +155,7 @@ body {
   box-sizing: border-box;
   z-index: 10000000;
   opacity: 0.5;
-  -webkit-transition: all 0.08s ease-out;
-  -o-transition: all 0.08s ease-out;
-  transition: all 0.08s ease-out;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .cursor-outer.cursor-hover {

@@ -12,7 +12,10 @@
   
 
   function isSmallScreen(options) {
-    return window.innerWidth < getBreakpoint(options);
+    const width = (options && typeof options.cachedWidth === 'number' && options.cachedWidth > 0) 
+      ? options.cachedWidth 
+      : window.innerWidth;
+    return width < getBreakpoint(options);
   }
 
   function isDesktopLikeDevice(options) {

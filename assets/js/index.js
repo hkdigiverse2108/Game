@@ -3,11 +3,12 @@ let categoriesConfig = [];
 let currentFilteredGames = []; // Array of active games
 let currentCount = 0;
 let currentTagFilter = "all";
+let currentWidth = 1025; // Default to desktop, will be updated in initGameData
 const deviceSupport = window.DeviceSupport || null;
 
-function isGameSupportedOnDevice(game) {
+function isGameSupportedOnDevice(game, options) {
   if (!deviceSupport) return true;
-  return deviceSupport.isGameSupported(game);
+  return deviceSupport.isGameSupported(game, options);
 }
 
 // DOM Elements
@@ -42,10 +43,11 @@ function renderCategories() {
 function filterGames() {
   const activeCatObj = categoriesConfig.find((c) => c.active) || categoriesConfig[0];
   const activeCat = parseCategoryId(activeCatObj.name);
+  const cachedWidth = currentWidth;
 
   // Transform object to array format and filter by category and tags
   currentFilteredGames = rawData.gameTitles.filter((game) => {
-    if (!isGameSupportedOnDevice(game)) return false;
+    if (!isGameSupportedOnDevice(game, { cachedWidth })) return false;
 
     // Category Check
     let matchCat = false;
@@ -107,7 +109,7 @@ function generateGamesHtml(count) {
     const isAboveFold = layoutIndex < 30;
     const loadingAttr = isAboveFold ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"';
 
-    const optimizedImageUrl = `https://wsrv.nl/?url=epicgameshub.com/${game.thumbnailUrl}&w=250&h=250&fit=cover&output=webp`;
+    const optimizedImageUrl = `https://wsrv.nl/?url=epicgameshub.com/${game.thumbnailUrl}&w=180&h=180&fit=cover&output=webp&q=65`;
 
     // Now converted into a clickable anchor link mapping to gameUrl
     html += `
@@ -115,11 +117,11 @@ function generateGamesHtml(count) {
             
             <div class="absolute inset-0" style="background: ${bgGradient}"></div>
             
-            <img src="${optimizedImageUrl}" alt="${game.gameTitle} thumbnail" ${loadingAttr} width="250" height="250"
+            <img src="${optimizedImageUrl}" alt="${game.gameTitle} thumbnail" ${loadingAttr} width="180" height="180"
                  class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.15]" 
                  style="opacity: 0.8; mix-blend-mode: overlay;">
             
-            <img src="${optimizedImageUrl}" alt="${game.gameTitle} image" ${loadingAttr} width="250" height="250"
+            <img src="${optimizedImageUrl}" alt="${game.gameTitle} image" ${loadingAttr} width="180" height="180"
                  class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]" 
                  style="opacity: 0.9;">
               <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
@@ -215,8 +217,8 @@ async function initGameData() {
     const basePath = isSubdir ? '../' : './';
     const response = await fetch(basePath + "assets/js/gamesData.json");
     rawData = await response.json();
-
     categoriesConfig = rawData.categories;
+    currentWidth = window.innerWidth;
 
     if (categoriesContainer) {
       renderCategories();
@@ -391,7 +393,7 @@ if (searchInput && searchDropdown && searchResultsContainer) {
           .slice(0, 10)
           .map(
             (game) => {
-                const optimizedThumbUrl = `https://wsrv.nl/?url=epicgameshub.com/${game.thumbnailUrl}&w=64&h=64&fit=cover&output=webp`;
+                const optimizedThumbUrl = `https://wsrv.nl/?url=epicgameshub.com/${game.thumbnailUrl}&w=64&h=64&fit=cover&output=webp&q=75`;
                 return `
                 <a href="${pathPrefix}${game.gameUrl || "#"}" class="flex items-center gap-4 px-4 py-2 hover:bg-white/10 transition-colors group">
                     <div class="w-12 h-9 rounded bg-surface overflow-hidden shrink-0 shadow-md">
@@ -472,19 +474,29 @@ function mousecursor() {
     }
   });
 
-  window.addEventListener("mousemove", (e) => {
-    // If over iframe / game frame / canvas - hide cursor to avoid interfering
-    const overGame = e.target && (e.target.closest && (e.target.closest('iframe') || e.target.closest('#game-frame') || e.target.closest('canvas')));
-    if (overGame) {
-      safeHide();
-      return;
-    }
+  let mouseX = 0;
+  let mouseY = 0;
+  let isMoving = false;
 
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
-    inner.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-    outer.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-    safeShow();
+  window.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (!isMoving) {
+      isMoving = true;
+      requestAnimationFrame(() => {
+        // If over iframe / game frame / canvas - hide cursor to avoid interfering
+        const overGame = e.target && (e.target.closest && (e.target.closest('iframe') || e.target.closest('#game-frame') || e.target.closest('canvas')));
+        if (overGame) {
+          safeHide();
+        } else {
+          inner.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+          outer.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+          safeShow();
+        }
+        isMoving = false;
+      });
+    }
   }, { passive: true });
 
   // Handle hover effects with Vanilla JS event delegation
@@ -517,3 +529,8 @@ function mousecursor() {
 
 // Initial load using Vanilla JS
 document.addEventListener("DOMContentLoaded", mousecursor);
+
+// Update width on resize to prevent reflows later
+window.addEventListener("resize", () => {
+  currentWidth = window.innerWidth;
+}, { passive: true });
