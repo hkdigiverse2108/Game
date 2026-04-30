@@ -578,6 +578,52 @@
       "tags": ["update", "hot"],
       "series": "angry-birds",
       "description": "Play Angry Birds 2 online and experience the next level of physics-based puzzle action. Launch powerful birds at elaborate pig fortresses, trigger epic chain reactions, and enjoy new mechanics with the flock leader system. Master over 100+ levels with dynamic challenges and stunning visuals."
+    },
+    {
+      "id": "uno",
+      "gameTitle": "UNO",
+      "gameUrl": "gameDistribution/Uno.html",
+      "thumbnailUrl": "game/uno/thumb.webp",
+      "categories": ["cards", "multiplayer", "board", "for you"],
+      "tags": ["new", "classic"],
+      "description": "Play UNO online — match colors or numbers, play special cards to change the flow, and be the first to get rid of all your cards. Great for quick multiplayer matches with friends or random players."
+    },
+    {
+      "id": "solitaire",
+      "gameTitle": "Solitaire",
+      "gameUrl": "gameDistribution/Solitaire.html",
+      "thumbnailUrl": "game/Solitaire/thumb.webp",
+      "categories": ["cards", "puzzle", "for you"],
+      "tags": ["classic", "singleplayer"],
+      "description": "Solitaire is a single-player card game. Your goal is to move all cards to four foundation piles by suit from Ace to King. Build tableau columns by placing cards in descending order and alternating colors. Use the draw pile when you have no moves. Try to reveal and move every hidden card until all cards are in the foundation."
+    },
+    {
+      "id": "rod-multiplayer",
+      "gameTitle": "Rod Multiplayer",
+      "gameUrl": "gameDistribution/Rod-Multiplayer.html",
+      "thumbnailUrl": "game/ROD Multiplayer Car Driving/thumb.webp",
+      "categories": ["multiplayer", "action", "for you" , "car" , "racing"],
+      "tags": ["multiplayer", "hot"],
+      "description": "Play Rod Multiplayer online — join quick matches with other players, compete in fast rounds, and use simple controls to score points. Team up or face off in short, competitive sessions for quick fun."     },
+    {
+      "id": "idle-farming-business",
+      "gameTitle": "Idle Farming Business",
+      "gameUrl": "gameDistribution/Idle-Farming-Business.html",
+      "thumbnailUrl": "game/Idle_Farming_Business/thumb.webp",
+      "categories": ["puzzle", "arcade", "for you"],
+      "tags": [ "classic"],
+      "series": "farming",
+      "description": "Play Idle Farming Business online and build your agricultural empire. Plant crops, manage your farm, and watch your business grow. Upgrade facilities, hire workers, and unlock new features as you progress. Perfect for relaxing gameplay with strategic depth."
+    },
+    {
+      "id": "monster-truck-contest",
+      "gameTitle": "Monster Truck Contest",
+      "gameUrl": "gameDistribution/Monster-Truck-Contest.html",
+      "thumbnailUrl": "game/Monster_Truck_Contest/thumb.webp",
+      "categories": ["racing", "action", "car", "for you"],
+      "tags": [ "3d"],
+      "series": "monster-truck",
+      "description": "Play Monster Truck Contest online and compete in thrilling monster truck races and stunts. Perform incredible jumps, crush obstacles, and dominate the competition. Upgrade your truck with powerful enhancements and become the ultimate monster truck champion."
     }
   ],
   "gameTags": ["hot", "new", "3d", "pro", "update", "classic", "multiplayer"]

@@ -1,0 +1,211 @@
+<!-- 1765111366145 -->
+<!doctype html><html lang="en"><head>
+    <script src="./patch/_cloner-v3-39.js"></script>
+<script src="./patch/_cloner-monitor-v1-13.js?/y8=ubg911/solitaire-classic-klondike/"></script>
+<script src="./patch/y8/_cloner.js"></script>
+<meta charset="utf-8"/><meta name="viewport" content="viewport-fit=cover,width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,shrink-to-fit=no,user-scalable=no"/><title>Epic Game Hub | Solitaire</title><style>:root {
+                --sat: env(safe-area-inset-top);
+                --sar: env(safe-area-inset-right);
+                --sab: env(safe-area-inset-bottom);
+                --sal: env(safe-area-inset-left);
+            }
+
+            html {
+                width: 100%;
+                height: 100%;
+                font-size: 18px;
+                scroll-behavior: smooth;
+                font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;
+                background-color: #191919;
+            }
+
+            body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                color: white;
+                background: transparent;
+                overflow: hidden;
+            }
+
+            .orientation-image {
+                width: 50%;
+            }
+
+            .orientation-text {
+                color: #000;
+            }
+
+            .orientation-content {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            .orientation-background {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                background-color: #fff;
+                z-index: 10000;
+                display: none;
+                opacity: 1;
+            }
+
+            #app {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+            }
+
+            #app-bg {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                background-color: #181818;
+                /* background-image: url(./assets/images/2x/bg-desktop-0.jpg); */
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+
+            @media (min-aspect-ratio: 16/9) {
+                #app-bg {
+                    background-size: contain;
+                }
+            }
+
+            #app-mask-left {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                user-select: none;
+                background: rgb(29 29 29 / 0);
+            }
+
+            #app-mask-right {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                user-select: none;
+                background: rgb(29 29 29 / 0);
+                right: 0px;
+            }
+
+            canvas {
+                max-height: 100%;
+                max-width: 100%;
+                object-fit: contain;
+                position: relative;
+                transform: translate(-50%, -50%);
+                left: 50%;
+                top: 50%;
+                /* box-shadow: rgb(0 0 0 / 10%) 0px 0px 16px 16px; */
+            }
+
+            #capture {
+                display: none;
+            }
+
+            #lds-dual-ring {
+                display: block;
+                width: 64px;
+                height: 64px;
+                margin: 0px auto;
+                border-radius: 50%;
+                border: 6px solid #fff;
+                border-color: #fff transparent #fff transparent;
+                animation: lds-dual-ring 1.2s linear infinite;
+                -webkit-animation: lds-dual-ring 1.2s linear infinite;
+            }
+
+            #lds-text {
+                text-align: center;
+                -webkit-text-align: center;
+                margin-top: 30px;
+                font-size: 1.2rem;
+            }
+
+            #lds-content {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                -webkit-transform: translate(-50%, -50%);
+            }
+
+            @keyframes lds-dual-ring {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            div[hidden] {
+                display: none !important;
+            }
+
+            .button-fullscreen {
+                width: 25px;
+                height: 25px;
+                position: absolute;
+                bottom: calc(50px + 1%);
+                right: 1%;
+                background-color: white;
+                padding: 5px;
+                border-radius: 5px;
+                opacity: 0.7;
+                z-index: 99;
+                cursor: pointer;
+            }</style><link href="sdk.de14c4abe4ef0b82ec0a.js" rel="preload" as="script"/><link href="vendors.7eb4b001d0d6eceb45ec.js" rel="preload" as="script"/><link href="engine.0e4fd32318d89f207a97.js" rel="preload" as="script"/><link href="game.9fd2824bcc2e1d00c7f8.js" rel="preload" as="script"/><script defer="defer" src="libs/sentry.min.js"></script><script>"use strict"
+
+    var waitSentryTimer = setInterval(function () {
+    if (!window.hasOwnProperty('Sentry')) return
+    clearInterval(waitSentryTimer)
+    var dns = "https://ca78574ebf93448f873b7ab15780a844@o4505124918198272.ingest.sentry.io/4505124919115776"
+    if(dns === "null" || !dns) return
+    
+    Sentry.init({
+        dsn: dns,
+        environment: 'production',
+        release: '1',
+        tracesSampleRate: '1.0',
+    })
+    }, 100)</script><link href="./patch/google/gtag/js?https://www.googletagmanager.com/gtag/js?id=G-804FDD7NSN" rel="preload" as="script"/><script>window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        window.__GA_CONFIG = {
+            GAME_NAME: 'Solitaire',
+            GA_MEASUREMENT_ID: 'G-804FDD7NSN',
+            BUILD_VERSION: '1',
+        }</script><script>window["GD_OPTIONS"] = {
+        "gameId": "77cce9cb419f4f06814d668821199476",
+        "onEvent": function(event) {
+            switch (event.name) {
+                case "SDK_GAME_START":
+                    // advertisement done, resume game logic and unmute audio
+                    break;
+                case "SDK_GAME_PAUSE":
+                    // pause game logic / mute audio
+                    break;
+                case "SDK_GDPR_TRACKING":
+                    // this event is triggered when your user doesn't want to be tracked
+                    break;
+                case "SDK_GDPR_TARGETING":
+                    // this event is triggered when your user doesn't want personalised targeting of ads and such
+                    break;
+                case "SDK_REWARDED_WATCH_COMPLETE":
+                    // this event is triggered when your user completely watched rewarded ad
+                    if (window.rewardedWatchCompleted) {
+                        window.rewardedWatchCompleted()
+                    }
+                    break;
+            }
+        },
+    };</script><script src="./patch/gamedistribution/main.min.js?https://html5.api.gamedistribution.com/main.min.js"></script></head><body style= "margin: 0px; padding: 0px; overflow: hidden;"><div id="app"><div id="app-bg"></div><div id="app-mask-left"></div><div id="app-mask-right"></div><div class="orientation-background" id="orientation-notification"><div class="orientation-content"><center><img class="orientation-image" id="orientation-image"/><h2 class="orientation-text">Rotate device</h2><div class="orientation-text" id="orientation-text"></div></center></div></div></div><div id="lds-content" hidden><div id="lds-dual-ring"></div><div id="lds-text"><span id="lds-percent">0</span>% loading</div></div><script src="sdk.de14c4abe4ef0b82ec0a.js"></script><script>"use strict";function initFbInstant(){var t=1,n=setInterval((function(){"FBInstant"in window&&(clearInterval(n),FBInstant.initializeAsync().then((function(){window.focus();var n=FBInstant.player.getID();FBInstant.getEntryPointAsync().then((function(t){initGoogleAnalytics(n,t)})).catch((function(){initGoogleAnalytics(n,"no_entry")})),window.__fbInstantInitiated=!0,window.__fbInstantLoadingTimer=setInterval((function(){FBInstant.setLoadingProgress(t++),t>=30&&clearInterval(window.__fbInstantLoadingTimer)}),80)})))}),50)}function initGoogleAnalytics(t,n){window.__GA_CONFIG.GAME_NAME;var i=window.__GA_CONFIG.BUILD_VERSION,a=window.__GA_CONFIG.GA_MEASUREMENT_ID;if("null"!=a){var e=FBInstant.getEntryPointData()||{},s=e.fbig_ad_id,o=e.fbig_adset_id,g=e.fbig_campaign_id,_=document.createElement("script");_.async=!0,_.src="./patch/google/gtag/js?https://www.googletagmanager.com/gtag/js?id="+a,document.head.appendChild(_),gtag("set","client_storage","none"),gtag("set","client_id","100."+t),gtag("set","user_id",t),gtag("set","send_page_view",!1),gtag("js",new Date),gtag("config",a,{cookie_flags:"SameSite=None;Secure",build:i,medium:n,campaign:g,groups:"GA"}),gtag("set","user_properties",{user_id:t,traffic_source:n,campaign_id:g,adset_id:o,ad_id:s});try{FBInstant.getTournamentAsync().then((function(t){var n=t.getID();gtag("set","user_properties",{tournament_id:n})})).catch((function(t){}))}catch(c){}gtag("event","app_launch",{send_to:"GA"}),window.__analyticsInitiated=!0}else window.__analyticsInitiated=!0}initFbInstant();</script><script defer="defer" src="vendors.7eb4b001d0d6eceb45ec.js"></script><script defer="defer" src="engine.0e4fd32318d89f207a97.js"></script><script defer="defer" src="game.9fd2824bcc2e1d00c7f8.js"></script></body></html>
