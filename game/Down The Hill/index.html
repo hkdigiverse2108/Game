@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,minimum-scale=1,maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="css/stylesheet.css" charset="utf-8" />
+    <link rel="icon" type="image/GIF" href="icon.ico">
+    <title>Epic Games Hub | Down The Hill</title>
+    <script src="azerion-libs.js"></script>
+    <script>
+        // Disable the branded splash loader so the game opens directly.
+        (function(){
+            if(window.h5branding && window.h5branding.SplashLoader){
+                window.h5branding.SplashLoader.getInstance = function(){
+                    return {
+                        create: function(){ return Promise.resolve(); },
+                        setLoadProgress: function() {},
+                        setButtonCallback: function(cb){ if(typeof cb==='function') cb(); },
+                        destroy: function(){},
+                        showBanner: function(){},
+                    };
+                };
+            }
+        })();
+    </script>
+    <script src="js/azUpdatedSdk.js"></script>
+    <script src="js/exapi.js"></script>
+    <script src="js/texts.js"></script>
+    <script src="js/game.min.js"></script>
+    <script defer="defer" src="version.js"></script>
+</head>
+
+<body onload="EXAPI.initSoftgames()">
+</body>
+
+</html>

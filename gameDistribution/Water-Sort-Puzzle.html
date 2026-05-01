@@ -91,7 +91,7 @@
           <div id="game-loading"
             class="absolute inset-0 flex flex-col items-center justify-center bg-[#0B0F19] z-10 gap-4">
             <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-xl shadow-primary/30 mb-2">
-              <img src="../game/water-sort-puzzle/thumb.webp" alt="Water Sort Puzzle"
+              <img src="../game/water-sort-puzzle/thumb.png" alt="Water Sort Puzzle"
                 class="w-full h-full object-contain bg-black/20 p-1" />
             </div>
             <div class="text-white font-bold text-lg">Loading Water Sort Puzzle...</div>
@@ -126,7 +126,7 @@
             <!-- Thumbnail -->
             <div
               class="w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-lg shadow-black/50 border border-white/10">
-              <img src="../game/water-sort-puzzle/thumb.webp" alt="Water Sort Puzzle"
+              <img src="../game/water-sort-puzzle/thumb.png" alt="Water Sort Puzzle"
                 class="w-full h-full object-contain bg-black/20 p-1" />
             </div>
             <!-- Info -->
@@ -270,6 +270,16 @@
           </svg>
           Browse All Games
         </a>
+        <div id="ball-sort-more-section" class="mt-6 hidden" data-series-section data-series-key="ball-sort">
+          <h3 class="text-white font-bold text-base mb-3 flex items-center gap-2" data-series-title>
+            <svg class="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 3a7 7 0 107 7 7 7 0 00-7-7zm0 2a5 5 0 11-5 5 5 5 0 015-5zm-1 2h2v4h-2zm0 5h2v2h-2z" />
+            </svg>
+            More from Ball Sort
+          </h3>
+          <div id="ball-sort-more" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3" data-series-container>
+          </div>
+        </div>
       </div>
     </div>
   </main>

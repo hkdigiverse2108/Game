@@ -296,8 +296,9 @@
       "gameTitle": "Water Sort Puzzle",
       "gameUrl": "gameDistribution/Water-Sort-Puzzle.html",
       "thumbnailUrl": "game/water-sort-puzzle/thumb.webp",
-      "categories": ["puzzle", "arcade", "for you"],
-      "tags": ["update"]
+      "categories": ["puzzle", "arcade", "season", "for you"],
+      "tags": ["update"],
+      "series": "ball-sort"
     },
     {
       "id": "spacecraft",
@@ -624,6 +625,35 @@
       "tags": [ "3d"],
       "series": "monster-truck",
       "description": "Play Monster Truck Contest online and compete in thrilling monster truck races and stunts. Perform incredible jumps, crush obstacles, and dominate the competition. Upgrade your truck with powerful enhancements and become the ultimate monster truck champion."
+    },
+    {
+      "id": "ovo-dimensions",
+      "gameTitle": "OvO Dimensions",
+      "gameUrl": "gameDistribution/OvO-Dimensions.html",
+      "thumbnailUrl": "game/Ovo Dimensions/thumb.webp",
+      "categories": ["puzzle", "arcade", "for you"],
+      "tags": ["new"],
+      "description": "Play OvO Dimensions online and navigate through colorful 3D puzzle levels filled with challenging obstacles and creative platforming challenges. Use smart timing and precise movement to collect items and complete each world. Master different dimensions and unlock new abilities as you progress through increasingly difficult stages."
+    },
+    {
+      "id": "down-the-hill",
+      "gameTitle": "Down The Hill",
+      "gameUrl": "gameDistribution/Down-The-Hill.html",
+      "thumbnailUrl": "game/Down The Hill/thumb.webp",
+      "categories": ["racing", "escape", "for you"],
+      "requiresKeyboard": true,
+      "tags": ["new"],
+      "description": "Play Down The Hill online and race your vehicle down steep mountain roads at high speed. Dodge obstacles, collect coins, and perform daring stunts as you speed downhill. Control your vehicle carefully to avoid crashes and achieve the longest run possible while beating your best score."
+    },
+    {
+      "id": "ball-sort-halloween",
+      "gameTitle": "Ball Sort Halloween",
+      "gameUrl": "gameDistribution/Ball-Sort-Halloween.html",
+      "thumbnailUrl": "game/Ball Sort Halloween/thumb.webp",
+      "categories": ["puzzle", "arcade", "season", "for you"],
+      "tags": ["new"],
+      "series": "ball-sort",
+      "description": "Play Ball Sort Halloween online and sort colorful Halloween-themed balls into matching containers. Use strategy to arrange balls correctly by color, complete each level puzzle, and unlock spooky new challenges. Challenge your brain with increasingly complex ball arrangements and special Halloween surprises."
     }
   ],
   "gameTags": ["hot", "new", "3d", "pro", "update", "classic", "multiplayer"]
