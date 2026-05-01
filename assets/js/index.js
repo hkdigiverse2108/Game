@@ -89,55 +89,79 @@ function generateGamesHtml(count) {
   const gamesToRender = currentFilteredGames.slice(currentCount, currentCount + count);
 
   gamesToRender.forEach((game, index) => {
-    // Preserve layout logic
     const layoutIndex = currentCount + index;
     const spanClass = getSpanClass(layoutIndex);
+
     const hue1 = (layoutIndex * 37) % 360;
     const bgGradient = `linear-gradient(135deg, hsl(${hue1}, 80%, 30%), hsl(${(hue1 + 60) % 360}, 80%, 15%))`;
 
     let badgesHtml = "";
     if (game.tags && game.tags.length > 0) {
       const tag = game.tags[0].toUpperCase();
-      const badgeColor = tag === "HOT" ? "bg-red-700" : tag === "NEW" ? "bg-emerald-700" : "bg-indigo-700";
+      const badgeColor =
+        tag === "HOT"
+          ? "bg-red-700"
+          : tag === "NEW"
+          ? "bg-emerald-700"
+          : "bg-indigo-700";
+
       badgesHtml = `
-            <div class="absolute top-3 right-3 sm:top-4 sm:right-4 ${badgeColor} text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">
-                ${tag}
-            </div>
-        `;
+        <div class="absolute top-3 right-3 sm:top-4 sm:right-4 ${badgeColor} text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">
+          ${tag}
+        </div>
+      `;
     }
 
-    const isAboveFold = layoutIndex < 30;
-    const loadingAttr = isAboveFold ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"';
+    // ✅ FIX 1: Only first 6 images high priority
+    const isAboveFold = layoutIndex < 6;
+    const loadingAttr = isAboveFold
+      ? 'fetchpriority="high"'
+      : 'loading="lazy" decoding="async"';
 
-    const optimizedImageUrl = `https://wsrv.nl/?url=epicgameshub.com/${game.thumbnailUrl}&w=180&h=180&fit=cover&output=webp&q=65`;
+    // ✅ FIX 2: Proper image URL
+    const baseImage = `https://epicgameshub.com/${game.thumbnailUrl}`;
 
-    // Now converted into a clickable anchor link mapping to gameUrl
+    const optimizedImageUrl = `https://wsrv.nl/?url=${encodeURIComponent(
+      baseImage
+    )}&w=180&h=180&fit=cover&output=webp&q=75&dpr=2`;
+
     html += `
-        <a href="${game.gameUrl || "#"}" class="game-card block ${spanClass} aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10" style="animation-delay: ${index * 0.05}s">
-            
-            <div class="absolute inset-0" style="background: ${bgGradient}"></div>
-            
-            <img src="${optimizedImageUrl}" alt="${game.gameTitle} thumbnail" ${loadingAttr} width="180" height="180"
-                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.15]" 
-                 style="opacity: 0.8; mix-blend-mode: overlay;">
-            
-            <img src="${optimizedImageUrl}" alt="${game.gameTitle} image" ${loadingAttr} width="180" height="180"
-                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]" 
-                 style="opacity: 0.9;">
-              <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
+      <a href="${game.gameUrl || "#"}"
+         class="game-card block ${spanClass} aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
+         style="animation-delay: ${index * 0.05}s">
 
-              <div class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+        <div class="absolute inset-0" style="background: ${bgGradient}"></div>
 
-                  <div class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
-                    <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">
-                        ${game.gameTitle}
-                    </h3>
+        <!-- ✅ FIX 3: Single optimized image + srcset -->
+        <img 
+          src="${optimizedImageUrl}"
+          srcset="
+            https://wsrv.nl/?url=${encodeURIComponent(baseImage)}&w=120&output=webp&q=75 120w,
+            https://wsrv.nl/?url=${encodeURIComponent(baseImage)}&w=180&output=webp&q=75 180w,
+            https://wsrv.nl/?url=${encodeURIComponent(baseImage)}&w=300&output=webp&q=75 300w
+          "
+          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px"
+          ${loadingAttr}
+          width="180"
+          height="180"
+          alt="${game.gameTitle}"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]"
+          style="opacity: 0.9;"
+        />
 
-                  </div>
-              </div>
-            ${badgesHtml}
-        </a>
-        `;
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
+
+        <div class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <div class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
+            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">
+              ${game.gameTitle}
+            </h3>
+          </div>
+        </div>
+
+        ${badgesHtml}
+      </a>
+    `;
   });
 
   return html;
