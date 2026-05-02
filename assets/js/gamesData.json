@@ -654,6 +654,33 @@
       "tags": ["new"],
       "series": "ball-sort",
       "description": "Play Ball Sort Halloween online and sort colorful Halloween-themed balls into matching containers. Use strategy to arrange balls correctly by color, complete each level puzzle, and unlock spooky new challenges. Challenge your brain with increasingly complex ball arrangements and special Halloween surprises."
+    },
+    {
+      "id": "blumgi-slime",
+      "gameTitle": "Blumgi Slime",
+      "gameUrl": "gameDistribution/Blumgi-Slime.html",
+      "thumbnailUrl": "game/Blumgi Slime/thumb.png",
+      "categories": ["puzzle", "arcade", "for you"],
+      "tags": ["new", "fun"],
+      "description": "Play Blumgi Slime online and help adorable slime creatures reach their goals in creative puzzle levels. Tap and drag to move the slimes, solve tricky obstacles, and use clever timing to complete each challenging stage. Master the physics-based mechanics and unlock new slime characters as you progress through increasingly difficult puzzles."
+    },
+    {
+      "id": "idle-mining-empire",
+      "gameTitle": "Idle Mining Empire",
+      "gameUrl": "gameDistribution/Idle-Mining-Empire.html",
+      "thumbnailUrl": "game/Idle Mining Empire/thumb.png",
+      "categories": ["puzzle", "arcade", "for you"],
+      "tags": ["new", "idle"],
+      "description": "Play Idle Mining Empire online and build your mining operation from the ground up. Dig deeper, discover valuable resources, and manage your mining empire as it grows. Upgrade equipment, unlock new areas, and watch your profits soar as you progress. Perfect for strategic idle gameplay with endless upgrades and achievements."
+    },
+    {
+      "id": "stickman-dragon",
+      "gameTitle": "Stickman Dragon Fight",
+      "gameUrl": "gameDistribution/Stickman-Dragon.html",
+      "thumbnailUrl": "game/Stickman Dragon/thumb.png",
+      "categories": ["action", "fighting", "arcade", "for you"],
+      "tags": ["new", "combat"],
+      "description": "Play Stickman Dragon Fight online and engage in intense stick figure battles against powerful dragons. Master fighting combos, dodge incoming attacks, and defeat increasingly challenging opponents. Use special abilities and power-ups to survive epic dragon encounters and become the ultimate stickman warrior."
     }
   ],
   "gameTags": ["hot", "new", "3d", "pro", "update", "classic", "multiplayer"]
