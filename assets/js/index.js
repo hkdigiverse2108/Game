@@ -31,10 +31,10 @@ function renderCategories() {
     .map((cat) => {
       const catId = parseCategoryId(cat.name);
       return `
-        <button data-id="${catId}" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300
+        <a href="?category=${catId}" data-id="${catId}" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 block
         ${cat.active ? "bg-primary/20 text-indigo-300 border-primary/40 shadow-[0_0_15px_rgba(99,102,241,0.2)] scale-105" : "bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white"}">
             ${cat.name}
-        </button>
+        </a>
       `;
     })
     .join("");
@@ -244,6 +244,13 @@ async function initGameData() {
     categoriesConfig = rawData.categories;
     currentWidth = window.innerWidth;
 
+    // Support URL parameters for SEO
+    const urlParams = new URLSearchParams(window.location.search);
+    const catParam = urlParams.get('category');
+    if (catParam) {
+      categoriesConfig.forEach((c) => (c.active = parseCategoryId(c.name) === catParam));
+    }
+
     if (categoriesContainer) {
       renderCategories();
     }
@@ -302,9 +309,16 @@ if (loadMoreBtn) {
 // Category clicking logic
 if (categoriesContainer) {
   categoriesContainer.addEventListener("click", (e) => {
-    const btn = e.target.closest("button");
+    const btn = e.target.closest("a");
     if (btn) {
+      e.preventDefault();
       const selectedId = btn.dataset.id;
+      
+      // Update URL silently
+      const url = new URL(window.location);
+      url.searchParams.set('category', selectedId);
+      window.history.pushState({}, '', url);
+
       categoriesConfig.forEach((c) => (c.active = parseCategoryId(c.name) === selectedId));
       renderCategories();
 
