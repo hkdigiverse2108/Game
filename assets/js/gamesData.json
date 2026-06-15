@@ -987,6 +987,13 @@
         "combat"
       ],
       "description": "Play Stickman Dragon Fight online and engage in intense stick figure battles against powerful dragons. Master fighting combos, dodge incoming attacks, and defeat increasingly challenging opponents. Use special abilities and power-ups to survive epic dragon encounters and become the ultimate stickman warrior."
+    },
+    {
+      "id": "daily-sudoku",
+      "gameTitle": "Daily Sudoku",
+      "gameUrl": "gameDistribution/Daily-Sudoku.html",
+      "thumbnailUrl": "game/Daily-Sudoku/thumb.jpg",
+      "description": "Play Daily Sudoku online for free on Epic Games Hub. Solve daily grids, choose your difficulty, and sharpen your math logic skills with this classic brain teaser."
     }
   ],
   "gameTags": [
