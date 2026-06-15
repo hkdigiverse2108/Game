@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<base
+  href="https://cdn.jsdelivr.net/gh/abisdbest/classroom.google.com@45b2d69c626dc365753f6922d2c48c4075683ef5/drive.google.com/escape%20road/">
+
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8278748118891475"
+    crossorigin="anonymous"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Escape Road: Variants</title>
+  <link rel="shortcut icon" href="icon.png">
+  <link rel="stylesheet" href="TemplateData/style.css">
+  <!-- Google Fonts for UI Overlay -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;700&display=swap"
+    rel="stylesheet">
+</head>
+<style>
+  @font-face {
+    font-family: myFirstFont;
+    src: url(Chainwhacks.otf);
+  }
+
+  #logo-canvas,
+  body {
+    font-family: myFirstFont;
+  }
+
+  #hide-more-games {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 999999;
+    pointer-events: auto;
+    /* block clicks */
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+  }
+
+  #hide-more-games.visible {
+    opacity: 1;
+  }
+
+  /* Base (desktop) */
+  .pixel-box {
+    width: 180px;
+    height: 105px;
+    background: #4f6df5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    border: 5px solid #fff;
+    border-radius: 4px;
+
+    box-shadow:
+      2px 2px 0 #000,
+      4px 4px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  /* light effect */
+  .pixel-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  /* text */
+  .pixel-box span {
+    color: #fff;
+    font-weight: 800;
+    font-size: 18px;
+    text-shadow: 2px 2px 0 #000;
+    user-select: none;
+  }
+
+  /* 🔥 Tablet */
+  @media (max-width: 768px) {
+    .pixel-box {
+      width: 120px;
+      height: 60px;
+      border-width: 2px;
+      box-shadow:
+        2px 2px 0 #000,
+        4px 4px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .pixel-box span {
+      font-size: 10px;
+    }
+  }
+
+  /* 🔥 Mobile */
+  @media (max-width: 480px) {
+    #hide-more-games {
+      bottom: 4px;
+      right: 4px;
+    }
+
+    .pixel-box {
+      width: 90px;
+      height: 45px;
+      border-width: 1.5px;
+      border-radius: 3px;
+
+      box-shadow:
+        1px 1px 0 #000,
+        2px 2px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .pixel-box span {
+      font-size: 9px;
+    }
+  }
+
+  /* ========================================================
+   PREMIUM DIMENSION SHIFT ALERTS & WARP FLASH CSS
+   ======================================================== */
+  #shift-alert {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    background: rgba(15, 10, 25, 0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 2px solid #ef4444;
+    border-radius: 16px;
+    padding: 12px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    z-index: 999999;
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.45), inset 0 0 10px rgba(239, 68, 68, 0.25);
+    font-family: 'Rajdhani', sans-serif;
+    user-select: none;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  #shift-alert.visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  .alert-glitch {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    color: #ef4444;
+    letter-spacing: 4px;
+    text-shadow: 0 0 8px rgba(239, 68, 68, 0.75);
+    animation: alert-blink 1s infinite;
+  }
+
+  #alert-destination {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  }
+
+  #warp-flash {
+    position: fixed;
+    inset: 0;
+    background: #ffffff;
+    opacity: 0;
+    z-index: 999998;
+    pointer-events: none;
+    transition: opacity 0.1s ease-out;
+  }
+
+  #warp-flash.active {
+    opacity: 0.9;
+  }
+
+  @keyframes alert-blink {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.35;
+    }
+  }
+
+  /* GPU Accelerated Canvas Filter Transitions */
+  #unity-canvas {
+    transition: filter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Theme Filter Definitions */
+  #unity-canvas.theme-classic {
+    filter: none;
+  }
+
+  #unity-canvas.theme-cyberpunk {
+    filter: hue-rotate(130deg) saturate(1.7) contrast(1.15) brightness(0.95);
+  }
+
+  #unity-canvas.theme-sunset {
+    filter: sepia(0.35) saturate(1.9) hue-rotate(-20deg) contrast(1.15) brightness(0.95);
+  }
+
+  #unity-canvas.theme-toxic {
+    filter: hue-rotate(55deg) saturate(1.8) contrast(1.25) brightness(0.9);
+  }
+
+  #unity-canvas.theme-winter {
+    filter: hue-rotate(185deg) saturate(1.35) contrast(1.05) brightness(0.95);
+  }
+
+  #unity-canvas.theme-noir {
+    filter: contrast(1.55) brightness(0.85) grayscale(1);
+  }
+
+  @media (max-width: 600px) {
+    #shift-alert {
+      top: 15px;
+      padding: 10px 18px;
+      border-radius: 12px;
+      width: 90%;
+    }
+
+    .alert-glitch {
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+
+    .alert-destination {
+      font-size: 10px;
+    }
+  }
+</style>
+
+<body class="dark">
+  <div id="unity-container" class="unity-desktop">
+    <p style="opacity: 0;position: absolute;">_</p>
+    <canvas id="unity-canvas" class="theme-classic"></canvas>
+  </div>
+
+  <!-- Dimension Shift Warning Alert UI Overlay -->
+  <div id="shift-alert">
+    <div class="alert-glitch">DIMENSION SHIFT DETECTED</div>
+    <div id="alert-destination">WARPING TO CYBER DISTRICT...</div>
+  </div>
+
+  <!-- Full Screen Warp Flash Overlay -->
+  <div id="warp-flash"></div>
+
+  <div id="loading-cover" style="display:none;background: black;">
+    <div id="unity-loading-bar">
+      <canvas id="logo-canvas" style="position: absolute; background-color: black;">
+        <img src="loading.png" id="ld_bg">
+        <img src="car-icon.png" id="ld_car">
+      </canvas>
+    </div>
+  </div>
+
+  <img id="azlogo" class="az" src="az_logo.png">
+  <script type="57480f3f31f76c75506c83a0-text/javascript">
+    // ========================================================
+    // STATE DETECTION & CONSOLE INTERCEPT SNIFFER
+    // ========================================================
+    let isGameplayActive = false;
+    let lastSteerTime = 0;
+    let currentTheme = "classic";
+    const themes = ["classic", "cyberpunk", "sunset", "toxic", "winter", "noir"];
+    const themeDisplayNames = {
+      classic: "DEFAULT SECTOR",
+      cyberpunk: "CYBER DUSK NEON FIELD",
+      sunset: "RED SUNSET CANYON",
+      toxic: "RADIOACTIVE WASTELAND",
+      winter: "ICY BLIZZARD ZONE",
+      noir: "NOIR CITY DISTRICT"
+    };
+    let currentThemeIndex = 0;
+    let shiftTimeoutId = null;
+    let pendingWarpTimeoutId = null;
+
+    function applyTheme(nextTheme) {
+      const uCanvas = document.getElementById("unity-canvas");
+      if (!uCanvas) return;
+      themes.forEach(t => uCanvas.classList.remove(`theme-${t}`));
+      uCanvas.classList.add(`theme-${nextTheme}`);
+      currentTheme = nextTheme;
+      currentThemeIndex = themes.indexOf(nextTheme);
+    }
+
+    function triggerMenuState() {
+      if (!isGameplayActive) return;
+      isGameplayActive = false;
+      lastSteerTime = 0;
+
+      // Revert theme to classic daytime immediately so menu / gameover is never colored
+      applyTheme("classic");
+
+      // Hide shift alert if visible
+      document.getElementById("shift-alert").classList.remove("visible");
+
+      // Clear pending timers
+      if (shiftTimeoutId) {
+        clearTimeout(shiftTimeoutId);
+        shiftTimeoutId = null;
+      }
+      if (pendingWarpTimeoutId) {
+        clearTimeout(pendingWarpTimeoutId);
+        pendingWarpTimeoutId = null;
+      }
+    }
+
+    function triggerGameplayState() {
+      lastSteerTime = Date.now();
+      if (isGameplayActive) return;
+      isGameplayActive = true;
+
+      // Schedule first dimension shift after 20 seconds of gameplay
+      scheduleNextShift(20000);
+    }
+
+    function scheduleNextShift(delayMs) {
+      if (shiftTimeoutId) clearTimeout(shiftTimeoutId);
+
+      shiftTimeoutId = setTimeout(() => {
+        if (!isGameplayActive) return;
+
+        // Select a random next theme index different from current
+        let nextIndex;
+        do {
+          nextIndex = Math.floor(Math.random() * themes.length);
+        } while (nextIndex === currentThemeIndex);
+
+        const nextTheme = themes[nextIndex];
+        const displayName = themeDisplayNames[nextTheme];
+
+        // 1. Show warning alert overlay
+        const shiftAlert = document.getElementById("shift-alert");
+        const alertDestination = document.getElementById("alert-destination");
+        alertDestination.textContent = `WARPING TO ${displayName}...`;
+        shiftAlert.classList.add("visible");
+
+        // 2. Schedule warp flash and theme swap after warning (2.5s)
+        pendingWarpTimeoutId = setTimeout(() => {
+          if (!isGameplayActive) return;
+
+          const warpFlash = document.getElementById("warp-flash");
+          warpFlash.classList.add("active");
+
+          setTimeout(() => {
+            applyTheme(nextTheme);
+            warpFlash.classList.remove("active");
+          }, 150);
+        }, 2500);
+
+        // 3. Hide alert warning box after 5s total
+        setTimeout(() => {
+          shiftAlert.classList.remove("visible");
+        }, 5000);
+
+        // Schedule subsequent shifts (every 25s - 40s)
+        const nextDelay = 25000 + Math.random() * 15000;
+        scheduleNextShift(nextDelay + 5000);
+
+      }, delayMs);
+    }
+
+    // Intercept console logs to catch state events from Unity
+    (function() {
+      const originalLog = console.log;
+      console.log = function(...args) {
+        originalLog.apply(console, args);
+        try {
+          const msg = args.map(a => String(a)).join(" ").toLowerCase();
+          if (msg.includes("gameover") || msg.includes("game over") || msg.includes("crashed") || 
+              msg.includes("showad") || msg.includes("show_ad") || msg.includes("adstart") || 
+              msg.includes("dead") || msg.includes("death")) {
+            triggerMenuState();
+          }
+          if (msg.includes("gamestart") || msg.includes("game start") || msg.includes("restart") || 
+              msg.includes("playgame") || msg.includes("play_game")) {
+            triggerGameplayState();
+          }
+        } catch (e) {}
+      };
+
+      const originalWarn = console.warn;
+      console.warn = function(...args) {
+        originalWarn.apply(console, args);
+        try {
+          const msg = args.map(a => String(a)).join(" ").toLowerCase();
+          if (msg.includes("gameover") || msg.includes("game over") || msg.includes("crashed")) {
+            triggerMenuState();
+          }
+        } catch (e) {}
+      };
+    })();
+
+    // Listen for steer keyboard controls
+    const STEER_KEYS = [
+      "arrowleft", "arrowright", "arrowup", "arrowdown",
+      "a", "s", "d", "w", " ", "spacebar"
+    ];
+    window.addEventListener("keydown", (e) => {
+      const key = e.key.toLowerCase();
+      if (STEER_KEYS.includes(key)) {
+        triggerGameplayState();
+      }
+    });
+
+    // Listen for touches/clicks on the canvas
+    document.addEventListener("DOMContentLoaded", () => {
+      const uCanvas = document.getElementById("unity-canvas");
+      if (uCanvas) {
+        uCanvas.addEventListener("mousedown", () => {
+          triggerGameplayState();
+        });
+        uCanvas.addEventListener("touchstart", () => {
+          triggerGameplayState();
+        }, { passive: true });
+      }
+    });
+
+    // Check steering inactivity (5.5s timeout) to revert back on crash/menus
+    setInterval(() => {
+      if (isGameplayActive) {
+        const idleTime = Date.now() - lastSteerTime;
+        if (idleTime > 5500) {
+          triggerMenuState();
+        }
+      }
+    }, 500);
+
+    // ========================================================
+    // UNITY WEBGL ENGINE LOADER CONFIG
+    // ========================================================
+    const container = document.querySelector("#unity-container");
+    const canvas = document.querySelector("#unity-canvas");
+    const loadingCover = document.querySelector("#loading-cover");
+    const fullscreenButton = document.querySelector("#unity-fullscreen-button");
+
+    const buildUrl = "TemplateData";
+    const loaderUrl = buildUrl + "/loader.js";
+    const config = {
+      dataUrl: buildUrl + "/data.unityweb",
+      frameworkUrl: buildUrl + "/framework.js.unityweb",
+      codeUrl: buildUrl + "/wasm.unityweb",
+      streamingAssetsUrl: "StreamingAssets",
+      productName: "Escape Road",
+      productVersion: "2.0",
+    };
+
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      container.className = "unity-mobile";
+      config.devicePixelRatio = 1;
+    }
+    
+    function delay(ms) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve();
+        }, ms);
+      });
+    }
+    async function load() {
+      var az_logo = document.getElementById('azlogo');
+      az_logo.style.opacity = 0;
+      logo_loaded = true;
+      az_logo.style.display = 'none';
+      logo_loaded = false;
+      
+      createUnityInstance(canvas, config, (progress) => {
+        logo_loading_percent = progress;
+        drawCanvas(progress);
+      }).then((unityInstance) => {
+        window.unityInstance = unityInstance;
+        setTimeout(() => {
+          loadingCover.style.display = "none";
+          logo_loaded = true;
+          window.focus();
+        }, 2000);
+      }).catch((message) => {
+        alert(message);
+      });
+    }
+
+    loadingCover.style.display = "";
+
+    var script = document.createElement("script");
+    script.src = loaderUrl;
+    script.onload = () => {
+      load();
+    };
+
+    var logo_loaded = false;
+    var logo_loading_percent = 0;
+
+    window.onresize = () => {
+      drawCanvas(logo_loading_percent);
+    }
+    window.onload = () => {
+      drawCanvas(logo_loading_percent);
+    }
+
+    var logo_canvas = document.getElementById("logo-canvas");
+    function drawCanvas(_percent = 0) {
+      if (logo_loaded) {
+        return;
+      }
+      resizeLogoCanvas();
+      var ctx = logo_canvas.getContext("2d");
+      var ld_bg = document.getElementById("ld_bg");
+      var ld_car = document.getElementById("ld_car");
+
+      var _sw = logo_canvas.width / 1920;
+      var _sh = logo_canvas.height / 1080;
+
+      if (_percent > 1) {
+        _percent = 1;
+      }
+
+      //bgbar
+      var bgbar_H = 86;
+      var bgbar_W = 1383;
+      //fillbar
+      var fillbar_H = 55;
+      var fillbar_W = 1345;
+      //Mask
+      var maskbar_H = 55;
+      var maskbar_W = 1350;
+      //bg_bar_mask
+      var bgbar_mask_H = 86;
+      var bgbar_mask_W = 1383;
+
+      var posshowbar_Y = 200;   //position loadingbar 
+
+      var posbgbar_X = (1920 - bgbar_W) / 2; // center
+      var posbgbar_Y = posshowbar_Y;
+
+      var posfillbar_X = (1920 - fillbar_W) / 2;
+      var posfillbar_Y = posshowbar_Y - 15;
+
+      var posmaskbar_X = (1920 - maskbar_W) / 2;
+      var posmaskbar_Y = posshowbar_Y - 15;
+
+      var _fl = 0;
+      var _fl1 = posmaskbar_X + _percent * maskbar_W;
+
+      var _fw = maskbar_W - _percent * maskbar_W;
+
+      //background
+      ctx.drawImage(ld_bg, 0, 0, logo_canvas.width, logo_canvas.height);
+
+      //loading background
+      ctx.fillStyle = "#977e21";
+      var _lw = 700;
+      var _lh = 50;
+      ctx.fillRect((1920 - _lw) * 0.5 * _sw, (1080 - 150) * _sh, _lw * _sw, _lh * _sh);
+
+      //loading progress
+      ctx.fillStyle = "#fad234";
+      var _pad = 5;
+      var _pw = (_lw - _pad * 2);
+      var _ph = _lh - _pad * 2;
+      var _px = (1920 - _pw) * 0.5;
+      ctx.fillRect(_px * _sw, (1080 - 150 + _pad) * _sh, _pw * _percent * _sw, _ph * _sh);
+
+      ctx.font = "18px myFirstFont";
+      const match = /(?<value>\d+\.?\d*)/;
+      const setFontSize = (size) => ctx.font = ctx.font.replace(match, size);
+      setFontSize(35 * _sh);
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#fff";
+      ctx.shadowColor = "black";
+      ctx.shadowOffsetY = 2;
+      var new_per = parseInt(_percent * 100);
+      ctx.fillText("" + new_per + "%", logo_canvas.width / 2, logo_canvas.height / 2 + _sh * 425);
+    }
+    
+    function resizeLogoCanvas() {
+      var _w = window.innerWidth;
+      var _h = window.innerHeight;
+      var _nw = _h * 16 / 9;
+      if (_nw <= _w) {
+        logo_canvas.width = _nw;
+        logo_canvas.height = _h;
+      }
+      else {
+        logo_canvas.width = _w;
+        logo_canvas.height = _w * 9 / 16;
+      }
+    }
+
+    document.body.appendChild(script);
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"
+    type="57480f3f31f76c75506c83a0-text/javascript"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"
+    type="57480f3f31f76c75506c83a0-text/javascript"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"
+    type="57480f3f31f76c75506c83a0-text/javascript"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics-compat.js"
+    type="57480f3f31f76c75506c83a0-text/javascript"></script>
+  <script type="57480f3f31f76c75506c83a0-module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js";
+  import { getAuth  } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+
+  const firebaseConfig = {
+  apiKey: "AIzaSyC2RwMfh0GMuQMtQdijjUo-MEffB4N9xVY",
+  authDomain: "escape-road-gm1.firebaseapp.com",
+  projectId: "escape-road-gm1",
+  storageBucket: "escape-road-gm1.appspot.com",
+  messagingSenderId: "713881704715",
+  appId: "1:713881704715:web:615cc93a73d9814b24ea0e",
+  measurementId: "G-E8C3TNJE0S"
+};
+window.dataLayer = window.dataLayer || [];
+window.gtag = function(){dataLayer.push(arguments);}
+
+window.gtag("config", firebaseConfig.measurementId, {
+    cookie_domain: location.hostname,
+    cookie_flags: "SameSite=None;Secure",
+});
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+</script>
+  <script src="rocket-loader.min.js" data-cf-settings="57480f3f31f76c75506c83a0-|49" defer></script>
+</body>
+
+</html>

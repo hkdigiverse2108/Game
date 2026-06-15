@@ -5,9 +5,9 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8278748118891475" crossorigin="anonymous"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Epic Games Hub | Double Jump</title>
+  <title>Epic Games Hub | Mendicot</title>
   <meta name="description"
-    content="Bounce higher and higher in Double Jump! Control your character, land on platforms, and use double jumps to reach new heights. Colorful visuals and smooth controls make this an exciting challenge for all ages." />
+    content="Play Mendicot (Mendi) online for free on Epic Games Hub — a traditional Indian card game where you partner with an AI to capture Tens (Mendis) and outsmart opponents." />
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,13 +21,16 @@
   <script src="../assets/js/cookie-consent.js" defer></script>
 </head>
 
-<body class="antialiased selection:bg-primary/30 selection:text-white">
+<body class="antialiased selection:bg-primary/30 selection:text-white" data-current-game-id="mendi">
+  <!--<< Mouse Cursor Start >>-->
   <div class="mouse-cursor cursor-outer"></div>
   <div class="mouse-cursor cursor-inner"></div>
+
+  <!-- Navigation -->
   <nav class="fixed top-0 w-full z-50 glass shadow-md">
     <div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-      <a href="../index.html" aria-label="Home" class="flex items-center gap-3 cursor-pointer group shrink-0">
-
+      <!-- Logo -->
+       <a href="../index.html" aria-label="Home" class="flex items-center gap-3 cursor-pointer group shrink-0">
         <div class="relative w-10 h-10 rounded-full flex items-center justify-center transform transition duration-300  group-hover:scale-110 shadow-lg group-hover:shadow-neon" style="background-color: white;">
           <img src="../assets/images/logo.png" alt="" style="max-width: 85%; max-height: 85%; object-fit: contain;">
         </div>
@@ -35,10 +38,12 @@
           class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 tracking-tight hidden sm:block">Epic
           Games Hub</span>
       </a>
-      <div class="flex flex-1 max-w-[200px] xs:max-w-[250px] sm:max-w-sm sm:mx-12 relative">
+
+      <!-- Search -->
+      <div class="flex flex-1 max-w-[150px] sm:max-w-sm sm:mx-12 relative">
         <div class="w-full relative group" id="search-container">
           <input id="search-input" type="text"
-            class="block w-full pl-6 pr-12 sm:pr-16 py-2.5 border border-white/10 rounded-2xl leading-5 bg-black/40 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-300 focus:bg-surface shadow-inner relative z-10 text-sm sm:text-base"
+            class="block w-full pl-6 pr-16 py-2.5 border border-white/10 rounded-2xl leading-5 bg-black/40 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-300 focus:bg-surface shadow-inner relative z-10"
             placeholder="Search games..." autocomplete="off" />
           <div class="absolute inset-y-1 right-1 flex items-center z-10">
             <button
@@ -49,9 +54,12 @@
               </svg>
             </button>
           </div>
+
+          <!-- Enhanced Search Dropdown (Hidden initially) -->
           <div id="search-dropdown"
             class="absolute min-w-[290px] top-full right-0 mt-2 bg-surface/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden hidden flex-col max-h-[70vh] z-50">
             <div id="search-results-container" class="overflow-y-auto no-scrollbar py-2">
+              <!-- Results injected by JS -->
               <div class="text-center py-4 text-gray-400 text-sm">Type to search...</div>
             </div>
           </div>
@@ -59,10 +67,16 @@
       </div>
     </div>
   </nav>
+
+  <!-- Main Content -->
   <main class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto min-h-screen">
-    <div class="flex flex-col lg:flex-row gap-6 mt-4">
+    <!-- Game Layout: Player + Sidebar -->
+    <div class="flex flex-col xl:flex-row gap-6 mt-4">
+      <!-- LEFT: Game Player Column -->
       <div class="flex-1 min-w-0">
-        <div id="game-wrapper" class="portrait-game shadow-2xl shadow-primary/10">
+        <!-- Game Wrapper -->
+        <div id="game-wrapper" class="shadow-2xl shadow-primary/10">
+          <!-- Loading overlay -->
           <div id="play-overlay" class="absolute inset-0 md:hidden flex items-center justify-center z-20 bg-black/50">
             <button onclick="startGame()"
               class="px-8 py-3 rounded-full bg-white text-blue-600 font-bold text-xl shadow-lg hover:scale-105 transition">▶
@@ -71,21 +85,23 @@
           <div id="game-loading"
             class="absolute inset-0 flex flex-col items-center justify-center bg-[#0B0F19] z-10 gap-4">
             <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-xl shadow-primary/30 mb-2">
-              <img src="../game/Double-Jump/images/thumb.png" alt="Double Jump"
-                class="w-full h-full object-contain bg-black/20 p-1" />
+              <img src="../game/Mendi/thumb.png" alt="Mendicot" class="w-full h-full object-cover" />
             </div>
-            <div class="text-white font-bold text-lg">Loading Double Jump...</div>
+            <div class="text-white font-bold text-lg">Loading Mendicot...</div>
             <div class="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
               <div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full animate-pulse"
                 style="width: 70%"></div>
             </div>
           </div>
-          <iframe id="game-frame" src="../game/Double-Jump/index.html" allowfullscreen title="Double Jump"
+          <iframe id="game-frame" src="../game/Mendi/index.html" allowfullscreen title="Mendicot"
             onload="document.getElementById('game-loading').style.display = 'none'"></iframe>
         </div>
+
+        <!-- Game Controls Bar -->
         <div class="flex flex-wrap items-center justify-between gap-2 mt-3 px-1">
           <div id="game-tags" class="flex items-center gap-2 uppercase"></div>
           <div class="flex items-center gap-2">
+            <!-- Fullscreen -->
             <button id="fullscreen-btn" onclick="toggleFullscreen()" title="Fullscreen"
               class="hidden md:flex items-center gap-1.5 bg-white/5 hover:bg-primary/20 border border-white/10 hover:border-primary/40 text-gray-400 hover:text-white px-3 py-1.5 rounded-xl transition-all text-sm font-semibold">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,43 +112,48 @@
             </button>
           </div>
         </div>
+
+        <!-- Game Info -->
         <div class="mt-6 bg-surface/40 border border-white/5 rounded-2xl p-6 backdrop-blur-sm">
           <div class="flex flex-col sm:flex-row sm:items-start gap-5">
+            <!-- Thumbnail -->
             <div
               class="w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-lg shadow-black/50 border border-white/10">
-              <img src="../game/Double-Jump/images/thumb.png" alt="Double Jump"
-                class="w-full h-full object-contain bg-black/20 p-1" />
+              <img src="../game/Mendi/thumb.png" alt="Mendicot" class="w-full h-full object-cover" />
             </div>
+            <!-- Info -->
             <div class="flex-1">
-              <h1 class="text-2xl sm:text-3xl font-black text-white leading-tight">Double Jump</h1>
+              <h1 class="text-2xl sm:text-3xl font-black text-white leading-tight">Mendicot</h1>
               <div id="game-categories" class="flex items-center gap-2 mt-2 uppercase"></div>
             </div>
           </div>
-          <div class=" border-t border-white/5 pt-3">
+
+          <!-- Description -->
+          <div class="border-t border-white/5 pt-3">
             <div class="mt-6 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
               <div class="rounded-2xl border border-white/8 bg-black/20 p-5">
                 <p class="text-gray-200 leading-relaxed text-sm sm:text-[15px]">
-                  <strong class="text-white">Double Jump</strong>: Step back into the golden age of gaming with Double Jump, a premium arcade experience reimagined for modern browser play. Epic Games Hub is proud to host this highly engaging title, offering smooth framerates, retro-inspired mechanics, and instant-play accessibility. There is no need for registration or downloading heavy payloads; the game runs directly in your browser using optimized web technologies. It delivers a satisfying blend of classic gameplay loops and modern visual refinements that appeal to both nostalgic players and casual gamers. The game engine is fully optimized to prevent lag or latency.
+                  <strong class="text-white">Mendicot</strong>: Welcome to Mendicot, the beloved traditional Indian card game now fully playable online for free on Epic Games Hub! Also known as Mendi, this trick-taking game requires partnership strategy, memory, and tactical foresight. You and your AI partner face off against an opposing team of two AI players on a beautiful, dark felt table layout. The core objective is simple yet challenging: capture as many Tens (Mendis) as possible from the active tricks. Featuring elegant neon details, fluid card-glide animations, and an intuitive scoreboard log, Mendicot brings a polished, immersive experience right to your browser.
                 </p>
                 <p class="mt-3 text-gray-300 leading-relaxed text-sm">
-                  The core loop is fast-paced and highly interactive. Bounce higher and higher in Double Jump! Control your character, land on platforms, and use double jumps to reach new heights. Colorful visuals and smooth controls make this an exciting challenge for all ages. You are challenged to complete increasingly difficult levels, defeat boss hazards, and set unbeatable high scores. The visual effects are polished with smooth particle streams and glassmorphic UI panels, making the gameplay feel incredibly premium and responsive. Every sound effect and collision feedback is tuned to provide maximum sensory satisfaction, keeping you locked in the zone, focused on targets, and active.
+                  At its core, Mendicot revolves around the critical priority of capturing Tens. There are four Tens in the deck, and whichever partnership captures three or four of these cards wins the round. If a team manages to capture all four Tens, it is declared a Mendicot (clean sweep or Kot), which is the ultimate victory. Each player is dealt 13 cards from a standard 52-card deck. The player to the right of the dealer leads the first trick, and all other players must follow the suit led. If a player has no card of the led suit, they can cut the trick. In Closed Mode, the trump (Hukum) is selected secretly by the dealer at the start and revealed only when a player is unable to follow suit. In Open Mode, the first suit discard of a player who cannot follow suit becomes the trump.
                 </p>
                 <p class="mt-3 text-gray-300 leading-relaxed text-sm">
-                  Mastering Double Jump requires a combination of sharp coordination and tactical resource management. You must collect power-ups at the right moments, avoid traps, and learn the attack or movement patterns of obstacles. The difficulty curve is carefully calibrated, offering a gentle introduction before ramping up to test your skills. It represents the very best of web-based arcade gaming—fast, fun, and infinitely replayable. Play in fullscreen for optimal accuracy and tracking.
+                  Whether you are playing with Open Hukum or Closed Hukum, strategic card management is essential. The partner AIs are equipped with smart play algorithms that adjust according to the active difficulty (Easy, Medium, Hard). AIs will actively discard Tens to you if they see you are winning the trick, or cut with trumps to save a high-value trick. Pay close attention to the log feed on the sidebar to track which cards have been played, and sort your hand periodically to keep your options clear. With standard rules and custom visual options, Mendicot offers endless hours of mental engagement for card game enthusiasts.
                 </p>
               </div>
               <div class="rounded-2xl border border-white/8 bg-gradient-to-br from-primary/12 to-secondary/10 p-5 flex flex-col justify-between">
                 <div>
                   <h3 class="text-white font-bold text-sm tracking-wide uppercase">Simple Goal</h3>
                   <p class="mt-2 text-gray-300 leading-relaxed text-sm">
-                    Your main goal in Double Jump is to clear all active levels and achieve the highest possible score. This is done by collecting items, defeating target hazards, and completing stages with minimal damage. Maintaining your health or move counter is vital to reaching high scores and keeping the session active for longer periods.
+                    The primary goal in Mendicot is for your partnership to capture more Tens (Mendis) than the opposing team. There are four Tens in the deck. Capturing three or more Tens ensures a win, and capturing all four achieves a Mendicot (Kot).
                   </p>
                   <p class="mt-2 text-gray-300 leading-relaxed text-sm">
-                    To climb the ranks, you should aim for perfect clears. Completing a level within the target time limits or without losing lives awards massive bonus points that secure your place on the global leaderboard, proving your complete mastery of the gameplay. Professional players always take a moment to analyze the board before making critical moves.
+                    Work closely with your partner AI by feeding them Tens when they win tricks, and utilize trumps efficiently to secure the win.
                   </p>
                 </div>
                 <div class="border-t border-white/5 pt-3 mt-3">
-                  <span class="text-xs text-gray-400">Reviewer Rating: <strong class="text-primary">5.5/5 Stars</strong></span>
+                  <span class="text-xs text-gray-400">Reviewer Rating: <strong class="text-primary">4.8/5 Stars</strong></span>
                 </div>
               </div>
             </div>
@@ -141,41 +162,63 @@
               <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
                 <h3 class="text-white font-bold text-base">How to Play</h3>
                 <p class="mt-2 text-gray-300 leading-relaxed text-sm">
-                  Control your character or cursor using simple mouse clicks, touch-drags, or keyboard arrows. Aim, move, or shoot according to the level objectives, keeping a close eye on incoming hazards. Ensure your browser zoom is set correctly and your hand position is comfortable so that your controls register precisely and instantly.
-                </p>
-                <p class="mt-2 text-gray-300 leading-relaxed text-sm">
-                  As items drop or spawn, move quickly to grab them. Clear the active targets on screen to open the exit portal or trigger the next wave. Be sure to avoid contact with hostile elements that drain your life bar and cause premature defeats. The game continues to scale in difficulty, demanding faster inputs.
+                  The trick starts with a leading card. Select and click a card from your hand at the bottom to play. You must follow the led suit if you have it. If you do not have it, you can cut the trick to reveal the hidden Hukum (trump suit) in Closed Mode or establish it in Open Mode. The highest card of the led suit wins the trick unless a trump card is played, in which case the highest trump wins.
                 </p>
               </div>
               <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
                 <h3 class="text-white font-bold text-base">Tips for Success</h3>
                 <p class="mt-2 text-gray-300 leading-relaxed text-sm">
-                  Learn the spawn patterns of the level. Most waves spawn in predictable locations and sequences, allowing you to position your character in advance and clear them before they have a chance to spread out, overwhelm your defenses, or corner you. Knowing the layout transitions is key to scoring massive multi-clears.
-                </p>
-                <p class="mt-2 text-gray-300 leading-relaxed text-sm">
-                  Save your special power-ups for the later stages. It is tempting to use shields or score multipliers immediately, but saving them for high-intensity waves or boss stages will yield much higher survival returns and score boosts. If no upgrades are present, focus on learning the movement patterns of hazards.
+                  Save your trumps for tricks that contain Tens. If your partner is already winning the trick, you can safely discard your Ten (Mendi) into the pile so it is captured by your team. Keep track of the high cards (Aces, Kings) already played in each suit so you know when your cards are safe to lead.
                 </p>
               </div>
             </div>
-<div class="mt-8 flex overflow-x-auto gap-4 pb-4 snap-x gallery-scroll">
-              <div
-                class="shrink-0 w-80 sm:w-96 aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg relative bg-black snap-center">
-                <video src="../game/Double-Jump/gallery/v1.mp4" poster="../game/Double-Jump/gallery/p1.png"
-                  class="w-full h-full object-cover" autoplay loop muted playsinline></video>
+            <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
+                <div class="flex justify-center mb-2 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path d="M7 8h10M7 14h10M7 20h10" stroke-width="1.5" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="text-sm font-bold text-white mb-1">Deal</div>
+                <div class="text-xs text-gray-400 font-medium">13 Cards Each</div>
               </div>
-              <div
-                class="shrink-0 w-80 sm:w-96 aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
-                <img src="../game/Double-Jump/gallery/p1.png" alt="Double Jump gameplay"
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
+                <div class="flex justify-center mb-2 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path d="M4 12h16M12 4v16" stroke-width="1.5" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="text-sm font-bold text-white mb-1">Hukum</div>
+                <div class="text-xs text-gray-400 font-medium">Trump Mode</div>
               </div>
-              <div
-                class="shrink-0 w-80 sm:w-96 aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
-                <img src="../game/Double-Jump/gallery/p2.png" alt="Double Jump platforms"
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
+                <div class="flex justify-center mb-2 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <div class="text-sm font-bold text-white mb-1">Trick</div>
+                <div class="text-xs text-gray-400 font-medium">Follow Led Suit</div>
               </div>
+              <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
+                <div class="flex justify-center mb-2 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <div class="text-sm font-bold text-white mb-1">Win</div>
+                <div class="text-xs text-gray-400 font-medium">Capture Tens (Mendis)</div>
+              </div>
+            </div>
+
+            <div class="mt-8 flex overflow-x-auto gap-4 pb-4 snap-x gallery-scroll">
               <div
-                class="shrink-0 w-80 sm:w-96 aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
-                <img src="../game/Double-Jump/gallery/p3.png" alt="Double Jump power-ups"
+                class="shrink-0 w-[20rem] sm:w-[28rem] aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 shadow-lg group cursor-pointer relative bg-black/20 snap-center">
+                <img src="../game/Mendi/thumb.png" alt="Mendicot Gameplay Board"
                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               </div>
             </div>
@@ -184,7 +227,7 @@
       </div>
 
       <!-- RIGHT: Related Games Sidebar -->
-      <div class="lg:w-80 shrink-0">
+      <div class="xl:w-72 shrink-0">
         <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
           <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
             <path
@@ -192,8 +235,7 @@
           </svg>
           More Games
         </h2>
-        <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 gap-3 gallery-scroll"
-          id="related-games">
+        <div class="space-y-3 gallery-scroll" id="related-games">
           <!-- Related game cards — injected via JS or static -->
         </div>
         <a href="../index.html"
@@ -208,7 +250,7 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-black/50 border-t border-white/5 pt-16 pb-8">
+   <footer class="bg-black/50 border-t border-white/5 pt-16 pb-8">
     <div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
         <div class="col-span-1 md:col-span-2">
@@ -300,13 +342,14 @@
       </div>
     </div>
   </footer>
-
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
   <script src="../common/device.js"></script>
   <script src="../assets/js/index.js"></script>
 
-  <script>const gameId = "double-jump";</script>
+  <script>
+    const gameId = "mendi";
+  </script>
   <script src="../assets/js/gameDistribution.js"></script>
 </body>
 

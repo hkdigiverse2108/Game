@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Mendi (Mendikot) Card Game</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Setup / Main Menu Overlay -->
+    <div id="setup-overlay" class="menu-overlay">
+      <!-- Card Game Decorations Backdrop -->
+      <div class="menu-decorations">
+        <!-- Floating/Fanned Playing Cards -->
+        <div class="decor-card card-spades">
+          <div class="decor-card-corner"><span>A</span><span>♠</span></div>
+          <div class="decor-card-center">♠</div>
+          <div class="decor-card-corner bottom"><span>A</span><span>♠</span></div>
+        </div>
+        <div class="decor-card card-hearts">
+          <div class="decor-card-corner"><span>K</span><span>♥</span></div>
+          <div class="decor-card-center">♥</div>
+          <div class="decor-card-corner bottom"><span>K</span><span>♥</span></div>
+        </div>
+        <div class="decor-card card-clubs">
+          <div class="decor-card-corner"><span>Q</span><span>♣</span></div>
+          <div class="decor-card-center">♣</div>
+          <div class="decor-card-corner bottom"><span>Q</span><span>♣</span></div>
+        </div>
+        <div class="decor-card card-diamonds">
+          <div class="decor-card-corner"><span>J</span><span>♦</span></div>
+          <div class="decor-card-center">♦</div>
+          <div class="decor-card-corner bottom"><span>J</span><span>♦</span></div>
+        </div>
+        
+        <!-- scattered poker chips -->
+        <div class="decor-chip chip-red" style="top: 18%; left: 8%;">100</div>
+        <div class="decor-chip chip-gold" style="top: 32%; left: 12%;">500</div>
+        <div class="decor-chip chip-black" style="bottom: 18%; right: 8%;">1000</div>
+        <div class="decor-chip chip-blue" style="bottom: 32%; right: 12%;">50</div>
+      </div>
+
+      <div class="menu-card glass">
+        <h1 class="neon-text">MENDIKOT</h1>
+        <div class="gold-separator">♣ ♦ ♠ ♥</div>
+        <p class="subtitle">Traditional Indian Card Game</p>
+
+        <!-- Player Name -->
+        <div class="form-group">
+          <label for="player-name">Player Name</label>
+          <input type="text" id="player-name" value="Player" maxlength="15" autocomplete="off" />
+        </div>
+
+        <!-- Trump Setting -->
+        <div class="form-group">
+          <label>Trump Suit (Hukum) Mode</label>
+          <div class="toggle-buttons">
+            <button id="mode-closed" class="toggle-btn active" data-mode="closed">Closed Mode (Secret)</button>
+            <button id="mode-open" class="toggle-btn" data-mode="open">Open Mode (First Cut)</button>
+          </div>
+        </div>
+
+        <!-- Difficulty Setting -->
+        <div class="form-group">
+          <label>AI Difficulty</label>
+          <div class="toggle-buttons">
+            <button id="diff-easy" class="toggle-btn" data-diff="easy">Easy</button>
+            <button id="diff-med" class="toggle-btn active" data-diff="medium">Medium</button>
+            <button id="diff-hard" class="toggle-btn" data-diff="hard">Hard</button>
+          </div>
+        </div>
+
+        <!-- Table Theme Setting -->
+        <div class="form-group">
+          <label>Table Theme</label>
+          <div class="toggle-buttons">
+            <button id="theme-green-btn" class="toggle-btn active" data-theme="green">Classic Green</button>
+            <button id="theme-crimson-btn" class="toggle-btn" data-theme="crimson">Crimson Velvet</button>
+            <button id="theme-royal-btn" class="toggle-btn" data-theme="royal">Royal Blue</button>
+          </div>
+        </div>
+
+        <!-- Start Button -->
+        <button id="start-game-btn" class="action-btn glow-btn">Start Game</button>
+      </div>
+    </div>
+
+    <!-- Active Game Layout -->
+    <div id="game-layout" class="hidden">
+      <!-- Main Game Board -->
+      <main id="board-container">
+        <!-- Floating HUD Element: Top Left Hukum Indicator -->
+        <div class="hud-panel hukum-panel glass select-none">
+          <span class="hud-label">Hukum</span>
+          <div id="hukum-display" class="hukum-box card-back-bg select-none">
+            <span id="hukum-icon">?</span>
+            <span id="hukum-text">Secret</span>
+          </div>
+        </div>
+
+        <!-- Floating HUD Element: Top Right Scoreboard -->
+        <div class="hud-panel scoreboard-panel glass">
+          <span class="hud-label">Mendis Captured</span>
+          <div class="hud-score-row">
+            <div class="hud-team">
+              <span class="hud-team-name">Your Team</span>
+              <div id="player-mendi-cards" class="mendi-collected-list"></div>
+            </div>
+            <span id="player-score" class="hud-mendi-count font-digit">0</span>
+          </div>
+          <div class="hud-score-row">
+            <div class="hud-team">
+              <span class="hud-team-name">Opponents</span>
+              <div id="opponent-mendi-cards" class="mendi-collected-list"></div>
+            </div>
+            <span id="opponent-score" class="hud-mendi-count font-digit">0</span>
+          </div>
+        </div>
+
+
+        <!-- Top Player: Partner AI -->
+        <div class="player-slot slot-top" id="slot-partner">
+          <div class="player-avatar">
+            <span class="avatar-icon">🤝</span>
+            <span class="player-lbl">Partner</span>
+            <div class="player-stats-row">
+              <span class="stat-badge"><span class="icon">🃏</span> <span class="card-count font-digit">13</span></span>
+              <span class="stat-badge"><span class="icon">🏆</span> <span class="tricks-count font-digit">0</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Left Player: Opponent 1 AI -->
+        <div class="player-slot slot-left" id="slot-opp1">
+          <div class="player-avatar">
+            <span class="avatar-icon">👾</span>
+            <span class="player-lbl">Opponent 1</span>
+            <div class="player-stats-row">
+              <span class="stat-badge"><span class="icon">🃏</span> <span class="card-count font-digit">13</span></span>
+              <span class="stat-badge"><span class="icon">🏆</span> <span class="tricks-count font-digit">0</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Player: Opponent 2 AI -->
+        <div class="player-slot slot-right" id="slot-opp2">
+          <div class="player-avatar">
+            <span class="avatar-icon">👾</span>
+            <span class="player-lbl">Opponent 2</span>
+            <div class="player-stats-row">
+              <span class="stat-badge"><span class="icon">🃏</span> <span class="card-count font-digit">13</span></span>
+              <span class="stat-badge"><span class="icon">🏆</span> <span class="tricks-count font-digit">0</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table Center: Played Trick Pile -->
+        <div id="table-center">
+          <!-- Trick Pile where cards land -->
+          <div id="trick-pile"></div>
+          <!-- Shuffling Deck Stack -->
+          <div id="deck-stack" class="hidden">
+            <div class="deck-card" style="transform: translate(-2px, -2px) rotate(-1.5deg);"></div>
+            <div class="deck-card" style="transform: translate(1px, -1px) rotate(1deg);"></div>
+            <div class="deck-card" style="transform: translate(-1px, 2px) rotate(-0.5deg);"></div>
+            <div class="deck-card" style="transform: translate(2px, 1px) rotate(2deg);"></div>
+            <div class="deck-card" style="transform: translate(0px, 0px) rotate(0deg);"></div>
+          </div>
+          <!-- Hukum open animation target -->
+          <div id="hukum-alert-msg" class="hidden">HUKUM REVEALED!</div>
+        </div>
+
+        <!-- Bottom Player: Human Hand -->
+        <div id="bottom-player-area">
+          <div class="hand-header">
+            <span id="player-indicator-lbl">Your Turn</span>
+            <div class="hand-actions">
+              <button id="theme-btn" class="mini-btn">Theme: Green</button>
+              <button id="sort-hand-btn" class="mini-btn">Sort Hand</button>
+            </div>
+          </div>
+          <div class="bottom-hand-container">
+            <div class="player-avatar slot-bottom-avatar">
+              <span class="avatar-icon">👤</span>
+              <span class="player-lbl">You</span>
+              <div class="player-stats-row">
+                <span class="stat-badge"><span class="icon">🃏</span> <span class="card-count font-digit">13</span></span>
+                <span class="stat-badge"><span class="icon">🏆</span> <span class="tricks-count font-digit">0</span></span>
+              </div>
+            </div>
+            <div id="player-hand" class="cards-hand-wrapper">
+              <!-- Player cards dealt here -->
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Hukum Selection Modal Overlay -->
+    <div id="hukum-select-overlay" class="menu-overlay hidden">
+      <div class="menu-card glass">
+        <h2 class="neon-text font-digit">SELECT HUKUM</h2>
+        <p class="subtitle">Choose the Trump Suit for this round</p>
+        <div class="selector-suits-large">
+          <button class="suit-select-btn-large" data-suit="spades">
+            <span class="suit-symbol">♠</span>
+            <span class="suit-name">Spades</span>
+          </button>
+          <button class="suit-select-btn-large suit-red" data-suit="hearts">
+            <span class="suit-symbol">♥</span>
+            <span class="suit-name">Hearts</span>
+          </button>
+          <button class="suit-select-btn-large" data-suit="clubs">
+            <span class="suit-symbol">♣</span>
+            <span class="suit-name">Clubs</span>
+          </button>
+          <button class="suit-select-btn-large suit-red" data-suit="diamonds">
+            <span class="suit-symbol">♦</span>
+            <span class="suit-name">Diamonds</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Over Modal Overlay -->
+    <div id="gameover-overlay" class="menu-overlay hidden">
+      <div class="menu-card glass text-center">
+        <h2 id="win-status-lbl" class="neon-text font-digit">VICTORY!</h2>
+        <p id="gameover-message" class="subtitle">You captured 3 Mendis</p>
+        
+        <div id="gameover-stats">
+          <div class="stat-row">
+            <span>Tens (Mendis) Captured:</span>
+            <span id="stat-mendis-captured" class="stat-val">3 / 4</span>
+          </div>
+          <div class="stat-row">
+            <span>Tricks Won (Your Team):</span>
+            <span id="stat-tricks-won" class="stat-val">8 / 13</span>
+          </div>
+          <div class="stat-row">
+            <span>Mendicot (Kot) Achieved:</span>
+            <span id="stat-kot-status" class="stat-val">No</span>
+          </div>
+        </div>
+
+        <div class="gameover-actions">
+          <button id="play-again-btn" class="action-btn glow-btn">Play Again</button>
+          <button id="exit-btn" class="action-btn secondary-btn">Exit to Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

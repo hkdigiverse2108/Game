@@ -117,37 +117,43 @@ function generateGamesHtml(count) {
     const loadingAttr = isAboveFold
       ? 'fetchpriority="high"'
       : 'loading="lazy" decoding="async"';
-
-    // ✅ FIX 2: Proper image URL
+    
+    // ✅ FIX 2: Proper image URL (Local fallback for development)
+    const isSubdir = window.location.pathname.includes('/gameDistribution/') || window.location.pathname.includes('/game/');
+    const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.protocol === "file:";
+    const basePath = isSubdir ? '../' : './';
+    const localImage = basePath + game.thumbnailUrl;
     const baseImage = `https://epicgameshub.com/${game.thumbnailUrl}`;
 
-    const optimizedImageUrl = `https://wsrv.nl/?url=${encodeURIComponent(
+    const optimizedImageUrl = isLocal ? localImage : `https://wsrv.nl/?url=${encodeURIComponent(
       baseImage
     )}&w=180&h=180&fit=cover&output=webp&q=75&dpr=2`;
+
+    const srcsetAttr = isLocal ? "" : `srcset="
+             https://wsrv.nl/?url=${encodeURIComponent(baseImage)}&w=120&output=webp&q=75 120w,
+             https://wsrv.nl/?url=${encodeURIComponent(baseImage)}&w=180&output=webp&q=75 180w,
+             https://wsrv.nl/?url=${encodeURIComponent(baseImage)}&w=300&output=webp&q=75 300w
+           "`;
 
     html += `
       <a href="${game.gameUrl || "#"}"
          class="game-card block ${spanClass} aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
          style="animation-delay: ${index * 0.05}s">
 
-        <div class="absolute inset-0" style="background: ${bgGradient}"></div>
+         <div class="absolute inset-0" style="background: ${bgGradient}"></div>
 
-        <!-- ✅ FIX 3: Single optimized image + srcset -->
-        <img 
-          src="${optimizedImageUrl}"
-          srcset="
-            https://wsrv.nl/?url=${encodeURIComponent(baseImage)}&w=120&output=webp&q=75 120w,
-            https://wsrv.nl/?url=${encodeURIComponent(baseImage)}&w=180&output=webp&q=75 180w,
-            https://wsrv.nl/?url=${encodeURIComponent(baseImage)}&w=300&output=webp&q=75 300w
-          "
-          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px"
-          ${loadingAttr}
-          width="180"
-          height="180"
-          alt="${game.gameTitle}"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]"
-          style="opacity: 0.9;"
-        />
+         <!-- ✅ FIX 3: Single optimized image + srcset -->
+         <img 
+           src="${optimizedImageUrl}"
+           ${srcsetAttr}
+           sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px"
+           ${loadingAttr}
+           width="180"
+           height="180"
+           alt="${game.gameTitle}"
+           class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]"
+           style="opacity: 0.9;"
+         />
 
         <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
 
@@ -431,7 +437,10 @@ if (searchInput && searchDropdown && searchResultsContainer) {
           .slice(0, 10)
           .map(
             (game) => {
-                const optimizedThumbUrl = `https://wsrv.nl/?url=epicgameshub.com/${game.thumbnailUrl}&w=64&h=64&fit=cover&output=webp&q=75`;
+                const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.protocol === "file:";
+                const optimizedThumbUrl = isLocal 
+                  ? `${pathPrefix}${game.thumbnailUrl}` 
+                  : `https://wsrv.nl/?url=epicgameshub.com/${game.thumbnailUrl}&w=64&h=64&fit=cover&output=webp&q=75`;
                 return `
                 <a href="${pathPrefix}${game.gameUrl || "#"}" class="flex items-center gap-4 px-4 py-2 hover:bg-white/10 transition-colors group">
                     <div class="w-12 h-9 rounded bg-surface overflow-hidden shrink-0 shadow-md">

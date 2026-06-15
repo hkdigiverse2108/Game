@@ -80,6 +80,42 @@
   ],
   "gameTitles": [
     {
+      "id": "escape-road-variants",
+      "gameTitle": "Escape Road: Themes & Variants",
+      "gameUrl": "gameDistribution/Escape-Road-Variants.html",
+      "thumbnailUrl": "game/Escape-Road-Variants/thumb.png",
+      "categories": [
+        "car",
+        "action",
+        "runner",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "hot"
+      ],
+      "requiresKeyboard": true,
+      "description": "Experience Escape Road: Themes & Variants! Drive and evade police with 3D arcade physics in customized visual themes: Cyberpunk, Sunset, Toxic, Winter, and Noir. Standard controls, original shop features."
+    },
+    {
+      "id": "bouncy-brick-breaker",
+      "gameTitle": "Bouncy Brick Breaker",
+      "gameUrl": "gameDistribution/Bouncy-Brick-Breaker.html",
+      "thumbnailUrl": "game/Bouncy-Brick-Breaker/thumb.png",
+      "categories": [
+        "arcade",
+        "action",
+        "puzzle",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "classic"
+      ],
+      "requiresKeyboard": true,
+      "description": "Play Bouncy Brick Breaker online! Smash your way up by bouncing off bricks, dodging hazards, and collecting awesome power-ups. Break normal, multi-hit, and exploding bricks to climb higher and higher in this arcade-puzzle hybrid."
+    },
+    {
       "id": "wood-blocks",
       "gameTitle": "Wood Block",
       "gameUrl": "gameDistribution/Wood-Blocks.html",
@@ -1003,6 +1039,24 @@
       ],
       "series": "sudoku",
       "description": "Play Daily Sudoku online for free on Epic Games Hub. Solve daily grids, choose your difficulty, and sharpen your math logic skills with this classic brain teaser."
+    },
+    {
+      "id": "mendi",
+      "gameTitle": "Mendicot",
+      "gameUrl": "gameDistribution/Mendi.html",
+      "thumbnailUrl": "game/Mendi/thumb.png",
+      "categories": [
+        "cards",
+        "puzzle",
+        "board",
+        "for you"
+      ],
+      "tags": [
+        "classic",
+        "singleplayer",
+        "hot"
+      ],
+      "description": "Play Mendicot (Mendi) online for free on Epic Games Hub — a traditional Indian card game where you partner with an AI to capture Tens (Mendis) and outsmart opponents."
     }
   ],
   "gameTags": [

@@ -175,6 +175,15 @@ body {
   display: block;
   padding-top: 56.25%; /* 16:9 */
 }
+#game-wrapper.portrait-game {
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+}
+#game-wrapper.portrait-game::before {
+  padding-top: 125%; /* 4:5 aspect ratio */
+}
 #game-frame {
   position: absolute;
   top: 0;
@@ -191,6 +200,7 @@ body {
   padding-top: 0;
   width: 100vw;
   height: 100vh;
+  max-width: none !important; /* Overrides portrait max-width in fullscreen */
 }
 #game-wrapper.fullscreen-mode::before {
   display: none;

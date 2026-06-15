@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en" class="dark">
+
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8278748118891475" crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Epic Games Hub | Bouncy Brick Breaker</title>
+  <meta name="description"
+    content="Play Bouncy Brick Breaker online for free on Epic Games Hub! Bounce off bricks, shatter obstacles, collect power-ups, and climb higher in this neon action game." />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Orbitron:wght@400..900&display=swap"
+    rel="stylesheet" />
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/js/tailwind.config.js"></script>
+  <link href="../assets/css/style.css" rel="stylesheet" />
+  <script src="../assets/js/cookie-consent.js" defer></script>
+</head>
+
+<body class="antialiased selection:bg-primary/30 selection:text-white" data-current-game-id="bouncy-brick-breaker">
+  <!--<< Mouse Cursor Start >>-->
+  <div class="mouse-cursor cursor-outer"></div>
+  <div class="mouse-cursor cursor-inner"></div>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full z-50 glass shadow-md">
+    <div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <!-- Logo -->
+      <a href="../index.html" aria-label="Home" class="flex items-center gap-3 cursor-pointer group shrink-0">
+        <div class="relative w-10 h-10 rounded-full flex items-center justify-center transform transition duration-300  group-hover:scale-110 shadow-lg group-hover:shadow-neon" style="background-color: white;">
+          <img src="../assets/images/logo.png" alt="" style="max-width: 85%; max-height: 85%; object-fit: contain;">
+        </div>
+        <span
+          class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 tracking-tight hidden sm:block">Epic
+          Games Hub</span>
+      </a>
+
+      <!-- Search -->
+      <div class="flex flex-1 max-w-[150px] sm:max-w-sm sm:mx-12 relative">
+        <div class="w-full relative group" id="search-container">
+          <input id="search-input" type="text"
+            class="block w-full pl-6 pr-16 py-2.5 border border-white/10 rounded-2xl leading-5 bg-black/40 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-300 focus:bg-surface shadow-inner relative z-10"
+            placeholder="Search games..." autocomplete="off" />
+          <div class="absolute inset-y-1 right-1 flex items-center z-10">
+            <button
+              class="bg-primary/20 hover:bg-primary/40 text-primary px-3 py-1.5 rounded-xl text-sm font-semibold transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Enhanced Search Dropdown -->
+          <div id="search-dropdown"
+            class="absolute min-w-[290px] top-full right-0 mt-2 bg-surface/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden hidden flex-col max-h-[70vh] z-50">
+            <div id="search-results-container" class="overflow-y-auto no-scrollbar py-2">
+              <div class="text-center py-4 text-gray-400 text-sm">Type to search...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto min-h-screen">
+    <!-- Game Layout: Player + Sidebar -->
+    <div class="flex flex-col xl:flex-row gap-6 mt-4">
+      <!-- LEFT: Game Player Column -->
+      <div class="flex-1 min-w-0">
+        <!-- Game Wrapper -->
+        <div id="game-wrapper" class="portrait-game shadow-2xl shadow-primary/10">
+          <!-- Loading overlay -->
+          <div id="play-overlay" class="absolute inset-0 md:hidden flex items-center justify-center z-20 bg-black/50">
+            <button onclick="startGame()"
+              class="px-8 py-3 rounded-full bg-white text-blue-600 font-bold text-xl shadow-lg hover:scale-105 transition">▶
+              Play</button>
+          </div>
+          <div id="game-loading"
+            class="absolute inset-0 flex flex-col items-center justify-center bg-[#0B0F19] z-10 gap-4">
+            <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-xl shadow-primary/30 mb-2">
+              <img src="../game/Bouncy-Brick-Breaker/thumb.png" alt="Bouncy Brick Breaker" class="w-full h-full object-cover" />
+            </div>
+            <div class="text-white font-bold text-lg">Loading Bouncy Brick Breaker...</div>
+            <div class="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full animate-pulse"
+                style="width: 70%"></div>
+            </div>
+          </div>
+          <iframe id="game-frame" src="../game/Bouncy-Brick-Breaker/index.html" allowfullscreen title="Bouncy Brick Breaker"
+            onload="document.getElementById('game-loading').style.display = 'none'"></iframe>
+        </div>
+
+        <!-- Game Controls Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-2 mt-3 px-1">
+          <div id="game-tags" class="flex items-center gap-2 uppercase"></div>
+          <div class="flex items-center gap-2">
+            <!-- Fullscreen -->
+            <button id="fullscreen-btn" onclick="toggleFullscreen()" title="Fullscreen"
+              class="hidden md:flex items-center gap-1.5 bg-white/5 hover:bg-primary/20 border border-white/10 hover:border-primary/40 text-gray-400 hover:text-white px-3 py-1.5 rounded-xl transition-all text-sm font-semibold">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+              </svg>
+              Fullscreen
+            </button>
+          </div>
+        </div>
+
+        <!-- Game Info -->
+        <div class="mt-6 bg-surface/40 border border-white/5 rounded-2xl p-6 backdrop-blur-sm">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-5">
+            <!-- Thumbnail -->
+            <div
+              class="w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-lg shadow-black/50 border border-white/10">
+              <img src="../game/Bouncy-Brick-Breaker/thumb.png" alt="Bouncy Brick Breaker" class="w-full h-full object-cover" />
+            </div>
+            <!-- Info -->
+            <div class="flex-1">
+              <h1 class="text-2xl sm:text-3xl font-black text-white leading-tight">Bouncy Brick Breaker</h1>
+              <div id="game-categories" class="flex items-center gap-2 mt-2 uppercase"></div>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="border-t border-white/5 pt-3">
+            <div class="mt-6 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+              <div class="rounded-2xl border border-white/8 bg-black/20 p-5">
+                <p class="text-gray-200 leading-relaxed text-sm sm:text-[15px]">
+                  <strong class="text-white">Bouncy Brick Breaker</strong>: Step back into the golden age of gaming with Bouncy Brick Breaker, a premium arcade experience reimagined for modern browser play. Epic Games Hub is proud to host this highly engaging title, offering smooth framerates, retro-inspired mechanics, and instant-play accessibility. There is no need for registration or downloading heavy payloads; the game runs directly in your browser using optimized web technologies. It delivers a satisfying blend of classic gameplay loops and modern visual refinements that appeal to both nostalgic players and casual gamers. The game engine is fully optimized to prevent lag or latency.
+                </p>
+                <p class="mt-3 text-gray-300 leading-relaxed text-sm">
+                  The core loop is fast-paced and highly interactive. Smash your way up by bouncing off bricks, dodging hazards, and collecting awesome power-ups. Break normal, multi-hit, and exploding bricks to climb higher and higher in this arcade-puzzle hybrid. You are challenged to complete increasingly difficult levels, defeat hazards, and set unbeatable high scores. The visual effects are polished with smooth particle streams and glassmorphic UI panels, making the gameplay feel incredibly premium and responsive. Every sound effect and collision feedback is tuned to provide maximum sensory satisfaction, keeping you locked in the zone, focused on targets, and active.
+                </p>
+                <p class="mt-3 text-gray-300 leading-relaxed text-sm">
+                  Mastering Bouncy Brick Breaker requires a combination of sharp coordination and tactical resource management. You must collect power-ups at the right moments, avoid traps, and learn the movement patterns of obstacles. The difficulty curve is carefully calibrated, offering a gentle introduction before ramping up to test your skills. It represents the very best of web-based arcade gaming—fast, fun, and infinitely replayable. Play in fullscreen for optimal accuracy and tracking.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-white/8 bg-gradient-to-br from-primary/12 to-secondary/10 p-5 flex flex-col justify-between">
+                <div>
+                  <h3 class="text-white font-bold text-sm tracking-wide uppercase">Simple Goal</h3>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    Your main goal in Bouncy Brick Breaker is to bounce off platforms and climb upwards while shattering obstacles and avoiding spikes. You must collect items and avoid falling down to keep the session active for as long as possible.
+                  </p>
+                  <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                    To reach the highest scores, focus on grabbing power-ups like lasers to shoot bricks, shields to protect you from falling, and magnets to pull coins. Professional players always look ahead to plan their bounces and prevent early drops.
+                  </p>
+                </div>
+                <div class="border-t border-white/5 pt-3 mt-3">
+                  <span class="text-xs text-gray-400">Reviewer Rating: <strong class="text-primary">4.8/5 Stars</strong></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 grid gap-4 md:grid-cols-2">
+              <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+                <h3 class="text-white font-bold text-base">How to Play</h3>
+                <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                  Use the left/right arrow keys or A/D keyboard letters to steer the ball horizontally. The ball wraps around the edges of the screen, so you can move past the left edge to appear on the right side and vice versa.
+                </p>
+                <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                  Land on bricks to bounce upwards. Normal bricks shatter in one bounce, cracked bricks require two bounces, and exploding bricks blow up adjacent elements. Be careful not to land on spiked bricks, and press Spacebar to fire lasers once collected!
+                </p>
+              </div>
+              <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+                <h3 class="text-white font-bold text-base">Tips for Success</h3>
+                <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                  Avoid spiked bricks at all costs. Landing on a spiked block will result in an instant game over unless you have an active energy shield protecting you. Unbreakable blocks are safe to bounce off but will not yield any points or powerups.
+                </p>
+                <p class="mt-2 text-gray-300 leading-relaxed text-sm">
+                  Use edge wrapping strategically to bypass hard blocks. When lasers are active, hold Spacebar to clear a path of bricks directly above you. Save your shields for high-hazard areas where spikes are crowded together.
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
+                <div class="flex justify-center mb-2 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path d="M8 6h8M8 12h8M8 18h8M5 6h.01M5 12h.01M5 18h.01" stroke-width="1.5"
+                      stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="text-sm font-bold text-white mb-1">Steer</div>
+                <div class="text-xs text-gray-400 font-medium">Arrow Keys / A & D</div>
+              </div>
+              <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
+                <div class="flex justify-center mb-2 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path d="M12 4v16m8-8H4" stroke-width="1.5" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="text-sm font-bold text-white mb-1">Shoot</div>
+                <div class="text-xs text-gray-400 font-medium">Spacebar (Laser Item)</div>
+              </div>
+              <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
+                <div class="flex justify-center mb-2 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path d="M4 8h16M4 16h16M8 4v16M16 4v16" stroke-width="1.5" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="text-sm font-bold text-white mb-1">Break</div>
+                <div class="text-xs text-gray-400 font-medium">Shatter Neon Blocks</div>
+              </div>
+              <div class="bg-black/30 rounded-xl p-3 border border-white/5 text-center">
+                <div class="flex justify-center mb-2 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="1.5" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="text-sm font-bold text-white mb-1">Shield</div>
+                <div class="text-xs text-gray-400 font-medium">Absorb Failures</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Related Games Sidebar -->
+      <div class="xl:w-72 shrink-0">
+        <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          More Games
+        </h2>
+        <div class="space-y-3 gallery-scroll" id="related-games">
+          <!-- Injected via JS -->
+        </div>
+        <a href="../index.html"
+          class="mt-4 flex items-center justify-center gap-2 w-full py-3 bg-primary/10 hover:bg-primary/20 border border-primary/20 hover:border-primary/40 rounded-2xl text-primary font-semibold text-sm transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          Browse All Games
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-black/50 border-t border-white/5 pt-16 pb-8">
+    <div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div class="col-span-1 md:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="relative w-10 h-10 rounded-full flex items-center justify-center transform transition duration-300  group-hover:scale-110 shadow-lg group-hover:shadow-neon" style="background-color: white;">
+              <img src="../assets/images/logo.png" alt="" style="max-width: 85%; max-height: 85%; object-fit: contain;">
+            </div>
+            <span class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 tracking-tight hidden sm:block">Epic Games Hub</span>
+          </div>
+          <p class="text-gray-400 max-w-sm mb-6 leading-relaxed">Epic Games Hub is your ultimate destination for free online games. We test and add new thrilling games daily to keep you entertained without any downloads!</p>
+        </div>
+
+        <div>
+          <h3 class="text-white font-bold mb-4 tracking-wide">About Epic Games Hub</h3>
+          <ul class="space-y-3 text-gray-400 font-medium text-sm">
+            <li><a href="../about.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> About Us</a></li>
+            <li><a href="../blog.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Blog</a></li>
+            <li><a href="../developers.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Developers</a></li>
+            <li><a href="../faq.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> FAQ</a></li>
+            <li><a href="../contact.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Contact us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-white font-bold mb-4 tracking-wide">Legal Information</h3>
+          <ul class="space-y-3 text-gray-400 font-medium text-sm">
+            <li><a href="../privacy.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Privacy Policy</a></li>
+            <li><a href="../terms.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Terms of Service</a></li>
+            <li><a href="../cookie-policy.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Cookie Policy</a></li>
+            <li><a href="../disclaimer.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> Disclaimer</a></li>
+            <li><a href="../gdpr.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> GDPR</a></li>
+            <li><a href="../dmca.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span> DMCA</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between text-sm text-gray-500 font-medium pb-4">
+        <p>&copy; 2026 Epic Games Hub Games. All rights reserved. Games provided under licence. All trademarks belong to their respective owners.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
+  <script src="../common/device.js"></script>
+  <script src="../assets/js/index.js"></script>
+  <script>
+    const gameId = "bouncy-brick-breaker";
+  </script>
+  <script src="../assets/js/gameDistribution.js"></script>
+</body>
+
+</html>

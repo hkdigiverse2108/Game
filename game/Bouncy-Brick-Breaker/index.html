@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8278748118891475"
+    crossorigin="anonymous"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Bouncy Brick Breaker</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <div class="game-wrapper">
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="overlay overlay-loading">
+      <div class="loading-content">
+        <h1 class="logo-neon"><span class="word1">BOUNCY</span><br><span class="word2">BRICK BREAKER</span></h1>
+        <div class="progress-bar-container">
+          <div id="loadingProgress" class="progress-bar"></div>
+        </div>
+        <p class="loading-text">INITIALIZING MATRIX...</p>
+      </div>
+    </div>
+
+    <!-- HUD (Game UI) -->
+    <div class="game-ui">
+      <div class="ui-left">
+        <span class="hud-label">SCORE</span>
+        <span id="scoreEl" class="hud-value">0</span>
+      </div>
+      <div class="ui-center">
+        <!-- Powerups status indicators -->
+        <div id="powerupBadge" class="powerup-badge hidden">LASER Active</div>
+      </div>
+      <div class="ui-right">
+        <span class="hud-label">BEST</span>
+        <span id="highScoreEl" class="hud-value best-value">0</span>
+      </div>
+    </div>
+
+    <!-- Canvas -->
+    <canvas id="gameCanvas" width="480" height="600"></canvas>
+
+    <!-- Mobile Arrow Controls -->
+    <div class="mobile-controls" id="mobileControls">
+      <button type="button" class="ctrl-btn ctrl-left" id="btnLeft" aria-label="Move Left">←</button>
+      <button type="button" class="ctrl-btn ctrl-right" id="btnRight" aria-label="Move Right">→</button>
+    </div>
+
+    <!-- Start Game Overlay -->
+    <div id="startOverlay" class="overlay overlay-start">
+      <h1 class="logo-neon-glow">BOUNCY<br><span class="highlight">BRICK BREAKER</span></h1>
+      <p class="desc">A high-octane vertical physics climber!</p>
+
+      <div class="controls-guide">
+        <p>Use <kbd>←</kbd> <kbd>→</kbd> or <kbd>A</kbd> <kbd>D</kbd> to move left/right</p>
+        <p>Press <kbd>Spacebar</kbd> to fire lasers when collected</p>
+        <p class="mobile-hint">On mobile, tap the arrows below to steer</p>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item"><span class="dot normal"></span> Normal Bricks (1 bounce)</div>
+        <div class="legend-item"><span class="dot cracked"></span> Cracked Bricks (2 bounces)</div>
+        <div class="legend-item"><span class="dot explode"></span> Exploding Bricks (Blows up nearby!)</div>
+        <div class="legend-item"><span class="dot spike"></span> Spiked Hazards (Instant Death!)</div>
+      </div>
+
+      <button type="button" id="startBtn" class="btn-neon">START GAME</button>
+    </div>
+
+    <!-- Game Over Overlay -->
+    <div id="gameOverOverlay" class="overlay overlay-gameover hidden">
+      <h2>SYSTEM OVERLOAD</h2>
+      <p class="sub">The ball has dropped out of bounds.</p>
+      <div class="score-display">
+        <p>SCORE: <span id="finalScoreEl">0</span></p>
+      </div>
+      <button type="button" id="restartBtn" class="btn-neon">RETRY SYSTEM</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
