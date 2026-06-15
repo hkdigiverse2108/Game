@@ -13,6 +13,7 @@
   <script>
     // Intercept deprecated 'unload' events early (Lighthouse/Chrome compliance)
     (function () { var a = window.addEventListener; window.addEventListener = function (t, l, o) { if (t === 'unload') return; return a.apply(this, arguments) }; Object.defineProperty(window, 'onunload', { set: function () { }, get: function () { return null } }) })()
+
   </script>
   <script async src="assets/js/perf-improvements.js"></script>
   <!-- Google Fonts (preload & non-blocking) -->
@@ -28,16 +29,16 @@
   </noscript>
   <!-- Preload LCP Images (CDN version) -->
   <link rel="preload"
-    href="https://wsrv.nl/?url=epicgameshub.com/game/SubwaySurfers-Vegas-Queen/thumb.webp&w=180&h=180&fit=cover&output=webp&q=65"
-    as="image" fetchpriority="high">
-  <link rel="preload"
     href="https://wsrv.nl/?url=epicgameshub.com/game/port-bike-stunt/thumb.webp&w=180&h=180&fit=cover&output=webp&q=65"
     as="image" fetchpriority="high">
   <link rel="preload"
     href="https://wsrv.nl/?url=epicgameshub.com/game/Wood-Blocks/thumb.webp&w=180&h=180&fit=cover&output=webp&q=65"
     as="image" fetchpriority="high">
   <link rel="preload"
-    href="https://wsrv.nl/?url=epicgameshub.com/game/SubwaySurfers/SubwaySurfers.png&w=180&h=180&fit=cover&output=webp&q=65"
+    href="https://wsrv.nl/?url=epicgameshub.com/game/Ludo/thumb.webp&w=180&h=180&fit=cover&output=webp&q=65" as="image"
+    fetchpriority="high">
+  <link rel="preload"
+    href="https://wsrv.nl/?url=epicgameshub.com/game/bottle%20strike/thumb.webp&w=180&h=180&fit=cover&output=webp&q=65"
     as="image" fetchpriority="high">
 
   <!-- Custom Styles & Compiled Tailwind CSS -->
@@ -45,11 +46,7 @@
   <link rel="preload" href="./assets/css/style.css" as="style">
   <link href="./assets/css/tailwind.css" rel="stylesheet" />
   <link href="./assets/css/style.css" rel="stylesheet" />
-</head>
-
-<body class="bg-background text-white antialiased selection:bg-primary/30 selection:text-white">
-  <!--<< Mouse Cursor Start >>-->
-  <div class="mouse-cursor cursor-outer"></div>
+  <script src="assets/js/cookie-consent.js" defer></script>
   <div class="mouse-cursor cursor-inner"></div>
   <!-- Navigation -->
   <nav class="fixed top-0 w-full z-50 glass shadow-md">
@@ -103,62 +100,81 @@
         class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-2.5 overflow-x-auto no-scrollbar flex items-center gap-2 sm:gap-3"
         id="categories-container">
         <!-- Categories pre-rendered for SEO -->
-        <a href="?category=for you" data-id="for you" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            ✨ For You
+        <a href="?category=for you" data-id="for you"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          ✨ For You
         </a>
-        <a href="?category=action" data-id="action" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            🔥 Action
+        <a href="?category=action" data-id="action"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          🔥 Action
         </a>
-        <a href="?category=season" data-id="season" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            🌦️ Season
+        <a href="?category=season" data-id="season"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          🌦️ Season
         </a>
-        <a href="?category=puzzle" data-id="puzzle" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            🧠 Puzzle
+        <a href="?category=puzzle" data-id="puzzle"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          🧠 Puzzle
         </a>
-        <a href="?category=multiplayer" data-id="multiplayer" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            👥 Multiplayer
+        <a href="?category=multiplayer" data-id="multiplayer"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          👥 Multiplayer
         </a>
-        <a href="?category=sports" data-id="sports" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            ⚽ Sports
+        <a href="?category=sports" data-id="sports"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          ⚽ Sports
         </a>
-        <a href="?category=arcade" data-id="arcade" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            🕹️ Arcade
+        <a href="?category=arcade" data-id="arcade"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          🕹️ Arcade
         </a>
-        <a href="?category=runner" data-id="runner" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            🏃 Runner
+        <a href="?category=runner" data-id="runner"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          🏃 Runner
         </a>
-        <a href="?category=pool" data-id="pool" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            🎱 Pool
+        <a href="?category=pool" data-id="pool"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          🎱 Pool
         </a>
-        <a href="?category=board" data-id="board" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            🎲 Board
+        <a href="?category=board" data-id="board"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          🎲 Board
         </a>
-        <a href="?category=music" data-id="music" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            🎵 Music
+        <a href="?category=music" data-id="music"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          🎵 Music
         </a>
-        <a href="?category=racing" data-id="racing" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            🏎️ Racing
+        <a href="?category=racing" data-id="racing"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          🏎️ Racing
         </a>
-        <a href="?category=shooting" data-id="shooting" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            🔫 Shooting
+        <a href="?category=shooting" data-id="shooting"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          🔫 Shooting
         </a>
-        <a href="?category=car" data-id="car" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            🚗 Car
+        <a href="?category=car" data-id="car"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          🚗 Car
         </a>
-        <a href="?category=bike" data-id="bike" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            🏍️ Bike
+        <a href="?category=bike" data-id="bike"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          🏍️ Bike
         </a>
-        <a href="?category=cards" data-id="cards" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            🃏 Cards
+        <a href="?category=cards" data-id="cards"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          🃏 Cards
         </a>
-        <a href="?category=fps" data-id="fps" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            🎯 FPS
+        <a href="?category=fps" data-id="fps"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          🎯 FPS
         </a>
-        <a href="?category=adventure" data-id="adventure" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            🗺️ Adventure
+        <a href="?category=adventure" data-id="adventure"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          🗺️ Adventure
         </a>
-        <a href="?category=escape" data-id="escape" class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
-            🚪 Escape
+        <a href="?category=escape" data-id="escape"
+          class="px-5 py-2 rounded-2xl border font-semibold text-sm whitespace-nowrap transition-all duration-300 bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-white">
+          🚪 Escape
         </a>
       </div>
     </div>
@@ -198,197 +214,329 @@
 
     <div id="game-grid"
       class="grid grid-cols-2 xs:grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-3 sm:gap-4 lg:gap-5 grid-flow-dense">
-      <a href="gameDistribution/SubwaySurfers-Vegas-Queen.html"
-         class="game-card block col-span-1 row-span-1 col-span-2 row-span-2 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
-         style="animation-delay: 0s">
-        <div class="absolute inset-0" style="background: linear-gradient(135deg, hsl(0, 80%, 30%), hsl(60, 80%, 15%))"></div>
-        <img src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FSubwaySurfers-Vegas-Queen%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
-          srcset="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FSubwaySurfers-Vegas-Queen%2Fthumb.webp&w=120&output=webp&q=75 120w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FSubwaySurfers-Vegas-Queen%2Fthumb.webp&w=180&output=webp&q=75 180w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FSubwaySurfers-Vegas-Queen%2Fthumb.webp&w=300&output=webp&q=75 300w"
-          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180" height="180" alt="Subway Surfers Vegas Queen"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]" style="opacity: 0.9;" />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
-        <div class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-          <div class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
-            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">Subway Surfers Vegas Queen</h3>
+      <a href="gameDistribution/Checkers-Legend.html"
+        class="game-card block col-span-1 row-span-1 col-span-2 row-span-2 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
+        style="animation-delay: 0s">
+        <div class="absolute inset-0" style="background: linear-gradient(135deg, hsl(0, 80%, 30%), hsl(60, 80%, 15%))">
+        </div>
+        <img
+          src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FCheckers%20Legend%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
+          srcset="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FCheckers%20Legend%2Fthumb.webp&w=120&output=webp&q=75 120w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FCheckers%20Legend%2Fthumb.webp&w=180&output=webp&q=75 180w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FCheckers%20Legend%2Fthumb.webp&w=300&output=webp&q=75 300w"
+          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180"
+          height="180" alt="Checkers Legend"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]"
+          style="opacity: 0.9;" />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300">
+        </div>
+        <div
+          class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <div
+            class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
+            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">
+              Checkers Legend</h3>
           </div>
         </div>
-        <div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-indigo-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">UPDATE</div>
+        <div
+          class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-indigo-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">
+          CLASSIC</div>
       </a>
-      <a href="gameDistribution/SubwaySurfers.html"
-         class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
-         style="animation-delay: 0.05s">
-        <div class="absolute inset-0" style="background: linear-gradient(135deg, hsl(37, 80%, 30%), hsl(97, 80%, 15%))"></div>
-        <img src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FSubwaySurfers%2FSubwaySurfers.png&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
-          srcset="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FSubwaySurfers%2FSubwaySurfers.png&w=120&output=webp&q=75 120w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FSubwaySurfers%2FSubwaySurfers.png&w=180&output=webp&q=75 180w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FSubwaySurfers%2FSubwaySurfers.png&w=300&output=webp&q=75 300w"
-          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180" height="180" alt="Subway Surfers New York"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]" style="opacity: 0.9;" />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
-        <div class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-          <div class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
-            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">Subway Surfers New York</h3>
+      <a href="gameDistribution/Carrom-Master.html"
+        class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
+        style="animation-delay: 0.05s">
+        <div class="absolute inset-0" style="background: linear-gradient(135deg, hsl(37, 80%, 30%), hsl(97, 80%, 15%))">
+        </div>
+        <img
+          src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fcarrom%20master%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
+          srcset="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fcarrom%20master%2Fthumb.webp&w=120&output=webp&q=75 120w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fcarrom%20master%2Fthumb.webp&w=180&output=webp&q=75 180w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fcarrom%20master%2Fthumb.webp&w=300&output=webp&q=75 300w"
+          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180"
+          height="180" alt="Carrom Master"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]"
+          style="opacity: 0.9;" />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300">
+        </div>
+        <div
+          class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <div
+            class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
+            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">
+              Carrom Master</h3>
           </div>
         </div>
-        <div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-emerald-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">NEW</div>
+        <div
+          class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-emerald-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">
+          MULTIPLAYER</div>
       </a>
       <a href="gameDistribution/Wood-Blocks.html"
-         class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
-         style="animation-delay: 0.1s">
-        <div class="absolute inset-0" style="background: linear-gradient(135deg, hsl(74, 80%, 30%), hsl(134, 80%, 15%))"></div>
-        <img src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FWood-Blocks%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
+        class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
+        style="animation-delay: 0.1s">
+        <div class="absolute inset-0"
+          style="background: linear-gradient(135deg, hsl(74, 80%, 30%), hsl(134, 80%, 15%))"></div>
+        <img
+          src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FWood-Blocks%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
           srcset="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FWood-Blocks%2Fthumb.webp&w=120&output=webp&q=75 120w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FWood-Blocks%2Fthumb.webp&w=180&output=webp&q=75 180w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FWood-Blocks%2Fthumb.webp&w=300&output=webp&q=75 300w"
-          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180" height="180" alt="Wood Block"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]" style="opacity: 0.9;" />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
-        <div class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-          <div class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
-            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">Wood Block</h3>
+          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180"
+          height="180" alt="Wood Block"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]"
+          style="opacity: 0.9;" />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300">
+        </div>
+        <div
+          class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <div
+            class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
+            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">Wood
+              Block</h3>
           </div>
         </div>
-        <div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-indigo-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">UPDATE</div>
+        <div
+          class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-indigo-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">
+          UPDATE</div>
       </a>
       <a href="gameDistribution/JungleKombat.html"
-         class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
-         style="animation-delay: 0.15s">
-        <div class="absolute inset-0" style="background: linear-gradient(135deg, hsl(111, 80%, 30%), hsl(171, 80%, 15%))"></div>
-        <img src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FJungleKombat%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
+        class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
+        style="animation-delay: 0.15s">
+        <div class="absolute inset-0"
+          style="background: linear-gradient(135deg, hsl(111, 80%, 30%), hsl(171, 80%, 15%))"></div>
+        <img
+          src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FJungleKombat%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
           srcset="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FJungleKombat%2Fthumb.webp&w=120&output=webp&q=75 120w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FJungleKombat%2Fthumb.webp&w=180&output=webp&q=75 180w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FJungleKombat%2Fthumb.webp&w=300&output=webp&q=75 300w"
-          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180" height="180" alt="Jungle Kombat"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]" style="opacity: 0.9;" />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
-        <div class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-          <div class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
-            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">Jungle Kombat</h3>
+          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180"
+          height="180" alt="Jungle Kombat"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]"
+          style="opacity: 0.9;" />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300">
+        </div>
+        <div
+          class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <div
+            class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
+            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">
+              Jungle Kombat</h3>
           </div>
         </div>
-        <div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-emerald-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">NEW</div>
+        <div
+          class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-emerald-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">
+          NEW</div>
       </a>
       <a href="gameDistribution/Ludo.html"
-         class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
-         style="animation-delay: 0.2s">
-        <div class="absolute inset-0" style="background: linear-gradient(135deg, hsl(148, 80%, 30%), hsl(208, 80%, 15%))"></div>
-        <img src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FLudo%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
+        class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
+        style="animation-delay: 0.2s">
+        <div class="absolute inset-0"
+          style="background: linear-gradient(135deg, hsl(148, 80%, 30%), hsl(208, 80%, 15%))"></div>
+        <img
+          src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FLudo%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
           srcset="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FLudo%2Fthumb.webp&w=120&output=webp&q=75 120w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FLudo%2Fthumb.webp&w=180&output=webp&q=75 180w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FLudo%2Fthumb.webp&w=300&output=webp&q=75 300w"
-          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180" height="180" alt="Royal Ludo"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]" style="opacity: 0.9;" />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
-        <div class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-          <div class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
-            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">Royal Ludo</h3>
+          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180"
+          height="180" alt="Royal Ludo"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]"
+          style="opacity: 0.9;" />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300">
+        </div>
+        <div
+          class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <div
+            class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
+            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">
+              Royal Ludo</h3>
           </div>
         </div>
-        <div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-red-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">HOT</div>
+        <div
+          class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-red-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">
+          HOT</div>
       </a>
       <a href="gameDistribution/Bottle-Strike.html"
-         class="game-card block col-span-1 row-span-1 col-span-2 row-span-2 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
-         style="animation-delay: 0.25s">
-        <div class="absolute inset-0" style="background: linear-gradient(135deg, hsl(185, 80%, 30%), hsl(245, 80%, 15%))"></div>
-        <img src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fbottle%20strike%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
+        class="game-card block col-span-1 row-span-1 col-span-2 row-span-2 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
+        style="animation-delay: 0.25s">
+        <div class="absolute inset-0"
+          style="background: linear-gradient(135deg, hsl(185, 80%, 30%), hsl(245, 80%, 15%))"></div>
+        <img
+          src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fbottle%20strike%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
           srcset="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fbottle%20strike%2Fthumb.webp&w=120&output=webp&q=75 120w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fbottle%20strike%2Fthumb.webp&w=180&output=webp&q=75 180w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fbottle%20strike%2Fthumb.webp&w=300&output=webp&q=75 300w"
-          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180" height="180" alt="Bottle Strike"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]" style="opacity: 0.9;" />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
-        <div class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-          <div class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
-            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">Bottle Strike</h3>
+          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180"
+          height="180" alt="Bottle Strike"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]"
+          style="opacity: 0.9;" />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300">
+        </div>
+        <div
+          class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <div
+            class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
+            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">
+              Bottle Strike</h3>
           </div>
         </div>
-        <div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-indigo-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">3D</div>
+        <div
+          class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-indigo-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">
+          3D</div>
       </a>
-      <a href="gameDistribution/8BallPool.html"
-         class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
-         style="animation-delay: 0.3s">
-        <div class="absolute inset-0" style="background: linear-gradient(135deg, hsl(222, 80%, 30%), hsl(282, 80%, 15%))"></div>
-        <img src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2F8BallPool%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
-          srcset="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2F8BallPool%2Fthumb.webp&w=120&output=webp&q=75 120w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2F8BallPool%2Fthumb.webp&w=180&output=webp&q=75 180w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2F8BallPool%2Fthumb.webp&w=300&output=webp&q=75 300w"
-          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180" height="180" alt="8 Ball Pool"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]" style="opacity: 0.9;" />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
-        <div class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-          <div class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
-            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">8 Ball Pool</h3>
+      <a href="gameDistribution/Double-Jump.html"
+        class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
+        style="animation-delay: 0.3s">
+        <div class="absolute inset-0"
+          style="background: linear-gradient(135deg, hsl(222, 80%, 30%), hsl(282, 80%, 15%))"></div>
+        <img
+          src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FDouble-Jump%2Fimages%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
+          srcset="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FDouble-Jump%2Fimages%2Fthumb.webp&w=120&output=webp&q=75 120w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FDouble-Jump%2Fimages%2Fthumb.webp&w=180&output=webp&q=75 180w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FDouble-Jump%2Fimages%2Fthumb.webp&w=300&output=webp&q=75 300w"
+          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180"
+          height="180" alt="Double Jump"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]"
+          style="opacity: 0.9;" />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300">
+        </div>
+        <div
+          class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <div
+            class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
+            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">
+              Double Jump</h3>
           </div>
         </div>
-        <div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-indigo-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">3D</div>
+        <div
+          class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-emerald-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">
+          FUN</div>
       </a>
       <a href="gameDistribution/Park-Out.html"
-         class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
-         style="animation-delay: 0.35s">
-        <div class="absolute inset-0" style="background: linear-gradient(135deg, hsl(259, 80%, 30%), hsl(319, 80%, 15%))"></div>
-        <img src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FParkOut%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
+        class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
+        style="animation-delay: 0.35s">
+        <div class="absolute inset-0"
+          style="background: linear-gradient(135deg, hsl(259, 80%, 30%), hsl(319, 80%, 15%))"></div>
+        <img
+          src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FParkOut%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
           srcset="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FParkOut%2Fthumb.webp&w=120&output=webp&q=75 120w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FParkOut%2Fthumb.webp&w=180&output=webp&q=75 180w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FParkOut%2Fthumb.webp&w=300&output=webp&q=75 300w"
-          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180" height="180" alt="Park Out"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]" style="opacity: 0.9;" />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
-        <div class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-          <div class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
-            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">Park Out</h3>
+          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180"
+          height="180" alt="Park Out"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]"
+          style="opacity: 0.9;" />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300">
+        </div>
+        <div
+          class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <div
+            class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
+            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">
+              Park Out</h3>
           </div>
         </div>
-        <div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-emerald-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">NEW</div>
+        <div
+          class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-emerald-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">
+          NEW</div>
       </a>
       <a href="gameDistribution/Monster-Truck-Climb.html"
-         class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
-         style="animation-delay: 0.4s">
-        <div class="absolute inset-0" style="background: linear-gradient(135deg, hsl(296, 80%, 30%), hsl(356, 80%, 15%))"></div>
-        <img src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FMonster%20Truck%20Climb%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
+        class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
+        style="animation-delay: 0.4s">
+        <div class="absolute inset-0"
+          style="background: linear-gradient(135deg, hsl(296, 80%, 30%), hsl(356, 80%, 15%))"></div>
+        <img
+          src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FMonster%20Truck%20Climb%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
           srcset="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FMonster%20Truck%20Climb%2Fthumb.webp&w=120&output=webp&q=75 120w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FMonster%20Truck%20Climb%2Fthumb.webp&w=180&output=webp&q=75 180w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FMonster%20Truck%20Climb%2Fthumb.webp&w=300&output=webp&q=75 300w"
-          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180" height="180" alt="Monster Truck Climb"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]" style="opacity: 0.9;" />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
-        <div class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-          <div class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
-            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">Monster Truck Climb</h3>
+          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180"
+          height="180" alt="Monster Truck Climb"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]"
+          style="opacity: 0.9;" />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300">
+        </div>
+        <div
+          class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <div
+            class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
+            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">
+              Monster Truck Climb</h3>
           </div>
         </div>
-        <div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-emerald-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">NEW</div>
+        <div
+          class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-emerald-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">
+          NEW</div>
       </a>
-      <a href="gameDistribution/Candy-Crush.html"
-         class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
-         style="animation-delay: 0.45s">
-        <div class="absolute inset-0" style="background: linear-gradient(135deg, hsl(333, 80%, 30%), hsl(33, 80%, 15%))"></div>
-        <img src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fcandy%20crush%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
-          srcset="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fcandy%20crush%2Fthumb.webp&w=120&output=webp&q=75 120w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fcandy%20crush%2Fthumb.webp&w=180&output=webp&q=75 180w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fcandy%20crush%2Fthumb.webp&w=300&output=webp&q=75 300w"
-          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180" height="180" alt="Candy Crush"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]" style="opacity: 0.9;" />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
-        <div class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-          <div class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
-            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">Candy Crush</h3>
+      <a href="gameDistribution/TicTacToe.html"
+        class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
+        style="animation-delay: 0.45s">
+        <div class="absolute inset-0"
+          style="background: linear-gradient(135deg, hsl(333, 80%, 30%), hsl(33, 80%, 15%))"></div>
+        <img
+          src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FTicTacToe%2Fimages%2Fthumbnail.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
+          srcset="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FTicTacToe%2Fimages%2Fthumbnail.webp&w=120&output=webp&q=75 120w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FTicTacToe%2Fimages%2Fthumbnail.webp&w=180&output=webp&q=75 180w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2FTicTacToe%2Fimages%2Fthumbnail.webp&w=300&output=webp&q=75 300w"
+          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180"
+          height="180" alt="Tic Tac Toe"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]"
+          style="opacity: 0.9;" />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300">
+        </div>
+        <div
+          class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <div
+            class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
+            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">
+              Tic Tac Toe</h3>
           </div>
         </div>
-        <div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-emerald-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">NEW</div>
+        <div
+          class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-red-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">
+          HOT</div>
       </a>
       <a href="gameDistribution/Port-Bike-Stunt.html"
-         class="game-card block col-span-1 row-span-1 col-span-2 row-span-2 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
-         style="animation-delay: 0.5s">
-        <div class="absolute inset-0" style="background: linear-gradient(135deg, hsl(10, 80%, 30%), hsl(70, 80%, 15%))"></div>
-        <img src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fport-bike-stunt%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
+        class="game-card block col-span-1 row-span-1 col-span-2 row-span-2 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
+        style="animation-delay: 0.5s">
+        <div class="absolute inset-0" style="background: linear-gradient(135deg, hsl(10, 80%, 30%), hsl(70, 80%, 15%))">
+        </div>
+        <img
+          src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fport-bike-stunt%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
           srcset="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fport-bike-stunt%2Fthumb.webp&w=120&output=webp&q=75 120w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fport-bike-stunt%2Fthumb.webp&w=180&output=webp&q=75 180w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fport-bike-stunt%2Fthumb.webp&w=300&output=webp&q=75 300w"
-          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180" height="180" alt="Port Bike Stunt"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]" style="opacity: 0.9;" />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
-        <div class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-          <div class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
-            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">Port Bike Stunt</h3>
+          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180"
+          height="180" alt="Port Bike Stunt"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]"
+          style="opacity: 0.9;" />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300">
+        </div>
+        <div
+          class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <div
+            class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
+            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">
+              Port Bike Stunt</h3>
           </div>
         </div>
-        <div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-emerald-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">NEW</div>
+        <div
+          class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-emerald-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">
+          NEW</div>
       </a>
       <a href="gameDistribution/Bubble-Tower.html"
-         class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
-         style="animation-delay: 0.55s">
-        <div class="absolute inset-0" style="background: linear-gradient(135deg, hsl(47, 80%, 30%), hsl(107, 80%, 15%))"></div>
-        <img src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fbubble%20tower%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
+        class="game-card block col-span-1 row-span-1 col-span-1 row-span-1 aspect-square group relative rounded-[1.5rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-neon transition-all duration-300 hover:z-10"
+        style="animation-delay: 0.55s">
+        <div class="absolute inset-0"
+          style="background: linear-gradient(135deg, hsl(47, 80%, 30%), hsl(107, 80%, 15%))"></div>
+        <img
+          src="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fbubble%20tower%2Fthumb.webp&w=180&h=180&fit=cover&output=webp&q=75&dpr=2"
           srcset="https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fbubble%20tower%2Fthumb.webp&w=120&output=webp&q=75 120w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fbubble%20tower%2Fthumb.webp&w=180&output=webp&q=75 180w, https://wsrv.nl/?url=https%3A%2F%2Fepicgameshub.com%2Fgame%2Fbubble%20tower%2Fthumb.webp&w=300&output=webp&q=75 300w"
-          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180" height="180" alt="Bubble Tower"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]" style="opacity: 0.9;" />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300"></div>
-        <div class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-          <div class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
-            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">Bubble Tower</h3>
+          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 300px" fetchpriority="high" width="180"
+          height="180" alt="Bubble Tower"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.12]"
+          style="opacity: 0.9;" />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300">
+        </div>
+        <div
+          class="absolute bottom-0 left-0 w-full p-4 sm:p-5 transform translate-y-3 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <div
+            class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 pointer-events-none">
+            <h3 class="text-white font-bold text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight truncate">
+              Bubble Tower</h3>
           </div>
         </div>
-        <div class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-emerald-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">NEW</div>
+        <div
+          class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-emerald-700 text-white text-[9px] sm:text-[10px] font-extrabold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20 tracking-wider">
+          NEW</div>
       </a>
     </div>
     <!-- Load More -->
@@ -416,12 +564,14 @@
           </h2>
           <p class="text-gray-400 text-lg leading-relaxed mb-6">
             Welcome to <strong>Epic Games Hub</strong>, your premier portal for the most exciting and high-quality
-            browser games on the web. We understand that gamers want instant access to their favorite titles without the
+            browser games on the web. We understand that gamers want instant access to their favorite titles without
+            the
             hassle of long downloads, complex installations, or intrusive login requirements. That's why we've built a
             platform that prioritizes speed, variety, and pure entertainment.
           </p>
           <p class="text-gray-400 text-lg leading-relaxed mb-6">
-            Our dedicated team of gaming enthusiasts hand-picks every title in our library, ensuring that you only play
+            Our dedicated team of gaming enthusiasts hand-picks every title in our library, ensuring that you only
+            play
             the best. From high-octane racing simulations and strategic puzzles to immersive multiplayer battlefields,
             our collection is designed to cater to every taste and skill level. Whether you have five minutes for a
             quick break or five hours for a deep gaming session, we have the perfect game waiting for you.
@@ -434,7 +584,8 @@
             </div>
             <div class="bg-surface/30 p-6 rounded-2xl border border-white/5 shadow-inner">
               <h3 class="text-white font-bold text-xl mb-2">Daily Updates</h3>
-              <p class="text-gray-500 text-sm">New games added every single day to keep your gaming experience fresh and
+              <p class="text-gray-500 text-sm">New games added every single day to keep your gaming experience fresh
+                and
                 exciting.</p>
             </div>
           </div>
@@ -444,7 +595,8 @@
             class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200">
           </div>
           <div class="relative bg-surface rounded-[2rem] border border-white/10 overflow-hidden p-6 sm:p-10">
-            <h3 class="text-2xl font-black text-white mb-4 italic tracking-wider uppercase">Explore Our Categories</h3>
+            <h3 class="text-2xl font-black text-white mb-4 italic tracking-wider uppercase">Explore Our Categories
+            </h3>
             <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6">
               <li class="flex items-start gap-4">
                 <span
@@ -481,7 +633,8 @@
                 </span>
                 <div>
                   <h4 class="text-white font-bold">Racing & Driving</h4>
-                  <p class="text-gray-500 text-sm">Feel the speed with realistic physics and stunning 3D graphics in our
+                  <p class="text-gray-500 text-sm">Feel the speed with realistic physics and stunning 3D graphics in
+                    our
                     driving sims.</p>
                 </div>
               </li>
@@ -501,17 +654,22 @@
         <p class="text-gray-400 leading-relaxed mb-6">
           Browser-based gaming has evolved significantly over the last decade. With the advent of technologies like
           WebGL and WebAssembly, developers can now deliver console-quality experiences directly through standard web
-          browsers. This eliminates the barrier of entry for many players, as there's no need for expensive hardware or
+          browsers. This eliminates the barrier of entry for many players, as there's no need for expensive hardware
+          or
           large storage space. At Epic Games Hub, we leverage these advancements to provide a seamless transition from
           clicking to playing, ensuring that the fun starts the moment you land on our site.
         </p>
         <h2 class="text-2xl font-bold text-white mb-4">Featured Game of the Month</h2>
         <p class="text-gray-400 leading-relaxed mb-6">
-          Our latest top pick is <strong>Subway Surfers Vegas Queen</strong>. This dynamic endless runner combines incredible 3D visuals with tight, responsive controls. You'll navigate a beautifully rendered cityscape while dodging obstacles and collecting power-ups. It's the perfect example of how far HTML5 gaming has come, offering an experience that rivals native applications directly in your browser. Give it a try and see if you can beat the high score!
+          Our latest top pick is <strong>Wood Block</strong>. This modern, beautifully designed block blast puzzle game combines spatial challenge with relaxing strategic gameplay. Arrange blocks to clear complete rows and columns, planning each move carefully to keep your board clean and set massive combo scores. It's the perfect way to test your spatial reasoning and unwind directly in your browser!
         </p>
         <h2 class="text-2xl font-bold text-white mb-4">A Vast Library of Genres</h2>
         <p class="text-gray-400 leading-relaxed mb-6">
-          Whether you are looking for high-octane <strong>racing games</strong>, brain-teasing <strong>puzzle games</strong>, or fast-paced <strong>action games</strong>, our platform has something for everyone. We carefully curate our collection to ensure that every title meets our strict quality standards. We add new games weekly, so there's always a fresh challenge waiting for you. Dive into our categories above and discover your next favorite game today.
+          Whether you are looking for high-octane <strong>racing games</strong>, brain-teasing <strong>puzzle
+            games</strong>, or fast-paced <strong>action games</strong>, our platform has something for everyone. We
+          carefully curate our collection to ensure that every title meets our strict quality standards. We add new
+          games weekly, so there's always a fresh challenge waiting for you. Dive into our categories above and
+          discover your next favorite game today.
         </p>
       </div>
     </section>
@@ -527,7 +685,7 @@
             <div
               class="relative w-10 h-10 rounded-full flex items-center justify-center transform transition duration-300  group-hover:scale-110 shadow-lg group-hover:shadow-neon"
               style="background-color: white;">
-              <img src="../assets/images/logo.png" alt="" style="max-width: 85%; max-height: 85%; object-fit: contain;">
+              <img src="assets/images/logo.png" alt="" style="max-width: 85%; max-height: 85%; object-fit: contain;">
             </div>
             <span
               class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 tracking-tight hidden sm:block">Epic
@@ -537,19 +695,13 @@
             online games. We test and add new thrilling games daily to keep you entertained without any downloads!</p>
           <div class="flex gap-4">
             <!-- Socials -->
-            <a href="#" aria-label="Facebook"
+            <a href="https://www.facebook.com/epicgameshubgames" target="_blank" rel="noopener" aria-label="Facebook"
               class="w-10 h-10 rounded-full bg-white/5 hover:bg-primary border border-white/5 hover:border-primary/50 flex items-center justify-center text-gray-400 hover:text-white transition-all shadow-lg">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                  d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-              </svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
             </a>
-            <a href="#" aria-label="Twitter"
+            <a href="https://www.instagram.com/epicgameshubgames" target="_blank" rel="noopener" aria-label="Instagram"
               class="w-10 h-10 rounded-full bg-white/5 hover:bg-secondary border border-white/5 hover:border-secondary/50 flex items-center justify-center text-gray-400 hover:text-white transition-all shadow-lg">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-              </svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
             </a>
           </div>
         </div>
@@ -560,6 +712,10 @@
             <li>
               <a href="about.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span>
                 About Us</a>
+            </li>
+            <li>
+              <a href="blog.html" class="hover:text-primary transition-colors flex items-center gap-2"><span>•</span>
+                Blog</a>
             </li>
             <li>
               <a href="developers.html"
@@ -610,7 +766,8 @@
 
       <div
         class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between text-sm text-gray-400 font-medium pb-4">
-        <p>&copy; 2026 Epic Games Hub Games. All rights reserved.</p>
+        <p>&copy; 2026 Epic Games Hub Games. All rights reserved. Games provided under licence via Game Distribution.
+          All trademarks belong to their respective owners.</p>
         <div class="flex items-center gap-4 mt-4 md:mt-0">
           <span class="hover:text-white transition-colors cursor-pointer"></span>
         </div>
@@ -621,6 +778,6 @@
   <!-- Logic Script Linked Externally -->
   <script src="common/device.js" defer></script>
   <script src="assets/js/index.js" defer></script>
-</body>
+  </body>
 
 </html>

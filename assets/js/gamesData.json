@@ -80,31 +80,20 @@
   ],
   "gameTitles": [
     {
-      "id": "subway-surfers-vegas-queen",
-      "gameTitle": "Subway Surfers Vegas Queen",
-      "gameUrl": "gameDistribution/SubwaySurfers-Vegas-Queen.html",
-      "thumbnailUrl": "game/SubwaySurfers-Vegas-Queen/thumb.webp",
-      "categories": ["action", "arcade", "runner", "season", "adventure", "for you"],
-      "tags": ["update", "hot", "trending"],
-      "series": "subway-surfers",
-      "description": "Play Subway Surfers Vegas Queen online and run through the bright city tracks, dodge fast trains, collect coins, and stay ahead of the guard. Use quick lane changes, clean jumps, and smart power-up timing to keep your run going and beat your best score."
-    },
-    {
-      "id": "subway-surfers-new-york",
-      "gameTitle": "Subway Surfers New York",
-      "gameUrl": "gameDistribution/SubwaySurfers.html",
-      "thumbnailUrl": "game/SubwaySurfers/SubwaySurfers.png",
-      "categories": ["action", "arcade", "runner", "for you", "season"],
-      "tags": ["new", "hot", "trending"],
-      "series": "subway-surfers"
-    },
-    {
       "id": "wood-blocks",
       "gameTitle": "Wood Block",
       "gameUrl": "gameDistribution/Wood-Blocks.html",
       "thumbnailUrl": "game/Wood-Blocks/thumb.webp",
-      "categories": ["puzzle", "arcade", "season", "for you"],
-      "tags": ["update", "classic"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "season",
+        "for you"
+      ],
+      "tags": [
+        "update",
+        "classic"
+      ],
       "series": "block-blast",
       "description": "Play Wood Block online as Block Blast Part 2 and place wooden pieces carefully to clear rows and columns. Keep the board open, avoid small gaps, and think one move ahead so the puzzle stays manageable."
     },
@@ -113,42 +102,64 @@
       "gameTitle": "Jungle Kombat",
       "gameUrl": "gameDistribution/JungleKombat.html",
       "thumbnailUrl": "game/JungleKombat/thumb.webp",
-      "categories": ["action", "arcade", "for you"],
-      "tags": ["new", "3d"]
+      "categories": [
+        "action",
+        "arcade",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "3d"
+      ]
     },
     {
       "id": "royal-ludo",
       "gameTitle": "Royal Ludo",
       "gameUrl": "gameDistribution/Ludo.html",
       "thumbnailUrl": "game/Ludo/thumb.webp",
-      "categories": ["board", "multiplayer", "for you"],
-      "tags": ["hot"]
+      "categories": [
+        "board",
+        "multiplayer",
+        "for you"
+      ],
+      "tags": [
+        "hot"
+      ]
     },
     {
       "id": "bottle-strike",
       "gameTitle": "Bottle Strike",
       "gameUrl": "gameDistribution/Bottle-Strike.html",
       "thumbnailUrl": "game/bottle strike/thumb.webp",
-      "categories": ["arcade", "sports", "season", "for you"],
-      "tags": ["3d", "new"],
+      "categories": [
+        "arcade",
+        "sports",
+        "season",
+        "for you"
+      ],
+      "tags": [
+        "3d",
+        "new"
+      ],
       "series": "bowling",
       "description": "Experience the thrill of precision and timing in Bottle Strike! Test your skills as you aim and strike bottles in a realistic 3D bowling alley. Enjoy accurate physics, beautiful graphics, and easy-to-use controls for endless fun."
-    },
-    {
-      "id": "8-ball-pool",
-      "gameTitle": "8 Ball Pool",
-      "gameUrl": "gameDistribution/8BallPool.html",
-      "thumbnailUrl": "game/8BallPool/thumb.webp",
-      "categories": ["sports", "multiplayer", "pool", "for you"],
-      "tags": ["3d", "update"]
     },
     {
       "id": "park-out",
       "gameTitle": "Park Out",
       "gameUrl": "gameDistribution/Park-Out.html",
       "thumbnailUrl": "game/ParkOut/thumb.webp",
-      "categories": ["racing", "action", "season", "car", "for you"],
-      "tags": ["new", "classic"],
+      "categories": [
+        "racing",
+        "action",
+        "season",
+        "car",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "classic"
+      ],
       "series": "car-parking",
       "description": "Play Park Out online as Car Parking Part 2 and solve crowded parking jams by moving the right cars in the right order. Clear a path, free the blocked vehicle, and think ahead so you can open the lot with the fewest moves possible."
     },
@@ -157,27 +168,34 @@
       "gameTitle": "Monster Truck Climb",
       "gameUrl": "gameDistribution/Monster-Truck-Climb.html",
       "thumbnailUrl": "game/Monster Truck Climb/thumb.webp",
-      "categories": ["racing", "action", "car", "for you"],
-      "tags": ["new", "3d"],
+      "categories": [
+        "racing",
+        "action",
+        "car",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "3d"
+      ],
       "description": "Play Monster Truck Climb online and drive a huge truck over steep hills, rough ramps, and tricky obstacles. Balance your speed, keep the wheels steady, and use careful timing to reach the finish without flipping over."
     },
     {
-      "id": "candy-crush",
-      "gameTitle": "Candy Crush",
-      "gameUrl": "gameDistribution/Candy-Crush.html",
-      "thumbnailUrl": "game/candy crush/thumb.webp",
-      "categories": ["puzzle", "arcade", "season", "for you"],
-      "tags": ["new", "classic"],
-      "series": "match-games",
-      "description": "Play Candy Crush online and match colorful candies to clear the board, build combos, and complete each level with smart moves. Create special pieces, trigger chain reactions, and plan ahead to beat tougher layouts."
-    },
-      {
       "id": "port-bike-stunt",
       "gameTitle": "Port Bike Stunt",
       "gameUrl": "gameDistribution/Port-Bike-Stunt.html",
       "thumbnailUrl": "game/port-bike-stunt/thumb.webp",
-      "categories": ["racing", "action", "arcade", "bike", "for you"],
-      "tags": ["new", "3d"],
+      "categories": [
+        "racing",
+        "action",
+        "arcade",
+        "bike",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "3d"
+      ],
       "series": "bike-stunt",
       "requiresKeyboard": true,
       "description": "Play Port Bike Stunt online and perform dangerous stunts on your motorbike across challenging tracks. Master tight turns, land jumps perfectly, and perform wild tricks to earn high scores. Collect power-ups and unlock new bikes as you progress through increasingly difficult levels."
@@ -187,8 +205,15 @@
       "gameTitle": "Bubble Tower",
       "gameUrl": "gameDistribution/Bubble-Tower.html",
       "thumbnailUrl": "game/bubble tower/thumb.webp",
-      "categories": ["puzzle", "arcade", "for you"],
-      "tags": ["new", "classic"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "classic"
+      ],
       "description": "Play Bubble Tower online and clear the stack by matching and shooting bubbles with careful aim. Build long combos, watch the tower collapse, and plan each shot so you do not leave awkward colors behind."
     },
     {
@@ -196,8 +221,16 @@
       "gameTitle": "Moving Truck",
       "gameUrl": "gameDistribution/Moving-Truck.html",
       "thumbnailUrl": "game/moving-truck/thumb.webp",
-      "categories": ["racing", "action", "car", "for you"],
-      "tags": ["new", "3d"],
+      "categories": [
+        "racing",
+        "action",
+        "car",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "3d"
+      ],
       "description": "Play Moving Truck online and guide a heavy truck through tight roads, steep ramps, and uneven turns while keeping your cargo under control. Smooth braking, careful steering, and steady balance are the keys to reaching the finish without losing momentum."
     },
     {
@@ -205,8 +238,16 @@
       "gameTitle": "Checkers Legend",
       "gameUrl": "gameDistribution/Checkers-Legend.html",
       "thumbnailUrl": "game/Checkers Legend/thumb.webp",
-      "categories": ["board", "puzzle", "multiplayer", "for you"],
-      "tags": ["classic", "multiplayer"],
+      "categories": [
+        "board",
+        "puzzle",
+        "multiplayer",
+        "for you"
+      ],
+      "tags": [
+        "classic",
+        "multiplayer"
+      ],
       "description": "Play Checkers Legend online and enjoy the classic board game with a clean digital twist. Move diagonally, jump over enemy pieces, crown your checkers, and use careful strategy to trap the AI or another player."
     },
     {
@@ -214,8 +255,15 @@
       "gameTitle": "Bouncy Woods",
       "gameUrl": "gameDistribution/Bouncy-Woods.html",
       "thumbnailUrl": "game/Bouncy-Woods/thumb.webp",
-      "categories": ["puzzle", "arcade", "for you"],
-      "tags": ["new", "classic"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "classic"
+      ],
       "description": "Play Bouncy Woods online and clear the forest board with smart shots, careful angles, and steady timing. Match the layout, trigger chain reactions, and keep the screen under control before the field fills up."
     },
     {
@@ -223,8 +271,18 @@
       "gameTitle": "Arcane Archer",
       "gameUrl": "gameDistribution/Arcane-Archer.html",
       "thumbnailUrl": "game/Arcane Archer/thumb.webp",
-      "categories": ["action", "arcade", "for you", "shooting", "fps", "adventure"],
-      "tags": ["new", "3d"],
+      "categories": [
+        "action",
+        "arcade",
+        "for you",
+        "shooting",
+        "fps",
+        "adventure"
+      ],
+      "tags": [
+        "new",
+        "3d"
+      ],
       "series": "arcane-archer",
       "description": "Play Arcane Archer online and aim magical shots at enemies and targets with simple, careful timing. Watch the distance, release at the right moment, and use clean shots to clear each stage."
     },
@@ -233,35 +291,33 @@
       "gameTitle": "Crazy Cars",
       "gameUrl": "gameDistribution/Crazy-Cars.html",
       "thumbnailUrl": "game/Crazy Cars/thumb.webp",
-      "categories": ["racing", "action", "arcade", "for you"],
+      "categories": [
+        "racing",
+        "action",
+        "arcade",
+        "for you"
+      ],
       "requiresKeyboard": true,
-      "tags": ["new", "3d"],
+      "tags": [
+        "new",
+        "3d"
+      ],
       "description": "Play Crazy Cars online and race in action-packed vehicle battles with custom cars, power-ups, and special abilities. Drive hard, handle sharp corners, and use every boost or hit at the right moment to stay ahead of the pack."
-    },
-    {
-      "id": "football-strike",
-      "gameTitle": "Football Strike",
-      "gameUrl": "gameDistribution/Football-Strike.html",
-      "thumbnailUrl": "game/Football Strike/thumb.webp",
-      "categories": ["sports", "multiplayer", "action", "for you"],
-      "tags": ["hot", "multiplayer", "3d"],
-      "description": "Play Football Strike online and jump into fast free-kick face-offs where timing and placement decide every round. Aim your shots, build your striker and goalkeeper, and move through career challenges or online matches to climb the ranks."
-    },
-    {
-      "id": "fruit-ninja",
-      "gameTitle": "Fruit Ninja",
-      "gameUrl": "gameDistribution/FruitNinja.html",
-      "thumbnailUrl": "game/FruitNinja/FruitNinja.webp",
-      "categories": ["arcade", "action", "for you"],
-      "tags": ["update", "pro"]
     },
     {
       "id": "double-jump",
       "gameTitle": "Double Jump",
       "gameUrl": "gameDistribution/Double-Jump.html",
       "thumbnailUrl": "game/Double-Jump/images/thumb.webp",
-      "categories": ["arcade", "action", "for you"],
-      "tags": ["new", "fun"],
+      "categories": [
+        "arcade",
+        "action",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "fun"
+      ],
       "description": "Bounce higher and higher in Double Jump! Control your character, land on platforms, and use double jumps to reach new heights. Colorful visuals and smooth controls make this an exciting challenge for all ages."
     },
     {
@@ -269,8 +325,18 @@
       "gameTitle": "Escape Road",
       "gameUrl": "gameDistribution/Escape-Road.html",
       "thumbnailUrl": "game/Escape-road/thumb.webp",
-      "categories": ["arcade", "runner", "for you", "racing", "escape", "car"],
-      "tags": ["hot", "new"],
+      "categories": [
+        "arcade",
+        "runner",
+        "for you",
+        "racing",
+        "escape",
+        "car"
+      ],
+      "tags": [
+        "hot",
+        "new"
+      ],
       "description": "Navigate tricky roads and avoid obstacles in Escape Road! Guide your car through challenging tracks, react quickly, and see how far you can go. Simple controls and addictive gameplay make this a must-play for fans of endless runners."
     },
     {
@@ -278,8 +344,15 @@
       "gameTitle": "2048 NumStack",
       "gameUrl": "gameDistribution/2048-NumStack.html",
       "thumbnailUrl": "game/2048-NumStack/thumb.webp",
-      "categories": ["puzzle", "arcade", "for you"],
-      "tags": ["new", "classic"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "classic"
+      ],
       "description": "Slide matching number tiles together in 2048 NumStack and build your way up to the 2048 tile. Plan each move carefully, protect open space on the board, and keep the merges coming."
     },
     {
@@ -287,8 +360,15 @@
       "gameTitle": "Carrom Master",
       "gameUrl": "gameDistribution/Carrom-Master.html",
       "thumbnailUrl": "game/carrom master/thumb.webp",
-      "categories": ["board", "multiplayer", "for you"],
-      "tags": ["classic", "multiplayer"],
+      "categories": [
+        "board",
+        "multiplayer",
+        "for you"
+      ],
+      "tags": [
+        "classic",
+        "multiplayer"
+      ],
       "description": "Play Carrom Master online and enjoy a smooth browser version of the classic carrom board game. Aim the striker, control your power, pocket your coins cleanly, and try to clear the board before your opponent."
     },
     {
@@ -296,8 +376,15 @@
       "gameTitle": "Water Sort Puzzle",
       "gameUrl": "gameDistribution/Water-Sort-Puzzle.html",
       "thumbnailUrl": "game/water-sort-puzzle/thumb.webp",
-      "categories": ["puzzle", "arcade", "season", "for you"],
-      "tags": ["update"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "season",
+        "for you"
+      ],
+      "tags": [
+        "update"
+      ],
       "series": "ball-sort"
     },
     {
@@ -305,16 +392,30 @@
       "gameTitle": "Spacecraft",
       "gameUrl": "gameDistribution/Spacecraft.html",
       "thumbnailUrl": "game/Spacecraft/images/thumb.webp",
-      "categories": ["runner", "arcade", "for you"],
-      "tags": ["hot", "new"]
+      "categories": [
+        "runner",
+        "arcade",
+        "for you"
+      ],
+      "tags": [
+        "hot",
+        "new"
+      ]
     },
     {
       "id": "dinosaurs-merge-master",
       "gameTitle": "Dinosaurs Merge Master",
       "gameUrl": "gameDistribution/Dinosaurs-Merge-Master.html",
       "thumbnailUrl": "game/Dinosaurs-Merge-Master/thumb.webp",
-      "categories": ["puzzle", "arcade", "for you"],
-      "tags": ["3d", "classic"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "for you"
+      ],
+      "tags": [
+        "3d",
+        "classic"
+      ],
       "description": "Play Dinosaurs Merge Master online and combine matching dinosaurs to grow stronger creatures. Place each dinosaur carefully, make smart merges, keep the board open, and plan ahead so you can reach the next dinosaur before the space runs out."
     },
     {
@@ -322,40 +423,62 @@
       "gameTitle": "Tic Tac Toe",
       "gameUrl": "gameDistribution/TicTacToe.html",
       "thumbnailUrl": "game/TicTacToe/images/thumbnail.webp",
-      "categories": ["board", "puzzle", "multiplayer", "for you"],
-      "tags": ["hot", "new"]
+      "categories": [
+        "board",
+        "puzzle",
+        "multiplayer",
+        "for you"
+      ],
+      "tags": [
+        "hot",
+        "new"
+      ]
     },
     {
       "id": "breakout",
       "gameTitle": "Breakout",
       "gameUrl": "gameDistribution/Breakout.html",
       "thumbnailUrl": "game/Breakout/img/thumb.webp",
-      "categories": ["arcade", "action", "puzzle", "for you"],
-      "tags": ["new"]
-    },
-    {
-      "id": "angry-birds",
-      "gameTitle": "Angry Birds",
-      "gameUrl": "gameDistribution/AngryBirds.html",
-      "thumbnailUrl": "game/AngryBirds/thumb.webp",
-      "categories": ["action", "arcade", "puzzle", "season" , "for you"],
-      "tags": ["hot", "classic"]
+      "categories": [
+        "arcade",
+        "action",
+        "puzzle",
+        "for you"
+      ],
+      "tags": [
+        "new"
+      ]
     },
     {
       "id": "piano",
       "gameTitle": "Piano",
       "gameUrl": "gameDistribution/Piano.html",
       "thumbnailUrl": "game/Piano/src/images/thumb.webp",
-      "categories": ["arcade", "music", "for you"],
-      "tags": ["hot", "new"]
+      "categories": [
+        "arcade",
+        "music",
+        "for you"
+      ],
+      "tags": [
+        "hot",
+        "new"
+      ]
     },
     {
       "id": "stick-merge",
       "gameTitle": "Stick Merge",
       "gameUrl": "gameDistribution/Stick-Master.html",
       "thumbnailUrl": "game/Stick-Merge/thumb.webp",
-      "categories": ["action", "arcade", "for you", "shooting"],
-      "tags": ["hot", "classic"],
+      "categories": [
+        "action",
+        "arcade",
+        "for you",
+        "shooting"
+      ],
+      "tags": [
+        "hot",
+        "classic"
+      ],
       "description": "Play Stick Master online and combine matching stick fighters and weapons to build a stronger team. Merge smartly, upgrade your units, and survive longer as each wave becomes harder to handle."
     },
     {
@@ -363,8 +486,16 @@
       "gameTitle": "Block Blast",
       "gameUrl": "gameDistribution/BlockBlast.html",
       "thumbnailUrl": "game/BlockBlast/BlockBlast.webp",
-      "categories": ["puzzle", "arcade", "for you", "season"],
-      "tags": ["hot", "new"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "for you",
+        "season"
+      ],
+      "tags": [
+        "hot",
+        "new"
+      ],
       "series": "block-blast"
     },
     {
@@ -372,24 +503,30 @@
       "gameTitle": "Snack and Apple",
       "gameUrl": "gameDistribution/Snack-And-Apple.html",
       "thumbnailUrl": "game/Snack_And_Apple/images/thumb.webp",
-      "categories": ["arcade", "action", "for you"],
-      "tags": ["fun"]
-    },
-    {
-      "id": "slither-io",
-      "gameTitle": "Slither.io",
-      "gameUrl": "gameDistribution/Slither.html",
-      "thumbnailUrl": "game/Slither.io/thumb.webp",
-      "categories": ["action", "multiplayer", "arcade", "for you"],
-      "tags": ["hot", "multiplayer"]
+      "categories": [
+        "arcade",
+        "action",
+        "for you"
+      ],
+      "tags": [
+        "fun"
+      ]
     },
     {
       "id": "car-parking",
       "gameTitle": "Car Parking",
       "gameUrl": "gameDistribution/CarParking.html",
       "thumbnailUrl": "game/carparking/images/thumb.webp",
-      "categories": ["racing", "action", "season", "for you"],
-      "tags": ["new", "3d"],
+      "categories": [
+        "racing",
+        "action",
+        "season",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "3d"
+      ],
       "series": "car-parking"
     },
     {
@@ -397,8 +534,17 @@
       "gameTitle": "Infinite Soccer",
       "gameUrl": "gameDistribution/Infinite-Soccer.html",
       "thumbnailUrl": "game/Infinite Soccer/thumb.webp",
-      "categories": ["sports", "arcade", "runner", "action", "for you"],
-      "tags": ["new", "3d"],
+      "categories": [
+        "sports",
+        "arcade",
+        "runner",
+        "action",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "3d"
+      ],
       "description": "Play Infinite Soccer online and sprint through an obstacle-filled training run as a soccer player in training. Dodge ramps, dummies, and hazards, jump or slide at the right moment, collect the letters to unlock Turbo, and reach the goal for the biggest coin multiplier."
     },
     {
@@ -406,8 +552,17 @@
       "gameTitle": "3D Bowling",
       "gameUrl": "gameDistribution/3D-Bowling.html",
       "thumbnailUrl": "game/3D Bowling/thumb.webp",
-      "categories": ["sports", "multiplayer", "arcade", "season", "for you"],
-      "tags": ["3d", "classic"],
+      "categories": [
+        "sports",
+        "multiplayer",
+        "arcade",
+        "season",
+        "for you"
+      ],
+      "tags": [
+        "3d",
+        "classic"
+      ],
       "series": "bowling",
       "description": "Play 3D Bowling online and enjoy a polished ten-pin bowling challenge with realistic lanes and simple swipe controls. Line up each roll, add spin when you need it, and aim for strikes and spares in solo or versus modes."
     },
@@ -416,8 +571,16 @@
       "gameTitle": "Adam And Eve 5 - part 1",
       "gameUrl": "gameDistribution/Adam-And-Eve-5-Part-1.html",
       "thumbnailUrl": "game/Adam And Eve 5 - part 1/thumb.webp",
-      "categories": ["puzzle", "arcade", "season", "for you"],
-      "tags": ["classic", "update"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "season",
+        "for you"
+      ],
+      "tags": [
+        "classic",
+        "update"
+      ],
       "series": "adam-and-eve",
       "description": "Play Adam And Eve 5 - part 1 online and solve funny point-and-click puzzles as Adam explores prehistoric scenes. Tap objects in the right order, spot hidden interactions, and use logic to clear each obstacle."
     },
@@ -426,8 +589,16 @@
       "gameTitle": "Adam And Eve 5 - part 2",
       "gameUrl": "gameDistribution/Adam-And-Eve-5-Part-2.html",
       "thumbnailUrl": "game/Adam And Eve 5 - part 2/thumb.webp",
-      "categories": ["puzzle", "arcade", "season", "for you"],
-      "tags": ["update", "classic"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "season",
+        "for you"
+      ],
+      "tags": [
+        "update",
+        "classic"
+      ],
       "series": "adam-and-eve",
       "description": "Play Adam And Eve 5 - part 2 online and continue Adam's puzzle adventure with new scenes and trickier interactions. Combine timing and observation to unlock paths and reach the next area."
     },
@@ -436,8 +607,16 @@
       "gameTitle": "Adam And Eve 6",
       "gameUrl": "gameDistribution/Adam-And-Eve-6.html",
       "thumbnailUrl": "game/Adam And Eve 6/thumb.webp",
-      "categories": ["puzzle", "arcade", "season", "for you"],
-      "tags": ["new", "classic"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "season",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "classic"
+      ],
       "series": "adam-and-eve",
       "description": "Play Adam And Eve 6 online and guide Adam through more point-and-click puzzle moments filled with humor and clever object chains. Explore each stage carefully and trigger actions in the best order to progress."
     },
@@ -446,8 +625,17 @@
       "gameTitle": "Eggy Car",
       "gameUrl": "gameDistribution/Eggy-Car.html",
       "thumbnailUrl": "game/Eggy Car/thumb.webp",
-      "categories": ["racing", "arcade", "action", "season", "for you"],
-      "tags": ["new", "hot"],
+      "categories": [
+        "racing",
+        "arcade",
+        "action",
+        "season",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "hot"
+      ],
       "description": "Play Eggy Car online and balance a fragile egg on top of your vehicle while driving across bumpy hills and steep drops. Use careful throttle control, collect coins for upgrades, and see how far you can go before the egg falls."
     },
     {
@@ -455,9 +643,18 @@
       "gameTitle": "Money Movers",
       "gameUrl": "gameDistribution/Money-Movers.html",
       "thumbnailUrl": "game/Money Movers/thumb.webp",
-      "categories": ["action", "puzzle", "season", "for you", "escape"],
+      "categories": [
+        "action",
+        "puzzle",
+        "season",
+        "for you",
+        "escape"
+      ],
       "requiresKeyboard": true,
-      "tags": ["classic", "update"],
+      "tags": [
+        "classic",
+        "update"
+      ],
       "series": "money-movers",
       "description": "Play Money Movers online and control two brothers through prison escape puzzles filled with switches, doors, and timed traps. Coordinate both characters carefully, collect cash bags, and reach the exit together to clear each level."
     },
@@ -466,9 +663,18 @@
       "gameTitle": "Money Movers 2",
       "gameUrl": "gameDistribution/Money-Movers-2.html",
       "thumbnailUrl": "game/Money Movers 2/thumb.webp",
-      "categories": ["action", "puzzle", "season", "for you", "escape"],
+      "categories": [
+        "action",
+        "puzzle",
+        "season",
+        "for you",
+        "escape"
+      ],
       "requiresKeyboard": true,
-      "tags": ["update", "hot"],
+      "tags": [
+        "update",
+        "hot"
+      ],
       "series": "money-movers",
       "description": "Play Money Movers 2 online and solve co-op style prison puzzles with two characters, each with different speed and strength. Use teamwork, timing, and smart switch control to open paths, avoid guards, and finish every stage."
     },
@@ -477,9 +683,18 @@
       "gameTitle": "Money Movers 3",
       "gameUrl": "gameDistribution/Money-Movers-3.html",
       "thumbnailUrl": "game/Money Movers 3/thumb.webp",
-      "categories": ["action", "puzzle", "season", "for you", "escape"],
+      "categories": [
+        "action",
+        "puzzle",
+        "season",
+        "for you",
+        "escape"
+      ],
       "requiresKeyboard": true,
-      "tags": ["new", "classic"],
+      "tags": [
+        "new",
+        "classic"
+      ],
       "series": "money-movers",
       "description": "Play Money Movers 3 online and continue the heist puzzle adventure with trickier levels, tighter timing, and new obstacles. Move both characters in sync, trigger mechanisms in order, and escape each stage with all cash collected."
     },
@@ -488,17 +703,35 @@
       "gameTitle": "Mutazone",
       "gameUrl": "gameDistribution/Mutazone.html",
       "thumbnailUrl": "game/Muta zone/thumb.webp",
-      "categories": ["action", "arcade", "shooting", "fps", "for you"],
-      "tags": ["new", "3d"],
+      "categories": [
+        "action",
+        "arcade",
+        "shooting",
+        "fps",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "3d"
+      ],
       "description": "Play Mutazone online and survive fast enemy waves in a chaotic action arena. Keep moving, aim quickly, and use smart timing to stay alive and push your score higher."
     },
-        {
+    {
       "id": "endless-truck",
       "gameTitle": "Endless Truck",
       "gameUrl": "gameDistribution/Endless-Truck.html",
       "thumbnailUrl": "game/Endless Truck/thumb.webp",
-      "categories": ["racing", "arcade", "action", "car", "for you"],
-      "tags": ["new", "3d"],
+      "categories": [
+        "racing",
+        "arcade",
+        "action",
+        "car",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "3d"
+      ],
       "description": "Play Endless Truck online and drive across rough endless roads while collecting boosts and rewards. Control speed, keep your truck balanced, and see how far you can go before the run ends."
     },
     {
@@ -506,8 +739,17 @@
       "gameTitle": "Hide And Smash",
       "gameUrl": "gameDistribution/Hide-And-Smash.html",
       "thumbnailUrl": "game/Hide And Smash/thumb.webp",
-      "categories": ["action", "arcade", "multiplayer", "fps", "for you"],
-      "tags": ["new", "3d"],
+      "categories": [
+        "action",
+        "arcade",
+        "multiplayer",
+        "fps",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "3d"
+      ],
       "description": "Play Hide And Smash online and outplay opponents with smart positioning, fast reactions, and well-timed attacks. Hide, strike at the right moment, and keep adapting to the map to win each round."
     },
     {
@@ -515,8 +757,16 @@
       "gameTitle": "Farm Match Seasons",
       "gameUrl": "gameDistribution/Farm-Match-Seasons.html",
       "thumbnailUrl": "game/Farm Match Seasons/thumb.webp",
-      "categories": ["puzzle", "arcade", "season", "for you"],
-      "tags": ["update", "classic"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "season",
+        "for you"
+      ],
+      "tags": [
+        "update",
+        "classic"
+      ],
       "series": "match-games",
       "description": "Play Farm Match Seasons online and harvest crops by matching seasonal items on a vibrant farm. Progress through different seasons, complete farm objectives, and unlock rewards as you master each level with strategic matching and careful planning."
     },
@@ -525,77 +775,69 @@
       "gameTitle": "Jewels Blitz",
       "gameUrl": "gameDistribution/Jewels-Blitz.html",
       "thumbnailUrl": "game/Jewels Blitz/thumb.webp",
-      "categories": ["puzzle", "arcade", "season", "for you"],
-      "tags": ["new", "classic"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "season",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "classic"
+      ],
       "series": "match-games",
       "description": "Play Jewels Blitz online and match glittering gems in this fast-paced puzzle game. Switch gems to create powerful combos, unlock special abilities, and master increasingly challenging levels in this high-octane jewel-matching adventure."
     },
-    {
-      "id": "temple-run",
-      "gameTitle": "Temple Run",
-      "gameUrl": "gameDistribution/Temple-Run.html",
-      "thumbnailUrl": "game/temple-run/thumb.webp",
-      "categories": ["action", "arcade", "runner","for you"],
-      "tags": ["hot", "classic"],
-      "series": "temple-run",
-      "description": "Play Temple Run online and sprint through an ancient temple while fleeing from a powerful guardian. Dash, jump, slide, and turn to dodge obstacles and collect coins. Master quick reflexes and grab power-ups to keep your run going and set new records."
-    },
-  
     {
       "id": "ultimate-car",
       "gameTitle": "Ultimate Car",
       "gameUrl": "gameDistribution/Ultimate-Car.html",
       "thumbnailUrl": "game/ultimate-car/images/thumb.webp",
-      "categories": ["racing", "action", "car", "for you"],
-      "tags": ["new", "3d"]
+      "categories": [
+        "racing",
+        "action",
+        "car",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "3d"
+      ]
     },
-
     {
       "id": "super-bike-the-champion",
       "gameTitle": "Super Bike The Champion",
       "gameUrl": "gameDistribution/Super-Bike-The-Champion.html",
       "thumbnailUrl": "game/super-bike-the-champion/thumb.webp",
-      "categories": ["racing", "sports", "action", "bike", "for you"],
-      "tags": ["new", "3d"],
+      "categories": [
+        "racing",
+        "sports",
+        "action",
+        "bike",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "3d"
+      ],
       "series": "bike-racing",
       "requiresKeyboard": true,
       "description": "Play Super Bike The Champion online and compete in thrilling motorcycle races against opponents. Race through various tracks, upgrade your bike with performance enhancements, and become the ultimate champion. Use strategic acceleration and perfect your cornering to dominate each race."
-    },
-    {
-      "id": "stupid-zombies",
-      "gameTitle": "Stupid Zombies",
-      "gameUrl": "gameDistribution/Stupid-Zombies.html",
-      "thumbnailUrl": "game/stupid-zombies/thumb.webp",
-      "categories": ["action", "arcade", "shooting", "fps", "for you"],
-      "tags": ["hot", "fun"],
-      "description": "Play Stupid Zombies online and aim your shots carefully to eliminate waves of goofy zombies. Use limited ammunition wisely, ricoche bullets off walls, and solve each puzzle level by eliminating all zombies. Master physics-based gameplay with strategic planning and creative shot angles."
-    },
-    {
-      "id": "angry-birds-2",
-      "gameTitle": "Angry Birds 2",
-      "gameUrl": "gameDistribution/Angry-Birds-2.html",
-      "thumbnailUrl": "game/angry birds 2/thumb.webp",
-      "categories": ["action", "arcade", "puzzle", "season", "for you"],
-      "tags": ["update", "hot"],
-      "series": "angry-birds",
-      "description": "Play Angry Birds 2 online and experience the next level of physics-based puzzle action. Launch powerful birds at elaborate pig fortresses, trigger epic chain reactions, and enjoy new mechanics with the flock leader system. Master over 100+ levels with dynamic challenges and stunning visuals."
-    },
-    {
-      "id": "uno",
-      "gameTitle": "UNO",
-      "gameUrl": "gameDistribution/Uno.html",
-      "thumbnailUrl": "game/uno/thumb.webp",
-      "categories": ["cards", "multiplayer", "board", "for you"],
-      "tags": ["new", "classic"],
-      "description": "Play UNO online — match colors or numbers, play special cards to change the flow, and be the first to get rid of all your cards. Great for quick multiplayer matches with friends or random players."
     },
     {
       "id": "solitaire",
       "gameTitle": "Solitaire",
       "gameUrl": "gameDistribution/Solitaire.html",
       "thumbnailUrl": "game/Solitaire/thumb.webp",
-      "categories": ["cards", "puzzle", "for you"],
-      "tags": ["classic", "singleplayer"],
+      "categories": [
+        "cards",
+        "puzzle",
+        "for you"
+      ],
+      "tags": [
+        "classic",
+        "singleplayer"
+      ],
       "description": "Solitaire is a single-player card game. Your goal is to move all cards to four foundation piles by suit from Ace to King. Build tableau columns by placing cards in descending order and alternating colors. Use the draw pile when you have no moves. Try to reveal and move every hidden card until all cards are in the foundation."
     },
     {
@@ -603,16 +845,32 @@
       "gameTitle": "Rod Multiplayer",
       "gameUrl": "gameDistribution/Rod-Multiplayer.html",
       "thumbnailUrl": "game/ROD Multiplayer Car Driving/thumb.webp",
-      "categories": ["multiplayer", "action", "for you" , "car" , "racing"],
-      "tags": ["multiplayer", "hot"],
-      "description": "Play Rod Multiplayer online — join quick matches with other players, compete in fast rounds, and use simple controls to score points. Team up or face off in short, competitive sessions for quick fun."     },
+      "categories": [
+        "multiplayer",
+        "action",
+        "for you",
+        "car",
+        "racing"
+      ],
+      "tags": [
+        "multiplayer",
+        "hot"
+      ],
+      "description": "Play Rod Multiplayer online — join quick matches with other players, compete in fast rounds, and use simple controls to score points. Team up or face off in short, competitive sessions for quick fun."
+    },
     {
       "id": "idle-farming-business",
       "gameTitle": "Idle Farming Business",
       "gameUrl": "gameDistribution/Idle-Farming-Business.html",
       "thumbnailUrl": "game/Idle_Farming_Business/thumb.webp",
-      "categories": ["puzzle", "arcade", "for you"],
-      "tags": [ "classic"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "for you"
+      ],
+      "tags": [
+        "classic"
+      ],
       "series": "farming",
       "description": "Play Idle Farming Business online and build your agricultural empire. Plant crops, manage your farm, and watch your business grow. Upgrade facilities, hire workers, and unlock new features as you progress. Perfect for relaxing gameplay with strategic depth."
     },
@@ -621,8 +879,15 @@
       "gameTitle": "Monster Truck Contest",
       "gameUrl": "gameDistribution/Monster-Truck-Contest.html",
       "thumbnailUrl": "game/Monster_Truck_Contest/thumb.webp",
-      "categories": ["racing", "action", "car", "for you"],
-      "tags": [ "3d"],
+      "categories": [
+        "racing",
+        "action",
+        "car",
+        "for you"
+      ],
+      "tags": [
+        "3d"
+      ],
       "series": "monster-truck",
       "description": "Play Monster Truck Contest online and compete in thrilling monster truck races and stunts. Perform incredible jumps, crush obstacles, and dominate the competition. Upgrade your truck with powerful enhancements and become the ultimate monster truck champion."
     },
@@ -631,8 +896,14 @@
       "gameTitle": "OvO Dimensions",
       "gameUrl": "gameDistribution/OvO-Dimensions.html",
       "thumbnailUrl": "game/Ovo Dimensions/thumb.webp",
-      "categories": ["puzzle", "arcade", "for you"],
-      "tags": ["new"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "for you"
+      ],
+      "tags": [
+        "new"
+      ],
       "description": "Play OvO Dimensions online and navigate through colorful 3D puzzle levels filled with challenging obstacles and creative platforming challenges. Use smart timing and precise movement to collect items and complete each world. Master different dimensions and unlock new abilities as you progress through increasingly difficult stages."
     },
     {
@@ -640,9 +911,15 @@
       "gameTitle": "Down The Hill",
       "gameUrl": "gameDistribution/Down-The-Hill.html",
       "thumbnailUrl": "game/Down The Hill/thumb.webp",
-      "categories": ["racing", "escape", "for you"],
+      "categories": [
+        "racing",
+        "escape",
+        "for you"
+      ],
       "requiresKeyboard": true,
-      "tags": ["new"],
+      "tags": [
+        "new"
+      ],
       "description": "Play Down The Hill online and race your vehicle down steep mountain roads at high speed. Dodge obstacles, collect coins, and perform daring stunts as you speed downhill. Control your vehicle carefully to avoid crashes and achieve the longest run possible while beating your best score."
     },
     {
@@ -650,8 +927,15 @@
       "gameTitle": "Ball Sort Halloween",
       "gameUrl": "gameDistribution/Ball-Sort-Halloween.html",
       "thumbnailUrl": "game/Ball Sort Halloween/thumb.webp",
-      "categories": ["puzzle", "arcade", "season", "for you"],
-      "tags": ["new"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "season",
+        "for you"
+      ],
+      "tags": [
+        "new"
+      ],
       "series": "ball-sort",
       "description": "Play Ball Sort Halloween online and sort colorful Halloween-themed balls into matching containers. Use strategy to arrange balls correctly by color, complete each level puzzle, and unlock spooky new challenges. Challenge your brain with increasingly complex ball arrangements and special Halloween surprises."
     },
@@ -660,8 +944,15 @@
       "gameTitle": "Blumgi Slime",
       "gameUrl": "gameDistribution/Blumgi-Slime.html",
       "thumbnailUrl": "game/Blumgi Slime/thumb.png",
-      "categories": ["puzzle", "arcade", "for you"],
-      "tags": ["new", "fun"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "fun"
+      ],
       "description": "Play Blumgi Slime online and help adorable slime creatures reach their goals in creative puzzle levels. Tap and drag to move the slimes, solve tricky obstacles, and use clever timing to complete each challenging stage. Master the physics-based mechanics and unlock new slime characters as you progress through increasingly difficult puzzles."
     },
     {
@@ -669,8 +960,15 @@
       "gameTitle": "Idle Mining Empire",
       "gameUrl": "gameDistribution/Idle-Mining-Empire.html",
       "thumbnailUrl": "game/Idle Mining Empire/thumb.png",
-      "categories": ["puzzle", "arcade", "for you"],
-      "tags": ["new", "idle"],
+      "categories": [
+        "puzzle",
+        "arcade",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "idle"
+      ],
       "description": "Play Idle Mining Empire online and build your mining operation from the ground up. Dig deeper, discover valuable resources, and manage your mining empire as it grows. Upgrade equipment, unlock new areas, and watch your profits soar as you progress. Perfect for strategic idle gameplay with endless upgrades and achievements."
     },
     {
@@ -678,10 +976,26 @@
       "gameTitle": "Stickman Dragon Fight",
       "gameUrl": "gameDistribution/Stickman-Dragon.html",
       "thumbnailUrl": "game/Stickman Dragon/thumb.png",
-      "categories": ["action", "fighting", "arcade", "for you"],
-      "tags": ["new", "combat"],
+      "categories": [
+        "action",
+        "fighting",
+        "arcade",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "combat"
+      ],
       "description": "Play Stickman Dragon Fight online and engage in intense stick figure battles against powerful dragons. Master fighting combos, dodge incoming attacks, and defeat increasingly challenging opponents. Use special abilities and power-ups to survive epic dragon encounters and become the ultimate stickman warrior."
     }
   ],
-  "gameTags": ["hot", "new", "3d", "pro", "update", "classic", "multiplayer"]
+  "gameTags": [
+    "hot",
+    "new",
+    "3d",
+    "pro",
+    "update",
+    "classic",
+    "multiplayer"
+  ]
 }
