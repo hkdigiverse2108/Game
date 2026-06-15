@@ -9,7 +9,9 @@ const newGame = {
   title: "Daily Sudoku",
   id: "daily-sudoku",
   folderName: "Daily-Sudoku", // Case matches local paths
-  category: "puzzle",
+  categories: ["puzzle", "for you"], // <--- Array of categories!
+  tags: ["classic", "brain"], // <--- Array of tags!
+  series: "sudoku",
   embedUrl: "https://html5.gamedistribution.com/dd9701cd84da40699cdc404645f29c1f/?gd_sdk_referrer_url=https://epicgameshub.com/gameDistribution/Daily-Sudoku.html",
   thumbnailUrl: "https://img.gamedistribution.com/dd9701cd84da40699cdc404645f29c1f-512x512.jpg",
   description: "Play Daily Sudoku online for free on Epic Games Hub. Solve daily grids, choose your difficulty, and sharpen your math logic skills with this classic brain teaser.",
@@ -203,25 +205,26 @@ async function run() {
   if (fs.existsSync(gamesDataPath)) {
     const data = JSON.parse(fs.readFileSync(gamesDataPath, 'utf8'));
     
-    // Check for duplicate
-    const exists = data.gameTitles.some(g => g.id === newGame.id);
-    if (!exists) {
-      const entry = {
-        id: newGame.id,
-        gameTitle: newGame.title,
-        gameUrl: `gameDistribution/${newGame.folderName}.html`,
-        thumbnailUrl: `game/${newGame.folderName}/thumb.jpg`,
-        categories: newGame.categories,
-        tags: newGame.tags,
-        series: newGame.series,
-        description: newGame.description
-      };
-      data.gameTitles.push(entry);
-      fs.writeFileSync(gamesDataPath, JSON.stringify(data, null, 2), 'utf8');
-      console.log(`- Registered game in gamesData.json.`);
+    const entry = {
+      id: newGame.id,
+      gameTitle: newGame.title,
+      gameUrl: `gameDistribution/${newGame.folderName}.html`,
+      thumbnailUrl: `game/${newGame.folderName}/thumb.jpg`,
+      categories: newGame.categories,
+      tags: newGame.tags,
+      series: newGame.series,
+      description: newGame.description
+    };
+    
+    const existingIndex = data.gameTitles.findIndex(g => g.id === newGame.id);
+    if (existingIndex !== -1) {
+      data.gameTitles[existingIndex] = entry;
+      console.log(`- Updated existing game entry in gamesData.json.`);
     } else {
-      console.log(`- Game already registered in gamesData.json.`);
+      data.gameTitles.push(entry);
+      console.log(`- Registered new game in gamesData.json.`);
     }
+    fs.writeFileSync(gamesDataPath, JSON.stringify(data, null, 2), 'utf8');
   }
 
   // 4. Update sitemap.xml
