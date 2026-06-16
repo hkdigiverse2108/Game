@@ -813,31 +813,123 @@ html, body {
   background-color: #ffffff;
   color: #000000;
   border: 1px solid #d0d0d0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 8px;
+  position: absolute;
+  border-radius: 8px;
   transform: rotateY(0deg);
   z-index: 2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.card-front::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 5px;
+  pointer-events: none;
 }
 
 .card-corner {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1;
+}
+
+.card-corner.top {
+  top: 4px;
+  left: 5px;
 }
 
 .card-corner.bottom {
+  bottom: 4px;
+  right: 5px;
   transform: rotate(180deg);
 }
 
-.card-center-suit {
-  font-size: 32px;
-  align-self: center;
+.card-corner span {
+  display: block;
+}
+
+.card-corner span:last-child {
+  font-size: 8px;
+  margin-top: 1px;
+}
+
+/* Dynamic Card Center Layout */
+.card-center {
+  position: absolute;
+  top: 22px;
+  left: 16px;
+  right: 16px;
+  bottom: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Ace Layout */
+.center-suit-large {
+  font-size: 34px;
   line-height: 1;
+  filter: drop-shadow(0 1.5px 2px rgba(0, 0, 0, 0.18));
+}
+
+/* Face Card Court Layout */
+.court-card {
+  border: 1px dashed rgba(212, 175, 55, 0.4);
+  background: rgba(212, 175, 55, 0.05);
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.court-art {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.court-symbol {
+  font-size: 22px;
+  color: #d4af37; /* Royal Gold */
+  filter: drop-shadow(0 1.5px 2px rgba(0,0,0,0.2));
+}
+
+/* Numbered Card Pips Grid */
+.pips-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  justify-items: center;
+  align-items: center;
+}
+
+.pip {
+  font-size: 9px;
+  line-height: 1;
+}
+
+.pip.rotate-180 {
+  transform: rotate(180deg);
 }
 
 .card-front.hearts, .card-front.diamonds {

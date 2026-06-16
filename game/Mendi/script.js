@@ -655,6 +655,63 @@
     }, 350);
   }
 
+  const pipPositions = {
+    2: [[1,2], [5,2]],
+    3: [[1,2], [3,2], [5,2]],
+    4: [[1,1], [1,3], [5,1], [5,3]],
+    5: [[1,1], [1,3], [3,2], [5,1], [5,3]],
+    6: [[1,1], [1,3], [3,1], [3,3], [5,1], [5,3]],
+    7: [[1,1], [1,3], [2,2], [3,1], [3,3], [5,1], [5,3]],
+    8: [[1,1], [1,3], [2,2], [3,1], [3,3], [4,2], [5,1], [5,3]],
+    9: [[1,1], [1,3], [2,1], [2,3], [3,2], [4,1], [4,3], [5,1], [5,3]],
+    10: [[1,1], [1,3], [2,2], [2,1], [2,3], [4,1], [4,3], [4,2], [5,1], [5,3]]
+  };
+
+  function getCardFrontHTML(card) {
+    let centerHTML = "";
+    if (card.value === 14) { // Ace
+      centerHTML = `<div class="card-center ace"><span class="center-suit-large">${card.symbol}</span></div>`;
+    } else if (card.value >= 11 && card.value <= 13) { // Jack, Queen, King
+      let courtIcon = "⚔️"; // Jack
+      if (card.value === 12) courtIcon = "👑"; // Queen
+      if (card.value === 13) courtIcon = "👑"; // King
+      centerHTML = `
+        <div class="card-center court-card">
+          <div class="court-art">
+            <span class="court-symbol">${courtIcon}</span>
+          </div>
+        </div>
+      `;
+    } else { // Numbered cards
+      const pips = pipPositions[card.value] || [];
+      centerHTML = `<div class="card-center pips-grid">`;
+      for (let r = 1; r <= 5; r++) {
+        for (let c = 1; c <= 3; c++) {
+          const hasPip = pips.some(p => p[0] === r && p[1] === c);
+          if (hasPip) {
+            const rotateClass = (r > 3 || (r === 3 && c === 2 && card.value === 3)) ? "rotate-180" : "";
+            centerHTML += `<span class="pip ${rotateClass}">${card.symbol}</span>`;
+          } else {
+            centerHTML += `<span></span>`;
+          }
+        }
+      }
+      centerHTML += `</div>`;
+    }
+
+    return `
+      <div class="card-corner top">
+        <span>${card.name}</span>
+        <span>${card.symbol}</span>
+      </div>
+      ${centerHTML}
+      <div class="card-corner bottom">
+        <span>${card.name}</span>
+        <span>${card.symbol}</span>
+      </div>
+    `;
+  }
+
   function renderPlayerHand(cardsToHide = null) {
     // Add/remove not-my-turn class based on state
     if (state.turn === PLAYER_HUMAN && 
@@ -744,17 +801,7 @@
 
       const front = document.createElement("div");
       front.className = `card-front ${card.suit}`;
-      front.innerHTML = `
-        <div class="card-corner top">
-          <span>${card.name}</span>
-          <span>${card.symbol}</span>
-        </div>
-        <div class="card-center-suit">${card.symbol}</div>
-        <div class="card-corner bottom">
-          <span>${card.name}</span>
-          <span>${card.symbol}</span>
-        </div>
-      `;
+      front.innerHTML = getCardFrontHTML(card);
 
       const back = document.createElement("div");
       back.className = "card-back";
@@ -933,17 +980,7 @@
 
     const front = document.createElement("div");
     front.className = `card-front ${cardToPlay.suit}`;
-    front.innerHTML = `
-      <div class="card-corner top">
-        <span>${cardToPlay.name}</span>
-        <span>${cardToPlay.symbol}</span>
-      </div>
-      <div class="card-center-suit">${cardToPlay.symbol}</div>
-      <div class="card-corner bottom">
-        <span>${cardToPlay.name}</span>
-        <span>${cardToPlay.symbol}</span>
-      </div>
-    `;
+    front.innerHTML = getCardFrontHTML(cardToPlay);
 
     const back = document.createElement("div");
     back.className = "card-back";
