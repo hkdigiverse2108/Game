@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Invaders</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="game">
+      <canvas id="gameCanvas"></canvas>
+
+      <!-- Mobile Controls -->
+      <div id="mobileControls" class="mobile-controls-overlay">
+        <button id="btnLeft" class="mobile-btn">◀</button>
+        <button id="btnFire" class="mobile-btn fire">💥</button>
+        <button id="btnRight" class="mobile-btn">▶</button>
+      </div>
+
+      <audio
+        src="./audio/bgMusic.mp3"
+        type="audio/mpeg"
+        id="backgroundMusic"
+        loop
+      ></audio>
+      <audio src="./audio/laser.mp3" type="audio/mpeg" id="laser"></audio>
+      <audio
+        src="./audio/explosion.mp3"
+        type="audio/mpeg"
+        id="explosion"
+      ></audio>
+      <audio src="./audio/victory.mp3" type="audio/mpeg" id="victory"></audio>
+
+      <p class="score-display">Score: <span id="scoreEl">0</span></p>
+      <p class="level-display">Level: <span id="levelEl">0</span></p>
+
+      <div id="leaderboard" class="leaderboard">
+        <div class="leaderboard-title">LEADERBOARD (Top 10):</div>
+        <ol id="leaderboardList" class="leaderboard-list"></ol>
+        <button id="clearLB" class="clear-lb-btn">CLEAR LB</button>
+      </div>
+
+      <div id="saveBackdrop" class="save-backdrop"></div>
+      <div id="saveScoreUI" class="save-score-ui">
+        <div class="final-score-display">
+          NEW SCORE: <span id="finalScore">0</span>
+        </div>
+        <label for="playerName" class="player-name-label">Your name</label>
+        <input id="playerName" class="player-name-input" maxlength="12" />
+        <button id="saveScoreBtn" class="save-score-btn">SAVE SCORE</button>
+      </div>
+
+      <div id="controlsHint" class="controls-hint">
+        <p>How to play:</p>
+        <div class="control">
+          <span class="keycap">A</span>
+          <span class="keycap">←</span>
+          <span class="keycap">D</span>
+          <span class="keycap">→</span>
+          <span class="action">Move</span>
+        </div>
+        <div class="control">
+          <span class="keycap">Space</span>
+          <span class="action">Shoot</span>
+        </div>
+      </div>
+
+      <button id="start" class="start-btn">START GAME</button>
+      <p id="gameOver" class="game-over-text">GAME OVER</p>
+
+      <p id="nextLevel" class="next-level-text">NEXT LEVEL</p>
+      <p id="nextLevelPoints" class="next-level-points">+500 pts</p>
+
+      <p id="shield" class="shield">SHIELD ACTIVATED</p>
+      <p id="ptsMultiplier" class="ptsMultiplier">2X MULTIPLIER ACTIVATED</p>
+
+      <button
+        id="gameOverBtn"
+        class="game-over-btn"
+        onclick="window.location.href='index.html'"
+      >
+        RETRY
+      </button>
+    </div>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
