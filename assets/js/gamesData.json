@@ -376,22 +376,6 @@
       "description": "Navigate tricky roads and avoid obstacles in Escape Road! Guide your car through challenging tracks, react quickly, and see how far you can go. Simple controls and addictive gameplay make this a must-play for fans of endless runners."
     },
     {
-      "id": "2048-numstack",
-      "gameTitle": "2048 NumStack",
-      "gameUrl": "gameDistribution/2048-NumStack.html",
-      "thumbnailUrl": "game/2048-NumStack/thumb.webp",
-      "categories": [
-        "puzzle",
-        "arcade",
-        "for you"
-      ],
-      "tags": [
-        "new",
-        "classic"
-      ],
-      "description": "Slide matching number tiles together in 2048 NumStack and build your way up to the 2048 tile. Plan each move carefully, protect open space on the board, and keep the merges coming."
-    },
-    {
       "id": "carrom-master",
       "gameTitle": "Carrom Master",
       "gameUrl": "gameDistribution/Carrom-Master.html",
@@ -1057,6 +1041,169 @@
         "hot"
       ],
       "description": "Play Mendicot (Mendi) online for free on Epic Games Hub — a traditional Indian card game where you partner with an AI to capture Tens (Mendis) and outsmart opponents."
+    },
+    {
+      "id": "hextris",
+      "gameTitle": "Hextris",
+      "gameUrl": "gameDistribution/Hextris.html",
+      "thumbnailUrl": "game/hextris/thumb.png",
+      "categories": [
+        "puzzle",
+        "arcade",
+        "for you"
+      ],
+      "tags": [
+        "classic",
+        "hot",
+        "new"
+      ],
+      "description": "Play Hextris online for free on Epic Games Hub! Rotate the central hexagon, stack falling blocks, match three of the same color, and prevent blocks from reaching the outer gray limits in this highly addictive puzzle challenge."
+    },
+    {
+      "id": "clumsy-bird",
+      "gameTitle": "Clumsy Bird",
+      "gameUrl": "gameDistribution/Clumsy-Bird.html",
+      "thumbnailUrl": "game/clumsy-bird/thumb.png",
+      "categories": [
+        "arcade",
+        "runner",
+        "for you"
+      ],
+      "tags": [
+        "classic",
+        "new"
+      ],
+      "description": "Play Clumsy Bird online for free on Epic Games Hub! Tap the screen or press the spacebar to flap the wings, guide the clumsy bird safely through the pipes, and avoid touching the obstacles in this fun flappy retro arcade clone."
+    },
+    {
+      "id": "0hh1",
+      "gameTitle": "Oh hi",
+      "gameUrl": "gameDistribution/Oh-Hi.html",
+      "thumbnailUrl": "game/0hh1/thumb.png",
+      "categories": [
+        "puzzle",
+        "board",
+        "for you"
+      ],
+      "tags": [
+        "classic",
+        "new"
+      ],
+      "description": "Play Oh hi (0hh1) online for free on Epic Games Hub! Fill the grid with red and blue tiles so that no three consecutive tiles share a color, each row and column contains equal numbers of each color, and all rows/columns are unique."
+    },
+    {
+      "id": "blackjack",
+      "gameTitle": "Blackjack",
+      "gameUrl": "gameDistribution/Blackjack.html",
+      "thumbnailUrl": "game/blackjack/thumb.png",
+      "categories": [
+        "cards",
+        "for you"
+      ],
+      "tags": [
+        "classic",
+        "new"
+      ],
+      "description": "Play Blackjack online for free on Epic Games Hub! Place your bets, deal the cards, hit or stand, and try to beat the dealer by getting closer to 21 without busting."
+    },
+    {
+      "id": "word-guess",
+      "gameTitle": "Word Guess",
+      "gameUrl": "gameDistribution/Word-Guess.html",
+      "thumbnailUrl": "game/word-guess/thumb.png",
+      "categories": [
+        "puzzle",
+        "for you"
+      ],
+      "tags": [
+        "new",
+        "hot"
+      ],
+      "description": "Play Word Guess online for free on Epic Games Hub! Deduce the secret five-letter word in six attempts using color coded hints, test your vocabulary, and play the daily word puzzle challenge."
+    },
+    {
+      "id": "minesweeper",
+      "gameTitle": "Minesweeper",
+      "gameUrl": "gameDistribution/Minesweeper.html",
+      "thumbnailUrl": "game/minesweeper/thumb.png",
+      "categories": [
+        "puzzle",
+        "board",
+        "for you"
+      ],
+      "tags": [
+        "classic",
+        "new"
+      ],
+      "description": "Play Minesweeper online for free on Epic Games Hub! Deduce adjacent mine counts, flag hidden explosives, and clear the grid without detonating any mines in this classic puzzle board game."
+    },
+    {
+      "id": "snake",
+      "gameTitle": "Snake",
+      "gameUrl": "gameDistribution/Snake.html",
+      "thumbnailUrl": "game/snake/thumb.png",
+      "categories": [
+        "arcade",
+        "runner",
+        "for you"
+      ],
+      "tags": [
+        "classic",
+        "new",
+        "hot"
+      ],
+      "description": "Play retro neon Snake online for free on Epic Games Hub! Steer your snake to eat glowing apples and grow longer while avoiding collisions with the walls or your own tail."
+    },
+    {
+      "id": "0hn0",
+      "gameTitle": "Oh no",
+      "gameUrl": "gameDistribution/Oh-No.html",
+      "thumbnailUrl": "game/0hn0/thumb.png",
+      "categories": [
+        "puzzle",
+        "board",
+        "for you"
+      ],
+      "tags": [
+        "classic",
+        "new"
+      ],
+      "description": "Play Oh no (0hn0) online for free on Epic Games Hub! Dedicate your logic to placing red and blue dots on a grid where blue dots must see exactly their numbered count of other blue dots."
+    },
+    {
+      "id": "space-invaders",
+      "gameTitle": "Space Invaders",
+      "gameUrl": "gameDistribution/Space-Invaders.html",
+      "thumbnailUrl": "game/space-invaders/thumb.png",
+      "categories": [
+        "arcade",
+        "shooting",
+        "for you"
+      ],
+      "tags": [
+        "classic",
+        "new",
+        "hot"
+      ],
+      "requiresKeyboard": true,
+      "description": "Play neon-styled retro Space Invaders online for free on Epic Games Hub! Pilot your spaceship, blast descending waves of alien invaders, hide behind defensive shields, and set new high scores to climb the leaderboard."
+    },
+    {
+      "id": "bubble-shooter",
+      "gameTitle": "Bubble Shooter",
+      "gameUrl": "gameDistribution/Bubble-Shooter.html",
+      "thumbnailUrl": "game/bubble_short/thumb.png",
+      "categories": [
+        "arcade",
+        "puzzle",
+        "for you"
+      ],
+      "tags": [
+        "classic",
+        "new",
+        "hot"
+      ],
+      "description": "Play Bubble Shooter online for free on Epic Games Hub! Aim, shoot, and match three or more bubbles of the same color to pop them and clear the entire board across 20 action-packed levels."
     }
   ],
   "gameTags": [

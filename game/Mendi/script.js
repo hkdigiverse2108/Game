@@ -39,11 +39,13 @@
   // Game State
   const state = {
     playerName: "Player",
+    logs: [],
     hukumMode: "closed", // "closed" or "open"
     difficulty: "medium", // "easy" | "medium" | "hard"
     deckType: "stripped", // "stripped" (7 to Ace) or "full" (2 to Ace)
     numDecks: 2, // 1 | 2 | 3 | 4
     cardsPerHand: 16, // Calculated dynamically
+    tricksPerRound: 16, // Calculated dynamically
     totalMendis: 8, // Calculated dynamically (4 * numDecks)
     deck: [],
     hands: [[], [], [], []], // Dealt cards
@@ -74,10 +76,12 @@
     gameActive: false,
     hukumSelectionPhase: false,
     aiTimer: null,
+    dealTimer: null,
     isDealing: false,
     visualCardCounts: [0, 0, 0, 0],
     tableTheme: "green",
-    waitingForTrickTransition: false // Blocks clicking during evaluations/sweeps
+    waitingForTrickTransition: false, // Blocks clicking during evaluations/sweeps
+    lastHandContainerWidth: 600 // Cache for container width to prevent 0px clientWidth layout glitches
   };
 
   // DOM Elements Cache
@@ -115,6 +119,7 @@
       document.querySelectorAll("[data-mode]").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       state.hukumMode = btn.dataset.mode;
+      saveGameState();
     });
   });
 
@@ -123,6 +128,7 @@
       document.querySelectorAll("[data-diff]").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       state.difficulty = btn.dataset.diff;
+      saveGameState();
     });
   });
 
@@ -178,6 +184,7 @@
       btn.classList.add("active");
       state.deckType = btn.dataset.decktype;
       updateMenuSettingsAvailability();
+      saveGameState();
     });
   });
 
@@ -187,6 +194,7 @@
       btn.classList.add("active");
       state.numDecks = parseInt(btn.dataset.decks, 10);
       updateMenuSettingsAvailability();
+      saveGameState();
     });
   });
 
@@ -196,8 +204,17 @@
       btn.classList.add("active");
       state.tableTheme = btn.dataset.theme;
       applyTableTheme(state.tableTheme);
+      saveGameState();
     });
   });
+
+  const playerNameInput = document.getElementById("player-name");
+  if (playerNameInput) {
+    playerNameInput.addEventListener("change", () => {
+      state.playerName = playerNameInput.value.trim() || "Player";
+      saveGameState();
+    });
+  }
 
   // Run initial settings check to make sure they are in sync at startup
   updateMenuSettingsAvailability();
@@ -211,6 +228,25 @@
   document.getElementById("play-again-btn").addEventListener("click", restartToMenu);
   document.getElementById("exit-btn").addEventListener("click", restartToMenu);
 
+  // Dismiss card selection when clicking outside the player hand
+  document.addEventListener("click", (e) => {
+    if (pHandEl && !pHandEl.contains(e.target)) {
+      deselectActiveCard();
+    }
+  });
+
+  function deselectActiveCard() {
+    if (!pHandEl) return;
+    const selected = pHandEl.querySelector(".hand-card.selected");
+    if (selected) {
+      selected.classList.remove("selected");
+      const idx = Array.from(pHandEl.children).indexOf(selected);
+      if (idx !== -1) {
+        selected.style.zIndex = 10 + idx;
+      }
+    }
+  }
+
   // Hukum suit selector overlay click listeners
   document.querySelectorAll(".suit-select-btn-large").forEach(btn => {
     btn.addEventListener("click", (e) => {
@@ -223,11 +259,13 @@
   const cancelHukumBtn = document.getElementById("cancel-hukum-btn");
   if (cancelHukumBtn) {
     cancelHukumBtn.addEventListener("click", () => {
-      state.hukumSelectionPhase = false;
-      if (hukumSelectOverlayEl) {
-        hukumSelectOverlayEl.classList.add("hidden");
+      if (confirm("Are you sure you want to cancel and exit to the main menu? Your current session progress will be lost.")) {
+        state.hukumSelectionPhase = false;
+        if (hukumSelectOverlayEl) {
+          hukumSelectOverlayEl.classList.add("hidden");
+        }
+        restartToMenu();
       }
-      restartToMenu();
     });
   }
 
@@ -247,6 +285,7 @@
           btn.classList.remove("active");
         }
       });
+      saveGameState();
     });
   }
 
@@ -273,9 +312,20 @@
     state.playerName = nameInput || "Player";
     PLAYER_LABELS[PLAYER_HUMAN] = state.playerName;
 
-    // Calculate cards per hand and total Mendis dynamically
+    // Update player avatar label and scoreboard team label on the board
+    const playerLblEl = document.querySelector(".slot-bottom-avatar .player-lbl");
+    if (playerLblEl) {
+      playerLblEl.textContent = state.playerName;
+    }
+    const scoreboardUsLbl = document.getElementById("scoreboard-us-lbl");
+    if (scoreboardUsLbl) {
+      scoreboardUsLbl.textContent = `${state.playerName}:`;
+    }
+
+    // Calculate cards per hand, tricks per round and total Mendis dynamically
     const cardsPerDeck = state.deckType === "stripped" ? 32 : 52;
     state.cardsPerHand = (cardsPerDeck * state.numDecks) / 4;
+    state.tricksPerRound = state.cardsPerHand;
     state.totalMendis = 4 * state.numDecks;
 
     setupOverlay.classList.add("hidden");
@@ -291,9 +341,14 @@
     resetGameState();
     applyTableTheme(state.tableTheme);
     initRound();
+    saveGameState();
   }
 
   function resetGameState() {
+    if (indicatorLblEl) {
+      indicatorLblEl.textContent = "";
+      indicatorLblEl.style.color = "var(--color-primary)";
+    }
     state.scores.playerTeam = 0;
     state.scores.opponentTeam = 0;
     state.mendisCollected.playerTeam = [];
@@ -310,6 +365,8 @@
     state.leadSuit = null;
     state.gameActive = true;
     state.waitingForTrickTransition = false;
+    state.isDealing = false;
+    state.hukumSelectionPhase = false;
 
     // Reset turn explicitly to the player to the right of the dealer
     state.turn = (state.dealer + 1) % 4;
@@ -319,10 +376,14 @@
       hukumSelectOverlayEl.classList.add("hidden");
     }
 
-    // Clear any active AI timers
+    // Clear any active AI or deal timers
     if (state.aiTimer) {
       clearTimeout(state.aiTimer);
       state.aiTimer = null;
+    }
+    if (state.dealTimer) {
+      clearTimeout(state.dealTimer);
+      state.dealTimer = null;
     }
 
     // Show deck stack at start
@@ -339,11 +400,10 @@
     oppScoreEl.textContent = "0";
     pMendiCardsEl.innerHTML = "";
     oppMendiCardsEl.innerHTML = "";
-    if (pTricksScoreEl) pTricksScoreEl.textContent = `0/${state.cardsPerHand}`;
-    if (oppTricksScoreEl) oppTricksScoreEl.textContent = `0/${state.cardsPerHand}`;
-    if (logBoxEl) {
-      logBoxEl.innerHTML = `<div class="log-entry system">Welcome, ${state.playerName}! Starting new round.</div>`;
-    }
+    if (pTricksScoreEl) pTricksScoreEl.textContent = `0/${state.tricksPerRound}`;
+    if (oppTricksScoreEl) oppTricksScoreEl.textContent = `0/${state.tricksPerRound}`;
+    state.logs = [];
+    addLog(`Welcome, ${state.playerName}! Starting new round.`, "system");
     
     // Reset Hukum display
     updateHukumStatusUI();
@@ -354,11 +414,18 @@
 
   function getRelativePos(el, boardRect = null) {
     const boardEl = document.getElementById("board-container");
+    if (!boardEl && !boardRect) {
+      const rect = el.getBoundingClientRect();
+      return {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2
+      };
+    }
     const actualBoardRect = boardRect || boardEl.getBoundingClientRect();
     const rect = el.getBoundingClientRect();
     return {
-      x: rect.left + rect.width / 2 - actualBoardRect.left,
-      y: rect.top + rect.height / 2 - actualBoardRect.top
+      x: rect.left + rect.width / 2 - (actualBoardRect ? actualBoardRect.left : 0),
+      y: rect.top + rect.height / 2 - (actualBoardRect ? actualBoardRect.top : 0)
     };
   }
 
@@ -397,6 +464,7 @@
     const handContainerPos = handContainerEl ? getRelativePos(handContainerEl, boardRect) : { x: window.innerWidth / 2, y: window.innerHeight - 100 };
     
     const cachedPositions = {
+      boardEl: boardEl,
       deck: deckPos,
       slots: slotPositions,
       handCards: handCardPositions,
@@ -417,7 +485,7 @@
 
   function animateSingleCardDeal(playerIdx, card, cachedPositions) {
     return new Promise(resolve => {
-      const boardEl = document.getElementById("board-container");
+      const boardEl = cachedPositions.boardEl;
       
       const deckPos = cachedPositions.deck;
       
@@ -523,13 +591,39 @@
 
     // Trigger Hukum selection before dealing if in Closed Mode
     if (state.hukumMode === "closed") {
-      state.hukum.secretChooser = PLAYER_HUMAN; // User always selects secret Hukum in Closed Mode
-      state.hukumSelectionPhase = true;
-      indicatorLblEl.textContent = "SELECT A SUIT FOR HUKUM (TRUMP)";
-      indicatorLblEl.style.color = "var(--color-accent)";
-      addLog("Closed Mode: Choose the Hukum suit before cards are dealt.", "system");
+      state.hukum.secretChooser = (state.dealer + 1) % 4;
       updateHukumStatusUI();
-      showHukumSelectionOverlay();
+
+      if (state.hukum.secretChooser === PLAYER_HUMAN) {
+        state.hukumSelectionPhase = true;
+        indicatorLblEl.textContent = "SELECT A SUIT FOR HUKUM (TRUMP)";
+        indicatorLblEl.style.color = "var(--color-accent)";
+        addLog("Closed Mode: Choose the Hukum suit before cards are dealt.", "system");
+        showHukumSelectionOverlay();
+        saveGameState();
+      } else {
+        state.hukumSelectionPhase = false;
+        const chooserName = PLAYER_LABELS[state.hukum.secretChooser];
+        indicatorLblEl.textContent = `${chooserName.toUpperCase()} IS CHOOSING HUKUM...`;
+        indicatorLblEl.style.color = "var(--color-accent)";
+        addLog(`Closed Mode: ${chooserName} is choosing the secret Hukum.`, "system");
+        
+        // Let AI choose secretly after a snappier 1 second delay
+        state.dealTimer = setTimeout(() => {
+          state.dealTimer = null;
+          const randomSuit = SUITS[Math.floor(Math.random() * SUITS.length)].id;
+          state.hukum.secretSuit = randomSuit;
+          state.hukumSelectionPhase = false;
+          
+          indicatorLblEl.textContent = "";
+          indicatorLblEl.style.color = "var(--color-primary)";
+          addLog(`${chooserName} has chosen a secret Hukum.`, "hukum");
+          updateHukumStatusUI();
+          saveGameState();
+          
+          dealAllCards();
+        }, 1000);
+      }
     } else {
       addLog("Hukum mode is Open. The first suit cut will determine the trump.", "system");
       updateHukumStatusUI();
@@ -563,14 +657,19 @@
     const suitObj = SUITS.find(s => s.id === suitId);
     addLog(`You selected ${suitObj.name} ${suitObj.symbol} as secret Hukum.`, "hukum");
     updateHukumStatusUI();
+    saveGameState();
     
     // Deal all cards
-    state.aiTimer = setTimeout(dealAllCards, 300);
+    state.dealTimer = setTimeout(() => {
+      state.dealTimer = null;
+      dealAllCards();
+    }, 300);
   }
 
   async function dealAllCards() {
     if (!state.gameActive) return;
     state.isDealing = true;
+    state.hukumSelectionPhase = false;
 
     addLog(`<b>${PLAYER_LABELS[state.dealer]}</b> is dealing the cards...`, "system");
 
@@ -613,6 +712,8 @@
       deckStackEl.classList.add("hidden");
     }
 
+    saveGameState();
+
     // Start tricks
     startTrickCycle();
   }
@@ -649,9 +750,9 @@
   }
 
   function shakeElement(el) {
-    el.classList.add("shake-anim");
+    el.classList.add("shake-anim", "no-hover");
     setTimeout(() => {
-      el.classList.remove("shake-anim");
+      el.classList.remove("shake-anim", "no-hover");
     }, 350);
   }
 
@@ -726,34 +827,12 @@
 
     const currentHand = state.hands[PLAYER_HUMAN];
     const existingElements = Array.from(pHandEl.querySelectorAll(".hand-card"));
-    
-    // Check if we can just update existing DOM elements instead of full rebuild
-    const matchesState = existingElements.length === currentHand.length && 
-                          existingElements.every((el, idx) => {
-                            const c = currentHand[idx];
-                            return el.dataset.suit === c.suit && el.dataset.value == c.value;
-                          });
 
-    if (matchesState && !cardsToHide) {
-      // Just update playability classes and z-index in-place
-      existingElements.forEach((wrapper, idx) => {
-        const card = currentHand[idx];
-        const playable = isCardPlayable(PLAYER_HUMAN, card);
-        if (!playable && state.currentTrick.length > 0 && state.turn === PLAYER_HUMAN) {
-          wrapper.classList.add("unplayable");
-        } else {
-          wrapper.classList.remove("unplayable");
-        }
-        wrapper.style.zIndex = 10 + idx;
-      });
-      return;
-    }
-
-    // Full rebuild
-    pHandEl.innerHTML = "";
-    
     // Calculate negative margin dynamically based on available container width
-    const containerWidth = pHandEl.clientWidth || 600;
+    if (pHandEl.clientWidth > 0) {
+      state.lastHandContainerWidth = pHandEl.clientWidth;
+    }
+    const containerWidth = state.lastHandContainerWidth;
     const cardWidth = 76;
     const numCards = currentHand.length;
     let margin = -10; // Default minimal overlap
@@ -768,6 +847,38 @@
         margin = -Math.min(68, Math.max(10, overlapNeeded));
       }
     }
+    
+    // Check if we can just update existing DOM elements instead of full rebuild
+    const matchesState = existingElements.length === currentHand.length && 
+                          existingElements.every((el, idx) => {
+                            const c = currentHand[idx];
+                            return el.dataset.suit === c.suit && el.dataset.value == c.value;
+                          });
+
+    if (matchesState && !cardsToHide) {
+      // Just update playability classes, z-index and margins in-place
+      existingElements.forEach((wrapper, idx) => {
+        const card = currentHand[idx];
+        wrapper.cardData = card; // Update reference to be safe
+        if (!isCardPlayable(PLAYER_HUMAN, card) && state.currentTrick.length > 0 && state.turn === PLAYER_HUMAN) {
+          wrapper.classList.add("unplayable");
+          wrapper.classList.remove("selected"); // Deselect if card becomes unplayable
+        } else {
+          wrapper.classList.remove("unplayable");
+        }
+        wrapper.style.zIndex = wrapper.classList.contains("selected") ? 200 : 10 + idx;
+        
+        if (idx < currentHand.length - 1) {
+          wrapper.style.marginRight = `${margin}px`;
+        } else {
+          wrapper.style.marginRight = "0px";
+        }
+      });
+      return;
+    }
+
+    // Full rebuild
+    pHandEl.innerHTML = "";
 
     currentHand.forEach((card, idx) => {
       const wrapper = document.createElement("div");
@@ -791,8 +902,7 @@
       }
 
       // Check playability
-      const playable = isCardPlayable(PLAYER_HUMAN, card);
-      if (!playable && state.currentTrick.length > 0 && state.turn === PLAYER_HUMAN) {
+      if (!isCardPlayable(PLAYER_HUMAN, card) && state.currentTrick.length > 0 && state.turn === PLAYER_HUMAN) {
         wrapper.classList.add("unplayable");
       }
 
@@ -812,19 +922,44 @@
       pHandEl.appendChild(wrapper);
 
       // Play card click
-      wrapper.addEventListener("click", () => {
+      wrapper.addEventListener("click", (e) => {
+        e.stopPropagation(); // Prevent document-level click listener from immediately deselecting
         if (state.isDealing || state.hukumSelectionPhase || !state.gameActive || state.waitingForTrickTransition) return;
         if (state.turn !== PLAYER_HUMAN) {
           showFeedback("Wait for your turn!");
           shakeElement(wrapper);
           return;
         }
-        if (!playable) {
+
+        // Re-evaluate playability live at click time, not from closure
+        const clickedCard = wrapper.cardData;
+        const isPlayable = isCardPlayable(PLAYER_HUMAN, clickedCard);
+
+        if (!isPlayable) {
+          deselectActiveCard();
           showFeedback("Must follow lead suit!");
           shakeElement(wrapper);
           return;
         }
-        playHumanCard(card, idx, wrapper);
+
+        // Two-step card selection
+        if (!wrapper.classList.contains("selected")) {
+          deselectActiveCard();
+          wrapper.classList.add("selected");
+          wrapper.style.zIndex = 200;
+          return;
+        }
+
+        // Card is already selected, so play it
+        wrapper.classList.remove("selected");
+
+        // Re-find the current index live at click time
+        const currentIdx = state.hands[PLAYER_HUMAN].findIndex(
+          c => c.suit === clickedCard.suit && c.value === clickedCard.value
+        );
+        if (currentIdx === -1) return; // Card already played, ignore
+
+        playHumanCard(clickedCard, currentIdx, wrapper);
       });
     });
   }
@@ -943,6 +1078,8 @@
     // Render hand to update unplayable overlays & apply not-my-turn classes immediately
     renderPlayerHand();
     
+    saveGameState();
+    
     if (state.currentTrick.length < 4) {
       // Proceed turn
       state.turn = (state.turn + 1) % 4;
@@ -1020,6 +1157,8 @@
     });
 
     addLog(`${PLAYER_LABELS[aiIdx]} played ${cardToPlay.name} of ${cardToPlay.suitName} ${cardToPlay.symbol}`, "ai");
+
+    saveGameState();
 
     if (state.currentTrick.length < 4) {
       // Proceed turn
@@ -1125,9 +1264,8 @@
         if (tenCard) return tenCard;
         return suitCards[suitCards.length - 1]; // Low card
       } else {
-        // Try to beat current high card
         const currentHigh = getCurrentTrickHighCard();
-        const winningCards = suitCards.filter(c => c.value > currentHigh.value);
+        const winningCards = suitCards.filter(c => compareTwoCards(c, currentHigh) > 0);
         if (winningCards.length > 0) {
           // Play lowest winning card to win the trick efficiently
           return winningCards[winningCards.length - 1];
@@ -1138,9 +1276,9 @@
     }
 
     // If cannot follow suit (Cut opportunity)
-    if (state.hukum.revealed && state.hukum.suit) {
+    if (state.hukum.revealed) {
       // Trump is already revealed, play trump card to cut if partner isn't winning
-      if (!isPartnerWinning(playerIdx)) {
+      if (state.hukum.suit && !isPartnerWinning(playerIdx)) {
         const trumps = validCards.filter(c => c.suit === state.hukum.suit);
         if (trumps.length > 0) {
           return trumps[trumps.length - 1]; // Play lowest trump to cut
@@ -1149,32 +1287,15 @@
     } else {
       // Hukum not yet revealed
       if (state.hukumMode === "closed") {
-        // If trick contains a 10 (Mendi) and partner is not winning, cut if we have the secret suit
+        // If trick contains a 10 (Mendi) and partner is not winning, cut if we are the secret chooser and have the secret suit
         const containsTen = state.currentTrick.some(t => t.card.value === 10);
-        if (containsTen && !isPartnerWinning(playerIdx)) {
+        if (containsTen && !isPartnerWinning(playerIdx) && playerIdx === state.hukum.secretChooser) {
           const secretSuit = state.hukum.secretSuit;
           const secretCards = validCards.filter(c => c.suit === secretSuit);
           if (secretCards.length > 0) {
             return secretCards[0]; // Play highest secret trump to cut
           }
         }
-      } else if (state.hukumMode === "open") {
-        // Open mode: first discard determines Hukum!
-        // Select the suit of which the AI has the most cards in hand (to make it trump)
-        const suitCounts = {};
-        validCards.forEach(c => {
-          suitCounts[c.suit] = (suitCounts[c.suit] || 0) + 1;
-        });
-        let bestSuit = validCards[0].suit;
-        let maxCount = 0;
-        for (const suit in suitCounts) {
-          if (suitCounts[suit] > maxCount) {
-            maxCount = suitCounts[suit];
-            bestSuit = suit;
-          }
-        }
-        const bestSuitCards = validCards.filter(c => c.suit === bestSuit);
-        return bestSuitCards[bestSuitCards.length - 1]; // Play lowest card of that suit to set Hukum
       }
     }
 
@@ -1210,27 +1331,33 @@
   }
 
   function compareTwoCards(cardA, cardB) {
-    const aIsTrump = state.hukum.revealed && cardA.suit === state.hukum.suit;
-    const bIsTrump = state.hukum.revealed && cardB.suit === state.hukum.suit;
+    const isTrumpA = state.hukum.revealed && cardA.suit === state.hukum.suit;
+    const isTrumpB = state.hukum.revealed && cardB.suit === state.hukum.suit;
 
-    // 1. Trump comparisons
-    if (aIsTrump && !bIsTrump) return 1;
-    if (bIsTrump && !aIsTrump) return -1;
-    if (aIsTrump && bIsTrump) {
+    // 1. Trump card checks
+    if (isTrumpA && !isTrumpB) return 1;
+    if (!isTrumpA && isTrumpB) return -1;
+    if (isTrumpA && isTrumpB) {
       return cardA.value - cardB.value;
     }
 
-    // 2. Lead suit comparisons
-    const aIsLead = cardA.suit === state.leadSuit;
-    const bIsLead = cardB.suit === state.leadSuit;
+    // 2. Lead suit checks
+    const isLeadA = cardA.suit === state.leadSuit;
+    const isLeadB = cardB.suit === state.leadSuit;
 
-    if (aIsLead && !bIsLead) return 1;
-    if (bIsLead && !aIsLead) return -1;
-    if (aIsLead && bIsLead) {
+    if (isLeadA && !isLeadB) return 1;
+    if (!isLeadA && isLeadB) return -1;
+    if (isLeadA && isLeadB) {
       return cardA.value - cardB.value;
     }
 
-    // 3. Both are off-suit (neither lead nor trump)
+    // 3. Fallback for off-suit cards:
+    // If cardA is off-suit, it cannot beat cardB
+    if (!isLeadA && !isTrumpA) return -1;
+    // If cardB is off-suit (and cardA is not), cardA beats cardB
+    if (!isLeadB && !isTrumpB) return 1;
+
+    // Default value comparison if they are of the same suit
     return cardA.value - cardB.value;
   }
 
@@ -1286,6 +1413,7 @@
 
   // 6. Hukum Reveal & Set mechanics
   function revealClosedHukum(playerIdx) {
+    if (state.hukum.revealed) return;
     state.hukum.suit = state.hukum.secretSuit;
     state.hukum.revealed = true;
 
@@ -1304,6 +1432,7 @@
   }
 
   function setOpenHukum(suitId, playerIdx) {
+    if (state.hukum.revealed) return;
     state.hukum.suit = suitId;
     state.hukum.revealed = true;
 
@@ -1357,11 +1486,11 @@
     if (winningTeam === 0) {
       state.tricksWon.playerTeam++;
       pScoreEl.textContent = state.scores.playerTeam;
-      if (pTricksScoreEl) pTricksScoreEl.textContent = `${state.tricksWon.playerTeam}/${state.cardsPerHand}`;
+      if (pTricksScoreEl) pTricksScoreEl.textContent = `${state.tricksWon.playerTeam}/${state.tricksPerRound}`;
     } else {
       state.tricksWon.opponentTeam++;
       oppScoreEl.textContent = state.scores.opponentTeam;
-      if (oppTricksScoreEl) oppTricksScoreEl.textContent = `${state.tricksWon.opponentTeam}/${state.cardsPerHand}`;
+      if (oppTricksScoreEl) oppTricksScoreEl.textContent = `${state.tricksWon.opponentTeam}/${state.tricksPerRound}`;
     }
 
     // Track tricks won by individual players
@@ -1375,8 +1504,10 @@
     state.turn = winnerIdx;
     state.tricksPlayed++;
 
+    saveGameState();
+
     // Check end of round
-    if (state.tricksPlayed < state.cardsPerHand) {
+    if (state.tricksPlayed < state.tricksPerRound) {
       state.aiTimer = setTimeout(startTrickCycle, 700);
     } else {
       state.aiTimer = setTimeout(endGameRound, 1000);
@@ -1447,22 +1578,29 @@
       }
       gameoverMessageEl.textContent = msg;
 
-      // Rotate the dealer unconditionally at the end of each round clockwise
+      // Rotate the dealer clockwise at the end of each round (except on a draw, where the dealer retains the deal per standard Mendikot rules)
       state.dealer = (state.dealer + 1) % 4;
       addLog(`Round finished. Deal passes to <b>${PLAYER_LABELS[state.dealer]}</b>.`, "system");
     }
 
     statMendisCapturedEl.textContent = `${teamMendis} / ${state.totalMendis}`;
-    statTricksWonEl.textContent = `${state.tricksWon.playerTeam} / ${state.cardsPerHand}`;
+    statTricksWonEl.textContent = `${state.tricksWon.playerTeam} / ${state.tricksPerRound}`;
     statKotStatusEl.textContent = isKot ? "Yes" : "No";
+
+    saveGameState();
 
     gameoverOverlay.classList.remove("hidden");
   }
 
   function restartToMenu() {
+    state.gameActive = false;
     if (state.aiTimer) {
       clearTimeout(state.aiTimer);
       state.aiTimer = null;
+    }
+    if (state.dealTimer) {
+      clearTimeout(state.dealTimer);
+      state.dealTimer = null;
     }
     if (hukumSelectOverlayEl) {
       hukumSelectOverlayEl.classList.add("hidden");
@@ -1470,11 +1608,15 @@
     gameoverOverlay.classList.add("hidden");
     gameLayout.classList.add("hidden");
     setupOverlay.classList.remove("hidden");
+    saveGameState();
   }
 
   // System Logs Handler
   function addLog(text, type = "default") {
     console.log(`[Mendi Log - ${type}]`, text);
+    if (state.logs) {
+      state.logs.push({ text, type });
+    }
     if (!logBoxEl) return;
     const entry = document.createElement("div");
     entry.className = `log-entry ${type}`;
@@ -1483,6 +1625,188 @@
     
     // Auto scroll to bottom
     logBoxEl.scrollTop = logBoxEl.scrollHeight;
+  }
+
+  function saveGameState() {
+    if (!state.gameActive) {
+      const settings = {
+        playerName: state.playerName,
+        hukumMode: state.hukumMode,
+        difficulty: state.difficulty,
+        deckType: state.deckType,
+        numDecks: state.numDecks,
+        tableTheme: state.tableTheme
+      };
+      localStorage.setItem("mendi_settings", JSON.stringify(settings));
+      localStorage.removeItem("mendi_game_state");
+      return;
+    }
+
+    const stateCopy = {
+      ...state,
+      aiTimer: null,
+      dealTimer: null,
+      currentTrick: state.currentTrick.map(play => ({
+        player: play.player,
+        card: play.card
+      }))
+    };
+    localStorage.setItem("mendi_game_state", JSON.stringify(stateCopy));
+  }
+
+  function loadGameState() {
+    const savedSettings = localStorage.getItem("mendi_settings");
+    if (savedSettings) {
+      try {
+        const settings = JSON.parse(savedSettings);
+        state.playerName = settings.playerName || "Player";
+        state.hukumMode = settings.hukumMode || "closed";
+        state.difficulty = settings.difficulty || "medium";
+        state.deckType = settings.deckType || "stripped";
+        state.numDecks = settings.numDecks || 2;
+        state.tableTheme = settings.tableTheme || "green";
+
+        document.getElementById("player-name").value = state.playerName;
+        
+        document.querySelectorAll("[data-mode]").forEach(b => {
+          b.classList.toggle("active", b.dataset.mode === state.hukumMode);
+        });
+        document.querySelectorAll("[data-diff]").forEach(b => {
+          b.classList.toggle("active", b.dataset.diff === state.difficulty);
+        });
+        document.querySelectorAll("[data-decktype]").forEach(b => {
+          b.classList.toggle("active", b.dataset.decktype === state.deckType);
+        });
+        document.querySelectorAll("[data-decks]").forEach(b => {
+          b.classList.toggle("active", parseInt(b.dataset.decks, 10) === state.numDecks);
+        });
+        document.querySelectorAll("[data-theme]").forEach(b => {
+          b.classList.toggle("active", b.dataset.theme === state.tableTheme);
+        });
+
+        updateMenuSettingsAvailability();
+      } catch (e) {
+        console.error("Error loading settings", e);
+      }
+    }
+
+    const savedState = localStorage.getItem("mendi_game_state");
+    if (savedState) {
+      try {
+        const parsedState = JSON.parse(savedState);
+        if (parsedState.gameActive) {
+          Object.assign(state, parsedState);
+
+          PLAYER_LABELS[PLAYER_HUMAN] = state.playerName;
+          const playerLblEl = document.querySelector(".slot-bottom-avatar .player-lbl");
+          if (playerLblEl) playerLblEl.textContent = state.playerName;
+          const scoreboardUsLbl = document.getElementById("scoreboard-us-lbl");
+          if (scoreboardUsLbl) scoreboardUsLbl.textContent = `${state.playerName}:`;
+
+          applyTableTheme(state.tableTheme);
+
+          setupOverlay.classList.add("hidden");
+          gameLayout.classList.remove("hidden");
+          gameoverOverlay.classList.add("hidden");
+
+          resizeBoard();
+
+          trickPileEl.innerHTML = "";
+          renderPlayerHand();
+          updatePlayerCardCountsHUD();
+          updatePlayerTricksHUD();
+
+          pScoreEl.textContent = state.scores.playerTeam;
+          oppScoreEl.textContent = state.scores.opponentTeam;
+          if (pTricksScoreEl) pTricksScoreEl.textContent = `${state.tricksWon.playerTeam}/${state.tricksPerRound}`;
+          if (oppTricksScoreEl) oppTricksScoreEl.textContent = `${state.tricksWon.opponentTeam}/${state.tricksPerRound}`;
+
+          pMendiCardsEl.innerHTML = "";
+          oppMendiCardsEl.innerHTML = "";
+          state.mendisCollected.playerTeam.forEach(card => appendMendiBadge(pMendiCardsEl, card));
+          state.mendisCollected.opponentTeam.forEach(card => appendMendiBadge(oppMendiCardsEl, card));
+
+          if (logBoxEl) {
+            logBoxEl.innerHTML = "";
+            state.logs.forEach(log => {
+              const entry = document.createElement("div");
+              entry.className = `log-entry ${log.type}`;
+              entry.innerHTML = log.text;
+              logBoxEl.appendChild(entry);
+            });
+            logBoxEl.scrollTop = logBoxEl.scrollHeight;
+          }
+
+          state.currentTrick = state.currentTrick.map(play => {
+            const wrapper = document.createElement("div");
+            wrapper.className = "card-wrapper trick-card";
+            
+            const inner = document.createElement("div");
+            inner.className = "card-inner";
+
+            const front = document.createElement("div");
+            front.className = `card-front ${play.card.suit}`;
+            front.innerHTML = getCardFrontHTML(play.card);
+
+            const back = document.createElement("div");
+            back.className = "card-back";
+
+            inner.appendChild(front);
+            inner.appendChild(back);
+            wrapper.appendChild(inner);
+
+            trickPileEl.appendChild(wrapper);
+            positionTrickCard(wrapper, play.player);
+
+            return {
+              player: play.player,
+              card: play.card,
+              el: wrapper
+            };
+          });
+
+          updateHukumStatusUI();
+
+          if (state.hukumSelectionPhase && state.hukum.secretChooser === PLAYER_HUMAN) {
+            showHukumSelectionOverlay();
+          } else if (state.hukumSelectionPhase) {
+            const chooserName = PLAYER_LABELS[state.hukum.secretChooser];
+            indicatorLblEl.textContent = `${chooserName.toUpperCase()} IS CHOOSING HUKUM...`;
+            indicatorLblEl.style.color = "var(--color-accent)";
+            
+            state.dealTimer = setTimeout(() => {
+              state.dealTimer = null;
+              const randomSuit = SUITS[Math.floor(Math.random() * SUITS.length)].id;
+              state.hukum.secretSuit = randomSuit;
+              state.hukumSelectionPhase = false;
+              
+              indicatorLblEl.textContent = "";
+              indicatorLblEl.style.color = "var(--color-primary)";
+              addLog(`${chooserName} has chosen a secret Hukum.`, "hukum");
+              updateHukumStatusUI();
+              saveGameState();
+              dealAllCards();
+            }, 1000);
+          } else if (state.isDealing) {
+            state.isDealing = false;
+            saveGameState();
+            startTrickCycle();
+          } else {
+            updateHUDIndicator();
+            if (state.turn !== PLAYER_HUMAN && !state.waitingForTrickTransition) {
+              state.aiTimer = setTimeout(triggerAILogicalPlay, 800);
+            } else if (state.currentTrick.length === 4) {
+              indicatorLblEl.textContent = "Completing trick...";
+              indicatorLblEl.style.color = "#8c9cb5";
+              pHandEl.classList.add("not-my-turn");
+              state.aiTimer = setTimeout(evaluateTrickWinner, 1000);
+            }
+          }
+        }
+      } catch (e) {
+        console.error("Error loading game state", e);
+      }
+    }
   }
 
   function resizeBoard() {
@@ -1501,8 +1825,16 @@
     const scale = Math.min(scaleX, scaleY);
 
     content.style.transform = `translate(-50%, -50%) scale(${scale})`;
+
+    // Recalculate hand card margins and refresh layout on window resize
+    if (state.gameActive && !state.isDealing) {
+      renderPlayerHand();
+    }
   }
 
   // Setup resize listeners
   window.addEventListener("resize", resizeBoard);
+
+  // Load saved settings and game state on startup
+  loadGameState();
 })();

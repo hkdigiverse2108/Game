@@ -1,0 +1,161 @@
+@font-face {
+    font-family: 'Carter-One';
+    src: url('./../fonts/CarterOne-Regular.ttf')
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: #0b0f19;
+    color: #fff;
+    font-family: 'Carter-One', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+/* When inside an iframe, hide the title and footer to maximize game area */
+body.embedded .title {
+    display: none;
+}
+body.embedded footer {
+    display: none;
+}
+body.embedded .title h1 {
+    display: none;
+}
+body.embedded {
+    min-height: unset;
+    height: 100vh;
+    overflow: hidden;
+    padding: 0;
+}
+.title {
+    color: #fff;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.title h1 {
+    font-size: 2.5rem;
+    text-align: center;
+}
+.container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+.card {
+    background-color: rgba(30, 41, 59, 0.7);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+.card-header {
+    padding: 0.75rem 1rem;
+    color: #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card-header select {
+    padding: .3rem .7rem;
+    border-radius: .4rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background-color: #1e293b;
+    color: #fff;
+    margin-left: 0.5rem;
+    outline: none;
+}
+.card-header svg {
+    width: 24px;
+    height: 24px;
+}
+.card-body {
+    display: flex;
+    justify-content: center;
+    padding: 0.75rem;
+}
+#canvas {
+    max-width: 100%;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+    display: block;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+.btn {
+    padding: .4rem 1rem;
+    border-radius: .4rem;
+    border: 0;
+    color: #dfe6e9;
+    cursor: pointer;
+    background-color: #3b82f6;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+.btn:hover {
+    background-color: #2563eb;
+}
+#bomb {
+    display: none;
+}
+.text-red {
+    color: rgba(231, 76, 60,1.0);
+}
+.statistics  {
+    display: flex;
+}
+#starter {
+    color: #fff;
+    margin: 0 auto;
+    text-align: center;
+}
+#starter h1 {
+    position: relative;
+}
+#starter h1:after {
+    content: '';
+    position: absolute;
+    background-color: #fff;
+    height: 3px;
+    border-radius: 5px;
+    
+    animation: loading 3s linear infinite
+}
+footer {
+    text-align: center;
+    margin-top: 1rem;
+    color: #fff;
+}
+footer a {
+    color: #fff;
+    transition: all .2s;
+}
+footer a:hover {
+    color: #0984e3;
+}
+footer svg {
+    margin-top: 1rem;
+}
+@keyframes loading {
+    0% {
+        width: 10px;
+        bottom: 0;
+        left: 0;
+    }
+    25% {
+        width: 25%
+    }
+    75% {
+        width: 10px
+    }
+    100% {
+        width: 10px;
+        bottom: 0;
+        left: 100%;
+    }
+}

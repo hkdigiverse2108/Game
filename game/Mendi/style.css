@@ -1011,10 +1011,9 @@ html, body {
   align-items: stretch !important;
 }
 
-/* Hand cards spacing & hover */
 .hand-card {
   position: relative;
-  margin-right: -30px; /* Reduced negative margin for more spacing and easier hover selection */
+  margin-right: -10px; /* Safe default fallback; recalculated dynamically in JavaScript */
   transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), margin-right 0.2s ease;
   z-index: 10;
 }
@@ -1023,22 +1022,43 @@ html, body {
   margin-right: 0;
 }
 
-.hand-card:hover {
+.hand-card:hover:not(.no-hover) {
   transform: translateY(-22px); /* Pure lift-up to prevent horizontal scaling blocking adjacent cards */
   z-index: 100 !important;
 }
 
+/* Two-step selection styling with gold glow and elevation */
+@keyframes selectGlow {
+  0% {
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.6), 0 6px 12px rgba(0, 0, 0, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.95), 0 12px 20px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.hand-card.selected {
+  transform: translateY(-40px) !important;
+  z-index: 200 !important;
+}
+
+.hand-card.selected .card-front {
+  border: 1.5px solid var(--color-primary) !important;
+  animation: selectGlow 0.8s infinite alternate ease-in-out;
+}
+
 /* Dim and disable hovers when it's not player's turn */
-.cards-hand-wrapper.not-my-turn .hand-card {
+#player-hand.not-my-turn .hand-card {
   filter: brightness(0.6) saturate(0.7) !important;
 }
 
-.cards-hand-wrapper.not-my-turn .hand-card:hover {
+#player-hand.not-my-turn .hand-card:hover {
   transform: none !important;
 }
 
-.hand-card.unplayable {
-  filter: brightness(0.4) saturate(0.5);
+/* Unplayable cards dimming (only active when it is the player's turn) */
+#player-hand:not(.not-my-turn) .hand-card.unplayable {
+  filter: brightness(0.4) saturate(0.5) !important;
   cursor: not-allowed;
 }
 

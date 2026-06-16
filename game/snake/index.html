@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.5, maximum-scale=1.5, user-scalable=no">
+  <title>Retro Neon Snake</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+    body {
+      background: #0B0F19;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+      touch-action: none;
+      padding: 15px;
+    }
+    body.embedded {
+      min-height: unset;
+      height: 100vh;
+      padding: 5px;
+    }
+    #game-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.6);
+      border: 2px solid #3b82f6;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+      border-radius: 20px;
+      padding: 15px;
+      backdrop-filter: blur(10px);
+      width: 100%;
+      max-width: 420px;
+      margin: auto;
+    }
+    body.embedded #game-container {
+      padding: 10px;
+      border-radius: 12px;
+    }
+    #scoreboard {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .score-box {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.05);
+    }
+    .score-val {
+      color: #3b82f6;
+      text-shadow: 0 0 5px rgba(59, 130, 246, 0.8);
+      font-weight: 900;
+    }
+    canvas {
+      background: #070a13;
+      border: 2px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      display: block;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+      max-width: 100%;
+      max-height: 50vh; /* keep space for scoreboard and buttons */
+      width: auto;
+      height: auto;
+      aspect-ratio: 1 / 1;
+    }
+    #overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(11, 15, 25, 0.85);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: opacity 0.3s;
+    }
+    body.embedded #overlay {
+      border-radius: 12px;
+    }
+    #overlay h2 {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #3b82f6;
+      text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+    .btn {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: #fff;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border: none;
+      padding: 10px 25px;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(139, 92, 246, 0.8);
+    }
+    .btn:active {
+      transform: scale(0.98);
+    }
+    #mobile-controls {
+      display: none;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 8px;
+      margin-top: 12px;
+      width: 100%;
+      max-width: 200px;
+    }
+    .ctrl-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      outline: none;
+    }
+    .ctrl-btn:active {
+      background: rgba(59, 130, 246, 0.3);
+      border-color: #3b82f6;
+    }
+    @media (max-width: 768px) {
+      #mobile-controls {
+        display: grid;
+      }
+      #game-container {
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <div id="scoreboard">
+      <div class="score-box">SCORE: <span id="score-val" class="score-val">0</span></div>
+      <div class="score-box">HIGH: <span id="high-val" class="score-val">0</span></div>
+    </div>
+    
+    <canvas id="canvas" width="400" height="400"></canvas>
+
+    <div id="mobile-controls">
+      <div></div>
+      <button class="ctrl-btn" id="ctrl-up">▲</button>
+      <div></div>
+      <button class="ctrl-btn" id="ctrl-left">◀</button>
+      <button class="ctrl-btn" id="ctrl-down">▼</button>
+      <button class="ctrl-btn" id="ctrl-right">▶</button>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <div id="overlay">
+      <h2 id="overlay-title">NEON SNAKE</h2>
+      <button class="btn" id="start-btn">PLAY</button>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const scoreVal = document.getElementById('score-val');
+    const highVal = document.getElementById('high-val');
+    const overlay = document.getElementById('overlay');
+    const overlayTitle = document.getElementById('overlay-title');
+    const startBtn = document.getElementById('start-btn');
+
+    // Grid details
+    const grid = 20;
+    const tileCount = canvas.width / grid;
+
+    // Game state variables
+    let snake = [];
+    let dx = grid;
+    let dy = 0;
+    let apple = { x: 0, y: 0 };
+    let score = 0;
+    let highScore = localStorage.getItem('snake_highscore') || 0;
+    let gameInterval = null;
+    let speed = 110; // ms per frame
+    let particles = [];
+    let isGameOver = false;
+
+    highVal.textContent = highScore;
+
+    // Web Audio Synthesizer for retro sounds
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function playBeep(freq, type, duration) {
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type || 'sine';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    }
+
+    // Shuffles apple location
+    function placeApple() {
+      apple.x = Math.floor(Math.random() * tileCount) * grid;
+      apple.y = Math.floor(Math.random() * tileCount) * grid;
+      
+      // Ensure apple doesn't spawn on snake body
+      for (let cell of snake) {
+        if (cell.x === apple.x && cell.y === apple.y) {
+          placeApple();
+          break;
+        }
+      }
+    }
+
+    // Reset game parameters
+    function initGame() {
+      snake = [
+        { x: grid * 5, y: grid * 10 },
+        { x: grid * 4, y: grid * 10 },
+        { x: grid * 3, y: grid * 10 }
+      ];
+      dx = grid;
+      dy = 0;
+      score = 0;
+      scoreVal.textContent = score;
+      placeApple();
+      particles = [];
+      speed = 110;
+      isGameOver = false;
+    }
+
+    // Launch game cycle
+    function startGame() {
+      overlay.style.display = 'none';
+      initGame();
+      playBeep(440, 'triangle', 0.15);
+      setTimeout(() => playBeep(880, 'triangle', 0.2), 100);
+      
+      if (gameInterval) clearInterval(gameInterval);
+      gameInterval = setInterval(gameLoop, speed);
+    }
+
+    // Standard Game Loop
+    function gameLoop() {
+      update();
+      draw();
+    }
+
+    function createExplosion(x, y, color) {
+      for (let i = 0; i < 12; i++) {
+        particles.push({
+          x: x + grid / 2,
+          y: y + grid / 2,
+          vx: (Math.random() - 0.5) * 5,
+          vy: (Math.random() - 0.5) * 5,
+          radius: Math.random() * 3 + 1,
+          alpha: 1,
+          color: color
+        });
+      }
+    }
+
+    // Update coordinates & collisions
+    function update() {
+      // Create new head
+      const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+      // Wall collision
+      if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
+        triggerGameOver();
+        return;
+      }
+
+      // Self collision
+      for (let cell of snake) {
+        if (cell.x === head.x && cell.y === head.y) {
+          triggerGameOver();
+          return;
+        }
+      }
+
+      // Add head
+      snake.unshift(head);
+
+      // Check apple collision
+      if (head.x === apple.x && head.y === apple.y) {
+        score += 10;
+        scoreVal.textContent = score;
+        playBeep(1200, 'sine', 0.12);
+        createExplosion(apple.x, apple.y, '#f43f5e');
+        
+        if (score > highScore) {
+          highScore = score;
+          highVal.textContent = highScore;
+          localStorage.setItem('snake_highscore', highScore);
+        }
+        
+        placeApple();
+        
+        // Increase speed slightly
+        if (speed > 55) {
+          speed -= 2.5;
+          clearInterval(gameInterval);
+          gameInterval = setInterval(gameLoop, speed);
+        }
+      } else {
+        // Remove tail
+        snake.pop();
+      }
+
+      // Update particles
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha -= 0.04;
+        if (p.alpha <= 0) {
+          particles.splice(i, 1);
+        }
+      }
+    }
+
+    // Render components
+    function draw() {
+      // Clean canvas
+      ctx.fillStyle = '#070a13';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Draw grid lines faintly
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < tileCount; i++) {
+        ctx.beginPath();
+        ctx.moveTo(i * grid, 0);
+        ctx.lineTo(i * grid, canvas.height);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(0, i * grid);
+        ctx.lineTo(canvas.width, i * grid);
+        ctx.stroke();
+      }
+
+      // Draw Apple with neon glow
+      ctx.save();
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = '#f43f5e';
+      ctx.fillStyle = '#f43f5e';
+      ctx.beginPath();
+      ctx.arc(apple.x + grid / 2, apple.y + grid / 2, grid / 2 - 2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      // Draw Snake with gradients and glow
+      snake.forEach((cell, index) => {
+        ctx.save();
+        ctx.shadowBlur = index === 0 ? 8 : 4;
+        ctx.shadowColor = '#3b82f6';
+        
+        // Gradient color from head to tail
+        const ratio = index / snake.length;
+        ctx.fillStyle = `rgb(${Math.floor(59 + ratio * 80)}, ${Math.floor(130 + ratio * 50)}, 246)`;
+
+        // Draw body cell slightly smaller than grid size for spacing
+        ctx.fillRect(cell.x + 1, cell.y + 1, grid - 2, grid - 2);
+        ctx.restore();
+      });
+
+      // Draw particles
+      particles.forEach((p) => {
+        ctx.save();
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      });
+    }
+
+    function triggerGameOver() {
+      isGameOver = true;
+      clearInterval(gameInterval);
+      playBeep(220, 'sawtooth', 0.4);
+      setTimeout(() => playBeep(110, 'sawtooth', 0.5), 150);
+      
+      overlayTitle.textContent = "GAME OVER";
+      startBtn.textContent = "RETRY";
+      overlay.style.display = 'flex';
+    }
+
+    // Input handlers
+    function changeDirection(newDx, newDy) {
+      // Prevent turning 180 degrees instantly
+      if (newDx === -dx || newDy === -dy) return;
+      dx = newDx;
+      dy = newDy;
+    }
+
+    // Keyboard controls
+    window.addEventListener('keydown', (e) => {
+      if (isGameOver) return;
+      switch (e.key) {
+        case 'ArrowUp':
+        case 'w':
+        case 'W':
+          changeDirection(0, -grid);
+          break;
+        case 'ArrowDown':
+        case 's':
+        case 'S':
+          changeDirection(0, grid);
+          break;
+        case 'ArrowLeft':
+        case 'a':
+        case 'A':
+          changeDirection(-grid, 0);
+          break;
+        case 'ArrowRight':
+        case 'd':
+        case 'D':
+          changeDirection(grid, 0);
+          break;
+      }
+    });
+
+    // Mobile button controls
+    document.getElementById('ctrl-up').addEventListener('click', () => changeDirection(0, -grid));
+    document.getElementById('ctrl-down').addEventListener('click', () => changeDirection(0, grid));
+    document.getElementById('ctrl-left').addEventListener('click', () => changeDirection(-grid, 0));
+    document.getElementById('ctrl-right').addEventListener('click', () => changeDirection(grid, 0));
+
+    // Touch Swipe Detection
+    let touchStartX = 0;
+    let touchStartY = 0;
+    window.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+      if (isGameOver) return;
+      const diffX = e.changedTouches[0].clientX - touchStartX;
+      const diffY = e.changedTouches[0].clientY - touchStartY;
+      const threshold = 30; // Min swipe distance
+
+      if (Math.abs(diffX) > Math.abs(diffY)) {
+        // Horizontal Swipe
+        if (Math.abs(diffX) > threshold) {
+          if (diffX > 0) changeDirection(grid, 0); // Swipe Right
+          else changeDirection(-grid, 0);          // Swipe Left
+        }
+      } else {
+        // Vertical Swipe
+        if (Math.abs(diffY) > threshold) {
+          if (diffY > 0) changeDirection(0, grid); // Swipe Down
+          else changeDirection(0, -grid);          // Swipe Up
+        }
+      }
+    }, { passive: true });
+
+    // Play button triggers game start
+    startBtn.addEventListener('click', startGame);
+
+    // Iframe embedded state check
+    if (window.self !== window.top) {
+      document.body.classList.add('embedded');
+    }
+  </script>
+</body>
+</html>
