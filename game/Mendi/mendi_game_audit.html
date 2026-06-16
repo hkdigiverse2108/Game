@@ -1,0 +1,193 @@
+
+<style>
+  h2.sr-only { position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap; }
+  .audit { padding: 1rem 0; font-size: 14px; color: var(--color-text-primary); }
+  .section-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin: 1.5rem 0 0.75rem; border-bottom: 0.5px solid var(--color-border-tertiary); padding-bottom: 6px; }
+  .section-title:first-of-type { margin-top: 0; }
+  .issue { display: flex; gap: 12px; padding: 10px 0; border-bottom: 0.5px solid var(--color-border-tertiary); align-items: flex-start; }
+  .issue:last-child { border-bottom: none; }
+  .badge { flex: 0 0 auto; font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 2px; min-width: 60px; text-align: center; }
+  .bug   { background: var(--color-background-danger); color: var(--color-text-danger); }
+  .logic { background: var(--color-background-warning); color: var(--color-text-warning); }
+  .ux    { background: var(--color-background-info); color: var(--color-text-info); }
+  .perf  { background: var(--color-background-success); color: var(--color-text-success); }
+  .issue-body { flex: 1; }
+  .issue-title { font-weight: 500; color: var(--color-text-primary); margin-bottom: 3px; }
+  .issue-desc { color: var(--color-text-secondary); line-height: 1.55; font-size: 13px; }
+  .issue-code { font-family: var(--font-mono); font-size: 12px; background: var(--color-background-tertiary); border: 0.5px solid var(--color-border-tertiary); border-radius: 6px; padding: 6px 10px; margin-top: 6px; color: var(--color-text-secondary); }
+  .issue-fix { font-size: 12px; color: var(--color-text-success); margin-top: 5px; }
+  .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+  .summary-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 12px; text-align: center; }
+  .summary-num { font-size: 26px; font-weight: 500; }
+  .summary-lbl { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+  .num-bug { color: var(--color-text-danger); }
+  .num-logic { color: var(--color-text-warning); }
+  .num-ux { color: var(--color-text-info); }
+  .num-perf { color: var(--color-text-success); }
+</style>
+<h2 class="sr-only">Mendi game code audit — 15 issues found across bug, logic, UX, and performance categories</h2>
+<div class="audit">
+  <div class="summary-grid">
+    <div class="summary-card"><div class="summary-num num-bug">5</div><div class="summary-lbl">Bugs</div></div>
+    <div class="summary-card"><div class="summary-num num-logic">5</div><div class="summary-lbl">Logic errors</div></div>
+    <div class="summary-card"><div class="summary-num num-ux">4</div><div class="summary-lbl">UX issues</div></div>
+    <div class="summary-card"><div class="summary-num num-perf">2</div><div class="summary-lbl">Performance</div></div>
+  </div>
+
+  <div class="section-title">Bugs — code that breaks or crashes</div>
+
+  <div class="issue">
+    <span class="badge bug">Bug</span>
+    <div class="issue-body">
+      <div class="issue-title">logBoxEl is always null — game-log references a missing element</div>
+      <div class="issue-desc"><code>logBoxEl</code> is assigned from <code>document.getElementById("game-logs")</code>, but there is no element with <code>id="game-logs"</code> anywhere in <code>index.html</code>. Every <code>addLog()</code> call silently no-ops after the null check, so the log panel never renders.</div>
+      <div class="issue-code">const logBoxEl = document.getElementById("game-logs"); // → null always</div>
+      <div class="issue-fix">Fix: Add <code>&lt;div id="game-logs"&gt;&lt;/div&gt;</code> to the HTML, or remove the log system entirely if unused.</div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <span class="badge bug">Bug</span>
+    <div class="issue-body">
+      <div class="issue-title">Hukum suit selector only shows suits the player holds in their first 5 cards</div>
+      <div class="issue-desc">In <code>showHukumSelectionOverlay()</code>, buttons for suits the player does <em>not</em> hold in their current 5-card hand are <code>disabled</code>. But in real Mendikot the player freely declares any suit — the restriction is a house rule not part of the standard game and can leave the player with no valid choice if all four suits appear in those 5 cards (paradoxically all buttons enabled) or edge-case disabled states.</div>
+      <div class="issue-code">btn.disabled = true; // disables suits not in the 5-card hand</div>
+      <div class="issue-fix">Fix: Either remove the restriction, or at minimum clearly label why buttons are disabled so it doesn't feel like a UI glitch.</div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <span class="badge bug">Bug</span>
+    <div class="issue-body">
+      <div class="issue-title">animateDealtCards() is defined but never called</div>
+      <div class="issue-desc">The function exists in <code>script.js</code> but has no call site. It calls <code>renderPlayerHand()</code> and <code>updatePlayerCardCountsHUD()</code> with no arguments, which was likely an earlier version of the dealing logic before it was replaced by the async staggered engine — it's dead code.</div>
+      <div class="issue-fix">Fix: Remove <code>animateDealtCards()</code> to avoid confusion and keep the codebase clean.</div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <span class="badge bug">Bug</span>
+    <div class="issue-body">
+      <div class="issue-title">Crimson theme uses CSS filter on the board container, distorting UI widgets inside it</div>
+      <div class="issue-desc">The <code>theme-crimson</code> class applies <code>filter: hue-rotate(305deg) saturate(1.2) brightness(0.85)</code> to <code>#board-container</code>. This filter also affects all child elements — player avatars, the HUD, card faces, score badges — turning them greenish/discoloured. CSS <code>filter</code> creates a new stacking context and cannot be "escaped" by children.</div>
+      <div class="issue-code">#board-container.theme-crimson { filter: hue-rotate(305deg) ... } /* affects all children */</div>
+      <div class="issue-fix">Fix: Instead of a filter, use a dedicated crimson board image (<code>board_cyber.png</code> exists unused) or overlay a translucent crimson <code>::before</code> pseudo-element so card faces and UI remain unaffected.</div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <span class="badge bug">Bug</span>
+    <div class="issue-body">
+      <div class="issue-title">Race condition: aiTimer can trigger after game exits</div>
+      <div class="issue-desc"><code>state.aiTimer = setTimeout(triggerAILogicalPlay, 600)</code> is set in multiple places, but <code>restartToMenu()</code> only clears the timer if the gameover overlay is visible. If the user somehow navigates away mid-trick, the pending setTimeout will fire and mutate a reset <code>state</code> object. <code>triggerAILogicalPlay</code> guards with <code>if (!state.gameActive) return</code>, but <code>evaluateTrickWinner</code> and <code>startTrickCycle</code> do not.</div>
+      <div class="issue-fix">Fix: Clear all timers centrally in <code>restartToMenu()</code> and add <code>if (!state.gameActive) return</code> guards at the top of <code>evaluateTrickWinner</code> and <code>startTrickCycle</code>.</div>
+    </div>
+  </div>
+
+  <div class="section-title">Logic errors — incorrect game rules or broken game-flow</div>
+
+  <div class="issue">
+    <span class="badge logic">Logic</span>
+    <div class="issue-body">
+      <div class="issue-title">Dealer rotation logic is inverted</div>
+      <div class="issue-desc">In <code>endGameRound()</code>, the deal passes to the next player only when the dealer's team <em>loses</em>. In standard Mendikot, the deal always rotates to the next player clockwise each round, regardless of who wins. The current logic keeps the deal when the dealer's team wins, which is incorrect.</div>
+      <div class="issue-code">if (dealerTeam !== winningTeam) { state.dealer = (state.dealer + 1) % 4; }</div>
+      <div class="issue-fix">Fix: Always rotate the dealer: <code>state.dealer = (state.dealer + 1) % 4;</code> unconditionally at the end of each round.</div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <span class="badge logic">Logic</span>
+    <div class="issue-body">
+      <div class="issue-title">isPartnerWinning() uses the wrong partner index</div>
+      <div class="issue-desc">The function computes <code>partnerIdx = (state.turn + 2) % 4</code>, which is the partner of whoever is <em>currently playing</em> (state.turn). But the function is called during an AI's turn to check if <em>that AI's</em> partner is winning. Since <code>state.turn</code> equals the current AI player, <code>(turn + 2) % 4</code> is actually correct — however, the function is also used inside <code>chooseAICard(playerIdx)</code> where <code>playerIdx</code> is passed but not used in the partner calculation. If <code>state.turn</code> has already been advanced before this call, the result is wrong.</div>
+      <div class="issue-fix">Fix: Pass <code>playerIdx</code> explicitly: <code>const partnerIdx = (playerIdx + 2) % 4;</code> and compare <code>bestPlay.player === partnerIdx</code>.</div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <span class="badge logic">Logic</span>
+    <div class="issue-body">
+      <div class="issue-title">Open Hukum mode: AI cuts with any off-suit card even when it has the lead suit</div>
+      <div class="issue-desc">In <code>chooseAICard()</code>, the Open Hukum branch is only reached when the AI cannot follow suit. But the logic re-checks the "best suit to cut with" and ignores that once Hukum is set, it should play trump strategically, not just to set Hukum again. After Hukum is revealed in open mode, <code>state.hukum.revealed</code> becomes true, but the earlier trump-cut branch may not fire correctly for the second+ tricks.</div>
+      <div class="issue-fix">Fix: Restructure the AI cut decision: first check if <code>state.hukum.revealed</code>, and if so use the trump logic. Only run the "choose best suit to cut" logic when Hukum has not yet been set.</div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <span class="badge logic">Logic</span>
+    <div class="issue-body">
+      <div class="issue-title">compareTwoCards() returns wrong result when neither card is trump or lead suit</div>
+      <div class="issue-desc">When both cards are off-suit (neither trump nor lead suit), the function returns <code>cardA.value - cardB.value</code>. But a higher off-suit card should never beat a lead-suit card — the comparison should always return negative (losing) for any off-suit card vs a lead-suit card. The current code only handles one direction of the lead-suit check.</div>
+      <div class="issue-code">// Missing: if neither card follows lead suit, off-suit high card should not win</div>
+      <div class="issue-fix">Fix: Add a check — if <code>cardA</code> is neither trump nor lead suit, it should automatically lose to any lead-suit card regardless of value.</div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <span class="badge logic">Logic</span>
+    <div class="issue-body">
+      <div class="issue-title">Tie-breaker for 2-2 Mendis uses trick count but Mendikot rules use a re-deal</div>
+      <div class="issue-desc">In <code>endGameRound()</code>, a 2-2 Mendi tie is resolved by whichever team won more tricks. Standard Mendikot rules say a 2-2 tie results in a draw (no winner) and the next game carries a "one up" — it does not resolve by trick count. This gives an incorrect win/loss outcome.</div>
+      <div class="issue-fix">Fix: On a 2-2 tie, display "Draw — next game is a double!" rather than declaring a winner, or add a toggle for house rules.</div>
+    </div>
+  </div>
+
+  <div class="section-title">UX issues — confusing or broken user experience</div>
+
+  <div class="issue">
+    <span class="badge ux">UX</span>
+    <div class="issue-body">
+      <div class="issue-title">No visual feedback when the player tries to click a card out of turn</div>
+      <div class="issue-desc">When it is not the player's turn, <code>pHandEl.classList.add("not-my-turn")</code> dims the cards and disables pointer events. But there is no tooltip, shake animation, or message to explain <em>why</em> clicking does nothing — especially confusing for first-time players.</div>
+      <div class="issue-fix">Fix: Add a brief shake animation or a toast message ("Wait for your turn") when the player taps a card during an AI turn.</div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <span class="badge ux">UX</span>
+    <div class="issue-body">
+      <div class="issue-title">Hukum selection overlay can block the game permanently if dismissed accidentally</div>
+      <div class="issue-desc">The <code>#hukum-select-overlay</code> has no close/cancel button. If the player clicks outside it (which has no handler), nothing happens. If a browser bug or extension interferes with the overlay, the game is stuck with no escape — the only fix is a full page refresh, losing all state.</div>
+      <div class="issue-fix">Fix: Add a click-outside handler on the overlay that re-shows it or shows a warning, and/or add a "Cancel" button that resets to menu.</div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <span class="badge ux">UX</span>
+    <div class="issue-body">
+      <div class="issue-title">board_cyber.png is loaded as an asset but never used in any theme</div>
+      <div class="issue-desc">The file <code>board_cyber.png</code> exists in the game folder alongside <code>board_green.png</code> and <code>board_royal.png</code>, but the CSS only references the green and royal boards. The crimson theme re-uses the green board with a colour filter instead of the dedicated cyber board image.</div>
+      <div class="issue-fix">Fix: Use <code>board_cyber.png</code> for the crimson/cyber theme and remove the problematic CSS <code>filter</code> hack.</div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <span class="badge ux">UX</span>
+    <div class="issue-body">
+      <div class="issue-title">Mobile: cards overlap too aggressively with -30px negative margin on small screens</div>
+      <div class="issue-desc">The hand uses <code>margin-right: -30px</code> on each <code>.hand-card</code>. With 13 cards and 76px card width, the total hand is only ~(76 + 12 × 46) = 628px — close to the 680px board width. On mobile or smaller viewports the cards become un-tappable. The board scales down via <code>resizeBoard()</code> but the card overlap isn't recalculated.</div>
+      <div class="issue-fix">Fix: Compute negative margin dynamically based on hand count and available width, or reduce it further to <code>-20px</code> so cards remain distinguishable.</div>
+    </div>
+  </div>
+
+  <div class="section-title">Performance issues</div>
+
+  <div class="issue">
+    <span class="badge perf">Perf</span>
+    <div class="issue-body">
+      <div class="issue-title">renderPlayerHand() rebuilds the entire DOM on every state change</div>
+      <div class="issue-desc"><code>pHandEl.innerHTML = ""</code> followed by creating all card elements from scratch is called on every turn change, every card play, and after AI moves. With 13 cards, this creates and destroys ~65 DOM nodes on each call. It also re-attaches click listeners each time, and since the hand re-renders during the AI's turn it can interrupt in-progress CSS transitions.</div>
+      <div class="issue-fix">Fix: Use DOM diffing — only remove the played card element and update <code>unplayable</code> / <code>not-my-turn</code> classes in place, rather than rebuilding the whole hand.</div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <span class="badge perf">Perf</span>
+    <div class="issue-body">
+      <div class="issue-title">getRelativePos() forces layout reflow inside the dealing loop</div>
+      <div class="issue-desc"><code>dealCardsStaggered()</code> attempts to pre-cache positions, but <code>getRelativePos()</code> calls <code>getBoundingClientRect()</code> which forces a synchronous layout. The cache is built once before the loop — which is good — but <code>animateSingleCardDeal()</code> still calls <code>document.getElementById("board-container")</code> and reads <code>.getBoundingClientRect()</code> inside the per-card callback, re-triggering layout on each of the 32 remaining-deal cards.</div>
+      <div class="issue-fix">Fix: Pass the already-computed <code>boardRect</code> as part of <code>cachedPositions</code> and remove the redundant <code>getBoundingClientRect()</code> call inside <code>animateSingleCardDeal()</code>.</div>
+    </div>
+  </div>
+</div>

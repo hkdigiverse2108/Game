@@ -49,43 +49,71 @@
         <div class="gold-separator">♣ ♦ ♠ ♥</div>
         <p class="subtitle">Traditional Indian Card Game</p>
 
-        <!-- Player Name -->
-        <div class="form-group">
-          <label for="player-name">Player Name</label>
-          <input type="text" id="player-name" value="Player" maxlength="15" autocomplete="off" />
-        </div>
+        <div class="settings-grid">
+          <!-- Column 1 Settings -->
+          <div class="settings-col">
+            <!-- Player Name -->
+            <div class="form-group">
+              <label for="player-name">Player Name</label>
+              <input type="text" id="player-name" value="Player" maxlength="15" autocomplete="off" />
+            </div>
 
-        <!-- Trump Setting -->
-        <div class="form-group">
-          <label>Trump Suit (Hukum) Mode</label>
-          <div class="toggle-buttons">
-            <button id="mode-closed" class="toggle-btn active" data-mode="closed">Closed Mode (Secret)</button>
-            <button id="mode-open" class="toggle-btn" data-mode="open">Open Mode (First Cut)</button>
+            <!-- Trump Setting -->
+            <div class="form-group">
+              <label>Hukum Mode</label>
+              <div class="toggle-buttons">
+                <button id="mode-closed" class="toggle-btn active" data-mode="closed">Closed (Secret)</button>
+                <button id="mode-open" class="toggle-btn" data-mode="open">Open (First Cut)</button>
+              </div>
+            </div>
+
+            <!-- Difficulty Setting -->
+            <div class="form-group">
+              <label>AI Difficulty</label>
+              <div class="toggle-buttons">
+                <button id="diff-easy" class="toggle-btn" data-diff="easy">Easy</button>
+                <button id="diff-med" class="toggle-btn active" data-diff="medium">Med</button>
+                <button id="diff-hard" class="toggle-btn" data-diff="hard">Hard</button>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <!-- Difficulty Setting -->
-        <div class="form-group">
-          <label>AI Difficulty</label>
-          <div class="toggle-buttons">
-            <button id="diff-easy" class="toggle-btn" data-diff="easy">Easy</button>
-            <button id="diff-med" class="toggle-btn active" data-diff="medium">Medium</button>
-            <button id="diff-hard" class="toggle-btn" data-diff="hard">Hard</button>
-          </div>
-        </div>
+          <!-- Column 2 Settings -->
+          <div class="settings-col">
+            <!-- Deck Type Setting -->
+            <div class="form-group">
+              <label>Deck Type</label>
+              <div class="toggle-buttons">
+                <button id="deck-type-stripped" class="toggle-btn active" data-decktype="stripped">Stripped (7-A)</button>
+                <button id="deck-type-full" class="toggle-btn" data-decktype="full">Full (2-A)</button>
+              </div>
+            </div>
 
-        <!-- Table Theme Setting -->
-        <div class="form-group">
-          <label>Table Theme</label>
-          <div class="toggle-buttons">
-            <button id="theme-green-btn" class="toggle-btn active" data-theme="green">Classic Green</button>
-            <button id="theme-crimson-btn" class="toggle-btn" data-theme="crimson">Crimson Velvet</button>
-            <button id="theme-royal-btn" class="toggle-btn" data-theme="royal">Royal Blue</button>
+            <!-- Number of Decks Setting -->
+            <div class="form-group">
+              <label>Number of Decks</label>
+              <div class="toggle-buttons">
+                <button id="decks-1" class="toggle-btn" data-decks="1">1</button>
+                <button id="decks-2" class="toggle-btn active" data-decks="2">2</button>
+                <button id="decks-3" class="toggle-btn" data-decks="3">3</button>
+                <button id="decks-4" class="toggle-btn" data-decks="4">4</button>
+              </div>
+            </div>
+
+            <!-- Table Theme Setting -->
+            <div class="form-group">
+              <label>Table Theme</label>
+              <div class="toggle-buttons">
+                <button id="theme-green-btn" class="toggle-btn active" data-theme="green">Green</button>
+                <button id="theme-crimson-btn" class="toggle-btn" data-theme="crimson">Crimson</button>
+                <button id="theme-royal-btn" class="toggle-btn" data-theme="royal">Blue</button>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Start Button -->
-        <button id="start-game-btn" class="action-btn glow-btn">Start Game</button>
+        <button id="start-game-btn" class="action-btn glow-btn" style="width: 100%;">Start Game</button>
       </div>
     </div>
 
@@ -93,7 +121,8 @@
     <div id="game-layout" class="hidden">
       <!-- Main Game Board -->
       <main id="board-container">
-        <!-- Floating HUD Element: Top Left Hukum Indicator -->
+        <div id="board-content">
+          <!-- Floating HUD Element: Top Left Hukum Indicator -->
         <div class="hud-panel hukum-panel glass select-none">
           <span class="hud-label">Hukum</span>
           <div id="hukum-display" class="hukum-box card-back-bg select-none">
@@ -102,25 +131,11 @@
           </div>
         </div>
 
-        <!-- Floating HUD Element: Top Right Scoreboard -->
-        <div class="hud-panel scoreboard-panel glass">
-          <span class="hud-label">Mendis Captured</span>
-          <div class="hud-score-row">
-            <div class="hud-team">
-              <span class="hud-team-name">Your Team</span>
-              <div id="player-mendi-cards" class="mendi-collected-list"></div>
-            </div>
-            <span id="player-score" class="hud-mendi-count font-digit">0</span>
-          </div>
-          <div class="hud-score-row">
-            <div class="hud-team">
-              <span class="hud-team-name">Opponents</span>
-              <div id="opponent-mendi-cards" class="mendi-collected-list"></div>
-            </div>
-            <span id="opponent-score" class="hud-mendi-count font-digit">0</span>
-          </div>
+        <!-- Floating HUD Element: Middle Left Game Logs -->
+        <div class="hud-panel logs-panel glass">
+          <span class="hud-label">Logs</span>
+          <div id="game-logs" class="logs-box"></div>
         </div>
-
 
         <!-- Top Player: Partner AI -->
         <div class="player-slot slot-top" id="slot-partner">
@@ -195,7 +210,40 @@
             <div id="player-hand" class="cards-hand-wrapper">
               <!-- Player cards dealt here -->
             </div>
+            
+            <!-- Symmetrical Bottom-Right Scoreboard Widget -->
+            <div class="player-avatar slot-bottom-scoreboard">
+              <div style="display: flex; align-items: center; gap: 8px; justify-content: center; margin-bottom: 2px;">
+                <span class="avatar-icon" style="font-size: 18px;">🏆</span>
+                <span class="player-lbl" style="font-size: 12px;">Scoreboard</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 6px; width: 100%; border-top: 1px solid rgba(212, 175, 55, 0.15); padding-top: 6px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                  <span style="font-size: 11px; font-weight: 600; color: #bfa795; text-transform: uppercase;">Us:</span>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <div id="player-mendi-cards" class="mendi-collected-list"></div>
+                    <span style="font-size: 13px; font-weight: 700;">
+                      <span id="player-score" class="font-digit" style="color: var(--color-primary);">0</span>M
+                    </span>
+                    <span style="color: rgba(255,255,255,0.2);">|</span>
+                    <span id="player-tricks-score" class="font-digit" style="font-size: 13px; color: #ffffff;">0/13</span>
+                  </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                  <span style="font-size: 11px; font-weight: 600; color: #bfa795; text-transform: uppercase;">Them:</span>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <div id="opponent-mendi-cards" class="mendi-collected-list"></div>
+                    <span style="font-size: 13px; font-weight: 700;">
+                      <span id="opponent-score" class="font-digit" style="color: var(--color-primary);">0</span>M
+                    </span>
+                    <span style="color: rgba(255,255,255,0.2);">|</span>
+                    <span id="opponent-tricks-score" class="font-digit" style="font-size: 13px; color: #ffffff;">0/13</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
         </div>
       </main>
     </div>
@@ -223,6 +271,7 @@
             <span class="suit-name">Diamonds</span>
           </button>
         </div>
+        <button id="cancel-hukum-btn" class="action-btn secondary-btn" style="margin-top: 20px; width: 100%;">Cancel & Exit</button>
       </div>
     </div>
 

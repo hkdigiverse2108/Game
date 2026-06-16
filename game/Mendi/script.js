@@ -41,6 +41,10 @@
     playerName: "Player",
     hukumMode: "closed", // "closed" or "open"
     difficulty: "medium", // "easy" | "medium" | "hard"
+    deckType: "stripped", // "stripped" (7 to Ace) or "full" (2 to Ace)
+    numDecks: 2, // 1 | 2 | 3 | 4
+    cardsPerHand: 16, // Calculated dynamically
+    totalMendis: 8, // Calculated dynamically (4 * numDecks)
     deck: [],
     hands: [[], [], [], []], // Dealt cards
     hukum: {
@@ -94,6 +98,8 @@
   const oppScoreEl = document.getElementById("opponent-score");
   const pMendiCardsEl = document.getElementById("player-mendi-cards");
   const oppMendiCardsEl = document.getElementById("opponent-mendi-cards");
+  const pTricksScoreEl = document.getElementById("player-tricks-score");
+  const oppTricksScoreEl = document.getElementById("opponent-tricks-score");
   
   const indicatorLblEl = document.getElementById("player-indicator-lbl");
   
@@ -120,6 +126,70 @@
     });
   });
 
+  function updateMenuSettingsAvailability() {
+    const fullDeckBtn = document.getElementById("deck-type-full");
+    const decks3Btn = document.getElementById("decks-3");
+    const decks4Btn = document.getElementById("decks-4");
+
+    if (state.deckType === "full") {
+      // Decks 3 and 4 are not allowed, disable them
+      if (decks3Btn) decks3Btn.disabled = true;
+      if (decks4Btn) decks4Btn.disabled = true;
+      
+      // If current numDecks is 3 or 4, force it to 2 (default)
+      if (state.numDecks > 2) {
+        state.numDecks = 2;
+        document.querySelectorAll("[data-decks]").forEach(b => {
+          b.classList.remove("active");
+          if (b.dataset.decks === "2") {
+            b.classList.add("active");
+          }
+        });
+      }
+    } else {
+      // All decks are allowed, enable them
+      if (decks3Btn) decks3Btn.disabled = false;
+      if (decks4Btn) decks4Btn.disabled = false;
+    }
+
+    if (state.numDecks > 2) {
+      // Full deck is not allowed, disable it
+      if (fullDeckBtn) fullDeckBtn.disabled = true;
+      
+      // If current deckType is full, force it to stripped
+      if (state.deckType === "full") {
+        state.deckType = "stripped";
+        document.querySelectorAll("[data-decktype]").forEach(b => {
+          b.classList.remove("active");
+          if (b.dataset.decktype === "stripped") {
+            b.classList.add("active");
+          }
+        });
+      }
+    } else {
+      // Full deck is allowed, enable it
+      if (fullDeckBtn) fullDeckBtn.disabled = false;
+    }
+  }
+
+  document.querySelectorAll("[data-decktype]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("[data-decktype]").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      state.deckType = btn.dataset.decktype;
+      updateMenuSettingsAvailability();
+    });
+  });
+
+  document.querySelectorAll("[data-decks]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("[data-decks]").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      state.numDecks = parseInt(btn.dataset.decks, 10);
+      updateMenuSettingsAvailability();
+    });
+  });
+
   document.querySelectorAll("[data-theme]").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll("[data-theme]").forEach(b => b.classList.remove("active"));
@@ -128,6 +198,9 @@
       applyTableTheme(state.tableTheme);
     });
   });
+
+  // Run initial settings check to make sure they are in sync at startup
+  updateMenuSettingsAvailability();
 
   document.getElementById("start-game-btn").addEventListener("click", startGame);
   document.getElementById("sort-hand-btn").addEventListener("click", () => {
@@ -146,6 +219,17 @@
       selectHukumSuit(btn.dataset.suit);
     });
   });
+
+  const cancelHukumBtn = document.getElementById("cancel-hukum-btn");
+  if (cancelHukumBtn) {
+    cancelHukumBtn.addEventListener("click", () => {
+      state.hukumSelectionPhase = false;
+      if (hukumSelectOverlayEl) {
+        hukumSelectOverlayEl.classList.add("hidden");
+      }
+      restartToMenu();
+    });
+  }
 
   const themeBtn = document.getElementById("theme-btn");
   if (themeBtn) {
@@ -184,15 +268,22 @@
     return (playerIdx === PLAYER_HUMAN || playerIdx === PLAYER_PARTNER) ? 0 : 1;
   }
 
-  // 1. Start Game Configuration
   function startGame() {
     const nameInput = document.getElementById("player-name").value.trim();
     state.playerName = nameInput || "Player";
     PLAYER_LABELS[PLAYER_HUMAN] = state.playerName;
 
+    // Calculate cards per hand and total Mendis dynamically
+    const cardsPerDeck = state.deckType === "stripped" ? 32 : 52;
+    state.cardsPerHand = (cardsPerDeck * state.numDecks) / 4;
+    state.totalMendis = 4 * state.numDecks;
+
     setupOverlay.classList.add("hidden");
     gameLayout.classList.remove("hidden");
     gameoverOverlay.classList.add("hidden");
+
+    // Recalculate board scale to fit window
+    resizeBoard();
 
     // Randomize dealer at the start of the session
     state.dealer = Math.floor(Math.random() * 4);
@@ -248,6 +339,8 @@
     oppScoreEl.textContent = "0";
     pMendiCardsEl.innerHTML = "";
     oppMendiCardsEl.innerHTML = "";
+    if (pTricksScoreEl) pTricksScoreEl.textContent = `0/${state.cardsPerHand}`;
+    if (oppTricksScoreEl) oppTricksScoreEl.textContent = `0/${state.cardsPerHand}`;
     if (logBoxEl) {
       logBoxEl.innerHTML = `<div class="log-entry system">Welcome, ${state.playerName}! Starting new round.</div>`;
     }
@@ -259,13 +352,13 @@
   // Helper: pause execution
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-  function getRelativePos(el) {
+  function getRelativePos(el, boardRect = null) {
     const boardEl = document.getElementById("board-container");
-    const boardRect = boardEl.getBoundingClientRect();
+    const actualBoardRect = boardRect || boardEl.getBoundingClientRect();
     const rect = el.getBoundingClientRect();
     return {
-      x: rect.left + rect.width / 2 - boardRect.left,
-      y: rect.top + rect.height / 2 - boardRect.top
+      x: rect.left + rect.width / 2 - actualBoardRect.left,
+      y: rect.top + rect.height / 2 - actualBoardRect.top
     };
   }
 
@@ -274,9 +367,10 @@
     // Pre-calculate and cache target positions to prevent layout thrashing (forced synchronous reflows)
     const boardEl = document.getElementById("board-container");
     if (!boardEl) return;
+    const boardRect = boardEl.getBoundingClientRect();
     
     const deckEl = document.getElementById("deck-stack");
-    const deckPos = deckEl ? getRelativePos(deckEl) : { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    const deckPos = deckEl ? getRelativePos(deckEl, boardRect) : { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     
     // Cache slot positions
     const slotPositions = {};
@@ -284,7 +378,7 @@
     for (let p = 1; p < 4; p++) {
       const el = document.getElementById(ids[p]);
       if (el) {
-        slotPositions[p] = getRelativePos(el);
+        slotPositions[p] = getRelativePos(el, boardRect);
       }
     }
     
@@ -294,13 +388,13 @@
       const suit = cardEl.dataset.suit;
       const value = cardEl.dataset.value;
       if (suit && value) {
-        handCardPositions.set(`${suit}-${value}`, getRelativePos(cardEl));
+        handCardPositions.set(`${suit}-${value}`, getRelativePos(cardEl, boardRect));
       }
     });
     
     // Default position for human hand container
     const handContainerEl = document.querySelector(".bottom-hand-container");
-    const handContainerPos = handContainerEl ? getRelativePos(handContainerEl) : { x: window.innerWidth / 2, y: window.innerHeight - 100 };
+    const handContainerPos = handContainerEl ? getRelativePos(handContainerEl, boardRect) : { x: window.innerWidth / 2, y: window.innerHeight - 100 };
     
     const cachedPositions = {
       deck: deckPos,
@@ -380,24 +474,28 @@
     });
   }
 
-  // 2. Initialize Round (Deal 5 Cards first, Choose Hukum, then remaining 8)
+  // 2. Initialize Round (Closed Hukum selection at start, then deal all)
   async function initRound() {
     state.isDealing = true;
 
-    // Generate standard 52 deck
+    // Generate deck based on selected options
     state.deck = [];
-    SUITS.forEach(suit => {
-      VALUES.forEach(val => {
-        state.deck.push({
-          suit: suit.id,
-          symbol: suit.symbol,
-          isRed: suit.isRed,
-          suitName: suit.name,
-          value: val.value,
-          name: val.name
+    const activeValues = state.deckType === "stripped" ? VALUES.filter(v => v.value >= 7) : VALUES;
+    
+    for (let d = 0; d < state.numDecks; d++) {
+      SUITS.forEach(suit => {
+        activeValues.forEach(val => {
+          state.deck.push({
+            suit: suit.id,
+            symbol: suit.symbol,
+            isRed: suit.isRed,
+            suitName: suit.name,
+            value: val.value,
+            name: val.name
+          });
         });
       });
-    });
+    }
 
     // Reset hands
     state.hands = [[], [], [], []];
@@ -423,95 +521,29 @@
     // Shuffle the deck in memory
     shuffle(state.deck);
 
-    addLog(`<b>${PLAYER_LABELS[state.dealer]}</b> is dealing the cards...`, "system");
-
-    // Deal first 5 cards to each player (total 20 cards) in memory first
-    let nextPlayer = (state.dealer + 1) % 4;
-    const firstDealCards = [];
-    for (let round = 0; round < 5; round++) {
-      for (let offset = 0; offset < 4; offset++) {
-        const playerIdx = (nextPlayer + offset) % 4;
-        const card = state.deck.shift();
-        state.hands[playerIdx].push(card);
-        firstDealCards.push({ playerIdx, card });
-      }
-    }
-
-    // Sort human hand
-    sortHand(PLAYER_HUMAN);
-
-    // Render human hand with all 5 cards hidden initially
-    renderPlayerHand(true);
-
-    // Deal first 5 cards with 60ms stagger in parallel
-    await dealCardsStaggered(firstDealCards, 60);
-
-    // Auto sort AI hands
-    for (let p = 1; p < 4; p++) {
-      sortHand(p);
-    }
-
-    // Keep state.isDealing = true to block hand interaction during Hukum selection and the remaining deal
-
-    // Trigger Hukum selection
+    // Trigger Hukum selection before dealing if in Closed Mode
     if (state.hukumMode === "closed") {
-      state.hukum.secretChooser = (state.dealer + 1) % 4;
-      addLog(`<b>${PLAYER_LABELS[state.hukum.secretChooser]}</b> must choose the secret Hukum suit.`, "system");
-      
-      if (state.hukum.secretChooser === PLAYER_HUMAN) {
-        state.hukumSelectionPhase = true;
-        indicatorLblEl.textContent = "SELECT A SUIT FOR HUKUM (TRUMP)";
-        indicatorLblEl.style.color = "var(--color-accent)";
-        addLog("It is your turn to select the secret Hukum. Choose a suit from the overlay.", "system");
-        updateHukumStatusUI();
-        showHukumSelectionOverlay();
-      } else {
-        // AI chooses secret Hukum
-        state.hukumSelectionPhase = false;
-        const aiChooser = state.hukum.secretChooser;
-        // AI chooses the suit of which it has the most cards in its 5 cards
-        const suitCounts = {};
-        state.hands[aiChooser].forEach(c => {
-          suitCounts[c.suit] = (suitCounts[c.suit] || 0) + 1;
-        });
-        let bestSuit = SUITS[0].id;
-        let maxCount = 0;
-        for (const suit in suitCounts) {
-          if (suitCounts[suit] > maxCount) {
-            maxCount = suitCounts[suit];
-            bestSuit = suit;
-          }
-        }
-        state.hukum.secretSuit = bestSuit;
-        addLog(`${PLAYER_LABELS[aiChooser]} chose a secret Hukum suit.`, "system");
-        updateHukumStatusUI();
-        
-        // Deal remaining cards after a short delay
-        setTimeout(dealRemainingCards, 500);
-      }
+      state.hukum.secretChooser = PLAYER_HUMAN; // User always selects secret Hukum in Closed Mode
+      state.hukumSelectionPhase = true;
+      indicatorLblEl.textContent = "SELECT A SUIT FOR HUKUM (TRUMP)";
+      indicatorLblEl.style.color = "var(--color-accent)";
+      addLog("Closed Mode: Choose the Hukum suit before cards are dealt.", "system");
+      updateHukumStatusUI();
+      showHukumSelectionOverlay();
     } else {
       addLog("Hukum mode is Open. The first suit cut will determine the trump.", "system");
       updateHukumStatusUI();
-      // Deal remaining cards after a short delay
-      setTimeout(dealRemainingCards, 500);
+      dealAllCards();
     }
   }
 
   function showHukumSelectionOverlay() {
     if (!hukumSelectOverlayEl) return;
     
-    // In Mendi, the player selects the Hukum from the 5 cards in their hand.
-    const playerSuits = new Set(state.hands[PLAYER_HUMAN].map(c => c.suit));
-    
+    // Allow selecting any suit freely
     hukumSelectOverlayEl.querySelectorAll(".suit-select-btn-large").forEach(btn => {
-      const suitId = btn.dataset.suit;
-      if (playerSuits.has(suitId)) {
-        btn.disabled = false;
-        btn.classList.remove("disabled");
-      } else {
-        btn.disabled = true;
-        btn.classList.add("disabled");
-      }
+      btn.disabled = false;
+      btn.classList.remove("disabled");
     });
     hukumSelectOverlayEl.classList.remove("hidden");
   }
@@ -532,25 +564,30 @@
     addLog(`You selected ${suitObj.name} ${suitObj.symbol} as secret Hukum.`, "hukum");
     updateHukumStatusUI();
     
-    // Deal the remaining 8 cards
-    setTimeout(dealRemainingCards, 300);
+    // Deal all cards
+    state.aiTimer = setTimeout(dealAllCards, 300);
   }
 
-  async function dealRemainingCards() {
+  async function dealAllCards() {
+    if (!state.gameActive) return;
     state.isDealing = true;
+
+    addLog(`<b>${PLAYER_LABELS[state.dealer]}</b> is dealing the cards...`, "system");
 
     const deckStackEl = document.getElementById("deck-stack");
     let nextPlayer = (state.dealer + 1) % 4;
 
-    const remainingCards = [];
+    const dealCardsList = [];
     const humanNewCards = [];
-    // Deal the remaining 32 cards (8 to each of the 4 players)
-    for (let round = 0; round < 8; round++) {
+    
+    // Deal all cards dynamically
+    const totalCount = state.cardsPerHand;
+    for (let round = 0; round < totalCount; round++) {
       for (let offset = 0; offset < 4; offset++) {
         const playerIdx = (nextPlayer + offset) % 4;
         const card = state.deck.shift();
         state.hands[playerIdx].push(card);
-        remainingCards.push({ playerIdx, card });
+        dealCardsList.push({ playerIdx, card });
         if (playerIdx === PLAYER_HUMAN) {
           humanNewCards.push(card);
         }
@@ -566,11 +603,11 @@
     renderPlayerHand(humanNewCards);
     updatePlayerCardCountsHUD(state.visualCardCounts);
 
-    // Staggered parallel deal of remaining 32 cards (40ms stagger)
-    await dealCardsStaggered(remainingCards, 40);
+    // Staggered parallel deal of all cards (40ms stagger)
+    await dealCardsStaggered(dealCardsList, 40);
 
     state.isDealing = false;
-    addLog("Remaining cards dealt. The round begins!", "system");
+    addLog("All cards dealt. The round begins!", "system");
     
     if (deckStackEl) {
       deckStackEl.classList.add("hidden");
@@ -598,14 +635,27 @@
   }
 
   // 3. UI Animation helpers
-  function animateDealtCards() {
-    renderPlayerHand();
-    updatePlayerCardCountsHUD();
+  let feedbackTimeout = null;
+  function showFeedback(message) {
+    if (feedbackTimeout) {
+      clearTimeout(feedbackTimeout);
+    }
+    indicatorLblEl.textContent = message;
+    indicatorLblEl.style.color = "#ff3344"; // Warning red
+    
+    feedbackTimeout = setTimeout(() => {
+      updateHUDIndicator();
+    }, 1500);
+  }
+
+  function shakeElement(el) {
+    el.classList.add("shake-anim");
+    setTimeout(() => {
+      el.classList.remove("shake-anim");
+    }, 350);
   }
 
   function renderPlayerHand(cardsToHide = null) {
-    pHandEl.innerHTML = "";
-    
     // Add/remove not-my-turn class based on state
     if (state.turn === PLAYER_HUMAN && 
         state.gameActive && 
@@ -617,13 +667,64 @@
       pHandEl.classList.add("not-my-turn");
     }
 
-    state.hands[PLAYER_HUMAN].forEach((card, idx) => {
+    const currentHand = state.hands[PLAYER_HUMAN];
+    const existingElements = Array.from(pHandEl.querySelectorAll(".hand-card"));
+    
+    // Check if we can just update existing DOM elements instead of full rebuild
+    const matchesState = existingElements.length === currentHand.length && 
+                          existingElements.every((el, idx) => {
+                            const c = currentHand[idx];
+                            return el.dataset.suit === c.suit && el.dataset.value == c.value;
+                          });
+
+    if (matchesState && !cardsToHide) {
+      // Just update playability classes and z-index in-place
+      existingElements.forEach((wrapper, idx) => {
+        const card = currentHand[idx];
+        const playable = isCardPlayable(PLAYER_HUMAN, card);
+        if (!playable && state.currentTrick.length > 0 && state.turn === PLAYER_HUMAN) {
+          wrapper.classList.add("unplayable");
+        } else {
+          wrapper.classList.remove("unplayable");
+        }
+        wrapper.style.zIndex = 10 + idx;
+      });
+      return;
+    }
+
+    // Full rebuild
+    pHandEl.innerHTML = "";
+    
+    // Calculate negative margin dynamically based on available container width
+    const containerWidth = pHandEl.clientWidth || 600;
+    const cardWidth = 76;
+    const numCards = currentHand.length;
+    let margin = -10; // Default minimal overlap
+    
+    if (numCards > 1) {
+      // Leave a tiny buffer of 24px (12px padding on each side)
+      const targetWidth = containerWidth - 24;
+      const totalNoOverlap = cardWidth * numCards;
+      if (totalNoOverlap > targetWidth) {
+        const overlapNeeded = (totalNoOverlap - targetWidth) / (numCards - 1);
+        // Limit overlap so cards don't completely hide each other (max overlap 68px, leaving 8px visible)
+        margin = -Math.min(68, Math.max(10, overlapNeeded));
+      }
+    }
+
+    currentHand.forEach((card, idx) => {
       const wrapper = document.createElement("div");
       wrapper.className = "card-wrapper hand-card";
       wrapper.style.zIndex = 10 + idx;
       wrapper.dataset.suit = card.suit;
       wrapper.dataset.value = card.value;
       wrapper.cardData = card;
+
+      if (idx < currentHand.length - 1) {
+        wrapper.style.marginRight = `${margin}px`;
+      } else {
+        wrapper.style.marginRight = "0px";
+      }
 
       // Hide if requested
       if (cardsToHide) {
@@ -665,9 +766,17 @@
 
       // Play card click
       wrapper.addEventListener("click", () => {
-        if (state.isDealing) return;
-        if (state.hukumSelectionPhase) return;
-        if (state.turn !== PLAYER_HUMAN || !playable || !state.gameActive || state.waitingForTrickTransition) return;
+        if (state.isDealing || state.hukumSelectionPhase || !state.gameActive || state.waitingForTrickTransition) return;
+        if (state.turn !== PLAYER_HUMAN) {
+          showFeedback("Wait for your turn!");
+          shakeElement(wrapper);
+          return;
+        }
+        if (!playable) {
+          showFeedback("Must follow lead suit!");
+          shakeElement(wrapper);
+          return;
+        }
         playHumanCard(card, idx, wrapper);
       });
     });
@@ -708,6 +817,7 @@
 
   // 4. Game Turn Cycle Engine
   function startTrickCycle() {
+    if (!state.gameActive) return;
     state.currentTrick = [];
     state.leadSuit = null;
     state.waitingForTrickTransition = false;
@@ -736,8 +846,9 @@
     // Calculate relative starting coordinates for smooth slide glide transition
     const rect = el.getBoundingClientRect();
     const centerRect = trickPileEl.getBoundingClientRect();
-    const tx = rect.left - centerRect.left;
-    const ty = rect.top - centerRect.top;
+    const scale = document.getElementById("board-content").getBoundingClientRect().width / 1024 || 1;
+    const tx = (rect.left - centerRect.left) / scale;
+    const ty = (rect.top - centerRect.top) / scale;
 
     // Remove from hand array
     state.hands[PLAYER_HUMAN].splice(handIdx, 1);
@@ -854,6 +965,15 @@
     // Register card in current trick
     if (state.currentTrick.length === 0) {
       state.leadSuit = cardToPlay.suit;
+    } else {
+      // Check if AI is cutting
+      if (cardToPlay.suit !== state.leadSuit && !state.hukum.revealed) {
+        if (state.hukumMode === "closed") {
+          revealClosedHukum(aiIdx);
+        } else if (state.hukumMode === "open") {
+          setOpenHukum(cardToPlay.suit, aiIdx);
+        }
+      }
     }
 
     state.currentTrick.push({
@@ -886,8 +1006,9 @@
     const rect = slot.getBoundingClientRect();
     const centerRect = trickPileEl.getBoundingClientRect();
     
-    const tx = rect.left - centerRect.left + (rect.width/2) - 38;
-    const ty = rect.top - centerRect.top + (rect.height/2) - 55;
+    const scale = document.getElementById("board-content").getBoundingClientRect().width / 1024 || 1;
+    const tx = (rect.left - centerRect.left + (rect.width/2) - 38) / scale;
+    const ty = (rect.top - centerRect.top + (rect.height/2) - 55) / scale;
     
     el.style.transform = `translate(${tx}px, ${ty}px) scale(0.6)`;
   }
@@ -960,7 +1081,7 @@
       const suitCards = validCards.filter(c => c.suit === state.leadSuit);
       
       // Look if partner is currently winning the trick
-      const partnerWins = isPartnerWinning();
+      const partnerWins = isPartnerWinning(playerIdx);
       if (partnerWins) {
         // Discard a 10 (Mendi) to partner, or play low card to save strength
         const tenCard = suitCards.find(c => c.value === 10);
@@ -980,53 +1101,51 @@
     }
 
     // If cannot follow suit (Cut opportunity)
-    // Closed Hukum Mode check
-    if (state.hukumMode === "closed" && !state.hukum.revealed) {
-      // If trick contains a 10 (Mendi) and we want to win it
-      const containsTen = state.currentTrick.some(t => t.card.value === 10);
-      if (containsTen && !isPartnerWinning()) {
-        // Reveal Hukum!
-        revealClosedHukum(playerIdx);
-        // After reveal, filter cards of revealed hukum if they exist
-        const hukumCards = state.hands[playerIdx].filter(c => c.suit === state.hukum.suit);
-        if (hukumCards.length > 0) {
-          return hukumCards[0]; // Cut with highest trump
-        }
-      }
-    } else if (state.hukum.revealed) {
+    if (state.hukum.revealed && state.hukum.suit) {
       // Trump is already revealed, play trump card to cut if partner isn't winning
-      if (!isPartnerWinning()) {
+      if (!isPartnerWinning(playerIdx)) {
         const trumps = validCards.filter(c => c.suit === state.hukum.suit);
         if (trumps.length > 0) {
-          return trumps[0]; // Play highest trump to win
+          return trumps[trumps.length - 1]; // Play lowest trump to cut
         }
       }
-    } else if (state.hukumMode === "open") {
-      // Open mode: first discard determines Hukum!
-      // Select the suit of which the AI has the most cards in hand (to make it trump)
-      const suitCounts = {};
-      validCards.forEach(c => {
-        suitCounts[c.suit] = (suitCounts[c.suit] || 0) + 1;
-      });
-      let bestSuit = validCards[0].suit;
-      let maxCount = 0;
-      for (const suit in suitCounts) {
-        if (suitCounts[suit] > maxCount) {
-          maxCount = suitCounts[suit];
-          bestSuit = suit;
+    } else {
+      // Hukum not yet revealed
+      if (state.hukumMode === "closed") {
+        // If trick contains a 10 (Mendi) and partner is not winning, cut if we have the secret suit
+        const containsTen = state.currentTrick.some(t => t.card.value === 10);
+        if (containsTen && !isPartnerWinning(playerIdx)) {
+          const secretSuit = state.hukum.secretSuit;
+          const secretCards = validCards.filter(c => c.suit === secretSuit);
+          if (secretCards.length > 0) {
+            return secretCards[0]; // Play highest secret trump to cut
+          }
         }
+      } else if (state.hukumMode === "open") {
+        // Open mode: first discard determines Hukum!
+        // Select the suit of which the AI has the most cards in hand (to make it trump)
+        const suitCounts = {};
+        validCards.forEach(c => {
+          suitCounts[c.suit] = (suitCounts[c.suit] || 0) + 1;
+        });
+        let bestSuit = validCards[0].suit;
+        let maxCount = 0;
+        for (const suit in suitCounts) {
+          if (suitCounts[suit] > maxCount) {
+            maxCount = suitCounts[suit];
+            bestSuit = suit;
+          }
+        }
+        const bestSuitCards = validCards.filter(c => c.suit === bestSuit);
+        return bestSuitCards[bestSuitCards.length - 1]; // Play lowest card of that suit to set Hukum
       }
-      const bestSuitCards = validCards.filter(c => c.suit === bestSuit);
-      const discard = bestSuitCards[bestSuitCards.length - 1];
-      setOpenHukum(discard.suit, playerIdx);
-      return discard;
     }
 
     // Default fallback: play lowest value card
     return validCards[validCards.length - 1];
   }
 
-  function isPartnerWinning() {
+  function isPartnerWinning(playerIdx) {
     if (state.currentTrick.length === 0) return false;
     
     // Evaluate who is winning so far
@@ -1038,9 +1157,7 @@
       }
     }
     
-    // Partner of playerIdx turn is (turn + 2) % 4
-    // If the active player is turn, their partner is (turn + 2) % 4
-    const partnerIdx = (state.turn + 2) % 4;
+    const partnerIdx = (playerIdx + 2) % 4;
     return bestPlay.player === partnerIdx;
   }
 
@@ -1056,20 +1173,27 @@
   }
 
   function compareTwoCards(cardA, cardB) {
-    // Trump suit check
-    if (state.hukum.revealed) {
-      if (cardA.suit === state.hukum.suit && cardB.suit !== state.hukum.suit) return 1;
-      if (cardB.suit === state.hukum.suit && cardA.suit !== state.hukum.suit) return -1;
-      if (cardA.suit === state.hukum.suit && cardB.suit === state.hukum.suit) {
-        return cardA.value - cardB.value;
-      }
+    const aIsTrump = state.hukum.revealed && cardA.suit === state.hukum.suit;
+    const bIsTrump = state.hukum.revealed && cardB.suit === state.hukum.suit;
+
+    // 1. Trump comparisons
+    if (aIsTrump && !bIsTrump) return 1;
+    if (bIsTrump && !aIsTrump) return -1;
+    if (aIsTrump && bIsTrump) {
+      return cardA.value - cardB.value;
     }
 
-    // Lead suit check
-    if (cardA.suit === state.leadSuit && cardB.suit !== state.leadSuit) return 1;
-    if (cardB.suit === state.leadSuit && cardA.suit !== state.leadSuit) return -1;
-    
-    // Values check
+    // 2. Lead suit comparisons
+    const aIsLead = cardA.suit === state.leadSuit;
+    const bIsLead = cardB.suit === state.leadSuit;
+
+    if (aIsLead && !bIsLead) return 1;
+    if (bIsLead && !aIsLead) return -1;
+    if (aIsLead && bIsLead) {
+      return cardA.value - cardB.value;
+    }
+
+    // 3. Both are off-suit (neither lead nor trump)
     return cardA.value - cardB.value;
   }
 
@@ -1099,9 +1223,17 @@
           hukumDisplayEl.className = `hukum-box card-back-bg select-none glow-success`;
           hukumDisplayEl.style.backgroundImage = "url('card_back.png')";
           hukumDisplayEl.style.borderColor = "var(--color-accent)";
-          hukumIconEl.textContent = "🔒";
-          hukumIconEl.style.color = "#ffffff";
-          hukumTextEl.textContent = "Secret Set";
+          
+          if (state.hukum.secretChooser === PLAYER_HUMAN) {
+            const suitObj = SUITS.find(s => s.id === state.hukum.secretSuit);
+            hukumIconEl.textContent = `🔒 ${suitObj.symbol}`;
+            hukumIconEl.style.color = suitObj.isRed ? "var(--color-red)" : "#ffffff";
+            hukumTextEl.textContent = suitObj.name;
+          } else {
+            hukumIconEl.textContent = "🔒";
+            hukumIconEl.style.color = "#ffffff";
+            hukumTextEl.textContent = "Secret Set";
+          }
         } else {
           // Not selected yet
           hukumDisplayEl.className = `hukum-box card-back-bg select-none`;
@@ -1154,6 +1286,7 @@
 
   // 7. Evaluate Trick and Rounds
   function evaluateTrickWinner() {
+    if (!state.gameActive) return;
     state.waitingForTrickTransition = true; // Blocks click interactions during transition
 
     let bestPlay = state.currentTrick[0];
@@ -1187,9 +1320,11 @@
     if (winningTeam === 0) {
       state.tricksWon.playerTeam++;
       pScoreEl.textContent = state.scores.playerTeam;
+      if (pTricksScoreEl) pTricksScoreEl.textContent = `${state.tricksWon.playerTeam}/${state.cardsPerHand}`;
     } else {
       state.tricksWon.opponentTeam++;
       oppScoreEl.textContent = state.scores.opponentTeam;
+      if (oppTricksScoreEl) oppTricksScoreEl.textContent = `${state.tricksWon.opponentTeam}/${state.cardsPerHand}`;
     }
 
     // Track tricks won by individual players
@@ -1204,7 +1339,7 @@
     state.tricksPlayed++;
 
     // Check end of round
-    if (state.tricksPlayed < 13) {
+    if (state.tricksPlayed < state.cardsPerHand) {
       state.aiTimer = setTimeout(startTrickCycle, 700);
     } else {
       state.aiTimer = setTimeout(endGameRound, 1000);
@@ -1219,15 +1354,22 @@
   }
 
   function animateTrickSweep(winnerIdx) {
-    const slot = document.querySelector(`.player-slot[id="slot-${getPlayerSlotId(winnerIdx)}"]`);
+    let slot;
+    if (winnerIdx === PLAYER_HUMAN) {
+      slot = document.querySelector(".slot-bottom-avatar");
+    } else {
+      slot = document.getElementById(`slot-${getPlayerSlotId(winnerIdx)}`);
+    }
     if (!slot) return;
     const rect = slot.getBoundingClientRect();
     const centerRect = trickPileEl.getBoundingClientRect();
     
-    const tx = rect.left - centerRect.left + (rect.width/2) - 38;
-    const ty = rect.top - centerRect.top + (rect.height/2) - 55;
+    const scale = document.getElementById("board-content").getBoundingClientRect().width / 1024 || 1;
+    const tx = (rect.left - centerRect.left + (rect.width/2) - 38) / scale;
+    const ty = (rect.top - centerRect.top + (rect.height/2) - 55) / scale;
 
     state.currentTrick.forEach(play => {
+      play.el.classList.add("flipped"); // Flip face down when swept
       play.el.style.transform = `translate(${tx}px, ${ty}px) scale(0.2)`;
       play.el.style.opacity = "0";
     });
@@ -1239,41 +1381,43 @@
     
     const teamMendis = state.scores.playerTeam;
     const oppMendis = state.scores.opponentTeam;
+    const halfMendis = state.totalMendis / 2;
     
-    // Resolve ties in Mendis (2-2) by looking at trick counts
     let isVictory = false;
-    if (teamMendis > oppMendis) {
+    let isDraw = false;
+    if (teamMendis > halfMendis) {
       isVictory = true;
-    } else if (teamMendis === oppMendis) {
-      isVictory = state.tricksWon.playerTeam > state.tricksWon.opponentTeam;
-    }
-
-    let isKot = (teamMendis === 4) || (oppMendis === 4);
-
-    winStatusLblEl.textContent = isVictory ? "VICTORY!" : "DEFEAT";
-    winStatusLblEl.className = `neon-text font-digit ${isVictory ? '' : 'color-red'}`;
-
-    let msg = `You captured ${teamMendis} Mendis (10s)`;
-    if (isKot) {
-      msg = isVictory ? "🏆 MENDIKOT (CLEAN SWEEP) ACHIEVED!" : "💀 OPPONENTS TOOK ALL 4 MENDIS (KOT)";
-    }
-    gameoverMessageEl.textContent = msg;
-
-    statMendisCapturedEl.textContent = `${teamMendis} / 4`;
-    statTricksWonEl.textContent = `${state.tricksWon.playerTeam} / 13`;
-    statKotStatusEl.textContent = isKot ? "Yes" : "No";
-
-    // Determine if dealer's team won the round
-    const dealerTeam = getTeam(state.dealer); // 0 for player/partner, 1 for opponents
-    const winningTeam = isVictory ? 0 : 1;
-    
-    if (dealerTeam !== winningTeam) {
-      // Dealer's team lost, deal passes to the right
-      state.dealer = (state.dealer + 1) % 4;
-      addLog(`Dealer team lost the round. Deal passes to <b>${PLAYER_LABELS[state.dealer]}</b>.`, "system");
+    } else if (teamMendis < halfMendis) {
+      isVictory = false;
     } else {
-      addLog(`Dealer team won the round. <b>${PLAYER_LABELS[state.dealer]}</b> retains the deal.`, "system");
+      isDraw = true;
     }
+
+    let isKot = (teamMendis === state.totalMendis) || (oppMendis === state.totalMendis);
+
+    if (isDraw) {
+      winStatusLblEl.textContent = "DRAW";
+      winStatusLblEl.className = "neon-text font-digit";
+      gameoverMessageEl.textContent = `Draw! Both teams captured ${halfMendis} Mendis.`;
+      addLog(`Game ended in a draw. <b>${PLAYER_LABELS[state.dealer]}</b> retains the deal.`, "system");
+    } else {
+      winStatusLblEl.textContent = isVictory ? "VICTORY!" : "DEFEAT";
+      winStatusLblEl.className = `neon-text font-digit ${isVictory ? '' : 'color-red'}`;
+
+      let msg = `You captured ${teamMendis} / ${state.totalMendis} Mendis (10s)`;
+      if (isKot) {
+        msg = isVictory ? "🏆 MENDIKOT (CLEAN SWEEP) ACHIEVED!" : `💀 OPPONENTS TOOK ALL ${state.totalMendis} MENDIS (KOT)`;
+      }
+      gameoverMessageEl.textContent = msg;
+
+      // Rotate the dealer unconditionally at the end of each round clockwise
+      state.dealer = (state.dealer + 1) % 4;
+      addLog(`Round finished. Deal passes to <b>${PLAYER_LABELS[state.dealer]}</b>.`, "system");
+    }
+
+    statMendisCapturedEl.textContent = `${teamMendis} / ${state.totalMendis}`;
+    statTricksWonEl.textContent = `${state.tricksWon.playerTeam} / ${state.cardsPerHand}`;
+    statKotStatusEl.textContent = isKot ? "Yes" : "No";
 
     gameoverOverlay.classList.remove("hidden");
   }
@@ -1282,6 +1426,9 @@
     if (state.aiTimer) {
       clearTimeout(state.aiTimer);
       state.aiTimer = null;
+    }
+    if (hukumSelectOverlayEl) {
+      hukumSelectOverlayEl.classList.add("hidden");
     }
     gameoverOverlay.classList.add("hidden");
     gameLayout.classList.add("hidden");
@@ -1300,4 +1447,25 @@
     // Auto scroll to bottom
     logBoxEl.scrollTop = logBoxEl.scrollHeight;
   }
+
+  function resizeBoard() {
+    const container = document.getElementById("board-container");
+    const content = document.getElementById("board-content");
+    if (!container || !content) return;
+
+    const targetWidth = 1024;
+    const targetHeight = 700;
+
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+
+    const scaleX = containerWidth / targetWidth;
+    const scaleY = containerHeight / targetHeight;
+    const scale = Math.min(scaleX, scaleY);
+
+    content.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+
+  // Setup resize listeners
+  window.addEventListener("resize", resizeBoard);
 })();
