@@ -10,6 +10,7 @@
     crossorigin="anonymous"></script>
   <meta name="description"
     content="Play the best free online games at Epic Games Hub. No downloads, no logins—just instant fun with action, puzzle, racing, and multiplayer games.">
+  <link rel="canonical" href="https://epicgameshub.com/" />
   <script>
     // Intercept deprecated 'unload' events early (Lighthouse/Chrome compliance)
     (function () { var a = window.addEventListener; window.addEventListener = function (t, l, o) { if (t === 'unload') return; return a.apply(this, arguments) }; Object.defineProperty(window, 'onunload', { set: function () { }, get: function () { return null } }) })()
@@ -47,6 +48,9 @@
   <link href="./assets/css/tailwind.css" rel="stylesheet" />
   <link href="./assets/css/style.css" rel="stylesheet" />
   <script src="assets/js/cookie-consent.js" defer></script>
+</head>
+
+<body class="bg-background text-white antialiased selection:bg-primary/30 selection:text-white">
   <div class="mouse-cursor cursor-inner"></div>
   <!-- Navigation -->
   <nav class="fixed top-0 w-full z-50 glass shadow-md">

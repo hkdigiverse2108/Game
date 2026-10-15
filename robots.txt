@@ -1,3 +1,11 @@
 User-agent: *
 Allow: /
+
+# Prevent crawlers from indexing phantom Emscripten virtual file system paths
+Disallow: /dev/
+Disallow: /proc/
+Disallow: /tmp/
+Disallow: /data/
+Disallow: /home/web_user
+
 Sitemap: https://epicgameshub.com/sitemap.xml

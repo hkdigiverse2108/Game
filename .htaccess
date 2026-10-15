@@ -1,3 +1,36 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # 1. Canonical Redirect: Strip /index.html and maintain query string if any
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\?([^\ ]+)\ HTTP/ [NC]
+    RewriteRule ^index\.html$ https://epicgameshub.com/?%1 [R=301,L]
+
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/ [NC]
+    RewriteRule ^index\.html$ https://epicgameshub.com/ [R=301,L]
+
+    # 2. Redirect /home to root
+    RewriteRule ^home/?$ https://epicgameshub.com/ [R=301,L]
+
+    # 3. 301 Redirect unityweb files requested at root to their actual build location
+    RewriteRule ^91c3d065c306b81a046e29061850c945\.wasm\.unityweb$ "https://epicgameshub.com/game/ROD Multiplayer Car Driving/Build/91c3d065c306b81a046e29061850c945.wasm.unityweb" [R=301,L]
+    RewriteRule ^5dd63a81600a91498498f9294a01858f\.js\.unityweb$ "https://epicgameshub.com/game/ROD Multiplayer Car Driving/Build/5dd63a81600a91498498f9294a01858f.js.unityweb" [R=301,L]
+    RewriteRule ^44580fe7df652aafe90ed837baf4d5e1\.data\.unityweb$ "https://epicgameshub.com/game/ROD Multiplayer Car Driving/Build/44580fe7df652aafe90ed837baf4d5e1.data.unityweb" [R=301,L]
+
+    # 4. Redirect bad JS concatenation URLs to their proper gameDistribution pages
+    RewriteRule ^game/bubble\ tower/undefined$ https://epicgameshub.com/gameDistribution/Bubble-Tower.html [R=301,L]
+    RewriteRule ^game/moving-truck/this\.program$ https://epicgameshub.com/gameDistribution/Moving-Truck.html [R=301,L]
+
+    # 5. Deleted games and legacy feeds (send 410 Gone or 301 Redirect)
+    RewriteRule ^gameDistribution/Slither\.html$ https://epicgameshub.com/gameDistribution/Snake.html [R=301,L]
+    RewriteRule ^gameDistribution/8BallPool\.html$ - [G,L]
+    RewriteRule ^game/FruitNinja(/.*)?$ - [G,L]
+    RewriteRule ^game/angry\ birds\ 2(/.*)?$ - [G,L]
+    RewriteRule ^product(/.*)?$ - [G,L]
+
+    # 6. Emscripten virtual file system paths (send 410 Gone)
+    RewriteRule ^(dev|proc|tmp|data|home/web_user)(/.*)?$ - [G,L]
+</IfModule>
+
 <IfModule mod_expires.c>
     ExpiresActive On
 
@@ -30,4 +63,8 @@
     <FilesMatch "\.(css|js)$">
         Header set Cache-Control "max-age=2592000, public"
     </FilesMatch>
+
+    # Prevent indexing of internal game iframe directories
+    SetEnvIfNoCase Request_URI "^/game/" IS_GAME_IFRAME
+    Header set X-Robots-Tag "noindex, follow" env=IS_GAME_IFRAME
 </IfModule>
